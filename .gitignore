@@ -1,0 +1,4 @@
+# Build artifacts (keep tracked APK in /downloads)
+*.tmp
+.DS_Store
+Thumbs.db
