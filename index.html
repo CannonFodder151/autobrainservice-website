@@ -107,6 +107,9 @@ section h2 .b{color:var(--primary)}
 .card p{color:var(--muted);font-size:.94rem}
 
 /* pricing */
+#pricing .grid{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){#pricing .grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){#pricing .grid{grid-template-columns:1fr}}
 #pricing .card{text-align:center;position:relative;padding:36px 28px}
 .price{font-family:"Orbitron",sans-serif;font-size:2.6rem;font-weight:800;margin:16px 0 4px;color:var(--primary);text-shadow:0 0 22px rgba(0,183,255,0.4)}
 .price span{font-size:.95rem;font-weight:400;color:var(--muted);font-family:"Exo 2",sans-serif}
