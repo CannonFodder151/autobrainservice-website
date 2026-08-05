@@ -119,6 +119,7 @@ section h2 .b{color:var(--primary)}
 .card ul li::before{content:"✓";color:var(--primary);font-weight:800;text-shadow:0 0 8px rgba(0,183,255,0.7)}
 .popular{border:2px solid var(--border-glow);box-shadow:0 0 34px rgba(0,183,255,0.22)}
 .popular .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505;font-size:.7rem;font-weight:800;padding:5px 16px;border-radius:999px;letter-spacing:.08em;font-family:"Orbitron",sans-serif}
+.soon{position:absolute;top:16px;right:16px;border:1px solid var(--border-glow);color:var(--primary);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(0,183,255,0.08);box-shadow:0 0 14px rgba(0,183,255,0.25)}
 
 /* steps */
 ol.steps{counter-reset:step;list-style:none;max-width:820px;margin:0 auto}
@@ -206,7 +207,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
       <div class="card"><span class="icon">📦</span><h3>Parts inventory</h3><p>Quantities, usage tracking and AI reorder suggestions so you never run dry.</p></div>
       <div class="card"><span class="icon">🏷️</span><h3>Resale value estimator</h3><p>Value range, trend and recommendations based on your vehicles and mods.</p></div>
       <div class="card"><span class="icon">🇦🇺</span><h3>Australian rego lookup</h3><p>Enter any valid AU plate + state and auto-fill VIN, make, model, year and engine.</p></div>
-      <div class="card"><span class="icon">🔐</span><h3>Security built in</h3><p>MFA (TOTP), role-based access, admin-only provisioning — no anonymous sign-ups.</p></div>
+      <div class="card"><span class="icon">🔐</span><h3>Security built in</h3><p>MFA (TOTP), role-based access and admin-controlled accounts. Self-hosted instances skip public sign-ups entirely.</p></div>
       <div class="card"><span class="icon">📈</span><h3>Analytics</h3><p>Spend, total cost of ownership, cost/km and a 12-month forecast across all vehicles.</p></div>
     </div>
   </div>
@@ -215,7 +216,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 <section id="pricing">
   <div class="container">
     <h2>Hosted <span class="b">plans</span></h2>
-    <p class="lead">We run AutoBrain for you — secure, backed up, always on. Same open-source engine, zero infrastructure to manage. Paid plans include every AI feature; the free tier keeps core tracking without AI, exports or rego lookup.</p>
+    <p class="lead">We run AutoBrain for you — secure, backed up, always on. Same open-source engine, zero infrastructure to manage. Paid plans include every AI feature; the free tier keeps core tracking, file exports and MFA, without AI or rego lookup.</p>
     <div class="grid">
       <div class="card">
         <div class="tier-tag">Free</div>
@@ -224,7 +225,8 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <ul>
           <li>1 vehicle</li>
           <li>Fuel, services, logbook &amp; parts tracking</li>
-          <li>AI, exports &amp; rego lookup disabled</li>
+          <li>File exports &amp; profile backup</li>
+          <li>AI &amp; rego lookup disabled</li>
           <li>MFA &amp; role-based access</li>
         </ul>
         <a class="cta" href="https://hosted.autobrainservice.app/?signup=1">Get started</a>
@@ -236,7 +238,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <ul>
           <li>1 vehicle</li>
           <li>All AI features included</li>
-          <li>MFA &amp; role-based access</li>
+          <li>Rego lookup</li>
           <li>Email support</li>
         </ul>
         <a class="cta" href="https://hosted.autobrainservice.app">Upgrade in app</a>
@@ -249,7 +251,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <ul>
           <li>5 vehicles</li>
           <li>All AI features included</li>
-          <li>MFA &amp; role-based access</li>
+          <li>Rego lookup</li>
           <li>Priority support</li>
         </ul>
         <a class="cta" href="https://hosted.autobrainservice.app">Upgrade in app</a>
@@ -265,6 +267,12 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
           <li>SLA &amp; onboarding</li>
         </ul>
         <a class="cta" href="mailto:sales@autobrainservice.app?subject=Club%20plan">Talk to sales</a>
+      </div>
+      <div class="card" style="grid-column:1/-1;padding:30px 28px">
+        <div class="soon">Coming soon</div>
+        <span class="icon">📟</span>
+        <h3>OBD2 hardware companion</h3>
+        <p style="max-width:660px;margin:0 auto">A white-labelled OBD2 Bluetooth adapter that plugs into any car and pairs with AutoBrain — automatic drive logging, VIN auto-fill and live fault-code capture. Plug in, drive, and AutoBrain does the rest.</p>
       </div>
     </div>
   </div>
