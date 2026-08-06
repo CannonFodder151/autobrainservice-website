@@ -130,6 +130,26 @@ pre code{color:var(--primary)}
 .figure figcaption{color:var(--muted);font-size:.85rem;margin-top:10px}
 .figure.float img{animation:float 6s ease-in-out infinite}
 
+/* blog */
+.blog-card{display:flex;flex-direction:column;gap:10px}
+.blog-card .date{color:var(--muted);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+.blog-card h3{font-size:1.22rem}
+.blog-card h3 a{color:var(--text)}
+.blog-card h3 a:hover{color:var(--primary);text-shadow:none}
+.blog-card p{color:var(--muted);font-size:.95rem}
+.article{max-width:780px;margin:0 auto}
+.article .meta{color:var(--muted);font-size:.9rem;text-align:center;margin-bottom:8px}
+.article h2{font-family:"Orbitron",sans-serif;font-size:1.4rem;text-align:left;margin:36px 0 12px;color:var(--primary)}
+.article h3{font-family:"Orbitron",sans-serif;font-size:1.1rem;margin:28px 0 10px;color:var(--text)}
+.article p{color:var(--muted);font-size:1rem;margin-bottom:16px}
+.article p strong{color:var(--text)}
+.article ul,.article ol{margin:0 0 16px 22px;color:var(--muted)}
+.article li{margin-bottom:8px}
+.article .card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin:24px 0}
+.article .card h2{margin-top:0}
+.back-link{display:inline-block;margin-bottom:24px;color:var(--muted);font-size:.9rem}
+.back-link:hover{color:var(--primary)}
+
 /* footer */
 footer{border-top:1px solid var(--border);padding:34px 0;color:var(--muted);font-size:.9rem}
 footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}

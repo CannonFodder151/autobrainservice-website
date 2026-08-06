@@ -9,4 +9,7 @@
   <url><loc>https://autobrainservice.app/changelog.html</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://autobrainservice.app/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://autobrainservice.app/ai-data.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://autobrainservice.app/blog.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://autobrainservice.app/blog/top-5-car-maintenance-trackers.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://autobrainservice.app/blog/autobrain-for-car-clubs.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
