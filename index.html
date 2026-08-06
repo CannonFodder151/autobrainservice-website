@@ -3,9 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoBrain — Smarter Vehicle Maintenance Powered by AI</title>
-<meta name="description" content="AutoBrain predicts issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value — hosted for you, or self-hosted.">
+<title>AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion</title>
+<meta name="description" content="AutoBrain predicts car issues before they become costly repairs. Track maintenance, fuel, OBD diagnostics, parts and resale value. Hosted plans from $9/mo or free self-hosted open-source (MIT).">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/">
 <link rel="icon" type="image/png" href="assets/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion">
+<meta property="og:description" content="Predict car issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value. Hosted plans from $9/mo or free self-hosted open source (MIT).">
+<meta property="og:url" content="https://autobrainservice.app/">
+<meta property="og:image" content="https://autobrainservice.app/assets/logo.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion">
+<meta name="twitter:description" content="Predict car issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://autobrainservice.app/#org",
+      "name": "AutoBrain",
+      "url": "https://autobrainservice.app/",
+      "logo": { "@type": "ImageObject", "url": "https://autobrainservice.app/assets/logo.png" },
+      "email": "sales@autobrainservice.app",
+      "sameAs": ["https://github.com/CannonFodder151/autobrain"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://autobrainservice.app/#website",
+      "url": "https://autobrainservice.app/",
+      "name": "AutoBrain",
+      "publisher": { "@id": "https://autobrainservice.app/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://autobrainservice.app/#software",
+      "name": "AutoBrain",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web, Android",
+      "url": "https://autobrainservice.app/",
+      "description": "AI-powered vehicle maintenance tracker with predictive maintenance, fuel intelligence, AI diagnostics, receipt scanning, Australian rego lookup and resale estimates. Open source (MIT), self-hosted or hosted.",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD" },
+        { "@type": "Offer", "name": "Enthusiast", "price": "9", "priceCurrency": "AUD" },
+        { "@type": "Offer", "name": "Garage", "price": "19", "priceCurrency": "AUD" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://autobrainservice.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is AutoBrain free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain is MIT-licensed open source, so you can self-host it free forever. There is also a free hosted tier that covers fuel, services, logbook and parts tracking for one vehicle." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does AutoBrain cost?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Hosted plans start free. Enthusiast is $9/month for 1 vehicle with all AI features and rego lookup, Garage is $19/month for 5 vehicles with priority support, and Club is a dedicated deployment priced on enquiry." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I self-host AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain ships as a complete Docker Compose stack (backend, AI gateway, worker, Postgres, Redis and MinIO) under an MIT licence. Your data never leaves your infrastructure." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AutoBrain support Australian cars?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain includes Australian rego (plate) lookup, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the AI do with my data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The AI only sees the data needed for the task you trigger, its output is stored with your records, and your data is never used to train models or sold. Self-hosted instances can run entirely on rule-based fallbacks with nothing leaving your server." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +99,7 @@
 <nav>
   <div class="container">
     <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
-      <img src="assets/logo.png" alt="AutoBrain logo">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
       <span><span class="a">Auto</span><span class="b">Brain</span></span>
     </a>
         <ul>
@@ -36,7 +119,7 @@
 
 <header class="hero">
   <div class="container">
-    <div class="logo-badge"><img src="assets/logo.png" alt="AutoBrain"></div>
+    <div class="logo-badge"><img src="assets/logo.png" alt="AutoBrain" width="96" height="96" fetchpriority="high"></div>
     <h1>Smarter Vehicle Maintenance<br><span class="b">Powered by AI</span></h1>
     <p class="sub">Predict issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value — with an AI co-pilot that learns every vehicle.</p>
     <div style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:0">
@@ -77,6 +160,35 @@
         <span class="icon">🤖</span><h3>AI &amp; your data</h3>
         <p>Exactly what the AI reads for each feature, and what happens to it.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <h2>Frequently asked <span class="b">questions</span></h2>
+    <p class="lead">The things people ask us most — in plain language.</p>
+    <div class="faq">
+      <details>
+        <summary>Is AutoBrain free?</summary>
+        <p>Yes. AutoBrain is MIT-licensed open source, so you can self-host it free forever. There is also a free hosted tier that covers fuel, services, logbook and parts tracking for one vehicle.</p>
+      </details>
+      <details>
+        <summary>How much does AutoBrain cost?</summary>
+        <p>Hosted plans start free. Enthusiast is <strong>$9/month</strong> for 1 vehicle with all AI features and rego lookup, Garage is <strong>$19/month</strong> for 5 vehicles with priority support, and Club is a dedicated deployment priced on enquiry.</p>
+      </details>
+      <details>
+        <summary>Can I self-host AutoBrain?</summary>
+        <p>Yes. AutoBrain ships as a complete Docker Compose stack — backend, AI gateway, worker, Postgres, Redis and MinIO — under an MIT licence. Your data never leaves your infrastructure.</p>
+      </details>
+      <details>
+        <summary>Does AutoBrain support Australian cars?</summary>
+        <p>Yes. AutoBrain includes Australian rego (plate) lookup, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records.</p>
+      </details>
+      <details>
+        <summary>What does the AI do with my data?</summary>
+        <p>The AI only sees the data needed for the task you trigger, its output is stored with your records, and your data is never used to train models or sold. Self-hosted instances can run entirely on rule-based fallbacks with nothing leaving your server.</p>
+      </details>
     </div>
   </div>
 </section>

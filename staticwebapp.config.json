@@ -1,7 +1,7 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/downloads/*", "/logo.png"]
+    "exclude": ["/assets/*", "/downloads/*", "/logo.png", "/robots.txt", "/sitemap.xml", "/styles.css", "/nav.js"]
   },
   "mimeTypes": {
     ".apk": "application/vnd.android.package-archive"
@@ -19,7 +19,25 @@
   },
   "routes": [
     {
+      "route": "/assets/*",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    },
+    {
       "route": "/downloads/*",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
+    },
+    {
+      "route": "/robots.txt",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
+    },
+    {
+      "route": "/sitemap.xml",
       "headers": {
         "Cache-Control": "public, max-age=3600"
       }
