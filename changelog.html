@@ -61,6 +61,24 @@
     </div>
 
     <div class="release">
+      <h2>v0.3.3</h2>
+      <div class="date">2026-08-06</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Vehicle type: every vehicle is a Car or a Motorcycle (dropdown on add/edit). The home screen shows a motorcycle icon for bikes, and the vehicle type is passed to the AI agents (diagnostics, service prediction, valuation, mod impact).</li>
+        <li>Admin console: search users by display name or email — alphabetical, 15 per page, with previous/next buttons.</li>
+        <li>Account creation (signup + admin) rejects duplicate emails and duplicate display names.</li>
+        <li>"Delete account" menu item for non-admin users on licensed servers, linking to the deletion instructions page.</li>
+        <li>Demo data: two motorcycles plus logbook trips, scanned receipts, valuations and diagnostics.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Service/mod <code>photo_keys</code> now store as JSON (raw-list inserts previously failed).</li>
+        <li>Web home screen no longer shows garbled characters on the vehicle display.</li>
+      </ul>
+    </div>
+
+    <div class="release">
       <h2>v0.3.2</h2>
       <div class="date">2026-08-06</div>
       <h3>Changed</h3>
