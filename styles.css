@@ -128,7 +128,7 @@ pre code{color:var(--primary)}
 .figure{text-align:center;margin:0 auto 44px;max-width:860px}
 .figure img{max-width:100%;width:100%;height:auto;max-height:320px;object-fit:contain;border-radius:24px;border:1px solid var(--border-glow);box-shadow:0 0 34px rgba(0,183,255,0.18)}
 .figure figcaption{color:var(--muted);font-size:.85rem;margin-top:10px}
-.article .figure img{border:none;box-shadow:none}
+.article .figure img{display:block;margin:0 auto;width:auto;max-width:100%;height:auto;max-height:420px;border:1px solid var(--border-glow);border-radius:20px;box-shadow:0 0 34px rgba(0,183,255,0.18)}
 .figure.float img{animation:float 6s ease-in-out infinite}
 
 /* blog */
