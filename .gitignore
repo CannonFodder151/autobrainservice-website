@@ -2,3 +2,6 @@
 *.tmp
 .DS_Store
 Thumbs.db
+
+downloads/*.apk
+downloads/*.aab
