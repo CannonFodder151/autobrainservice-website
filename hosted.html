@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hosted Plans — AutoBrain</title>
+<meta name="description" content="AutoBrain hosted plans — Free, Enthusiast, Garage and Club. We run it for you, secure and backed up.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
+      <img src="assets/logo.png" alt="AutoBrain logo">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Hosted</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>Hosted <span class="b">plans</span></h1>
+    <p class="lead">We run AutoBrain for you — secure, backed up, always on. Same open-source engine, zero infrastructure to manage. Paid plans include every AI feature; the free tier keeps core tracking, file exports and MFA, without AI or rego lookup.</p>
+
+    <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="card" style="text-align:center;position:relative;padding:36px 28px">
+        <div class="tier-tag">Free</div>
+        <h3>1 vehicle</h3>
+        <div class="price">$0<span>/forever</span></div>
+        <ul>
+          <li>1 vehicle</li>
+          <li>Fuel, services, logbook &amp; parts tracking</li>
+          <li>File exports &amp; profile backup</li>
+          <li>AI &amp; rego lookup disabled</li>
+          <li>MFA &amp; role-based access</li>
+        </ul>
+        <a class="cta" href="https://hosted.autobrainservice.app/?signup=1">Get started</a>
+      </div>
+      <div class="card" style="text-align:center;position:relative;padding:36px 28px">
+        <div class="tier-tag">Enthusiast</div>
+        <h3>1 vehicle</h3>
+        <div class="price">$9<span>/month</span></div>
+        <ul>
+          <li>1 vehicle</li>
+          <li>All AI features included</li>
+          <li>Rego lookup</li>
+          <li>Email support</li>
+        </ul>
+        <a class="cta" href="https://hosted.autobrainservice.app">Upgrade in app</a>
+      </div>
+      <div class="card popular" style="text-align:center;position:relative;padding:36px 28px">
+        <div class="badge">MOST POPULAR</div>
+        <div class="tier-tag">Garage</div>
+        <h3>5 vehicles</h3>
+        <div class="price">$19<span>/month</span></div>
+        <ul>
+          <li>5 vehicles</li>
+          <li>All AI features included</li>
+          <li>Rego lookup</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="cta" href="https://hosted.autobrainservice.app">Upgrade in app</a>
+      </div>
+      <div class="card" style="text-align:center;position:relative;padding:36px 28px">
+        <div class="tier-tag">Club</div>
+        <h3>Unlimited vehicles</h3>
+        <div class="price">Price on enquiry</div>
+        <ul>
+          <li>Unlimited vehicles</li>
+          <li>All AI features included</li>
+          <li>Dedicated deployment</li>
+          <li>SLA &amp; onboarding</li>
+        </ul>
+        <a class="cta" href="mailto:sales@autobrainservice.app?subject=Club%20plan">Talk to sales</a>
+      </div>
+      <a href="obd2.html" class="card" style="grid-column:1/-1;padding:30px 28px;text-align:center;text-decoration:none;color:inherit">
+        <div class="soon" style="position:static;display:inline-block;margin-bottom:10px">Coming soon</div>
+        <span class="icon">📟</span>
+        <h3>OBD2 hardware companion</h3>
+        <p style="max-width:660px;margin:0 auto">Automatic drive logging, VIN auto-fill and live fault-code capture. Learn more.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span>. MIT-licensed open-source platform.</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBD2 Companion — AutoBrain</title>
+<meta name="description" content="The AutoBrain OBD2 hardware companion — plug in, drive, and AutoBrain reads the car for you. Coming soon.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
+      <img src="assets/logo.png" alt="AutoBrain logo">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Hosted</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="soon" style="position:static;display:inline-block;margin:0 auto 18px">Coming soon</div>
+    <h1>OBD2 hardware <span class="b">companion</span></h1>
+    <p class="lead">A white-labelled OBD2 Bluetooth adapter that plugs into any car and pairs with AutoBrain. Plug in, drive, and AutoBrain does the rest.</p>
+
+    <div class="card">
+      <h2>What it is</h2>
+      <p>The AutoBrain OBD2 companion is a small Bluetooth adapter that slots into your car's OBD2 diagnostic port (the same port mechanics use). It talks to the AutoBrain app in the background — no cables, no dashboard units, no fuss. Just plug it in once and it pairs automatically.</p>
+      <p>Designed for people who actually work on their own cars: it turns every drive into data and every warning light into a question the app can answer.</p>
+    </div>
+
+    <div class="card">
+      <h2>What it does</h2>
+      <ul>
+        <li><strong>Automatic drive logging</strong> — every trip is recorded in your logbook with start/end odometer and timestamps, no manual entry.</li>
+        <li><strong>VIN auto-fill</strong> — reads the vehicle identification number straight from the car to complete your vehicle profile.</li>
+        <li><strong>Live fault-code capture</strong> — if the check-engine light comes on, the code is captured and explained by AutoBrain's AI diagnostics with likely causes and parts.</li>
+        <li><strong>Live sensors</strong> — coolant temperature, RPM, speed, fuel level and more, available in the app while you drive.</li>
+        <li><strong>Automatic odometer updates</strong> — your odometer stays in sync without typing a number.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Plug it in</strong> — into the OBD2 port under the dash (most cars since 1996).</li>
+        <li><strong>Pair it</strong> — one tap in the AutoBrain app over Bluetooth.</li>
+        <li><strong>Drive</strong> — the adapter logs your trips, odometer and fault codes in the background.</li>
+        <li><strong>Let AutoBrain explain</strong> — AI turns codes and trends into plain-language maintenance advice.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>When?</h2>
+      <p>Still in development — the app-side OBD integration is being built and tested against real cars. If you'd like to be first in line (or help beta test), tell me.</p>
+      <p style="margin-top:14px"><a class="cta" href="mailto:sales@autobrainservice.app?subject=OBD2%20companion">Email about OBD2</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span>. MIT-licensed open-source platform.</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
