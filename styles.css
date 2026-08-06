@@ -123,9 +123,10 @@ pre code{color:var(--primary)}
 .faq details p{padding:0 20px 18px;color:var(--muted);font-size:.95rem}
 
 /* page images */
-.figure{text-align:center;margin:0 0 44px}
-.figure img{max-width:100%;height:auto;border-radius:16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.figure{text-align:center;margin:0 auto 44px;max-width:860px}
+.figure img{max-width:100%;width:100%;height:auto;max-height:320px;object-fit:contain;border-radius:24px;border:1px solid var(--border-glow);box-shadow:0 0 34px rgba(0,183,255,0.18)}
 .figure figcaption{color:var(--muted);font-size:.85rem;margin-top:10px}
+.figure.float img{animation:float 6s ease-in-out infinite}
 
 /* footer */
 footer{border-top:1px solid var(--border);padding:34px 0;color:var(--muted);font-size:.9rem}
