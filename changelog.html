@@ -75,6 +75,9 @@
       <ul>
         <li>Service/mod <code>photo_keys</code> now store as JSON (raw-list inserts previously failed).</li>
         <li>Web home screen no longer shows garbled characters on the vehicle display.</li>
+        <li>Admin user list no longer 500s — <code>UserAdminOut</code> now serializes ORM rows (blank list / broken search fixed).</li>
+        <li>CSV exports include a UTF-8 BOM so Excel renders em-dashes and unicode correctly instead of garbled characters.</li>
+        <li>Home screen shows a clear "server unreachable" error (with Retry) instead of "no vehicles" when the backend is offline.</li>
       </ul>
     </div>
 
