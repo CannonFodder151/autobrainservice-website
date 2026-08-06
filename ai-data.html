@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the AI uses your data — AutoBrain</title>
+<meta name="description" content="What AutoBrain's AI does, exactly what data it sees, and how you stay in control.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
+      <img src="assets/logo.png" alt="AutoBrain logo">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="index.html#pricing">Hosted</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>How the <span class="b">AI</span> uses your data</h1>
+    <p class="lead">AutoBrain's AI is a tool you point at your own records. Here is exactly what each feature reads, what it does, and what happens to it.</p>
+
+    <div class="card">
+      <h2>What AutoBrain is</h2>
+      <p>AutoBrain is an AI-powered car companion. It tracks your vehicles, maintenance, fuel, parts and logbook, and uses AI to turn that history into useful answers: "what's likely to need attention next", "what could this fault be", "what is this receipt for", "what is the car worth".</p>
+      <p>The platform is open source (MIT) and can run entirely on your own infrastructure.</p>
+    </div>
+
+    <div class="card">
+      <h2>What the AI does</h2>
+      <ul>
+        <li><strong>AI diagnostics</strong> — you describe a symptom or paste OBD fault codes; the AI suggests likely causes, severity and parts.</li>
+        <li><strong>Service prediction</strong> — reads your service history to estimate what is due next, when and at what odometer.</li>
+        <li><strong>Receipt &amp; parts OCR</strong> — extracts items, labour, cost and warranty from a scanned receipt into your records.</li>
+        <li><strong>Fuel OCR</strong> — reads litres, price and date from a fuel receipt.</li>
+        <li><strong>Odometer reading</strong> — reads a dashboard photo to log the current reading.</li>
+        <li><strong>Resale estimate</strong> — estimates a value range from your vehicle details, history and mods.</li>
+        <li><strong>Mod impact</strong> — estimates how a modification affects value and reliability.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Exactly what data the AI sees</h2>
+      <p>Only the data needed for the task is sent, and only when you trigger the feature:</p>
+      <ul>
+        <li>Diagnostics — your symptom description or the OBD codes you paste.</li>
+        <li>Service prediction — the service history of the selected vehicle.</li>
+        <li>Receipt OCR — the image you uploaded.</li>
+        <li>Resale — make, model, year, odometer, condition, mod list and service count.</li>
+      </ul>
+      <p>The request goes to the AI router configured for your server. On the hosted service that is AutoBrain's own router; when you self-host, it is whatever router you point at — including none, in which case everything runs locally on rule-based fallbacks and nothing leaves your server.</p>
+    </div>
+
+    <div class="card">
+      <h2>What happens to it</h2>
+      <ul>
+        <li>The AI output (not your raw data) is stored with your records so the answer is reproducible.</li>
+        <li>Your data is never used to train models and is never sold.</li>
+        <li>You can export your full profile or delete data at any time.</li>
+        <li>If the router is unreachable, the app falls back to on-server rules — the feature keeps working offline.</li>
+      </ul>
+      <p style="margin-top:14px">More detail lives in the repo docs and in our <a href="privacy.html">privacy policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span>. MIT-licensed open-source platform.</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
