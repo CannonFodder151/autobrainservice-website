@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — AutoBrain</title>
+<meta name="description" content="The story behind AutoBrain — built by Nathan, an IT professional who wanted a smarter way to look after his own cars.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--bg2:#0a0e14;--surface:rgba(245,247,250,0.04);--surface-strong:rgba(245,247,250,0.07);--border:rgba(0,183,255,0.22);--border-glow:rgba(0,183,255,0.55);--primary:#00B7FF;--accent:#007BFF;--secondary:#1A4DFF;--white:#F5F7FA;--muted:#9CA3AF;--card-bg:rgba(13,17,23,0.6);--text:#F5F7FA;--shadow:0 0 24px rgba(0,183,255,0.10);--grid-line:rgba(0,183,255,0.05)}
+[data-theme="light"]{--bg:#F5F7FA;--bg2:#ffffff;--surface:rgba(5,5,5,0.03);--surface-strong:rgba(5,5,5,0.05);--border:rgba(0,123,255,0.25);--border-glow:rgba(0,183,255,0.6);--primary:#007BFF;--accent:#007BFF;--secondary:#1A4DFF;--white:#0B1220;--muted:#5B6472;--card-bg:rgba(255,255,255,0.75);--text:#0B1220;--shadow:0 8px 30px rgba(26,77,255,0.10);--grid-line:rgba(0,123,255,0.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Exo 2",ui-sans-serif,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s ease,color .3s ease;background-image:radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,183,255,0.10), transparent),linear-gradient(var(--grid-line) 1px, transparent 1px),linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);background-size:auto,44px 44px,44px 44px;background-attachment:fixed}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-shadow:0 0 12px rgba(0,183,255,0.6)}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px;font-family:"Orbitron",sans-serif;font-weight:800;letter-spacing:.02em}
+.brand img{height:38px;width:auto}
+.brand .a{color:var(--white)}.brand .b{color:var(--primary);text-shadow:0 0 16px rgba(0,183,255,0.7)}
+nav ul{list-style:none;display:flex;gap:28px;align-items:center}
+nav ul a{color:var(--muted);font-weight:500;font-size:.95rem}
+nav ul a:hover{color:var(--primary)}
+.cta{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505!important;font-weight:700;padding:10px 22px;border-radius:10px;border:1px solid var(--border-glow);box-shadow:0 0 20px rgba(0,183,255,0.35)}
+.cta:hover{color:#050505!important;box-shadow:0 0 30px rgba(0,183,255,0.55);text-shadow:none}
+.theme-btn{background:var(--surface-strong);border:1px solid var(--border);color:var(--white);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.theme-btn:hover{border-color:var(--border-glow);box-shadow:0 0 14px rgba(0,183,255,0.3)}
+.page{padding:72px 0}
+.page h1{font-family:"Orbitron",sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);text-align:center;margin-bottom:12px}
+.page h1 .b{color:var(--primary);text-shadow:0 0 28px rgba(0,183,255,0.6)}
+.page .lead{color:var(--muted);max-width:720px;margin:0 auto 44px;text-align:center}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:28px;backdrop-filter:blur(12px);margin-bottom:22px}
+.card h2{font-family:"Orbitron",sans-serif;font-size:1.2rem;margin-bottom:12px;color:var(--primary)}
+.card p{color:var(--muted);font-size:.97rem;margin-bottom:12px}
+.card ul{list-style:none;margin:10px 0}
+.card ul li{padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+.card ul li::before{content:"✓";color:var(--primary);font-weight:800;margin-top:2px}
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+@media(max-width:820px){.two-col{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--border);padding:34px 0;color:var(--muted);font-size:.9rem}
+footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.glow{color:var(--primary);text-shadow:0 0 12px rgba(0,183,255,0.5)}
+@media(max-width:768px){nav ul{gap:10px}nav ul li:not(.nav-cta):not(.nav-theme){display:none}nav .cta.nav-cta{padding:8px 14px;font-size:.85rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <img src="assets/logo.png" alt="AutoBrain logo">
+      <span><a href="index.html"><span class="a">Auto</span><span class="b">Brain</span></a></span>
+    </div>
+    <ul>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#pricing">Hosted</a></li>
+      <li><a href="index.html#selfhost">Self-Host</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>About <span class="b">AutoBrain</span></h1>
+    <p class="lead">Built by an IT professional who got sick of spreadsheets and sticky notes for his own cars.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="card">
+          <h2>Hi, I'm Nathan</h2>
+          <p>I've worked in IT for the last 8 years, deploying and running projects across infrastructure, networking and software. I've spent plenty of nights in server rooms, and plenty of weekend afternoons under my own cars.</p>
+          <p>AutoBrain started the way most good tools do — out of my own needs. I was juggling maintenance records, fuel receipts and part numbers for multiple vehicles across notes apps, and I wanted something that actually worked the way a car person thinks.</p>
+        </div>
+        <div class="card">
+          <h2>The cars behind the app</h2>
+          <p>My daily driver is a <strong>Toyota Crown</strong> — the TCRWN plates you'll see in the demo data are a bit of a personal touch.</p>
+          <p>And I'm currently restoring a <strong>Subaru Brumby</strong>, which means I spend a lot of time hunting parts, tracking what's been done and planning what's next. Everything AutoBrain tracks — services, fuel, mods, parts and logbook — is stuff I genuinely do for my own vehicles.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>Why I built it</h2>
+          <ul>
+            <li><strong>Predictive maintenance</strong> — AI reads your service history and tells you what's coming next, before it breaks.</li>
+            <li><strong>Receipt &amp; parts scanning</strong> — photograph a receipt and the parts, cost and warranty land straight in your records.</li>
+            <li><strong>Australian rego lookup</strong> — enter a plate and auto-fill the vehicle details. No more guessing a car's spec.</li>
+            <li><strong>Fuel that actually adds up</strong> — L/100km, cost/km and financial-year exports with the receipts attached.</li>
+            <li><strong>Your data, your way</strong> — full profile export/import, self-hosting, and no lock-in.</li>
+          </ul>
+          <p style="margin-top:14px">AutoBrain is open source (MIT) — self-host it free, or use the hosted plans and I'll run it for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:8px">
+      <a class="cta" href="https://demo.autobrainservice.app">Try the live demo</a>
+      <a class="cta" style="margin-left:12px;background:transparent;border:1px solid var(--border-glow);color:var(--primary)!important;box-shadow:none" href="mailto:sales@autobrainservice.app">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span>. MIT-licensed open-source platform.</div>
+    <div><a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){const btn=document.getElementById('themeBtn');const html=document.documentElement;const saved=localStorage.getItem('autobrain-theme');if(saved==='light')html.dataset.theme='light';btn.textContent=html.dataset.theme==='light'?'☀️':'🌙';btn.addEventListener('click',function(){const next=html.dataset.theme==='light'?'dark':'light';html.dataset.theme=next;localStorage.setItem('autobrain-theme',next);btn.textContent=next==='light'?'☀️':'🌙';});})();
+</script>
+
+</body>
+</html>

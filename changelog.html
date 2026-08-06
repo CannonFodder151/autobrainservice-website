@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Changelog — AutoBrain</title>
+<meta name="description" content="AutoBrain release notes — what's new, fixed and changed in every version.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--bg2:#0a0e14;--surface:rgba(245,247,250,0.04);--surface-strong:rgba(245,247,250,0.07);--border:rgba(0,183,255,0.22);--border-glow:rgba(0,183,255,0.55);--primary:#00B7FF;--accent:#007BFF;--secondary:#1A4DFF;--white:#F5F7FA;--muted:#9CA3AF;--card-bg:rgba(13,17,23,0.6);--text:#F5F7FA;--shadow:0 0 24px rgba(0,183,255,0.10);--grid-line:rgba(0,183,255,0.05)}
+[data-theme="light"]{--bg:#F5F7FA;--bg2:#ffffff;--surface:rgba(5,5,5,0.03);--surface-strong:rgba(5,5,5,0.05);--border:rgba(0,123,255,0.25);--border-glow:rgba(0,183,255,0.6);--primary:#007BFF;--accent:#007BFF;--secondary:#1A4DFF;--white:#0B1220;--muted:#5B6472;--card-bg:rgba(255,255,255,0.75);--text:#0B1220;--shadow:0 8px 30px rgba(26,77,255,0.10);--grid-line:rgba(0,123,255,0.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Exo 2",ui-sans-serif,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s ease,color .3s ease;background-image:radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,183,255,0.10), transparent),linear-gradient(var(--grid-line) 1px, transparent 1px),linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);background-size:auto,44px 44px,44px 44px;background-attachment:fixed}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-shadow:0 0 12px rgba(0,183,255,0.6)}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px;font-family:"Orbitron",sans-serif;font-weight:800;letter-spacing:.02em}
+.brand img{height:38px;width:auto}
+.brand .a{color:var(--white)}.brand .b{color:var(--primary);text-shadow:0 0 16px rgba(0,183,255,0.7)}
+nav ul{list-style:none;display:flex;gap:28px;align-items:center}
+nav ul a{color:var(--muted);font-weight:500;font-size:.95rem}
+nav ul a:hover{color:var(--primary)}
+.cta{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505!important;font-weight:700;padding:10px 22px;border-radius:10px;border:1px solid var(--border-glow);box-shadow:0 0 20px rgba(0,183,255,0.35)}
+.cta:hover{color:#050505!important;box-shadow:0 0 30px rgba(0,183,255,0.55);text-shadow:none}
+.theme-btn{background:var(--surface-strong);border:1px solid var(--border);color:var(--white);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.theme-btn:hover{border-color:var(--border-glow);box-shadow:0 0 14px rgba(0,183,255,0.3)}
+.page{padding:72px 0}
+.page h1{font-family:"Orbitron",sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);text-align:center;margin-bottom:12px}
+.page h1 .b{color:var(--primary);text-shadow:0 0 28px rgba(0,183,255,0.6)}
+.page .lead{color:var(--muted);max-width:720px;margin:0 auto 44px;text-align:center}
+.release{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:28px 30px;backdrop-filter:blur(12px);margin-bottom:24px}
+.release h2{font-family:"Orbitron",sans-serif;font-size:1.15rem;margin-bottom:4px}
+.release .date{color:var(--muted);font-size:.85rem;margin-bottom:14px}
+.release h3{color:var(--primary);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:14px 0 6px}
+.release ul{list-style:none}
+.release ul li{padding:4px 0 4px 22px;position:relative;color:var(--muted);font-size:.95rem}
+.release ul li::before{content:"•";position:absolute;left:6px;color:var(--primary);font-weight:800}
+footer{border-top:1px solid var(--border);padding:34px 0;color:var(--muted);font-size:.9rem}
+footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.glow{color:var(--primary);text-shadow:0 0 12px rgba(0,183,255,0.5)}
+@media(max-width:768px){nav ul{gap:10px}nav ul li:not(.nav-cta):not(.nav-theme){display:none}nav .cta.nav-cta{padding:8px 14px;font-size:.85rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <img src="assets/logo.png" alt="AutoBrain logo">
+      <span><a href="index.html"><span class="a">Auto</span><span class="b">Brain</span></a></span>
+    </div>
+    <ul>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#pricing">Hosted</a></li>
+      <li><a href="index.html#selfhost">Self-Host</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>Changelog</h1>
+    <p class="lead">Every release of AutoBrain — new features, fixes and improvements. Also tracked in the repo's CHANGELOG.md.</p>
+
+    <div class="release">
+      <h2>v0.3.1</h2>
+      <div class="date">2026-08-06</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Fuel efficiency (L/100km) now calculates even when you back-fill an older fill-up — the whole full-tank chain is recomputed after every add/edit/delete, and out-of-order odometer entries no longer corrupt the numbers.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.0</h2>
+      <div class="date">2026-08-06</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Fuel tracker: filter by Australian financial year and export by FY as CSV or CSV + receipt images (ZIP). Scanned receipts are saved against the fuel record and exported with it.</li>
+        <li>Service history and build sheet exports can bundle the images as a ZIP, with an Image column referencing each file.</li>
+        <li>Receipt scans auto-attach their image to the service record created via the scanner.</li>
+        <li>Admin console: "Re-upgrade" option grants the $19/month benefits to an account without a Stripe subscription, and blocks the user from buying a licence.</li>
+        <li>Licence/upgrade page is now feature-flagged (LICENSE_ENABLED) — on for the hosted service, off for self-hosted and demo.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Fuel receipts no longer stay stuck on "pending" when OCR is unavailable.</li>
+        <li>Removed the odometer photo-scan option from the logbook.</li>
+        <li>Rego lookup now uses the self-hosted Australian plate scraper instead of the paid provider, with the offline heuristic as fallback.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.2.4</h2>
+      <div class="date">2026-08-05</div>
+      <ul>
+        <li>Self-service signup flag now drives the UI — the "Create a free account" button is hidden when signup is disabled.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.2.3</h2>
+      <div class="date">2026-08-05</div>
+      <ul>
+        <li>Receipt MIME detection fixes.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.2.0</h2>
+      <div class="date">2026-08-04</div>
+      <ul>
+        <li>Vehicle colour and body type fields, with rego-lookup auto-fill.</li>
+        <li>Free account tier (disables AI and rego lookup).</li>
+        <li>Australian rego lookup with offline heuristic fallback.</li>
+        <li>Vehicle management, multiple profiles, unified timeline.</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;margin-top:8px">
+      <a class="cta" href="https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md">Full changelog on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span>. MIT-licensed open-source platform.</div>
+    <div><a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){const btn=document.getElementById('themeBtn');const html=document.documentElement;const saved=localStorage.getItem('autobrain-theme');if(saved==='light')html.dataset.theme='light';btn.textContent=html.dataset.theme==='light'?'☀️':'🌙';btn.addEventListener('click',function(){const next=html.dataset.theme==='light'?'dark':'light';html.dataset.theme=next;localStorage.setItem('autobrain-theme',next);btn.textContent=next==='light'?'☀️':'🌙';});})();
+</script>
+
+</body>
+</html>
