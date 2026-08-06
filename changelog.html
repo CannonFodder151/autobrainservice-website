@@ -61,11 +61,22 @@
     </div>
 
     <div class="release">
+      <h2>v0.3.2</h2>
+      <div class="date">2026-08-06</div>
+      <h3>Changed</h3>
+      <ul>
+        <li>Android app distributed via Google Play (<code>com.autobrainservice.app</code>); the in-app "Get the mobile app" download dialog and menu item are removed.</li>
+        <li>Mobile: sign out now offers "Sign out &amp; change server"; new app icon.</li>
+        <li>Rego lookup resilience: provider timeout raised to 90s (covers the scraper's fast-fail + retry).</li>
+      </ul>
+    </div>
+
+    <div class="release">
       <h2>v0.3.1</h2>
       <div class="date">2026-08-06</div>
       <h3>Fixed</h3>
       <ul>
-        <li>Fuel efficiency (L/100km) now calculates even when you back-fill an older fill-up — the whole full-tank chain is recomputed after every add/edit/delete, and out-of-order odometer entries no longer corrupt the numbers.</li>
+        <li>Fuel efficiency (L/100km, cost/km) now calculates when you back-fill an older fill-up. The full-tank efficiency chain is recomputed after every add/edit/delete; out-of-order or duplicate odometer entries stay blank instead of getting a wrong value.</li>
       </ul>
     </div>
 
@@ -74,18 +85,17 @@
       <div class="date">2026-08-06</div>
       <h3>Added</h3>
       <ul>
-        <li>Fuel tracker: filter by Australian financial year and export by FY as CSV or CSV + receipt images (ZIP). Scanned receipts are saved against the fuel record and exported with it.</li>
-        <li>Service history and build sheet exports can bundle the images as a ZIP, with an Image column referencing each file.</li>
-        <li>Receipt scans auto-attach their image to the service record created via the scanner.</li>
-        <li>Admin console: "Re-upgrade" option grants the $19/month benefits to an account without a Stripe subscription, and blocks the user from buying a licence.</li>
-        <li>Licence/upgrade page is now feature-flagged (LICENSE_ENABLED) — on for the hosted service, off for self-hosted and demo.</li>
-        <li>Delete option for receipt scans stuck on "pending".</li>
+        <li>Fuel tracker: filter by Australian financial year, and export by FY as CSV or CSV + receipt images (ZIP). Scanned receipts are saved against the fuel record and exported alongside it.</li>
+        <li>Service history and build sheet exports support <code>fmt=zip</code>: CSV gains an Image column and the receipt/scan photos are bundled in the ZIP.</li>
+        <li>Receipt scans auto-attach their image to the service record created from the scanner.</li>
+        <li>Admin console: "Re-upgrade" grants the $19/month benefits without a Stripe subscription; sponsored accounts are blocked from buying a licence.</li>
+        <li>Licence/upgrade feature gated behind <code>LICENSE_ENABLED</code> — on for the hosted instance, off for demo/default and self-hosted.</li>
+        <li>Self-hosted rego lookup: <code>REGO_LOOKUP_URL</code> points at the Plate-API-Scraper instead of the paid provider.</li>
       </ul>
       <h3>Fixed</h3>
       <ul>
         <li>Fuel receipts no longer stay stuck on "pending" when OCR is unavailable.</li>
         <li>Removed the odometer photo-scan option from the logbook.</li>
-        <li>Rego lookup now uses the self-hosted Australian plate scraper instead of the paid provider, with the offline heuristic as fallback.</li>
       </ul>
     </div>
 
@@ -93,7 +103,7 @@
       <h2>v0.2.4</h2>
       <div class="date">2026-08-05</div>
       <ul>
-        <li>Self-service signup flag now drives the UI — the "Create a free account" button is hidden when signup is disabled.</li>
+        <li><code>SELF_SIGNUP_ENABLED</code> drives the UI: the app hides the "Create a free account" button when disabled (hosted keeps signup on; demo/default off).</li>
       </ul>
     </div>
 
@@ -101,18 +111,66 @@
       <h2>v0.2.3</h2>
       <div class="date">2026-08-05</div>
       <ul>
-        <li>Receipt MIME detection fixes.</li>
+        <li>Receipt uploads send a real MIME type instead of <code>application/octet-stream</code>.</li>
+        <li>Backend sniffs file type from magic bytes (PDF/JPEG/PNG/WEBP); HEIC/TIFF accepted.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.2.2</h2>
+      <div class="date">2026-08-05</div>
+      <ul>
+        <li>Removed the global Enter-key interceptor that could swallow browser password-manager fills.</li>
+        <li>MFA code fields carry <code>one-time-code</code> autofill hints.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.2.1</h2>
+      <div class="date">2026-08-05</div>
+      <ul>
+        <li>Vehicle body type field (add/edit form, rego-lookup auto-fill, vehicle cards, home screen).</li>
       </ul>
     </div>
 
     <div class="release">
       <h2>v0.2.0</h2>
-      <div class="date">2026-08-04</div>
+      <div class="date">2026-08-05</div>
+      <h3>Added</h3>
       <ul>
-        <li>Vehicle colour and body type fields, with rego-lookup auto-fill.</li>
-        <li>Free account tier (disables AI and rego lookup).</li>
-        <li>Australian rego lookup with offline heuristic fallback.</li>
-        <li>Vehicle management, multiple profiles, unified timeline.</li>
+        <li>Vehicle colour field with rego-lookup auto-fill.</li>
+        <li>Self-service Free-tier signup (hosted) with a 7-day setup email (password + MFA).</li>
+        <li>Stripe self-service billing: Checkout, Customer Portal, cancel-at-end-of-period, webhook promote/demote.</li>
+        <li>OBD2 hardware companion listed as Coming soon on the marketing site.</li>
+        <li>ATO logbook: per-trip logging, GPS, work/private, financial-year CSV export, dashboard-photo odometer OCR.</li>
+        <li>Club registration selector (club-reg vehicles disable the logbook).</li>
+        <li>Fuel: edit/delete fill-ups, fuel-receipt photo upload (AI parse), per-FY CSV export; fuel updates the odometer.</li>
+        <li>Free account tier: disables AI + rego lookup; exports available on all plans.</li>
+        <li>Server version in admin settings with GitHub release check.</li>
+        <li>Diagnostics: resolve/delete; auto-resolves when its scheduled service completes.</li>
+        <li>Profile export/import (full JSON account).</li>
+        <li>Admin backup &amp; restore + scheduled daily backup (Celery beat → MinIO) with retention.</li>
+        <li>Admin API key (<code>ADMIN_API_KEY</code>): machine-to-machine user management.</li>
+        <li>OBD-II seam: fault-code library, VIN auto-fill, admin-gated access, Bluetooth auto-connect.</li>
+        <li>AI gateway: <code>fuel-ocr</code> and <code>odometer</code> modules; temperature 0, clamped numeric output.</li>
+        <li>Live 9Router integration (OpenAI-compatible router client).</li>
+        <li>Flutter web build served at <code>/</code> behind the proxy nginx.</li>
+        <li>TOTP MFA + self-service password reset; role-based access with admin user management.</li>
+        <li>Australian rego lookup (state-aware, word decoding, optional provider).</li>
+        <li>Services overhaul: scheduled/completed status, items + work steps, AI prediction, PDF/CSV export.</li>
+        <li>Receipt &amp; parts OCR, parts inventory with AI reorders, resale estimator, analytics.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Login/MFA focus and Enter-to-submit fixes; MFA setup busy-state cleared.</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li>Free accounts can export files; only AI and rego lookup remain paid. MFA available on all tiers.</li>
+      </ul>
+      <h3>Removed</h3>
+      <ul>
+        <li>GitHub Actions CI/CD workflows; the initial scaffold.</li>
       </ul>
     </div>
 
