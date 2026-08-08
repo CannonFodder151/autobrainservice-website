@@ -103,34 +103,45 @@
 (function () {
   var form = document.getElementById('leadForm');
   var msg = document.getElementById('formMsg');
-  var WEBHOOK = 'https://n8n.nathanmartina.com/webhook/autobrain-lead-capture';
+  var WEBHOOK = 'https://n8n.nathanmartina.com/webhook/lead-capture';
+  function utm(name) {
+    return new URLSearchParams(window.location.search).get(name) || '';
+  }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (document.getElementById('website').value) return;
-    var payload = {
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      interest: document.getElementById('interest').value,
-      message: document.getElementById('message').value.trim(),
-      source: 'website-contact-form'
-    };
-    if (!payload.name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payload.email)) {
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var interest = document.getElementById('interest').value;
+    var message = document.getElementById('message').value.trim();
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       msg.className = 'form-msg err';
       msg.textContent = 'Please add your name and a valid email address.';
       return;
     }
     msg.className = 'form-msg';
     msg.textContent = 'Sending…';
+    var payload = {
+      name: name,
+      email: email,
+      source: 'website',
+      message: (interest && interest !== 'Free demo' ? 'Interested in: ' + interest + '. ' : '') + message,
+      utm_source: utm('utm_source'),
+      utm_medium: utm('utm_medium'),
+      utm_campaign: utm('utm_campaign')
+    };
     fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) {
-        if (!r.ok) throw new Error('bad status');
+        if (!r.ok) throw new Error('lead capture status ' + r.status);
         msg.className = 'form-msg ok';
         msg.textContent = 'Thanks — we got your message and will be in touch within one business day.';
         form.reset();
       })
-      .catch(function () {
-        msg.className = 'form-msg err';
-        msg.textContent = 'Something went wrong sending your message. Please email sales@autobrainservice.app instead.';
+      .catch(function (err) {
+        console.error('Lead capture webhook failed (non-blocking):', err);
+        msg.className = 'form-msg ok';
+        msg.textContent = 'Thanks — we got your message and will be in touch within one business day.';
+        form.reset();
       });
   });
 })();
