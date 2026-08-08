@@ -151,6 +151,26 @@ pre code{color:var(--primary)}
 .back-link{display:inline-block;margin-bottom:24px;color:var(--muted);font-size:.9rem}
 .back-link:hover{color:var(--primary)}
 
+/* testimonials */
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 auto 48px;max-width:1080px}
+@media(max-width:900px){.testimonials{grid-template-columns:1fr;max-width:560px}}
+.testimonial{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:26px;backdrop-filter:blur(12px)}
+.testimonial blockquote{margin:0 0 14px;color:var(--text);font-size:1rem;line-height:1.6}
+.testimonial blockquote::before{content:"\201C";color:var(--primary);font-size:1.6rem;font-weight:800;display:block;line-height:.6;margin-bottom:8px}
+.testimonial cite{color:var(--muted);font-style:normal;font-size:.88rem}
+
+/* contact form */
+.contact-form{max-width:640px;margin:0 auto}
+.contact-form .field{margin-bottom:16px}
+.contact-form label{display:block;color:var(--text);font-size:.9rem;font-weight:600;margin-bottom:6px}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:12px 14px;font-size:.95rem;font-family:inherit}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:none;border-color:var(--border-glow);box-shadow:0 0 0 3px rgba(0,183,255,0.15)}
+.contact-form textarea{min-height:120px;resize:vertical}
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-msg{display:none;text-align:center;padding:14px;border-radius:10px;margin-top:16px;font-size:.95rem}
+.form-msg.ok{display:block;background:rgba(0,183,255,0.08);border:1px solid var(--border-glow);color:var(--text)}
+.form-msg.err{display:block;background:rgba(237,66,69,0.1);border:1px solid var(--border-glow);color:var(--text)}
+
 /* footer */
 footer{border-top:1px solid var(--border);padding:34px 0;color:var(--muted);font-size:.9rem}
 footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
