@@ -77,6 +77,14 @@ section h2 .b{color:var(--primary)}
 .card ul{list-style:none;text-align:left;margin:22px 0;color:var(--muted);font-size:.95rem}
 .card ul li{padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center}
 .card ul li::before{content:"✓";color:var(--primary);font-weight:800;text-shadow:0 0 8px rgba(0,183,255,0.7)}
+.price-alt{font-family:"Orbitron",sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin:2px 0 6px}
+.price-alt span{font-size:.78rem;font-weight:400;color:var(--muted);font-family:"Exo 2",sans-serif}
+.sale-note{font-size:.82rem;color:var(--primary);font-weight:600;margin-top:6px}
+.sale-banner{background:linear-gradient(135deg,rgba(0,183,255,0.12),rgba(26,77,255,0.12));border:1px solid var(--border-glow);border-radius:16px;padding:24px 28px;margin:0 auto 44px;max-width:860px;text-align:center;box-shadow:0 0 30px rgba(0,183,255,0.15)}
+.sale-banner .sale-tag{display:inline-block;font-family:"Orbitron",sans-serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#050505;background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:800;padding:4px 14px;border-radius:999px;margin-bottom:12px}
+.sale-banner p{color:var(--muted);margin:0;font-size:.98rem}
+.sale-banner strong{color:var(--primary)}
+.terms{color:var(--muted);font-size:.85rem;max-width:860px;margin:44px auto 0;text-align:center;line-height:1.7}
 .popular{border:2px solid var(--border-glow);box-shadow:0 0 34px rgba(0,183,255,0.22)}
 .popular .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505;font-size:.7rem;font-weight:800;padding:5px 16px;border-radius:999px;letter-spacing:.08em;font-family:"Orbitron",sans-serif}
 .soon{position:absolute;top:16px;right:16px;border:1px solid var(--border-glow);color:var(--primary);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(0,183,255,0.08);box-shadow:0 0 14px rgba(0,183,255,0.25)}
