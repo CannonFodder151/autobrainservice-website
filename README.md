@@ -35,10 +35,8 @@ Regenerate locally: `python3 scripts/gen_changelog.py`
 | `index.html` | Marketing site: features, pricing, demo, self-host guide, contact |
 | `logo.png` | AutoBrain logo |
 | `assets/logo.png` | Logo (icon) |
-| `downloads/autobrain.apk` | Android APK served for the in-app "Get the app" button |
 
-Update the Android app from `CannonFodder151/autobrain` (frontend) and drop the built
-`build/app/outputs/flutter-apk/app-release.apk` here as `downloads/autobrain.apk`.
+The Android app is distributed through **Google Play closed testing** (no APK is served from this site). The iOS app will be developed after Android reaches general availability.
 
 ## Contact
 
