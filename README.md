@@ -11,8 +11,8 @@ Deployed as an **Azure Static Web App** (free tier) from this private repo. DNS 
 
 - App location: `/` (static site, no build step — `skip_app_build: true`)
 - Config: [`staticwebapp.config.json`](staticwebapp.config.json) (routing, headers, `.apk` MIME type)
-- Deploy workflow: [`.github/workflows/azure-static-web-apps-happy-glacier-0f26af910.yml`](.github/workflows/azure-static-web-apps-happy-glacier-0f26af910.yml)
-- Requires GitHub secret `AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_GLACIER_0F26AF910` (from Azure SWA "Manage deployment token")
+- Deploy workflow: Azure Static Web Apps publish action in [`.github/workflows/`](.github/workflows/)
+- Requires the Azure SWA deployment-token secret configured in GitHub (set via the Azure portal, "Manage deployment token")
 
 ## Content
 
