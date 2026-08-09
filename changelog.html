@@ -73,19 +73,17 @@
       <p style="margin-top:14px"><a class="cta" href="mailto:sales@autobrainservice.app">Email sales@autobrainservice.app</a></p>
     </div>
 
+    <!-- CHANGELOG-START -->
     <div class="release">
       <h2>v0.3.4</h2>
       <div class="date">2026-08-06</div>
       <h3>Added</h3>
       <ul>
-        <li>Rego lookup sends the vehicle type (car/motorcycle) to the self-hosted scraper. VIC motorcycles resolve correctly — the vicroads form selects the motorcycle field and vehicle-type dropdown (test case <code>3B4PV</code> → clean not-found for an unregistered plate).</li>
-        <li>Motorcycle-aware offline fallback — a bike never falls back to a guessed car.</li>
-        <li>Vehicle type enforced in the add/edit vehicle screens before rego lookup (selector moved above the rego field).</li>
+        <li>Rego lookup now sends the vehicle type (car/motorcycle) to the self-hosted scraper. VIC motorcycles resolve correctly — the vicroads form selects the motorcycle field and vehicle-type dropdown (test case: <code>[redacted]</code> → clean not-found for an unregistered plate).</li><li>Motorcycle-aware offline fallback — a bike never falls back to a guessed car.</li><li>Vehicle type is enforced in the add/edit vehicle screens before rego lookup (selector moved above the rego field).</li>
       </ul>
       <h3>Fixed</h3>
       <ul>
-        <li>Scraper no longer misreads form dropdown labels (e.g. "Chassis number") as result data.</li>
-        <li>Provider timeout raised to 150s so a retrying browser lookup completes instead of falling back early.</li>
+        <li>Scraper no longer misreads form dropdown labels (e.g. "Chassis number") as result data.</li><li>Provider timeout raised to 150s so a retrying browser lookup completes instead of falling back early.</li>
       </ul>
     </div>
 
@@ -94,19 +92,11 @@
       <div class="date">2026-08-06</div>
       <h3>Added</h3>
       <ul>
-        <li>Vehicle type: every vehicle is a Car or a Motorcycle (dropdown on add/edit). The home screen shows a motorcycle icon for bikes, and the vehicle type is passed to the AI agents (diagnostics, service prediction, valuation, mod impact).</li>
-        <li>Admin console: search users by display name or email — alphabetical, 15 per page, with previous/next buttons.</li>
-        <li>Account creation (signup + admin) rejects duplicate emails and duplicate display names.</li>
-        <li>"Delete account" menu item for non-admin users on licensed servers, linking to the deletion instructions page.</li>
-        <li>Demo data: two motorcycles plus logbook trips, scanned receipts, valuations and diagnostics.</li>
+        <li>Vehicle type: every vehicle is a Car or a Motorcycle (dropdown on add/edit). The home screen shows a motorcycle icon for bikes, and the vehicle type is passed to the AI agents (diagnostics, service prediction, valuation, mod impact).</li><li>Admin console: search users by display name or email — alphabetical, 15 per page, with previous/next buttons.</li><li>Account creation (signup + admin) rejects duplicate emails and duplicate display names.</li><li>"Delete account" menu item for non-admin users on licensed servers, linking to the deletion instructions page.</li><li>Demo data: two motorcycles plus logbook trips, scanned receipts, valuations and diagnostics.</li>
       </ul>
       <h3>Fixed</h3>
       <ul>
-        <li>Service/mod <code>photo_keys</code> now store as JSON (raw-list inserts previously failed).</li>
-        <li>Web home screen no longer shows garbled characters on the vehicle display.</li>
-        <li>Admin user list no longer 500s — <code>UserAdminOut</code> now serializes ORM rows (blank list / broken search fixed).</li>
-        <li>CSV exports include a UTF-8 BOM so Excel renders em-dashes and unicode correctly instead of garbled characters.</li>
-        <li>Home screen shows a clear "server unreachable" error (with Retry) instead of "no vehicles" when the backend is offline.</li>
+        <li>Service/mod <code>photo_keys</code> now store as JSON (raw-list inserts from the receipt auto-apply flow and the demo seed previously failed).</li><li>Web home screen no longer shows garbled characters on the vehicle display.</li><li>Admin user list no longer 500s — <code>UserAdminOut</code> now serializes ORM rows (blank list / broken search fixed).</li><li>CSV exports now include a UTF-8 BOM so Excel renders em-dashes and unicode correctly instead of garbled characters.</li><li>Home screen shows a clear "server unreachable" error (with Retry) instead of "no vehicles" when the backend is offline.</li>
       </ul>
     </div>
 
@@ -115,9 +105,7 @@
       <div class="date">2026-08-06</div>
       <h3>Changed</h3>
       <ul>
-        <li>Android app distributed via Google Play (<code>com.autobrainservice.app</code>); the in-app "Get the mobile app" download dialog and menu item are removed.</li>
-        <li>Mobile: sign out now offers "Sign out &amp; change server"; new app icon.</li>
-        <li>Rego lookup resilience: provider timeout raised to 90s (covers the scraper's fast-fail + retry).</li>
+        <li>Android app distributed via Google Play (<code>com.autobrainservice.app</code>); the in-app "Get the mobile app" download dialog and menu item are removed.</li><li>Mobile: sign out now offers "Sign out &amp; change server"; new app icon.</li><li>Rego lookup resilience: provider timeout raised to 90s (covers the scraper's fast-fail + retry).</li>
       </ul>
     </div>
 
@@ -126,7 +114,7 @@
       <div class="date">2026-08-06</div>
       <h3>Fixed</h3>
       <ul>
-        <li>Fuel efficiency (L/100km, cost/km) now calculates when you back-fill an older fill-up. The full-tank efficiency chain is recomputed after every add/edit/delete; out-of-order or duplicate odometer entries stay blank instead of getting a wrong value.</li>
+        <li>Fuel efficiency (L/100km, cost/km) now calculates when you back-fill an older fill-up. The full-tank efficiency chain is recomputed after every add/edit/delete, so later fills are re-chained correctly; out-of-order or duplicate odometer entries stay blank instead of getting a wrong value.</li>
       </ul>
     </div>
 
@@ -135,51 +123,47 @@
       <div class="date">2026-08-06</div>
       <h3>Added</h3>
       <ul>
-        <li>Fuel tracker: filter by Australian financial year, and export by FY as CSV or CSV + receipt images (ZIP). Scanned receipts are saved against the fuel record and exported alongside it.</li>
-        <li>Service history and build sheet exports support <code>fmt=zip</code>: CSV gains an Image column and the receipt/scan photos are bundled in the ZIP.</li>
-        <li>Receipt scans auto-attach their image to the service record created from the scanner.</li>
-        <li>Admin console: "Re-upgrade" grants the $19/month benefits without a Stripe subscription; sponsored accounts are blocked from buying a licence.</li>
-        <li>Licence/upgrade feature gated behind <code>LICENSE_ENABLED</code> — on for the hosted instance, off for demo/default and self-hosted.</li>
-        <li>Self-hosted rego lookup: <code>REGO_LOOKUP_URL</code> points at the Plate-API-Scraper instead of the paid provider.</li>
+        <li>Fuel tracker: filter the list by Australian financial year, and export by FY as CSV or CSV + receipt images (ZIP). Scanned receipts are saved against the fuel record (receipt_id) and exported alongside it.</li><li>Service history and build sheet exports support <code>fmt=zip</code>: CSV gains an Image column and the receipt/scan photos are bundled in the ZIP.</li><li>Receipt scans auto-attach their image to the service record created from the scanner (<code>photo_keys</code> on <code>service_records</code>).</li><li>Admin console: "Re-upgrade" action grants the $19/month Enthusiast benefits to an account without a Stripe subscription, and sponsored accounts are blocked from buying a licence.</li><li>Licence/upgrade feature is gated behind <code>LICENSE_ENABLED</code> (served via <code>GET /auth/config</code>). On for the hosted instance, off for demo/default and self-hosted; the app hides the License page when disabled.</li><li>Self-hosted rego lookup: <code>REGO_LOOKUP_URL</code> now points at the Plate-API-Scraper (POST <code>/lookup</code>) instead of the paid plateapi provider.</li>
       </ul>
       <h3>Fixed</h3>
       <ul>
-        <li>Fuel receipts no longer stay stuck on "pending" when OCR is unavailable.</li>
-        <li>Removed the odometer photo-scan option from the logbook.</li>
+        <li>Fuel receipts no longer stay stuck on <code>pending</code> when OCR is unavailable (the record is marked done/failed and the image stays usable).</li><li>Removed the odometer photo-scan option from the logbook.</li>
       </ul>
     </div>
 
     <div class="release">
       <h2>v0.2.4</h2>
       <div class="date">2026-08-05</div>
+      <h3>Added</h3>
       <ul>
-        <li><code>SELF_SIGNUP_ENABLED</code> drives the UI: the app hides the "Create a free account" button when disabled (hosted keeps signup on; demo/default off).</li>
+        <li><code>SELF_SIGNUP_ENABLED</code> now also drives the UI: the app fetches public <code>GET /auth/config</code> (<code>signup_enabled</code>) and hides the "Create a free account" button when disabled. Signup stays on by default for the hosted instance and is disabled on demo/default (admin-provisioned).</li>
       </ul>
     </div>
 
     <div class="release">
       <h2>v0.2.3</h2>
       <div class="date">2026-08-05</div>
+      <h3>Fixed</h3>
       <ul>
-        <li>Receipt uploads send a real MIME type instead of <code>application/octet-stream</code>.</li>
-        <li>Backend sniffs file type from magic bytes (PDF/JPEG/PNG/WEBP); HEIC/TIFF accepted.</li>
+        <li>Receipt uploads: the app now sends a real file MIME type (it previously always sent <code>application/octet-stream</code>, which the fuel-receipt endpoint rejected with "unsupported file type").</li><li>Backend now sniffs file type from magic bytes (PDF/JPEG/PNG/WEBP) before trusting the upload header, so photos from phone/camera pickers work for fuel receipts, receipts scanner and odometer OCR. HEIC/TIFF now accepted too.</li>
       </ul>
     </div>
 
     <div class="release">
       <h2>v0.2.2</h2>
       <div class="date">2026-08-05</div>
+      <h3>Fixed</h3>
       <ul>
-        <li>Removed the global Enter-key interceptor that could swallow browser password-manager fills.</li>
-        <li>MFA code fields carry <code>one-time-code</code> autofill hints.</li>
+        <li>Web autofill: removed the global Enter-key interceptor that could swallow browser password-manager fills (Enter still submits via the fields themselves).</li><li>MFA code fields now carry <code>one-time-code</code> autofill hints so browsers offer the OTP/password suggestion (login, MFA setup, and Settings &amp; security).</li>
       </ul>
     </div>
 
     <div class="release">
       <h2>v0.2.1</h2>
       <div class="date">2026-08-05</div>
+      <h3>Added</h3>
       <ul>
-        <li>Vehicle body type field (add/edit form, rego-lookup auto-fill, vehicle cards, home screen).</li>
+        <li>Vehicle body type field (add/edit form, rego-lookup auto-fill, shown on vehicle cards and home screen).</li>
       </ul>
     </div>
 
@@ -188,41 +172,22 @@
       <div class="date">2026-08-05</div>
       <h3>Added</h3>
       <ul>
-        <li>Vehicle colour field with rego-lookup auto-fill.</li>
-        <li>Self-service Free-tier signup (hosted) with a 7-day setup email (password + MFA).</li>
-        <li>Stripe self-service billing: Checkout, Customer Portal, cancel-at-end-of-period, webhook promote/demote.</li>
-        <li>OBD2 hardware companion listed as Coming soon on the marketing site.</li>
-        <li>ATO logbook: per-trip logging, GPS, work/private, financial-year CSV export, dashboard-photo odometer OCR.</li>
-        <li>Club registration selector (club-reg vehicles disable the logbook).</li>
-        <li>Fuel: edit/delete fill-ups, fuel-receipt photo upload (AI parse), per-FY CSV export; fuel updates the odometer.</li>
-        <li>Free account tier: disables AI + rego lookup; exports available on all plans.</li>
-        <li>Server version in admin settings with GitHub release check.</li>
-        <li>Diagnostics: resolve/delete; auto-resolves when its scheduled service completes.</li>
-        <li>Profile export/import (full JSON account).</li>
-        <li>Admin backup &amp; restore + scheduled daily backup (Celery beat → MinIO) with retention.</li>
-        <li>Admin API key (<code>ADMIN_API_KEY</code>): machine-to-machine user management.</li>
-        <li>OBD-II seam: fault-code library, VIN auto-fill, admin-gated access, Bluetooth auto-connect.</li>
-        <li>AI gateway: <code>fuel-ocr</code> and <code>odometer</code> modules; temperature 0, clamped numeric output.</li>
-        <li>Live 9Router integration (OpenAI-compatible router client).</li>
-        <li>Flutter web build served at <code>/</code> behind the proxy nginx.</li>
-        <li>TOTP MFA + self-service password reset; role-based access with admin user management.</li>
-        <li>Australian rego lookup (state-aware, word decoding, optional provider).</li>
-        <li>Services overhaul: scheduled/completed status, items + work steps, AI prediction, PDF/CSV export.</li>
-        <li>Receipt &amp; parts OCR, parts inventory with AI reorders, resale estimator, analytics.</li>
+        <li>Vehicle colour field (add/edit form, rego-lookup auto-fill, shown on vehicle cards and home screen).</li><li>Self-service Free-tier signup (hosted): display name + email only; a 7-day setup email completes the account (choose password + MFA, enforced on the hosted instance).</li><li>Stripe self-service billing: Checkout, Customer Portal, cancel-at-end-of-period, webhook promote/demote between free and paid plans.</li><li>OBD2 hardware companion listed as a **Coming soon** product on the marketing site (not part of subscription plans).</li><li>ATO logbook: per-trip logging for non-club-reg vehicles (start/end time, GPS, odometer, work/private, reason), edit/complete trips, per-financial-year CSV export, and dashboard-photo odometer OCR (AI). Completing a trip updates the vehicle odometer.</li><li>Club registration selector on vehicles — club-registered vehicles disable the logbook feature.</li><li>Fuel: edit/delete fill-ups, fuel-receipt photo upload (AI parse of litres/price-per-litre, or plain upload without AI), and per-financial-year CSV export for tax purposes. Fuel always updates the odometer unless a newer logbook trip governs.</li><li>Free account tier (<code>free_account</code> per user): disables AI features and rego lookup (403 server-side); file exports are available on all plans.</li><li>Server version in admin settings with GitHub latest-release check (up to date / update available).</li><li>Diagnostics: resolve + delete once fixed; a diagnostic auto-flips to resolved (green tick) when its linked scheduled service is completed.</li><li>Profile export/import: download your whole account as JSON and import it on any server.</li><li>Admin backup &amp; restore: full JSON database snapshot download, wipe-and-restore endpoint, and a scheduled daily backup (Celery beat → MinIO) with retention.</li><li>Admin API key (<code>ADMIN_API_KEY</code> + <code>X-Admin-API-Key</code>): create users, set permissions (role, vehicle quota, free/paid account, OBD access), list, disable and delete users machine-to-machine.</li><li>OBD-II seam: fault-code library with save/pull-to-AI-diagnostics, VIN auto-fill, admin-gated per-account access, Bluetooth auto-connect setting, and a "work in progress" UI for the live adapter features.</li><li>AI gateway: new <code>fuel-ocr</code> and <code>odometer</code> modules; all modules run at temperature 0 with validated/clamped numeric output (resale low ≤ est ≤ high) for stable estimates.</li><li>Azure/cloud web build fix: hermetic <code>pub get</code> (pubspec.lock copied) and removed the vestigial <code>build_runner</code> step.</li><li>Live 9Router integration: OpenAI-compatible router client (<code>AI_ROUTER_URL</code>/<code>AI_ROUTER_MODEL</code>), per-module strict-JSON prompts, tolerant schemas.</li><li>Web app delivery: Flutter web build served at <code>/</code> behind the proxy nginx.</li><li>TOTP multi-factor authentication (setup QR, enable/disable, MFA-gated login) and self-service password reset.</li><li>Role-based access (admin/user) with admin user management and seeded bootstrap admin.</li><li>Australian rego lookup (state-aware, personalised-plate word decoding, optional plateapi.com.au provider).</li><li>Services overhaul: scheduled/completed status, editable service cards with items + work steps, AI prediction, PDF/CSV export.</li><li>Receipt &amp; parts OCR, parts inventory with AI reorder suggestions, resale value estimator, analytics.</li>
       </ul>
       <h3>Fixed</h3>
       <ul>
-        <li>Login/MFA focus and Enter-to-submit fixes; MFA setup busy-state cleared.</li>
+        <li>Login: email field is focused and its text selected on page load (fixes the web-autofill landing issue).</li><li>Login/MFA: the 6-digit verification code field is auto-focused when the MFA step appears.</li><li>Login/MFA: pressing Enter on the keyboard now submits the form instead of doing nothing.</li><li>Login: completing MFA setup no longer leaves the button spinning — the busy state is cleared and the app returns to the home screen.</li>
       </ul>
       <h3>Changed</h3>
       <ul>
-        <li>Free accounts can export files; only AI and rego lookup remain paid. MFA available on all tiers.</li>
+        <li>Free accounts can export files; only AI features and rego lookup remain paid.</li><li>MFA is no longer a paid-plan feature — available on all tiers.</li><li>Self-service signup collects display name + email only; a setup email completes the account (password + MFA).</li>
       </ul>
       <h3>Removed</h3>
       <ul>
-        <li>GitHub Actions CI/CD workflows; the initial scaffold.</li>
+        <li>GitHub Actions CI/CD workflows.</li><li>Initial AutoBrain scaffold.</li>
       </ul>
     </div>
+    <!-- CHANGELOG-END -->
 
     <div style="text-align:center;margin-top:8px">
       <a class="cta" href="https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md">Full changelog on GitHub</a>
