@@ -23,8 +23,9 @@ the blocks between the `CHANGELOG-START` / `CHANGELOG-END` markers in
 
 - The deploy workflow regenerates it before every upload, so the site always
   matches the committed `CHANGELOG.md`.
-- The autobrain repo's `build-hosted.yml` syncs `CHANGELOG.md` here after every
-  versioned deploy, so the site updates as part of the release flow.
+- The autobrain repo's `dockerhub-publish.yml` syncs `CHANGELOG.md` here after
+  every versioned deploy, so the site updates as part of the release flow
+  (AUT-168 makes the changelog iteration mandatory in CI).
 
 Regenerate locally: `python3 scripts/gen_changelog.py`
 
