@@ -22,4 +22,19 @@
       if (e.target.tagName === 'A') navList.classList.remove('open');
     });
   }
+  var moreBtn = document.getElementById('moreBtn');
+  var moreMenu = document.querySelector('.nav-more');
+  if (moreBtn && moreMenu) {
+    moreBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = moreMenu.classList.toggle('open');
+      moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (!moreMenu.contains(e.target)) {
+        moreMenu.classList.remove('open');
+        moreBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 })();
