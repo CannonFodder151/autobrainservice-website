@@ -41,7 +41,7 @@ nav .cta.nav-cta{padding:8px 14px;font-size:.85rem;margin-top:6px;border-radius:
 .nav-more{position:relative}
 .more-btn{display:flex;align-items:center;gap:4px;background:none;border:none;color:var(--muted);font-family:inherit;font-size:.95rem;font-weight:500;padding:6px 8px;border-radius:8px;cursor:pointer}
 .more-btn:hover{color:var(--primary)}
-.nav-more .more-menu{list-style:none;display:none;flex-direction:column;gap:2px;padding:0;margin:6px 0 0 16px;border-left:1px solid var(--border);padding-left:12px}
+.nav-more .more-menu{list-style:none;display:none;flex-direction:column;gap:2px;padding:6px;margin:6px 0 0 8px;align-self:flex-start;min-width:170px;background:var(--surface-strong);border:1px solid var(--border);border-radius:10px}
 .nav-more.open .more-menu{display:flex}
 .nav-more .more-menu a{display:block;padding:8px 10px;border-radius:8px}
 .theme-btn,.hamburger{background:var(--surface-strong);border:1px solid var(--border);color:var(--white);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
