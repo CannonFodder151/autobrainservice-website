@@ -10,7 +10,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
+
+### Added
+- Market-data scraper API (AUT-290): self-hosted `market-data` service scrapes live CarsGuide listings (no browser, via the site's SSR `__NUXT_DATA__` payload) and serves `POST /search` with `{query, make, model, year}` behind an API key — the same protocol rego-lookup uses. Wired into the hosted stack as `MARKET_DATA_URL`/`MARKET_DATA_API_KEY`, so valuations now anchor on real listings instead of showing "provider not configured".
+
+## [0.3.8] - 2026-08-11
 
 ### Added
 - Live used-car market data for valuations (AUT-287): resale estimates now anchor on real CarsGuide/CarSales listings fetched through a self-hosted market-data API (`MARKET_DATA_URL` + `MARKET_DATA_API_KEY`), cached 24h per make/model/year so repeated valuations return identical numbers. `GET /api/v1/vehicles/{id}/valuation/market` returns the listings + median/low/high aggregates; `.../valuation/market/search` searches live listings. When no provider is configured the deterministic model + AI advice path still runs with `source=fallback`.
