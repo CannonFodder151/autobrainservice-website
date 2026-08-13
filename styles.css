@@ -106,6 +106,7 @@ section h2 .b{color:var(--primary)}
 .popular{border:2px solid var(--border-glow);box-shadow:0 0 34px rgba(0,183,255,0.22)}
 .popular .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505;font-size:.7rem;font-weight:800;padding:5px 16px;border-radius:999px;letter-spacing:.08em;font-family:"Orbitron",sans-serif}
 .soon{position:absolute;top:16px;right:16px;border:1px solid var(--border-glow);color:var(--primary);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(0,183,255,0.08);box-shadow:0 0 14px rgba(0,183,255,0.25)}
+.live{position:absolute;top:16px;right:16px;border:1px solid #2ECC71;color:#2ECC71;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(46,204,113,0.1);box-shadow:0 0 14px rgba(46,204,113,0.25)}
 
 /* steps */
 ol.steps{counter-reset:step;list-style:none;max-width:860px;margin:0 auto}
