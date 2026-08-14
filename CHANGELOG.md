@@ -62,7 +62,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
+
+### Fixed
+- `#/license` deep-link race (AUT-629): the Flutter web engine cleared the URL fragment via `history.replaceState` before the logged-in session-restore rebuild, so fresh loads of `/#/license` landed on Home. The fragment is now captured once in `main()` before `runApp` and routing reads the captured value, restoring reliable deep-link navigation to the License screen.
+
+## [0.3.62] - 2026-08-14
 
 ### Fixed
 - PR run failures (AUT-633): the changelog gate now diffs against the merge-base instead of the live base-branch tip, so a stale PR no longer false-fails (or slips a missing CHANGELOG.md entry when main happened to move one). The mobile sync workflow also rebases onto remote main before pushing, so concurrent sync runs stop reddening with `fetch first` rejections.
