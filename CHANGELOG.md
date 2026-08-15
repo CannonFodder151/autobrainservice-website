@@ -11,7 +11,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
+
+### Fixed
+- Community Garage photo upload no longer crashes for photos whose MIME can't be
+  detected (e.g. HEIC from the iOS camera roll): `image_picker` returns an empty
+  string for `mimeType`, which used to blow up `MediaType.parse("")` and surface
+  as "Could not save: … Invalid media type". The upload now sanitizes the content
+  type (filename-derived MIME fallback, else `application/octet-stream`) and the
+  photo pickers treat an empty MIME as missing, defaulting to `image/jpeg`
+  (AUT-796, unblocks AUT-793).
+
+## [0.3.83] - 2026-08-15
+
+### Added
+- Android Auto / car-kit trips now record their GPS route: position fixes are
+  captured while a drive is active and saved to the logbook trip, so a drive
+  logs a drawn path on the trip map (AUT-427).
+- Logbook trip view now has an "Open in Google Maps" button that opens the
+  trip's route drawn on Google Maps (AUT-427).
+
+### Removed
+- Generic ELM327 OBD2 adapter support removed (AUT-427): the app now supports
+  only the custom-built OBD2 adapter. Bluetooth adapter connect/live-PID/VIN/
+  DTC-from-adapter UI and the ELM327 protocol + BT-SPP transport layers were
+  stripped. Trip start/stop comes from the phone-side car-kit / Android Auto
+  path (AUT-367) with GPS route recording. The fault-code library + manual
+  VIN entry remain.
 
 ## [0.3.82] - 2026-08-15
 
