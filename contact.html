@@ -21,9 +21,6 @@
 <meta name="twitter:title" content="Contact AutoBrain">
 <meta name="twitter:description" content="Talk to the AutoBrain team about a demo, a hosted plan, a car-club deployment or self-hosting.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -48,7 +45,7 @@
 
 <nav>
   <div class="container">
-    <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
       <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
       <span><span class="a">Auto</span><span class="b">Brain</span></span>
     </a>
@@ -103,15 +100,15 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="What would you like to know?"></textarea>
       </div>
-      <div class="field" id="turnstile-field" style="display:none">
+      <div class="field u-hidden" id="turnstile-field">
         <div id="turnstile-widget"></div>
       </div>
       <div class="hp-field" aria-hidden="true">
         <label for="website">Leave this field empty</label>
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
       </div>
-      <div style="text-align:center">
-        <button class="cta" type="submit" style="border:none;cursor:pointer">Send message</button>
+      <div class="u-center">
+        <button class="cta u-btn-plain" type="submit">Send message</button>
       </div>
       <div class="form-msg" id="formMsg" role="status"></div>
     </form>
@@ -125,7 +122,7 @@
   </div>
 </footer>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" integrity="sha384-WvykcXOFmx4gv5x+RbitNq8ErqYDzeDmWG33p+AewiLdZo6kXtYDxJKPzyZsLB8r" crossorigin="anonymous" async defer></script>
 <script src="lead.js"></script>
 <script src="nav.js"></script>
 
