@@ -21,9 +21,6 @@
 <meta name="twitter:title" content="Changelog &amp; Release Notes — AutoBrain">
 <meta name="twitter:description" content="AutoBrain release notes — what's new, fixed and changed in every version.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -40,7 +37,7 @@
 
 <nav>
   <div class="container">
-    <a href="index.html" class="brand" aria-label="AutoBrain home" style="text-decoration:none;color:inherit">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
       <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
       <span><span class="a">Auto</span><span class="b">Brain</span></span>
     </a>
@@ -72,23 +69,741 @@
     <h1>Changelog</h1>
     <p class="lead">Every release of AutoBrain — new features, fixes and improvements. Also tracked in the repo's CHANGELOG.md.</p>
 
-    <div class="card" style="max-width:860px;margin:0 auto 24px;text-align:center">
+    <div class="card u-max-860-center">
       <h2>Want to see a new feature?</h2>
       <p>Tell me what you'd like AutoBrain to do — I read every message.</p>
-      <p style="margin-top:14px"><a class="cta" href="mailto:sales@autobrainservice.app">Email sales@autobrainservice.app</a></p>
+      <p class="u-mt-14"><a class="cta" href="mailto:sales@autobrainservice.app">Email sales@autobrainservice.app</a></p>
     </div>
 
     <!-- CHANGELOG-START -->
+    <div class="release">
+      <h2>v0.3.80</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Issues Blog posts now share across the federation like build posts do: a new help post is pushed to the hub and appears on other registered servers with its photos, and replies + resolved answers sync back (AUT-756).</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Unsharing a Community Garage build no longer returns HTTP 500 even when the build has a share scope (AUT-762). The AUT-703 fix (0.3.78) covered photos, comments and likes, but the per-build <code>social_share_scopes</code> row was still deleted through the ORM, which does not order child deletes before the parent delete (no <code>relationship()</code>/cascade), so Postgres rejected it with a <code>social_share_scopes_build_id_fkey</code> FK violation. The scope row is now bulk-deleted with the other child rows before the build. Regression test in <code>tests_social/test_social.py</code>.</li><li>Photo uploads on the web app no longer fail silently ("nothing happens after I select the file"): the frontend CSP now allows same-origin <code>blob:</code> URLs that Flutter's image picker uses to preview/read picked images, and the compose screens surface a "Could not read that photo" message instead of dropping the selection silently (AUT-756).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.79</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>The social federation server key no longer regenerates on every registration attempt (AUT-758). The Ed25519 keypair is now generated once and persisted in <code>social_server_config.hub_private_key</code>, so retrying a join reuses the same identity instead of rotating the key mid-join and failing. Regression test in <code>tests_social/test_social.py</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.78</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Unsharing (deleting) a Community Garage build that had photos no longer returns HTTP 500 (AUT-703). The build delete ran the photo deletes through the ORM, which did not order the child deletes before the parent (no <code>relationship()</code>/cascade between <code>SocialBuild</code> and <code>SocialPhoto</code>), so Postgres rejected the delete with a <code>social_photos_build_id_fkey</code> FK violation. The photos are now bulk-released back to your unassigned uploads in the same way as dropping photos in Edit build, then the build is deleted. Regression test in <code>tests_social/test_social.py</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.77</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage federation: the backend no longer claims <code>hub_status=registered</code> right after <code>POST /admin/social/register</code>. The hub's approval workflow (AUT-525) returns <code>status: pending</code> for new registrations, and the client now stores that state — a pending server stays local-only instead of silently failing every signed hub request with 401. Once the hub operator approves the server, the feed's federation sync polls the hub's public status endpoint and self-heals into <code>registered</code> (no manual re-register). The admin UI shows the pending state with a "Registration pending hub-operator approval" hint and a Refresh action. Regression tests in <code>tests_social/test_social.py</code> (AUT-731).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.76</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Issues Blog replies can now carry one photo each (AUT-736). The reply composer has an attach button (one photo, max), the photo uploads through the existing media pipeline on send, reply photos render inline on the post detail (tap to view full size), and they are cleaned up when the post is deleted.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.75</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>License screen now distinguishes **License pending** (orange) from **Subscription active** (green): if a checkout was started but not paid (<code>incomplete</code> / <code>incomplete_expired</code> / <code>unpaid</code>) — or the account was granted but never actually paid for — the status shows "License pending" instead of implying the licence is active. <code>GET /auth/me</code> now reports a derived <code>license_status</code> (<code>active</code> / <code>pending</code> / <code>free</code>) so web + mobile agree, and never reports <code>active</code> without a paid entitlement.</li><li>Users stuck with an unfinished/failed checkout (a pending Stripe subscription) can now retry paying — only sponsored accounts with no subscription record are blocked from buying a licence.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.74</h2>
+      <div class="date">2026-08-15</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Hourly admin backup no longer fails on a transient DB blip during a deploy (AUT-696). <code>serialize_all</code> now retries (3 attempts, short backoff, session rollback) on transient <code>OperationalError</code>/<code>InterfaceError</code> (closed connection, DB restart mid-backup) before reporting failure to <code>autobrain-backup</code>, so a mid-deploy churn can't trip a backup alert. Regression test in <code>tests/test_backup_completeness.py</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.73</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Issues Blog now lets you attach up to 4 photos to a post (AUT-709). Photos upload through the existing media pipeline, are rendered on the post detail + browse list, and are cleaned up when the post is deleted. A photo attached to an issue can no longer be claimed by a build (and vice-versa).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.72</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Alembic migration chain on <code>main</code> had two heads (<code>q1r2s3t4u5v6</code> from the Community Garage photo-position change and <code>u1v2w3x4y5z6</code> from the Issues Blog), which broke <code>alembic upgrade head</code> at bootstrap and forced the <code>create_all</code> fallback on every deploy. Added merge revision <code>m3rge02</code> re-unifying both branches (no-op upgrade body, same pattern as the earlier <code>m3rge01</code> merge) so <code>alembic heads</code> reports a single head and fresh/stamped databases migrate cleanly. Already-stamped databases (demo/default/hosted, AUT-682) apply it as a clean no-op. No schema or data changes.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.71</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Demo issues-blog content (AUT-712): the demo instance's Community Garage Issues Blog is seeded with 16 posts, each with 1–3 replies (~30 total), on next boot with <code>DEMO_RESET=true</code>. Answered/resolved posts pin their answer. Deterministic content (fixed tag vocabulary, <code>origin="demo"</code>, fictional replier names, staggered <code>created_at</code>) — no AI in the seed path. <code>reset_demo</code> now clears the demo user's posts/replies/flags before deleting the user (FK-safe on Postgres).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.70</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage feed no longer returns HTTP 500 when federation is registered with the hub (AUT-694). The hub answers an empty event pull with <code>next_cursor: 0</code>, and the first sync crashed on <code>int(0 or None)</code> → <code>TypeError</code> → every feed request 500'd until a cursor was stored. The cursor is now only stored when present (<code>next_cursor</code> + a <code>TypeError</code>/<code>ValueError</code> guard). The sync loop is also hardened so malformed hub payloads (non-dict builds/events, non-dict <code>snapshot</code>/<code>payload</code>) are skipped instead of crashing the feed. Regression tests in <code>tests_social/test_social.py</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.69</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage share (AUT-676): the share dialog now has a **Copy link** button, and the shared link can be opened in-app so it renders on the user's own AutoBrain instance. Sharing a federated (remote-server) build no longer throws a raw error — it opens the build directly on the viewer's instance.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.68</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Community Garage **Issues Blog** frontend (AUT-627, AUT-644): third tab in Community Garage (Feed / My Builds / Issues Blog) with a blog-archive list (title, excerpt, author, tags, comment count, Open/Answered/Resolved status badge, date), keyword search + tag chips + status filter (server-side, deterministic), full blog-post detail with chronological comment thread, "Mark as answer" resolution flow with a resolved banner pointing at the pinned answer, "Report" moderation action, and a compose screen (title, body, optional vehicle context snapshot). Reuses Community Garage premium gating and "disabled by admin" states; wired to <code>/api/v1/social/issues</code>.</li><li>Community Garage Issues Blog backend (AUT-627, AUT-643): <code>social_issue_posts</code> / <code>social_issue_comments</code> / <code>social_issue_flags</code> tables + Alembic migration, blog routes under <code>/api/v1/social/issues</code> (browse with tag/status/q filters and cursor pagination, create/edit/comment/mark-answer/flag/delete), admin moderation (<code>/api/v1/admin/issues/flagged</code>, hide/restore), deterministic fixed-vocabulary auto-tags, and global search integration for <code>issue</code> (community-visible, hidden posts excluded). Premium-gated, rate-limited, plaintext-only; no AI in authoring/answers/moderation.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Issues Blog: editing your own post via PATCH <code>/api/v1/social/issues/{id}</code> no longer returns HTTP 500 (AUT-665). <code>updated_at</code> (<code>onupdate=func.now()</code>) was expired after commit and the async lazy load raised <code>MissingGreenlet</code>; <code>update_issue</code> now <code>refresh</code>es the post before serializing. Added a PATCH success-path regression test.</li>
+      </ul>
+      <h3>Security</h3>
+      <ul>
+        <li>Issues Blog rate limiting no longer trusts client-supplied <code>X-Forwarded-For</code> (AUT-670, F1): <code>client_ip()</code> keys on the proxy-set <code>X-Real-IP</code> / socket peer only, the nginx edge overwrites <code>X-Forwarded-For</code> with <code>$remote_addr</code>, and create/comment/answer now carry per-user caps (<code>social_user_rate_limit</code>) mirroring flags — so rotating the header can no longer reset the per-IP window. Regression suite <code>tests/test_pt1_xff_bypass.py</code>.</li><li>Issues Blog answer pinning restricted to the post author (AUT-670, F2): a commenter can no longer pin their own comment and force the post to <code>resolved</code>; non-authors get 404 (PW-8 no-probing pattern). Author pinning still resolves the post.</li><li>Issues Blog <code>cursor</code> pagination param capped at 512 chars (AUT-670, F3): oversized cursors are rejected with 422 by validation instead of being base64-decoded/parsed (mild parse DoS on attacker input); malformed short cursors still 400.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.67</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Community Garage photos per build raised from 6 to 15 (AUT-674): the compose picker (web + mobile) accepts up to 15 photos and the backend <code>POST /social/posts</code> validation caps <code>photo_ids</code> at 15 (was 12). Regression test asserts 15 IDs pass and 16 are rejected.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage photo upload no longer rejects real phone photos (AUT-674): the social upload input gate was 5MB while receipts/fuel/logbook allow 15MB, and web + iOS multi-pick can't pre-downscale — typical modern phone photos (5–15MB) were returned <code>413 File too large</code>. Social uploads now use the same 15MB bounded-read cap as the rest of the app; the backend still downscales to 2048px and re-encodes to webp, so stored media stays small. Regression tests cover a &gt;5MB accepted upload and the 413/415 gate.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.66</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Community Garage builds can now be named when sharing and fully edited afterwards (AUT-675): "Edit build" on My Builds lets you rename the project, change the caption, and reorder/add/remove photos, and it shows what the build shares (photos, specs, mods, odometer, notes) so you can edit that after the fact too. Photos keep their new order in the feed; dropped photos go back to your uploads. Backed by <code>POST/PATCH /social/posts</code> now accepting <code>title</code>, ordered <code>photo_ids</code> and <code>share_scope</code>, plus a new <code>social_photos.position</code> column.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.65</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Celery worker/beat healthcheck (AUT-601): the <code>autobrain-worker</code> image healthcheck is now command-aware. The beat scheduler container (which shares the image) previously ran <code>celery inspect ping</code> — a check that only a *worker* can answer, so it reported health for the wrong process. It now verifies the <code>celerybeat-schedule</code> file exists and stays fresh (missing or stale file flags the wedged scheduler busy-loop behind the 100% CPU incident). The worker check pings only its own node (<code>-d celery@$(hostname)</code>) so the backend's embedded worker on the same broker can't stall it, and gets an 8s reply window inside a 15s healthcheck timeout so AI-task load no longer false-negatives it.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.64</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Social upload bounded-read overflow (AUT-660): <code>read_upload</code> now runs inside the <code>MediaError</code> handler, so a &gt;5MB chunked/misdeclared <code>Content-Length</code> body returns <code>415</code> as documented instead of an unhandled <code>500</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.63</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li><code>#/license</code> deep-link race (AUT-629): the Flutter web engine cleared the URL fragment via <code>history.replaceState</code> before the logged-in session-restore rebuild, so fresh loads of <code>/#/license</code> landed on Home. The fragment is now captured once in <code>main()</code> before <code>runApp</code> and routing reads the captured value, restoring reliable deep-link navigation to the License screen.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.62</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>PR run failures (AUT-633): the changelog gate now diffs against the merge-base instead of the live base-branch tip, so a stale PR no longer false-fails (or slips a missing CHANGELOG.md entry when main happened to move one). The mobile sync workflow also rebases onto remote main before pushing, so concurrent sync runs stop reddening with <code>fetch first</code> rejections.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.61</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Backend store-native IAP (AUT-617): Apple App Store / Google Play receipt verification for the mobile store builds — <code>GET /billing/iap/catalog</code>, <code>POST /billing/iap/verify</code>, and <code>POST /billing/iap/webhook/{apple,google}</code>. Purchases are recorded server-side and durable; active store entitlements grant the same plans as Stripe (<code>plan_for_user</code> + <code>GET /auth/me</code> now surface <code>iap_status</code>). Renewals/refunds propagate via verify-on-refresh on <code>/auth/me</code> plus the store webhooks once the store teams configure them.</li>
+      </ul>
+      <h3>Security</h3>
+      <ul>
+        <li>Backend IAP hardening (AUT-622 review on AUT-617): App Store webhook certificate-chain verification now validates the terminal cert against Apple's root by key, not subject string (forged-root spoof closed); Play purchases are replay-protected (one store purchase grants at most one account, enforced by unique DB constraints + ownership check); Google subscriptions settle to <code>expired</code>/<code>revoked</code> on definitive non-active state; per-user verify/refresh cooldown + rate limit bound external store calls; Google Pub/Sub push JWKS cached with issuer/expiry checks.</li><li>Backend IAP webhook crash hardening (AUT-625 re-review on AUT-617): invalid-signature chain forgery on <code>POST /billing/iap/webhook/apple</code> now returns a clean 400 instead of an unhandled HTTP 500 (<code>InvalidSignature</code> caught in <code>_chain_verified</code>/<code>_verify_apple_signed_payload</code>); regression test forges the root with Apple's full subject.</li><li>Backend IAP QA follow-ups (AUT-628): first-time iOS verify of an already-expired transaction now rejects with the entitlement settling to <code>expired</code> instead of reporting <code>active</code>; added regression tests for the verify rate-limit 429 branch, Apple webhook bundle-id mismatch, empty <code>signedTransactionInfo</code> skip, and iOS refresh demotion on non-active store status. Documented that the process-local verify rate limiter is invalidated if the backend scales to multiple workers (N4).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.60</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Full-DB backups now cover every table (AUT-521): the snapshot table list is derived from the ORM metadata instead of a hand-maintained list that had drifted — <code>market_listing_cache</code> and <code>revoked_refresh_tokens</code> were missing entirely, and <code>vehicle_shares</code> was only added on 2026-08-10. A backup taken before a table was added, when restored by newer code, wiped that table's rows without re-inserting them — the mechanism that could silently remove shared vehicles during a server upgrade/restore. <code>serialize_all</code>/<code>restore_all</code> now use SQLAlchemy's FK-aware table order, and a regression test asserts the snapshot covers the full schema and that a backup/restore roundtrip preserves shared vehicles.</li><li>Demo reset no longer orphans (or crashes on) shared vehicles (AUT-521): <code>reset_demo</code> deleted the demo user + vehicles without clearing <code>vehicle_shares</code> first, so a share referencing a demo vehicle or the demo account either left orphaned rows (FK-less DBs) or blocked the deletes on Postgres (<code>NO ACTION</code>) and crashed the boot. It now deletes those shares before the user/vehicles, with a regression test covering both directions (demo as share owner and as invitee).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.59</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage "My Builds" tab now matches the feed's 12px card spacing (AUT-614): <code>my_builds_screen.dart</code> switched from <code>ListView.builder</code> to <code>ListView.separated</code> with a <code>SizedBox(height: 12)</code> separator, mirroring <code>social_screen.dart</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.58</h2>
+      <div class="date">2026-08-14</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Worker log calls no longer crash with <code>TypeError</code> on structlog-style <code>key=</code> kwargs (AUT-603): <code>tasks.py</code> used stdlib <code>logging.getLogger</code> but passed kwarg events, so <code>scheduled_backup</code> stored its snapshot then failed on the success log line. Switched to the codebase structlog <code>get_logger</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.57</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Worker daily <code>scheduled_backup</code> now stores in-stack MinIO snapshots (AUT-583): local <code>async def _run()</code> shadowed the module <code>_run(coro)</code> helper, raising <code>TypeError</code> so the daily task never wrote <code>backups/autobrain-backup-*.json</code>. Renamed to <code>_do()</code> with regression tests in <code>backend/tests/test_workers.py</code>.</li><li>Restored the Celery worker image to CI (AUT-583): <code>docker/worker/Dockerfile</code> + <code>worker</code> added to the <code>dockerhub-publish</code> and <code>build-hosted</code> image loops, so <code>autobrain-worker</code> picks up worker fixes on every merge (it had no build path since the P1-1 consolidation).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.56</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Social uploads no longer buffer the full request body before size validation (AUT-597): <code>POST /api/v1/social/uploads</code> rejects oversize <code>Content-Length</code> with 413 before reading, and a bounded read loop aborts with 415 once buffered bytes exceed the 5MB cap.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.55</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Billing hardening for the AUD currency migration (AUT-523 security follow-ups): <code>_apply_subscription</code> no longer demotes an actively-billed subscriber whose Stripe price was archived/rotated (grandfathered pre-AUD prices keep their plan until the subscription lapses), and <code>scripts/stripe-setup.py</code> refuses to archive a price that active subscriptions still reference (plus an <code>assert</code> hardened to an explicit <code>sys.exit</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.54</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Demo Community Garage builds now each ship with 3 photos (AUT-529): every demo build shows media in the feed instead of only the first build having a single image. Existing demo instances pick this up on next <code>DEMO_RESET</code> restart.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.53</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Community Garage feed search (AUT-530): search bar on the Feed tab (debounced 350ms, server-side <code>?q=</code>) filters posts by title, caption, author and server name, with a clear button and a search-aware empty state. Feed cards are now separated by 12px spacing (<code>ListView.separated</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.52</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>License opens an external browser tab on store-published mobile builds (AUT-531): the mobile License button launches the web License screen at <code>https://&amp;lt;api-origin&amp;gt;/#/license</code> in the OS browser, and the web app deep-links <code>/#/license</code> straight to the License screen. Avoids in-app purchase billing for app-store subscriptions (Apple/Google 30% IAP).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.51</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>GitHub Actions "run failed" noise (AUT-540): the publish workflow only auto-cuts releases when the ref is <code>main</code> (a <code>workflow_dispatch</code> on a feature branch no longer tries to push to <code>main</code> and fail), git identity is set before the auto-bump push/rebase retry, and the changelog gate is skipped for <code>dependabot[bot]</code> PRs (they never modify CHANGELOG.md).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.50</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Logbook GPS button on mobile (AUT-539): the "Use GPS" icon always showed "GPS unavailable" because the native (non-web) helper <code>frontend/lib/core/geoloc_io.dart</code> was a hard-coded <code>null</code>. It now uses the <code>geolocator</code> plugin: checks location services, requests permission on first use, and stamps the current <code>lat, lng</code> (10s fix timeout) into the trip start/end location. iOS: added <code>NSLocationWhenInUseUsageDescription</code>. Android permissions (<code>ACCESS_FINE/COARSE_LOCATION</code>) were already declared for the car-kit GPS path.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.49</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage federation registration on AutoBrain-Hosted (AUT-532): registering the server with the hub (<code>POST /admin/social/register</code>) returned 502 "Hub unreachable: hub not configured" because no compose file passed <code>SOCIAL_FEDERATION_HUB_URL</code> to the backend. All three compose files now wire the hub URL (default <code>https://hub.autobrainservice.app</code>) and the hosted stack registers <code>hosted=true</code> (free bundled license, per docs R5a). A regression test guards the compose wiring.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.48</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Subscription billing is now in **AUD** (AUT-523): <code>/billing/pricing</code> returns <code>currency: aud</code>, the license screen renders <code>A$</code> prices, and <code>scripts/stripe-setup.py</code> provisions/verifies Stripe prices in AUD (archiving the old USD prices). Stripe <code>STRIPE_PRICE_*</code> env values must be refreshed from a re-run of the script before checkout goes live.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.47</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Federation hub registration: <code>register()</code> now sends <code>registration_key</code> (from <code>SOCIAL_FEDERATION_HOSTED_REGISTRATION_KEY</code>, a deploy-time secret) whenever a server presents itself as <code>hosted=true</code>. Self-hosted servers send an empty key and register unlicensed as before. Closes the hosted=true free-license bypass on the hub (AUT-525).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.46</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Removed</h3>
+      <ul>
+        <li>Server version check removed entirely (AUT-461): the GitHub update check (<code>/api/v1/version/mobile</code>, the GitHub portion of <code>/admin/version</code>, and <code>backend/app/services/version.py</code>) is gone. The server no longer touches the GitHub API at all — no PAT, no anonymous rate-limit usage. <code>/admin/version</code> still returns the local server version string; the admin UI shows it without any update banner. The mobile app's release banner now uses only the release advertised by its server (<code>/auth/config app_version</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.45</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Mobile release builds failing on <code>AuthState</code> (AUT-522): the mobile-only <code>auth_state.dart</code> delta in <code>CannonFodder151/autobrain-mobile</code> had drifted from this web base and was missing the <code>freeAccount</code>/<code>premium</code> getters the synced Community Garage screens use, so every mobile release since v0.3.34+69 failed to compile. The mobile delta was re-merged onto the web base (getters + refresh-token flow restored) and a <code>flutter analyze</code> CI guard was added to <code>autobrain-mobile</code> so a stale delta can never silently break a release again.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.44</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Alembic migration chain unbroken for create_all-hybrid DBs (AUT-510): the social-tables migration <code>n4p5q6r7s8t9</code> is reparented onto the logbook head so the chain has a single head again (<code>alembic upgrade head</code> no longer fails with "Multiple head revisions"), and every DDL op in the social migrations is guarded to skip already-present tables/columns. Boot on all tiers converges to the schema head automatically; no manual <code>ALTER TABLE</code> needed anymore.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.43</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Community Garage no longer shows the "Community Garage" title twice (AUT-511): the Feed tab dropped its own app bar since the parent screen already shows the title.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.42</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Changed</h3>
+      <ul>
+        <li>Community Garage admin Settings moved out of the tab bar into the AppBar 3-dot menu (AUT-502) so it no longer takes up the whole screen; non-admins see no menu.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.41</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>My Builds tab in the Community Garage (AUT-501): view and edit your own posts. Backed by <code>GET /social/my-posts</code> + <code>PATCH /social/posts/{id}</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.40</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Hosted stack port lockdown (AUT-473): the 9Router admin dashboard + OpenAI-compatible API (<code>:20128</code>) and the app origin (<code>:8086</code>) are now bound to <code>127.0.0.1</code> only on AutoBrain-Hosted. Backend/ai reach 9Router over docker DNS (<code>http://9router:20128/v1</code>), and all client traffic is forced through Cloudflare; no plaintext origin bypass remains. Data persists on the external <code>9router-data</code> volume. See <code>docs/deployment-guide.md</code> (security/lockdown section + redeploy rules).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.39</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Changed</h3>
+      <ul>
+        <li>Community Garage moved from the app-bar menu to a home-screen feature tile button (AUT-488), matching the Fuel/Logbook style; Settings &amp; security stays in the menu.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.38</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Crafted-PDF DoS regression tests (AUT-471): new <code>backend/tests/test_pdf_dos_regression.py</code> feeds the receipt worker <code>_pdf_text()</code> oversized CID <code>/W</code> width ranges (GHSA-fwg2-594c-jp42) and large <code>/ToUnicode</code> CMaps (GHSA-fp3f-mc75-235c) and asserts fast rejection. Both runtime requirement files stay pinned to <code>pypdf==6.15.0</code> (the fix release); the existing pin-guard test enforces it.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.37</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Private-repo clones now use SSH read-only deploy keys instead of a PAT (AUT-461); the classic PAT is limited to agent-side <code>gh</code> API automation.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.36</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Version-check (AUT-461): GitHub token removed from the server entirely. The private <code>autobrain-mobile</code> release check no longer calls the GitHub API with a PAT — the release info is published to a public manifest (<code>mobile/latest.json</code> in the autobrain repo) and read unauthenticated. <code>GITHUB_TOKEN</code> deleted from backend config, compose files, and stack envs; legacy classic PAT no longer exposed at runtime.</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li><code>/api/v1/version/mobile</code> now reads the mobile release from <code>mobile/latest.json</code> (public repo) instead of the private repo's GitHub API. Deploy pipeline updates that manifest on each mobile release; no server redeploy needed for manifest updates.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.35</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Community Garage hardening (AUT-462): per-IP rate limits on social routes (429 + <code>Retry-After</code>), 5MB upload cap with 2048px downscale, 15-minute presigned URL TTL, non-owner delete returns 404, signed <code>X-Nonce</code> federation replay protection, and like/comment fan-out to remote copies with author/server/caption preservation.</li><li>Community Garage backend (AUT-332): social models/API/media under <code>backend/app/social/</code> — build posts (vehicle snapshot from existing specs + mods, deterministic — no AI), photo upload with on-upload webp compression + signed short-lived MinIO URLs, comments, likes, share links, and a federation hub client (register / outbox / inbox; the hub itself ships separately). Routes: <code>/social/feed</code>, <code>/social/posts</code>, <code>/social/posts/{id}/comments</code>, <code>/social/posts/{id}/likes</code>, <code>/social/posts/{id}/share-link</code>, <code>/social/uploads</code>.</li><li>Premium entitlement guard on all social routes (rev 4): free accounts are locked out server-side; demo accounts keep read-only access.</li><li>Two admin toggles via <code>/admin/social</code> (GET/PATCH + register/unregister): federated on/off (off = local-only feed, no hub calls) and feature on/off (off = "Disabled by your admin"). Overrides persist in <code>social_server_config</code>, seeded from env settings.</li><li>Demo seeding (req 10): <code>DEMO_MODE</code> seeds curated demo builds (feature on, federation off) with a demo photo.</li><li><code>pillow</code> pinned in backend requirements; social tables added to the backup/restore order and user-deletion cleanup.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.34</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Version-check (AUT-442): GitHub PAT no longer attached to public <code>autobrain</code> server-version checks; token now sent only for the private <code>autobrain-mobile</code> release check. Use a fine-grained read-only token scoped to <code>autobrain-mobile</code> only.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.33</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Changed</h3>
+      <ul>
+        <li>Deployment (AUT-450): hosted stack <code>docker-compose.hosted.yml</code> now references Docker Hub images (<code>cannonfodder151/autobrain-*:hosted</code>, matching the live stack) and pins the backend to a static container IP (AUT-439). Deploy log added to <code>docs/deployment-guide.md</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.32</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Alembic migration chain (AUT-450): <code>a5b6c7d8e9f0</code> (logbook <code>gps_samples</code>, AUT-395) referenced a never-existent down_revision <code>n4p5q6r7s8t9</code>, so <code>alembic upgrade head</code> crashed with <code>KeyError</code> on every boot, the create_all fallback silently skipped it, and the <code>source</code> column (AUT-362) never applied on fresh DBs (demo/hosted) — demo seed then crash-looped. Reparented to <code>k2l3m4n5o6p7</code> so the chain is linear and both columns apply.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.31</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Dependency bump (AUT-301): <code>pypdf</code> pinned <code>6.14.2</code> → <code>6.15.0</code> in <code>backend/requirements.txt</code> and <code>ai/requirements.txt</code>, fixing two DoS CVEs in crafted-PDF parsing (CVE-2026-71852 large CID font width ranges, CVE-2026-71870 large /ToUnicode streams) reachable via user-uploaded receipt PDFs in the Celery worker.</li>
+      </ul>
+      <h3>Added</h3>
+      <ul>
+        <li>Logbook trip routes on a map (AUT-395): trips recorded with GPS now carry a deterministic polyline of <code>lat,lon</code> samples (<code>logbook_entries.gps_samples</code>, JSON). Phone/car-kit auto trips buffer fixes while driving (survive app kills; ~1 fix/s, capped) and sync them on completion; the board CSV schema <code>epoch,...,lat,lon</code> (raw degrees x10^7, <code>0,0</code> = no fix) is a valid source via <code>backend/app/services/trip_gps.py::parse_board_csv</code> (invalid/out-of-range fixes dropped server-side — no AI). The logbook shows a "View route" button per trip → a full-screen OpenStreetMap route (flutter_map) with start/end markers, skipping no-fix samples. Detail endpoint <code>GET /vehicles/{id}/logbook/{entry_id}</code> returns <code>gps_samples</code> so the list stays light.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.30</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Logbook trip routes on a map (AUT-395): trips recorded with GPS now carry a deterministic polyline of <code>lat,lon</code> samples (<code>logbook_entries.gps_samples</code>, JSON). Phone/car-kit auto trips buffer fixes while driving (survive app kills; ~1 fix/s, capped) and sync them on completion; the board CSV schema <code>epoch,...,lat,lon</code> (raw degrees x10^7, <code>0,0</code> = no fix) is a valid source via <code>backend/app/services/trip_gps.py::parse_board_csv</code> (invalid/out-of-range fixes dropped server-side — no AI). The logbook shows a "View route" button per trip → a full-screen OpenStreetMap route (flutter_map) with start/end markers, skipping no-fix samples. Detail endpoint <code>GET /vehicles/{id}/logbook/{entry_id}</code> returns <code>gps_samples</code> so the list stays light.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.28</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>"Car Play / Android Auto Integration" settings submenu (AUT-366, mobile-only): honest explainer of what works (auto trip logging) vs what doesn't (head-unit OBD gauges, CarPlay OBD — Google/Apple category policy + Android-only Bluetooth SPP stack), an "Auto-start trip logging when connected to the car" toggle (wired to the OBD adapter car-connection service), and a live connection / last-trip status line. Hidden on web.</li><li>OBD automatic trip recording (AUT-362, Android): GoFar-style auto start/stop logbook trips. With the VGate iCar Pro adapter left in the car and <code>Auto-connect OBD</code> on, a foreground service keeps the app alive in the background, ignition is detected from battery voltage (PID 0142) + engine RPM (010C) + BT link-drop, and each drive lands in the logbook automatically — marked "auto (OBD)" so manual trips stay distinguishable. A mid-drive app kill no longer loses a trip (buffered locally, synced on next open). Backend: <code>logbook_entries.source</code> column (<code>manual</code>/<code>obd_auto</code>) via Alembic migration.</li><li>Phone-side auto trip logging (AUT-367, Android): auto start/stop logbook trips with no OBD adapter and no Android Auto approval. When the phone links to the car's Bluetooth (head-unit / car-kit) a trip is armed, then starts once GPS speed is sustained above a threshold (a passenger in a bus never starts one); the link dropping or the car going quiet stops and closes the trip with distance from the GPS odometer diff. Both this phone path and the VGate/OBD path (AUT-362) drive one shared auto start/stop recorder. Backend: <code>source=car_auto</code> trips and caller-provided <code>distance_km</code> accepted on logbook update. Logbook marks these "auto (car kit)".</li><li>Logbook screen (mobile + web): auto-logged trips are labelled "auto (OBD)" / "auto (car kit)" in the trip list.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Version banner inverted (AUT-346): a server behind the repo (e.g. v0.3.6 vs repo v0.3.10) was shown as "Up to date"; the <code>up_to_date</code> comparison was reversed. The banner now correctly reports "Update available" when the running server is behind.</li><li>"Get the mobile app" no longer shows inside the mobile app (AUT-428): the home-screen menu item and its download dialog are now hidden on Android/iOS builds and only offered on the web app, where downloading the app actually makes sense.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.27</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>"Car Play / Android Auto Integration" settings submenu (AUT-366, mobile-only): honest explainer of what works (auto trip logging) vs what doesn't (head-unit OBD gauges, CarPlay OBD — Google/Apple category policy + Android-only Bluetooth SPP stack), an "Auto-start trip logging when connected to the car" toggle (wired to the OBD adapter car-connection service), and a live connection / last-trip status line. Hidden on web.</li><li>OBD automatic trip recording (AUT-362, Android): GoFar-style auto start/stop logbook trips. With the VGate iCar Pro adapter left in the car and <code>Auto-connect OBD</code> on, a foreground service keeps the app alive in the background, ignition is detected from battery voltage (PID 0142) + engine RPM (010C) + BT link-drop, and each drive lands in the logbook automatically — marked "auto (OBD)" so manual trips stay distinguishable. A mid-drive app kill no longer loses a trip (buffered locally, synced on next open). Backend: <code>logbook_entries.source</code> column (<code>manual</code>/<code>obd_auto</code>) via Alembic migration.</li><li>Logbook screen (mobile + web): auto-logged trips are labelled "auto (OBD)" in the trip list.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.26</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>AI service prediction now uses the selected vehicle (AUT-398): the prediction screen fetched <code>GET /vehicles</code> and used the first entry, so it could predict for the wrong car (e.g. the Fazer) when the crown-selected vehicle was not first in the list. It now fetches <code>GET /vehicles/{id}</code> for the vehicle the user opened from.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.25</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Security</h3>
+      <ul>
+        <li>AI rate limiting (AUT-302): every AI endpoint (diagnostics, service prediction, valuation, mod impact, odometer OCR, receipt OCR, fuel-receipt OCR) now enforces per-user burst + daily caps via Redis (defaults 10/min and 50/day, env-tunable) and returns <code>429</code> on exceed. The AI gateway adds an in-memory per-IP + global window as defense in depth. Fails closed (503) if Redis is unreachable so un-metered 9Router spend is never possible.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.24</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Added</h3>
+      <ul>
+        <li>OBD clear codes (AUT-360): <code>DELETE /vehicles/{id}/obd/codes</code> clears every saved fault code for a vehicle (per-code delete unchanged). Mobile OBD screen gets a "Clear codes" action on the saved fault codes library (with confirmation) and on the live adapter card, which sends ELM327 mode 04 to clear the ECU's stored DTCs and re-reads the codes.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.23</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>OBD is hidden on web builds (AUT-364): Bluetooth Classic SPP is Android-only, so the home-screen OBD tile and the Settings "OBD features" chip no longer render on the Flutter web app (kIsWeb-gated). Mobile (autobrain-mobile) OBD is untouched.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.22</h2>
+      <div class="date">2026-08-13</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Security (AUT-303): login brute-force rate limit was bypassable by spoofing <code>X-Forwarded-For</code> (the backend trusted the client-controlled leading hop, so an attacker could rotate the header and never hit <code>LOGIN_MAX_ATTEMPTS</code>). The client IP is now derived from the trusted proxy header <code>X-Real-IP</code> (nginx sets <code>X-Real-IP $remote_addr</code>) and never from <code>X-Forwarded-For</code>. Failure counters moved from process memory to Redis (shared across workers, survive restarts) and now also count per-email as defense in depth against a misconfigured proxy.</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li>OBD VIN updates are manual only (AUT-361): connecting the adapter no longer silently writes the stored VIN. The OBD screen's Vehicle VIN card gains an **Update VIN** button that reads mode 09 PID 02 and saves it behind a confirmation, with busy + success/failure feedback (manual "Set VIN" entry kept). <code>POST /vehicles/{id}/obd/vin</code> now replaces an existing VIN instead of rejecting it with 409.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Hosted frontend now pins a static container IP on the pinned default network (AUT-372): host-level nginx-proxy-manager caches the frontend's resolved IP, so a recreated frontend with a new IP returned 502 until npm was restarted. Frontend recreates now keep the same IP and the site stays up with no npm restart.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.21</h2>
+      <div class="date">2026-08-12</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>AI service prediction now predicts for the selected vehicle (AUT-429): it always used the first vehicle in the list, so with a different vehicle selected (e.g. your Crown) it showed the wrong one (e.g. your Fazer).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.20</h2>
+      <div class="date">2026-08-12</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>"Get the mobile app" menu item no longer shows on the mobile app itself (AUT-399): <code>HomeScreen</code> only renders the download entry when not running natively on Android/iOS. <code>AppConfig._isMobile</code> → public <code>AppConfig.isMobile</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.19</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Security</h3>
+      <ul>
+        <li>MinIO bucket no longer anonymously readable (AUT-321): <code>autobrain-assets</code> anonymous <code>download</code> policy removed from <code>docker-compose.hosted.yml</code> and <code>scripts/init-minio.sh</code> (init now forces <code>anonymous set none</code>). <code>upload_object</code> returns a 1-hour presigned GET URL instead of a world-readable URL, and the frontend nginx proxies <code>/autobrain-assets/</code> to MinIO while preserving the signed Host header. Existing buckets are re-privatized on redeploy.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.18</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Frontend nginx now re-resolves the <code>backend</code> upstream via Docker's embedded DNS (<code>resolver 127.0.0.11</code> + variable <code>proxy_pass</code>) so public <code>/health</code>, <code>/api/</code> and <code>/ws/</code> survive backend container recreates without a manual frontend restart (AUT-373).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.17</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Public <code>GET /api/v1/version/mobile</code> endpoint that reports the latest published <code>autobrain-mobile</code> release (read from GitHub server-side, since the mobile repo is private). The mobile app consumes it via the connected server for its version banner (AUT-365).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.16</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Hosted/Default blank page (AUT-347): the CSP allowlisted <code>www.gstatic.com</code> but not <code>fonts.gstatic.com</code>, so CanvasKit's startup font fetch stalled the Flutter engine before the first frame. <code>fonts.gstatic.com</code> is now allowed in <code>font-src</code> + <code>connect-src</code>; text/images render again.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.15</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Car valuation now reports <code>market-anchored</code> (not <code>rule-based-fallback</code>) when live market listings anchor the estimate (AUT-354).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.14</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Version banner inverted (AUT-346): a server behind the repo (e.g. v0.3.6 vs repo v0.3.10) was shown as "Up to date"; the <code>up_to_date</code> comparison was reversed. The banner now correctly reports "Update available" when the running server is behind.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.13</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Market-data browser channel (AUT-314): a Playwright chromium worker (<code>market-data/browser.py</code>, subprocess pattern mirrored from rego-lookup-api) is wired behind the BikeGuide provider so the FingerprintJS-gated motorcycle portal gets a real-browser scrape path. Plain HTTP still runs first (fast), the browser only spawns when the page looks like a live gate, and every path degrades to a deterministic empty listing set + <code>note</code> — valuations never error. Both AU motorcycle portals were probed with a real Chromium browser: <code>bikesguide.com.au</code> is a parked/for-sale domain (no listings exist) and <code>bikesales.com.au</code> sits behind a PerimeterX hold-to-confirm challenge that does not clear from the dev/hosted networks; motorcycle valuations therefore stay on the deterministic degradation path (<code>sample_size=0</code>) until a portal opens.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Market-data parser (AUT-314): <code>carsguide._parse_nuxt_listings</code> crashed with <code>AttributeError: 'list' object has no attribute 'get'</code> when a query returned <code>marketplace</code> as a list (e.g. motorcycle searches on carsguide.com.au). Non-dict <code>marketplace</code> values are now treated as "no listings" instead of 500ing the scraper.</li><li>Market-data browser worker (AUT-314): the Playwright worker passed the search query via a non-existent <code>page.goto(params=...)</code> kwarg, so the BikeGuide browser channel failed with <code>TypeError</code>. The search URL is now built with <code>urlencode</code>; the channel verifiably reaches the parked-page path.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.12</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Rego provider logs redacted (AUT-324): <code>rego_provider_lookup</code> logs only mapped fields (make/model/year/status) instead of the raw provider payload, so registration data and VINs never reach log storage.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.11</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Hosted/default blank white screen (AUT-339): frontend CSP now allowlists <code>https://www.gstatic.com</code> in <code>script-src</code>/<code>connect-src</code>/<code>img-src</code>/<code>font-src</code> so the Flutter CanvasKit engine bundle can load; previously <code>script-src 'self'</code> and <code>connect-src 'self'</code> blocked <code>canvaskit.js</code>/<code>canvaskit.wasm</code>, so the web app never bootstrapped.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.10</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Alembic migration chain (AUT-290): <code>market_listing_cache</code> and the HNSW embedding-index migrations shared the same revision id <code>h1i2j3k4l5m6</code>, which broke <code>alembic upgrade head</code> (boot fell back to <code>create_all</code>, leaving <code>users.pending</code>/<code>users.token_version</code> and other columns unapplied). Renamed the market-cache revision to <code>h1i2j3k4l5m7</code> and folded it into the <code>m3rge01</code> merge so the chain has a single head.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.9</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Market-data scraper API (AUT-290): self-hosted <code>market-data</code> service scrapes live CarsGuide listings (no browser, via the site's SSR <code>__NUXT_DATA__</code> payload) and serves <code>POST /search</code> with <code>{query, make, model, year}</code> behind an API key — the same protocol rego-lookup uses. Wired into the hosted stack as <code>MARKET_DATA_URL</code>/<code>MARKET_DATA_API_KEY</code>, so valuations now anchor on real listings instead of showing "provider not configured".</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.8</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Added</h3>
+      <ul>
+        <li>Live used-car market data for valuations (AUT-287): resale estimates now anchor on real CarsGuide/CarSales listings fetched through a self-hosted market-data API (<code>MARKET_DATA_URL</code> + <code>MARKET_DATA_API_KEY</code>), cached 24h per make/model/year so repeated valuations return identical numbers. <code>GET /api/v1/vehicles/{id}/valuation/market</code> returns the listings + median/low/high aggregates; <code>.../valuation/market/search</code> searches live listings. When no provider is configured the deterministic model + AI advice path still runs with <code>source=fallback</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.7</h2>
+      <div class="date">2026-08-11</div>
+      <h3>Added</h3>
+      <ul>
+        <li>OBD-II integration (mobile-only, AUT-272): connect a Bluetooth ELM327 adapter (tested with VGate iCar Pro) from the OBD screen — adapter picker, connect + auto-connect toggle, live PID polling every 2s, fault-code read (modes 03 + 07, deduped to the backend) and VIN autofill on connect. The ELM327 protocol layer is pure Dart with 22 golden-adapter unit tests.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.6</h2>
+      <div class="date">2026-08-10</div>
+      <h3>Added</h3>
+      <ul>
+        <li>MinIO asset backup/restore admin endpoints (AUT-194): <code>GET /admin-api/assets/backup</code> streams a tar.gz of every object in the MinIO bucket, <code>POST /admin-api/assets/restore</code> validates + restores a gzip tar before wiping,    enabling the autobrain-backup service to back up DB snapshots and image assets together.</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li>Automatic release cutting (AUT-240): <code>scripts/auto-bump.sh</code> now runs before every app/docker build — in CI (<code>dockerhub-publish.yml</code>, <code>build-hosted.yml</code>) and local (<code>publish-images.sh</code>, <code>deploy.sh</code>). Whenever <code>CHANGELOG.md</code> has a non-empty <code>[Unreleased]</code> section, it bumps the patch version (<code>x.y.z</code> → <code>x.y.(z+1)</code>) via <code>bump-version.sh</code>, re-opens <code>[Unreleased]</code>, and commits the release — so a change can never ship without a new version. Images are additionally tagged with the release version (e.g. <code>0.3.6</code>). No AI agent needed: a deterministic gate is more reliable than an LLM for this, matching the "deterministic paths first" rule.</li><li>Changelog is now mandatory for every app/docker change (AUT-168): CI on <code>main</code> fails the Docker Hub publish if <code>backend/</code>, <code>ai/</code>, <code>frontend/</code>, <code>docker/</code> or compose files changed without a matching <code>CHANGELOG.md</code> entry. The marketing site still auto-syncs <code>CHANGELOG.md</code> and regenerates <code>changelog.html</code> on every release push, so the website changelog always reflects the shipped code.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>Security headers (AUT-234/236): frontend nginx now sends <code>Content-Security-Policy</code>, <code>X-Frame-Options: DENY</code> and <code>Referrer-Policy</code> on all responses, closing the ZAP CSP + clickjacking findings on <code>default.autobrainservice.app</code>; CSP is tuned for the Flutter web renderer (<code>'wasm-unsafe-eval'</code>, same-origin <code>connect-src</code>).</li><li>Security (AUT-234/236): server-picker example host changed from a private LAN example to <code>192.0.2.1</code> (RFC 5737 TEST-NET-1) so the built <code>main.dart.js</code> no longer embeds an RFC1918 private IP.</li><li>Asset backup no longer fails on zero-byte MinIO directory-marker objects (<code>obj.is_dir</code>/keys ending in <code>/</code>): <code>export_assets</code> skips them instead of hitting <code>NoSuchKey</code> (AUT-194).</li><li>Security: <code>/ws/{user_id}</code> WebSocket now requires a valid access JWT and fail-closes; search embedding SQL is bound-parameterized (<code>CAST(:embedding AS vector)</code>) instead of interpolated; <code>/api/v1/search</code> results are scoped to the requesting user's owned + shared vehicles (IDOR fix) (AUT-203, AUT-134).</li>
+      </ul>
+    </div>
+
     <div class="release">
       <h2>v0.3.5</h2>
       <div class="date">2026-08-09</div>
       <h3>Added</h3>
       <ul>
-        <li>Vehicle sharing (AUT-16/AUT-21/AUT-115): share a vehicle with another AutoBrain account by email (3-dot menu on the vehicle card). Pending invites sit in an <strong>Invited</strong> section with Accept/Deny, shared vehicles show an "(Invited by &lt;name&gt;)" label, and owners can remove access at any time. Available in both the web and mobile apps.</li><li>Feature gating follows the car's owner (AUT-21): a free account invited to a paid owner's vehicle inherits the owner's AI and rego entitlement on that car; a free owner still blocks those features for everyone, including invitees.</li>
+        <li>Vehicle sharing (AUT-16/AUT-21/AUT-115): share a vehicle with another AutoBrain account by email (3-dot menu on the vehicle card). Pending invites sit in an **Invited** section with Accept/Deny, shared vehicles show an "(Invited by &lt;name&gt;)" label, and owners can remove access at any time. Available in both the web and mobile apps.</li><li>Feature gating follows the car's owner (AUT-21): a free account invited to a paid owner's vehicle inherits the owner's AI and rego entitlement on that car; a free owner still blocks those features for everyone, including invitees.</li>
       </ul>
       <h3>Changed</h3>
       <ul>
-        <li>Versioning unified around a single <code>x.y.z</code>: the backend and AI gateway report <code>APP_VERSION</code> (no more stale hardcoded strings), and <code>bump-version.sh</code> updates backend, AI gateway, web, mobile and the changelog in one shot.</li><li>Public <code>GET /api/v1/auth/config</code> now returns <code>app_version</code> so the mobile app can detect when it is behind and prompt for an update on login.</li><li>Stripped sensitive info from the repo (sample number plate in the changelog, internal IPs, hostnames and hosting details in <code>.env.example</code>, config defaults, compose comments and docs).</li>
+        <li>Versioning unified around a single <code>x.y.z</code> (see <code>docs/versioning.md</code>): the backend and AI gateway report <code>APP_VERSION</code> (no more stale hardcoded strings), and <code>bump-version.sh</code> updates backend, AI gateway, web, mobile and the changelog in one shot.</li><li>Public <code>GET /api/v1/auth/config</code> now returns <code>app_version</code> so the mobile app can detect when it is behind and prompt for an update on login.</li><li>Stripped sensitive info from the repo (sample number plate in the changelog, internal IPs, hostnames and hosting details in <code>.env.example</code>, config defaults, compose comments and docs).</li>
       </ul>
     </div>
 
@@ -207,7 +922,7 @@
     </div>
     <!-- CHANGELOG-END -->
 
-    <div style="text-align:center;margin-top:8px">
+    <div class="u-center-mt-8">
       <a class="cta" href="https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md">Full changelog on GitHub</a>
     </div>
   </div>

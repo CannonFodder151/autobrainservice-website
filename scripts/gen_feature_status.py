@@ -66,10 +66,10 @@ def selftest():
     assert released_mentions_marker(live), "released mention must flip"
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "x.html"
-        p.write_text('<div class="soon" style="margin:0" data-garage-issues="soon">Coming soon</div>')
+        p.write_text('<div class="soon" data-garage-issues="soon">Coming soon</div>')
         assert flip(p, "live") and 'class="live"' in p.read_text() and 'data-garage-issues="live"' in p.read_text() and "Now live" in p.read_text()
         assert flip(p, "soon") and 'class="soon"' in p.read_text() and 'data-garage-issues="soon"' in p.read_text() and "Coming soon" in p.read_text()
-        p.write_text('<div class="soon" style="margin:0">Coming soon</div>')
+        p.write_text('<div class="soon">Coming soon</div>')
         assert not flip(p, "live"), "badge without the data marker must be untouched"
     print("gen_feature_status: selftest OK")
 
