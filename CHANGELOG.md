@@ -9,7 +9,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 > `CONTRIBUTING.md` for the frontend-parity + changelog rules.
 
 
+
 ## [Unreleased]
+
+## [0.3.81] - 2026-08-15
 
 ### Fixed
 - Community Garage photo uploads now accept iPhone/Android camera photos in
@@ -18,10 +21,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
   for default-format phone photos is resolved. Unsupported file types now show
   a clear "That photo can't be processed" message instead of a generic one
   (AUT-764).
-
-### Security
-- Marketing site hardening (AUT-771): Google Fonts are now self-hosted (`assets/fonts/*.woff2`) and every inline `style=""` moved to utility classes in `styles.css`, so the site's CSP drops `'unsafe-inline'` from `style-src` and the `fonts.googleapis.com`/`fonts.gstatic.com` origins entirely (ZAP "CSP: style-src unsafe-inline" + "CSP header not set" closed). The Cloudflare Turnstile script now carries an SRI `integrity` + `crossorigin` hash (ZAP "Sub Resource Integrity Attribute Missing" closed). Internal deployment IPs were redacted from `CHANGELOG.md`/`changelog.html` (ZAP "Private IP Disclosure" closed).
-
 
 ## [0.3.80] - 2026-08-15
 
@@ -380,7 +379,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [0.3.33] - 2026-08-13
 
 ### Changed
-- Deployment (AUT-450): hosted stack `docker-compose.hosted.yml` now references Docker Hub images (`cannonfodder151/autobrain-*:hosted`, matching the live stack) and pins the backend to a static container IP (AUT-439). Deploy log added to `docs/deployment-guide.md`.
+- Deployment (AUT-450): hosted stack `docker-compose.hosted.yml` now references Docker Hub images (`cannonfodder151/autobrain-*:hosted`, matching the live stack) and pins the backend to static IP `172.18.0.15` (AUT-439). Deploy log added to `docs/deployment-guide.md`.
 
 ## [0.3.32] - 2026-08-13
 ### Fixed
@@ -444,7 +443,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - OBD VIN updates are manual only (AUT-361): connecting the adapter no longer silently writes the stored VIN. The OBD screen's Vehicle VIN card gains an **Update VIN** button that reads mode 09 PID 02 and saves it behind a confirmation, with busy + success/failure feedback (manual "Set VIN" entry kept). `POST /vehicles/{id}/obd/vin` now replaces an existing VIN instead of rejecting it with 409.
 
 ### Fixed
-- Hosted frontend now pins a static container IP on the pinned default network (AUT-372): host-level nginx-proxy-manager caches the frontend's resolved IP, so a recreated frontend with a new IP returned 502 until npm was restarted. Frontend recreates now keep the same IP and the site stays up with no npm restart.
+- Hosted frontend now pins a static container IP (172.18.0.14) on the pinned default network (AUT-372): host-level nginx-proxy-manager caches the frontend's resolved IP, so a recreated frontend with a new IP returned 502 until npm was restarted. Frontend recreates now keep the same IP and the site stays up with no npm restart.
 
 ## [0.3.21] - 2026-08-12
 
@@ -555,7 +554,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 - Security headers (AUT-234/236): frontend nginx now sends `Content-Security-Policy`, `X-Frame-Options: DENY` and `Referrer-Policy` on all responses, closing the ZAP CSP + clickjacking findings on `default.autobrainservice.app`; CSP is tuned for the Flutter web renderer (`'wasm-unsafe-eval'`, same-origin `connect-src`).
-- Security (AUT-234/236): server-picker example host changed from a private LAN example to `192.0.2.1` (RFC 5737 TEST-NET-1) so the built `main.dart.js` no longer embeds an RFC1918 private IP.
+- Security (AUT-234/236): server-picker example host changed from `192.168.1.100` to `192.0.2.1` (RFC 5737 TEST-NET-1) so the built `main.dart.js` no longer embeds an RFC1918 private IP.
 - Asset backup no longer fails on zero-byte MinIO directory-marker objects (`obj.is_dir`/keys ending in `/`): `export_assets` skips them instead of hitting `NoSuchKey` (AUT-194).
 - Security: `/ws/{user_id}` WebSocket now requires a valid access JWT and fail-closes; search embedding SQL is bound-parameterized (`CAST(:embedding AS vector)`) instead of interpolated; `/api/v1/search` results are scoped to the requesting user's owned + shared vehicles (IDOR fix) (AUT-203, AUT-134).
 
