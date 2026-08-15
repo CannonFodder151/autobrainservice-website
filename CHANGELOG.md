@@ -13,10 +13,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
-
 ## [Unreleased]
-
-## [0.3.85] - 2026-08-15
 
 ### Security
 - market-data `POST /search` now checks the X-API-Key in constant time
