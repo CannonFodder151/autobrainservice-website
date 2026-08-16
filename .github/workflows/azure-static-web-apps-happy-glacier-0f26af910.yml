@@ -21,8 +21,6 @@ jobs:
           lfs: false
       - name: Regenerate changelog
         run: python3 scripts/gen_changelog.py
-      - name: Set Garage Issues feature status
-        run: python3 scripts/gen_feature_status.py
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -46,8 +44,6 @@ jobs:
           lfs: false
       - name: Regenerate changelog
         run: python3 scripts/gen_changelog.py
-      - name: Set Garage Issues feature status
-        run: python3 scripts/gen_feature_status.py
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
