@@ -22,20 +22,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
-
 ## [Unreleased]
-
-## [0.3.94] - 2026-08-17
 
 ### Fixed
 - Dongle provisioning (AUT-969): when the dongle rejects a push with a token
   or window error, the app now explains the fix (re-pair and retry right after
   the pairing prompt) instead of echoing the firmware's terse
   "token missing or expired".
-- Community Garage (AUT-992): duplicate `_report()` dropped the post-report
-  path to the single AUT-896 `reportBuild` implementation — the leftover
-  AUT-883 `flagBuild` copy was a merge duplicate that broke the mobile sync's
-  analyze gate on main after PR #160 merged.
 
 ## [0.3.93] - 2026-08-17
 
@@ -48,17 +41,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - Dongle BLE provisioning token read: pass the timeout as int seconds to match
   `flutter_blue_plus` 1.32.8 `Characteristic.read()` (AUT-992). A `Duration`
   here broke the mobile sync's analyze gate on main.
-
-### Security
-- CI: weekly full-resolution dependency scan now also audits the `market-data`
-  service tree (`.github/workflows/security-scan.yml` adds
-  `-r market-data/requirements.txt`); `rego-lookup-api` (a separate repo) now
-  runs its own identical weekly scan. Previously only backend + AI trees were
-  scheduled for CVE scanning, leaving the Playwright/Selenium and market-data
-  transitive trees uncovered. The scan also moves from the self-hosted runner
-  to `ubuntu-latest` because the self-hosted runner's pip index is a stale
-  mirror that cannot resolve `uvicorn==0.34.0`, which would have failed the
-  scan on every run (AUT-1019).
 
 ## [0.3.92] - 2026-08-16
 
