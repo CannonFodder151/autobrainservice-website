@@ -26,7 +26,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
+
 ## [Unreleased]
+
+## [0.3.99] - 2026-08-18
+
+### Added
+- Knowledge graph tooling (AUT-1013): added graphify skill/agent for codebase
+  analysis, queryable knowledge graph at `graphify-out/`, AST extraction, and
+  cross-file relationship mapping. Supports `/graphify` command for efficient
+  codebase navigation.
+
+## [0.3.98] - 2026-08-18
+
+### Fixed
+- License screen (AUT-1004): store build shows IAP plans only when the Play Store / App Store actually serves the advertised products. Previously, if the server had IAP products configured but the store hadn't yet published them, the plans list was empty and the License screen appeared blank — users couldn't select upgrades. Now the screen shows a "not configured" message until products are available.
 
 ## [0.3.97] - 2026-08-17
 
@@ -300,80 +315,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
   that Flutter's image picker uses to preview/read picked images, and the
   compose screens surface a "Could not read that photo" message instead of
   dropping the selection silently (AUT-756).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## [Unreleased]
 
 ## [0.3.79] - 2026-08-15
 
