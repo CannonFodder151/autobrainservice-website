@@ -14,7 +14,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
+
+## [0.3.105] - 2026-08-19
+
+### Changed
+- App logo asset (AUT-1153): updated `frontend/assets/logo.png` with refreshed AutoBrain branding.
 
 ## [0.3.104] - 2026-08-18
 
