@@ -16,15 +16,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
 
+## [0.3.107] - 2026-08-19
+
 ### Changed
-- **Marketing website pricing updated to new tiers (AUT-1163):**
-  Enthusiast $5.90/mo or $59/yr (was $9/$84), Garage $11.90/mo or $119/yr (was $19/$168).
-  Free and Club plans unchanged.
-  Removed Early-Adopter 40% sale banner, sale notes and all first-3-months discount references
-  from hosted.html, index.html FAQ/structured data, and blog posts.
-  Updated meta tags, JSON-LD Offers and schema.org pricing across the site.
+- New AUD pricing (AUT-1161/AUT-1164): Enthusiast A$5.90/mo or A$59/yr,
+  Garage A$11.90/mo or A$119/yr (was A$9/A$84 and A$19/A$168). Backend
+  `PLAN_AMOUNTS`, `scripts/stripe-setup.py`, License screen fallback prices and
+  docs updated; old AUD Stripe prices archived and new ones created under the
+  same lookup keys.
+- EARLY40 early-adopter sale sunset (AUT-1164): no longer auto-applied to
+  monthly checkouts and no longer surfaced in `/billing/pricing`; the coupon
+  stays in Stripe and remains redeemable only if a customer enters the code
+  explicitly at checkout.
 
 ## [0.3.106] - 2026-08-19
 
