@@ -258,6 +258,7 @@ p.lead.u-mt-26{margin-top:26px}
 .u-pb-48{padding-bottom:48px}
 h1.u-post-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2.3rem);text-align:left;margin-bottom:8px}
 .u-price-card{text-align:center;position:relative;padding:36px 28px}
+.u-trial-badge{color:var(--primary);font-weight:700;font-size:.85em}
 .u-py-28-8{padding:28px 0 8px}
 .u-py-48{padding:48px 0}
 .u-py-48-64{padding:48px 0 64px}
