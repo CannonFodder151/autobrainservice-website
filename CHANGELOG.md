@@ -18,6 +18,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- **Marketing website pricing updated to new tiers (AUT-1163):**
+  Enthusiast $5.90/mo or $59/yr (was $9/$84), Garage $11.90/mo or $119/yr (was $19/$168).
+  Free and Club plans unchanged.
+  Removed Early-Adopter 40% sale banner, sale notes and all first-3-months discount references
+  from hosted.html, index.html FAQ/structured data, and blog posts.
+  Updated meta tags, JSON-LD Offers and schema.org pricing across the site.
+
 ## [0.3.106] - 2026-08-19
 
 ### Fixed
