@@ -18,7 +18,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
+
+## [0.3.109] - 2026-08-20
+
+### Fixed
+- Licence upgrades broken on website (AUT-1224): the web build now always
+  uses Stripe checkout. IAP billing is gated to native Android/iOS builds —
+  on the website the hosted IAP catalogue matched "android" products (the
+  web platform is never iOS), replacing the Stripe plan cards with
+  store-only buttons and breaking upgrades.
 
 ## [0.3.108] - 2026-08-19
 
