@@ -9,6 +9,11 @@
   function utm(name) {
     return new URLSearchParams(window.location.search).get(name) || '';
   }
+  var qs = new URLSearchParams(window.location.search);
+  if (qs.get('source') === 'app') {
+    var interestSel = document.getElementById('interest');
+    if (interestSel) interestSel.value = 'App support request';
+  }
   function renderTurnstile() {
     var host = document.getElementById('turnstile-widget');
     if (!TURNSTILE_SITE_KEY || !host || !window.turnstile || host.childNodes.length) return;
