@@ -33,12 +33,6 @@
       "headers": {
         "Cache-Control": "public, max-age=3600"
       }
-    },
-    {
-      "route": "/logo.png",
-      "headers": {
-        "Cache-Control": "public, max-age=86400"
-      }
     }
   ]
 }
