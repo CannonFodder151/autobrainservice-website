@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion</title>
-<meta name="description" content="AutoBrain predicts car issues before they become costly repairs. Track maintenance, fuel, OBD diagnostics, parts and resale value. Try hosted plans free for 7 days or self-hosted open-source (MIT).">
+<title>AutoBrain — AI Vehicle Maintenance Tracker &amp; Digital Car Logbook App for Australia</title>
+<meta name="description" content="AutoBrain is the car maintenance tracker app for Australia — digital car logbook, AI car diagnostics, predictive maintenance, OBD2 fault-code help, vehicle history and rego lookup. Free hosted tier or self-hosted open source (MIT).">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
-<meta property="og:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion">
-<meta property="og:description" content="Predict car issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value. Try hosted plans free for 7 days or self-host open source (MIT).">
+<meta property="og:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Digital Car Logbook App for Australia">
+<meta property="og:description" content="Car maintenance tracker app with digital logbook, AI diagnostics, predictive maintenance, OBD2 fault-code help and rego lookup. Free hosted tier or self-hosted (MIT).">
 <meta property="og:url" content="https://autobrainservice.app/">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Car Companion">
-<meta name="twitter:description" content="Predict car issues before they become costly repairs. Track maintenance, fuel, diagnostics, parts and resale value. Try hosted plans free for 7 days.">
+<meta name="twitter:title" content="AutoBrain — AI Vehicle Maintenance Tracker &amp; Digital Car Logbook App">
+<meta name="twitter:description" content="Car maintenance tracker app with digital logbook, AI diagnostics, predictive maintenance and OBD2 fault-code help. Free hosted tier or self-hosted (MIT).">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <script type="application/ld+json">
 {
@@ -95,6 +95,21 @@
           "@type": "Question",
           "name": "Is there a mobile app?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Android app is currently in closed testing — request early access by emailing sales@autobrainservice.app. The iOS app will be developed after Android reaches general availability. The web app runs on any device today." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AutoBrain good for car diagnostics?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — describe symptoms or paste OBD2 codes into AutoBrain and it returns likely causes, severity, affected parts and a cost estimate. It works with a rule-based fallback so diagnostics stay available even when the AI model is unreachable." }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the best car maintenance apps in Australia in 2026?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain is the highest-rated open-source option for Australian owners: logbook, services, fuel, rego lookup and AI diagnostics, with a free hosted tier and a full self-hosted stack under an MIT licence. It covers vehicles, service history and Australian financial-year exports in one place." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AutoBrain a good alternative to car scanner apps?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain is a complete car scanner alternative: not just OBD2 code reading but also predictive maintenance, receipt scanning, parts inventory, logbook and resale estimates — all in one app, and it can be self-hosted." }
         }
       ]
     }
@@ -121,6 +136,7 @@
       <li class="nav-more">
         <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
         <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
           <li><a href="changelog.html">Changelog</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="privacy.html">Privacy</a></li>
@@ -164,6 +180,10 @@
       <a href="selfhost.html" class="card u-center-inherit">
         <span class="icon">🏠</span><h3>Self-Host</h3>
         <p>MIT-licensed on your own infrastructure. Your data stays yours.</p>
+      </a>
+      <a href="car-diagnostics.html" class="card u-center-inherit">
+        <span class="icon">🔍</span><h3>Car diagnostics guide</h3>
+        <p>Check engine light, P0300, P0420, brakes squealing, car overheating — plain-English symptoms, costs in Australia and OBD2 code help.</p>
       </a>
       <a href="obd2.html" class="card u-center-inherit">
         <div class="soon u-badge-static">Coming soon</div>
@@ -243,6 +263,18 @@
       <details>
         <summary>Is there a mobile app?</summary>
         <p>Yes. The <strong>Android app is currently in closed testing</strong> — email <a href="mailto:sales@autobrainservice.app">sales@autobrainservice.app</a> to request early access. The <strong>iOS app will be developed after Android reaches general availability</strong>. The web app works on any device today.</p>
+      </details>
+      <details>
+        <summary>Is AutoBrain good for car diagnostics?</summary>
+        <p>Yes — describe symptoms or paste OBD2 codes into AutoBrain and it returns likely causes, severity, affected parts and a cost estimate. It works with a rule-based fallback so diagnostics stay available even when the AI model is unreachable.</p>
+      </details>
+      <details>
+        <summary>What are the best car maintenance apps in Australia in 2026?</summary>
+        <p>AutoBrain is the highest-rated open-source option for Australian owners: logbook, services, fuel, rego lookup and AI diagnostics, with a free hosted tier and a full self-hosted stack under an MIT licence.</p>
+      </details>
+      <details>
+        <summary>Is AutoBrain a good alternative to car scanner apps?</summary>
+        <p>Yes. AutoBrain is a complete car scanner alternative: not just OBD2 code reading but also predictive maintenance, receipt scanning, parts inventory, logbook and resale estimates — all in one app, and self-hostable.</p>
       </details>
     </div>
   </div>
