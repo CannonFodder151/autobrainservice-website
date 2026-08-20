@@ -9,19 +9,39 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 > `CONTRIBUTING.md` for the frontend-parity + changelog rules.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## [Unreleased]
+
+## [0.3.114] - 2026-08-20
+
+### Changed
+- Merged the market-data scraper into the AI image (AUT-1242-C3): the separate
+  `market-data` container is gone. The AI image now runs both this AI gateway
+  (`:8001`) and the CarsGuide/BikeGuide market-data API (`:8000`) via an
+  entrypoint wrapper, saving a container in the hosted stack.
+- Entrypoint now supervises both processes: whichever uvicorn dies first tears
+  the container down so Docker restarts it; prod compose wires the scraper's
+  `API_KEY` and exposes `:8000` (AUT-1299).
+
+### Fixed
+- Aligned `pydantic` pin across `ai/requirements.txt` and `backend/requirements.txt` to
+  `pydantic==2.10.4` (AUT-1298). The divergent pin (`2.13.4` in ai/ vs `2.10.4`
+  in backend/) caused the `pip-audit-gate` CI job to fail with a duplicate
+  requirement error on PR #238.
+
+## [0.3.113] - 2026-08-20
+
+### Fixed
+- Error page handling (AUT-1240): home screen now distinguishes an expired
+  session (401) from a backend-offline/network failure, showing a "Log out"
+  action and "Your login has expired" message for the former instead of a
+  generic "could not reach the server" error. Login screen differentiates
+  backend-offline from failed credentials, shows a "Contact support" button,
+  and provides the correct error message for each case.
+
+## [0.3.112] - 2026-08-20
+
+### Changed
+- Hosted stack merges Celery worker + beat into one container (AUT-1242): `docker-compose.hosted.yml` drops the `beat` service; the `worker` service now runs `celery ... worker -B` (saves 1 container on the hosted stack).
 
 ## [0.3.111] - 2026-08-20
 
