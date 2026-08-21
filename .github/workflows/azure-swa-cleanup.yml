@@ -1,0 +1,61 @@
+name: Azure SWA Staging Cleanup
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # daily 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  cleanup-staging:
+    runs-on: [self-hosted, linux, x64]
+    name: Cleanup Stale Staging Environments
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: List and delete stale staging environments (>7 days)
+        env:
+          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          APP_NAME=$(echo "$AZURE_STATIC_WEB_APPS_API_TOKEN" | cut -d'/' -f1)
+          # Fallback: derive from repo if token parsing fails
+          if [ -z "$APP_NAME" ] || [ "$APP_NAME" = "$AZURE_STATIC_WEB_APPS_API_TOKEN" ]; then
+            APP_NAME="happy-glacier-0f26af910"
+          fi
+          RESOURCE_GROUP=$(az staticwebapp show -n "$APP_NAME" --query resourceGroup -o tsv 2>/dev/null || echo "autobrainservice-rg")
+          
+          echo "Cleaning staging envs for app: $APP_NAME in RG: $RESOURCE_GROUP"
+          
+          # List all staging environments with creation time
+          az staticwebapp environment list \
+            --name "$APP_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --query "[?type=='staging'].{name:name, created:createdTime}" -o tsv | \
+          while IFS=$'\t' read -r env_name created; do
+            if [ -z "$env_name" ]; then continue; fi
+            # Parse ISO date, compute age
+            epoch_created=$(date -d "$created" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%S" "$created" +%s 2>/dev/null || echo 0)
+            epoch_now=$(date +%s)
+            age_days=$(( (epoch_now - epoch_created) / 86400 ))
+            if [ "$epoch_created" -gt 0 ] && [ "$age_days" -gt 7 ]; then
+              echo "Deleting stale env: $env_name (age: ${age_days}d)"
+              az staticwebapp environment delete --name "$APP_NAME" --resource-group "$RESOURCE_GROUP" --environment-name "$env_name" --yes || true
+            fi
+          done
