@@ -60,10 +60,21 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
+    continue-on-error: true
     steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          action: "close"
+      - name: Close Pull Request (with retry)
+        env:
+          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt: Closing PR staging environment..."
+            if npx -y azure-static-web-apps-deploy@latest close --token "$AZURE_STATIC_WEB_APPS_API_TOKEN"; then
+              echo "Successfully closed PR staging environment"
+              exit 0
+            fi
+            echo "Attempt $attempt failed, retrying in 10s..."
+            sleep 10
+          done
+          echo "All retry attempts failed, but continuing (continue-on-error: true)"
+          exit 0
