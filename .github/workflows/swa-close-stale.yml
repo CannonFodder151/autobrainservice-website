@@ -21,4 +21,8 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_GLACIER_0F26AF910 }}
           action: "close"
-          pull_request_number: ${{ inputs.pr_number }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_EVENT_NUMBER: ${{ inputs.pr_number }}
+          GITHUB_EVENT_NAME: pull_request
+          GITHUB_EVENT_ACTION: closed
