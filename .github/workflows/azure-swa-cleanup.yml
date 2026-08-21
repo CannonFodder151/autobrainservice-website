@@ -30,6 +30,7 @@ jobs:
             echo "has_creds=true" >> $GITHUB_OUTPUT
             echo "AZURE_CREDENTIALS found - will use service principal login"
           else
+            echo "has_oidc=false" >> $GITHUB_OUTPUT
             echo "has_creds=false" >> $GITHUB_OUTPUT
             echo "No Azure credentials found - skipping cleanup"
           fi
