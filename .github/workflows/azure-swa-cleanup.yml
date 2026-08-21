@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
   cleanup-staging:
@@ -20,42 +19,64 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Install Azure CLI
-        run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: List and delete stale staging environments (>7 days)
         env:
           AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
         run: |
           set -euo pipefail
-          APP_NAME=$(echo "$AZURE_STATIC_WEB_APPS_API_TOKEN" | cut -d'/' -f1)
-          # Fallback: derive from repo if token parsing fails
-          if [ -z "$APP_NAME" ] || [ "$APP_NAME" = "$AZURE_STATIC_WEB_APPS_API_TOKEN" ]; then
+          TOKEN_RAW="${AZURE_STATIC_WEB_APPS_API_TOKEN}"
+          # Token format: <appName>/<token> or just <token>
+          if [[ "$TOKEN_RAW" == */* ]]; then
+            APP_NAME="${TOKEN_RAW%%/*}"
+            API_TOKEN="${TOKEN_RAW#*/}"
+          else
+            # Fallback from repo config
             APP_NAME="happy-glacier-0f26af910"
+            API_TOKEN="$TOKEN_RAW"
           fi
-          RESOURCE_GROUP=$(az staticwebapp show -n "$APP_NAME" --query resourceGroup -o tsv 2>/dev/null || echo "autobrainservice-rg")
+          echo "Cleaning staging envs for app: $APP_NAME"
           
-          echo "Cleaning staging envs for app: $APP_NAME in RG: $RESOURCE_GROUP"
+          # Azure SWA REST API base
+          API_BASE="https://management.azure.com/providers/Microsoft.Web/staticSites/${APP_NAME}/staticSiteEnvironments"
+          API_VERSION="2022-03-01"
           
-          # List all staging environments with creation time
-          az staticwebapp environment list \
-            --name "$APP_NAME" \
-            --resource-group "$RESOURCE_GROUP" \
-            --query "[?type=='staging'].{name:name, created:createdTime}" -o tsv | \
-          while IFS=$'\t' read -r env_name created; do
-            if [ -z "$env_name" ]; then continue; fi
-            # Parse ISO date, compute age
+          # List all staging environments
+          response=$(curl -s -H "Authorization: Bearer ${API_TOKEN}" \
+            "${API_BASE}?api-version=${API_VERSION}")
+          
+          # Check if response is valid JSON and has value array
+          if ! echo "$response" | jq -e '.value' >/dev/null 2>&1; then
+            echo "Failed to list environments. Response: $response"
+            exit 1
+          fi
+          
+          # Process each staging environment
+          echo "$response" | jq -c '.value[] | select(.properties.environmentType == "Staging") | {name: .name, created: .properties.createdTime}' | \
+          while IFS= read -r env_json; do
+            env_name=$(echo "$env_json" | jq -r '.name')
+            created=$(echo "$env_json" | jq -r '.created')
+            
+            if [ -z "$env_name" ] || [ "$env_name" = "null" ]; then
+              continue
+            fi
+            
+            # Parse ISO date, compute age in days
             epoch_created=$(date -d "$created" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%S" "$created" +%s 2>/dev/null || echo 0)
             epoch_now=$(date +%s)
             age_days=$(( (epoch_now - epoch_created) / 86400 ))
+            
             if [ "$epoch_created" -gt 0 ] && [ "$age_days" -gt 7 ]; then
               echo "Deleting stale env: $env_name (age: ${age_days}d)"
-              az staticwebapp environment delete --name "$APP_NAME" --resource-group "$RESOURCE_GROUP" --environment-name "$env_name" --yes || true
+              del_response=$(curl -s -w "\n%{http_code}" -X DELETE \
+                -H "Authorization: Bearer ${API_TOKEN}" \
+                "${API_BASE}/${env_name}?api-version=${API_VERSION}")
+              http_code=$(echo "$del_response" | tail -n1)
+              if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+                echo "  Deleted successfully"
+              else
+                echo "  Delete failed (HTTP $http_code): $(echo "$del_response" | head -n1)"
+              fi
+            else
+              echo "Keeping env: $env_name (age: ${age_days}d)"
             fi
           done
