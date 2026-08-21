@@ -16,13 +16,26 @@ jobs:
   close:
     runs-on: [self-hosted, linux, x64]
     steps:
+      - name: Create fake PR close event
+        run: |
+          mkdir -p /tmp/fake-event
+          cat > /tmp/fake-event/event.json << JSON
+          {
+            "action": "closed",
+            "pull_request": {
+              "number": ${{ inputs.pr_number }},
+              "head": { "ref": "pr-${{ inputs.pr_number }}" }
+            },
+            "repository": {
+              "full_name": "${{ github.repository }}"
+            }
+          }
+          JSON
+          echo "GITHUB_EVENT_PATH=/tmp/fake-event/event.json" >> $GITHUB_ENV
+          cat /tmp/fake-event/event.json
+
       - name: Close stale staging environment
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HAPPY_GLACIER_0F26AF910 }}
           action: "close"
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_EVENT_NUMBER: ${{ inputs.pr_number }}
-          GITHUB_EVENT_NAME: pull_request
-          GITHUB_EVENT_ACTION: closed
