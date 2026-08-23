@@ -21,54 +21,14 @@ concurrency:
 
 jobs:
   hygiene:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Close stale PRs and delete stale branches
     steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
       - name: Sweep stale branches (warn first, then close + delete)
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const dry = context.eventName === 'workflow_dispatch' && '${{ inputs.dry_run }}' === 'true';
-            const staleDays = 14;
-            const cutoff = Date.now() - staleDays * 86400 * 1000;
-            const marker = '<!-- branch-hygiene -->';
-            const { data: repoInfo } = await github.rest.repos.get({ owner, repo });
-            const def = repoInfo.default_branch;
-            const prs = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'open', per_page: 100 });
-            const prByBranch = new Map();
-            for (const p of prs) {
-              if (p.head.repo && p.head.repo.full_name === `${owner}/${repo}`) prByBranch.set(p.head.ref, p);
-            }
-            const branches = await github.paginate(github.rest.repos.listBranches, { owner, repo, per_page: 100 });
-            const actions = [];
-            for (const b of branches) {
-              if (b.name === def || b.protected) continue;
-              const c = await github.rest.repos.getCommit({ owner, repo, ref: b.name });
-              if (Date.parse(c.data.commit.committer.date) >= cutoff) continue;
-              const pr = prByBranch.get(b.name);
-              if (pr) {
-                const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number: pr.number, per_page: 100 });
-                const warned = comments.some(x => (x.body || '').includes(marker));
-                if (!warned) {
-                  actions.push(`warn PR #${pr.number} (${b.name})`);
-                  if (!dry) {
-                    await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body: `Warning: branch \`${b.name}\` has had no activity for ${staleDays} days. This PR will be automatically closed and its branch deleted by scheduled branch hygiene unless it sees activity. ${marker}` });
-                  }
-                } else {
-                  actions.push(`close PR #${pr.number} + delete branch ${b.name}`);
-                  if (!dry) {
-                    await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body: `Auto-closed by scheduled branch hygiene: branch \`${b.name}\` inactive past the ${staleDays}-day warning. Reopen or push to restore. Closing removes the SWA staging environment.` });
-                    await github.rest.pulls.update({ owner, repo, pull_number: pr.number, state: 'closed' });
-                    await github.rest.git.deleteRef({ owner, repo, ref: `heads/${b.name}` }).catch(e => { if (![403, 404, 422].includes(e.status)) throw e; });
-                  }
-                }
-              } else {
-                actions.push(`delete branch ${b.name} (no open PR)`);
-                if (!dry) {
-                  await github.rest.git.deleteRef({ owner, repo, ref: `heads/${b.name}` }).catch(e => { if (![403, 404, 422].includes(e.status)) throw e; });
-                }
-              }
-            }
-            core.notice(dry ? '[DRY RUN] Planned:\n' + (actions.join('\n') || 'nothing') : (actions.join('\n') || 'No stale branches.'));
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true && 'true' || 'false' }}
+        run: python3 scripts/branch_hygiene.py

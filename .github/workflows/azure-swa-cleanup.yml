@@ -19,75 +19,15 @@ concurrency:
 
 jobs:
   cleanup-staging:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Purge orphaned staging environments (SWA data plane)
     steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
       - name: Probe data plane and sweep closed-PR preview environments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-        run: |
-          set -euo pipefail
-          DRY="false"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then DRY="true"; fi
-          if [ -z "${SWA_TOKEN:-}" ]; then
-            echo "::warning::AZURE_STATIC_WEB_APPS_API_TOKEN missing — cannot reach data plane."
-            echo "## SWA staging cleanup: skipped, no deploy token" >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          HOST="${SWA_TOKEN%%/*}"
-          case "$HOST" in
-            *.*) ;;
-            *) HOST="${HOST:-happy-glacier-0f26af910}.azurestaticapps.net" ;;
-          esac
-          DP="https://$HOST"
-          echo "Data plane host: $HOST"
-          SUMMARY="$GITHUB_STEP_SUMMARY"
-
-          # Probe undocumented listing surface (GET only). 200 = discovery; 401/403 = exists but wrong auth shape; 404 = absent.
-          {
-            echo "## SWA staging cleanup ($DRY run)"
-            echo "### Data-plane list probes"
-            echo '| endpoint | HTTP |'
-            echo '| --- | --- |'
-          } >> "$SUMMARY"
-          for ep in staging-environments list_environments environments list_builds builds; do
-            code=$(curl -s -o /tmp/probe.json -w '%{http_code}' -H "Authorization: Bearer $SWA_TOKEN" "$DP/$ep?api-version=1.0" || echo ERR)
-            echo "| \`/$ep\` | $code |" >> "$SUMMARY"
-            echo "probe GET /$ep -> $code"
-            if [ "$code" = "200" ]; then
-              echo "listing body (truncated): $(head -c 1500 /tmp/probe.json)"
-            fi
-          done
-
-          # Orphan sweep: preview envs are created per PR and removed by close_pull_request.
-          # Re-issue close_pull_request for every closed PR — idempotent GC of envs whose close job failed historically.
-          echo '### Closed-PR purge sweep' >> "$SUMMARY"
-          page=1
-          total=0
-          while [ "$page" -le 5 ]; do
-            resp=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=closed&per_page=100&page=$page") || resp=""
-            nums=$(echo "$resp" | jq -r '.[].number' 2>/dev/null || true)
-            if [ -z "$nums" ]; then break; fi
-            for n in $nums; do
-              total=$((total+1))
-              if [ "$DRY" = "true" ]; then
-                echo "[dry] would close_pull_request PR #$n" | tee -a "$SUMMARY"
-              else
-                code=$(curl -s -o /tmp/close.out -w '%{http_code}' -X POST -H "Authorization: Bearer $SWA_TOKEN" "$DP/close_pull_request?api-version=1.0&pullrequestId=$n" || echo ERR)
-                echo "close_pull_request PR #$n -> $code"
-                if [ "$code" != "200" ] && [ "$code" != "404" ] && [ "$code" != "ERR" ]; then
-                  echo "unexpected response: $(head -c 300 /tmp/close.out)"
-                fi
-              fi
-            done
-            count=$(echo "$resp" | jq 'length')
-            [ "$count" -lt 100 ] && break
-            page=$((page+1))
-          done
-          if [ "$DRY" = "true" ]; then
-            echo "**[dry] would re-close $total closed PR(s) to purge orphaned envs**" >> "$SUMMARY"
-          else
-            echo "**Re-closed $total closed PR(s) against the data plane**" >> "$SUMMARY"
-          fi
-          echo "Open PRs untouched — branch-hygiene.yml closes those properly so close_pull_request_job cascades."
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true && 'true' || 'false' }}
+        run: python3 scripts/swa_dataplane_cleanup.py
