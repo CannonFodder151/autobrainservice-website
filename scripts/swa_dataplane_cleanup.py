@@ -44,7 +44,7 @@ def main():
             continue
         ev = os.path.join(ws, f"event-{n}.json")
         with open(ev, "w") as f:
-            json.dump({"event_name": "pull_request", "pull_request": {"number": n}}, f)
+            json.dump({"event_name": "pull_request", "action": "closed", "pull_request": {"number": n}}, f)
         cmd = [
             "docker", "run", "--rm",
             "-e", "INPUT_ACTION=close",
@@ -57,9 +57,10 @@ def main():
         ]
         r = subprocess.run(cmd, env={**os.environ, "INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN": SWA_TOKEN},
                            capture_output=True, text=True, timeout=180)
-        out = (r.stdout + r.stderr).strip().splitlines()
-        tail = out[-1] if out else ""
-        print(f"PR #{n} -> rc={r.returncode} {tail[:160]}")
+        out = [l for l in (r.stdout + r.stderr).strip().splitlines() if l.strip()]
+        print(f"PR #{n} -> rc={r.returncode}")
+        for line in out[-8:]:
+            print(f"    {line[:200]}")
         if r.returncode == 0:
             ok += 1
         else:
