@@ -1,5 +1,11 @@
 name: Azure Static Web Apps CI/CD
 
+# AUT-1465: GITHUB_TOKEN defaulted to read-only, so the SWA action's
+# staging-URL PR comment failed ("Unexpectedly failed to add GitHub comment").
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   push:
     branches:
