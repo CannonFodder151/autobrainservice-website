@@ -50,4 +50,15 @@ jobs:
             -v /tmp/event7.json:/w/event.json \
             mcr.microsoft.com/appsvc/staticappsclient:stable 2>&1 | tail -40
           echo "exit=$?"
+          docker run --rm \
+            -e INPUT_ACTION=close \
+            -e INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN="$SWA_TOKEN" \
+            -e GITHUB_EVENT_PATH=/w/event.json \
+            -e GITHUB_EVENT_NAME=pull_request \
+            -e GITHUB_WORKSPACE=/w \
+            -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
+            -v /tmp/event7.json:/w/event.json \
+            --entrypoint /bin/sh \
+            mcr.microsoft.com/appsvc/staticappsclient:stable \
+            -c "cd /bin/staticsites && ./StaticSitesClient close; echo direct_rc=$?" 2>&1 | tail -30
           docker run --rm mcr.microsoft.com/appsvc/staticappsclient:stable sh -c "ls -la /bin/staticsites/ | head -8; cd /bin/staticsites && ./StaticSitesClient 2>&1 | head -20; echo inner_exit=\$?"
