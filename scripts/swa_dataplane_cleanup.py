@@ -37,8 +37,7 @@ def main():
     if not SWA_TOKEN:
         print("::warning::AZURE_STATIC_WEB_APPS_API_TOKEN missing - cannot reach data plane.")
         return 0
-    host = SWA_TOKEN.split("/")[0] or FALLBACK_HOST
-    dp = "https://" + (host if "." in host else host + ".azurestaticapps.net")
+    dp = "https://" + FALLBACK_HOST
     print(f"data plane: {dp} dry={DRY}")
 
     print("## data-plane list probes")
