@@ -4,87 +4,90 @@ on:
   schedule:
     - cron: '0 3 * * *'  # daily 03:00 UTC
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dispatch runs: probe + list planned purges only'
+        type: boolean
+        default: true
 
 permissions:
-  contents: read
-  id-token: write
+  pull-requests: read
+
+concurrency:
+  group: swa-cleanup
+  cancel-in-progress: false
 
 jobs:
   cleanup-staging:
-    runs-on: [self-hosted, linux, x64]
-    name: Cleanup Stale Staging Environments
+    runs-on: ubuntu-latest
+    name: Purge orphaned staging environments (SWA data plane)
     steps:
-      - name: Checkout
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          submodules: true
-          lfs: false
-
-      - name: Verify Azure credentials
-        id: check-creds
-        run: |
-          if [ -n "${{ secrets.AZURE_CLIENT_ID }}" ] && [ -n "${{ secrets.AZURE_TENANT_ID }}" ] && [ -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ]; then
-            echo "has_oidc=true" >> $GITHUB_OUTPUT
-            echo "OIDC secrets found - will use federated login"
-          elif [ -n "${{ secrets.AZURE_CREDENTIALS }}" ]; then
-            echo "has_creds=true" >> $GITHUB_OUTPUT
-            echo "AZURE_CREDENTIALS found - will use service principal login"
-          else
-            echo "has_oidc=false" >> $GITHUB_OUTPUT
-            echo "has_creds=false" >> $GITHUB_OUTPUT
-            echo "No Azure credentials found - skipping cleanup"
-          fi
-
-      - name: Login to Azure (OIDC)
-        if: steps.check-creds.outputs.has_oidc == 'true'
-        uses: azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          auth-type: OIDC
-
-      - name: Login to Azure (Service Principal)
-        if: steps.check-creds.outputs.has_creds == 'true'
-        uses: azure/login@cb79c773a3cfa27f31f25eb3f677781210c9ce3d # v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: List and delete stale staging environments (>7 days)
-        if: steps.check-creds.outputs.has_oidc == 'true' || steps.check-creds.outputs.has_creds == 'true'
+      - name: Probe data plane and sweep closed-PR preview environments
         env:
-          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
         run: |
           set -euo pipefail
-          TOKEN_RAW="${AZURE_STATIC_WEB_APPS_API_TOKEN}"
-          if [[ "$TOKEN_RAW" == */* ]]; then
-            APP_NAME="${TOKEN_RAW%%/*}"
-          else
-            APP_NAME="happy-glacier-0f26af910"
+          DRY="false"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then DRY="true"; fi
+          if [ -z "${SWA_TOKEN:-}" ]; then
+            echo "::warning::AZURE_STATIC_WEB_APPS_API_TOKEN missing — cannot reach data plane."
+            echo "## SWA staging cleanup: skipped, no deploy token" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
-          RESOURCE_GROUP=$(az staticwebapp show -n "$APP_NAME" --query resourceGroup -o tsv 2>/dev/null || echo "autobrainservice-rg")
-          
-          echo "Cleaning staging envs for app: $APP_NAME in RG: $RESOURCE_GROUP"
-          
-          az staticwebapp environment list \
-            --name "$APP_NAME" \
-            --resource-group "$RESOURCE_GROUP" \
-            --query "[?type=='staging'].{name:name, created:createdTime}" -o tsv | \
-          while IFS=$'\t' read -r env_name created; do
-            if [ -z "$env_name" ]; then continue; fi
-            epoch_created=$(date -d "$created" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%S" "$created" +%s 2>/dev/null || echo 0)
-            epoch_now=$(date +%s)
-            age_days=$(( (epoch_now - epoch_created) / 86400 ))
-            if [ "$epoch_created" -gt 0 ] && [ "$age_days" -gt 7 ]; then
-              echo "Deleting stale env: $env_name (age: ${age_days}d)"
-              az staticwebapp environment delete --name "$APP_NAME" --resource-group "$RESOURCE_GROUP" --environment-name "$env_name" --yes || true
-            else
-              echo "Keeping env: $env_name (age: ${age_days}d)"
+          HOST="${SWA_TOKEN%%/*}"
+          case "$HOST" in
+            *.*) ;;
+            *) HOST="${HOST:-happy-glacier-0f26af910}.azurestaticapps.net" ;;
+          esac
+          DP="https://$HOST"
+          echo "Data plane host: $HOST"
+          SUMMARY="$GITHUB_STEP_SUMMARY"
+
+          # Probe undocumented listing surface (GET only). 200 = discovery; 401/403 = exists but wrong auth shape; 404 = absent.
+          {
+            echo "## SWA staging cleanup ($DRY run)"
+            echo "### Data-plane list probes"
+            echo '| endpoint | HTTP |'
+            echo '| --- | --- |'
+          } >> "$SUMMARY"
+          for ep in staging-environments list_environments environments list_builds builds; do
+            code=$(curl -s -o /tmp/probe.json -w '%{http_code}' -H "Authorization: Bearer $SWA_TOKEN" "$DP/$ep?api-version=1.0" || echo ERR)
+            echo "| \`/$ep\` | $code |" >> "$SUMMARY"
+            echo "probe GET /$ep -> $code"
+            if [ "$code" = "200" ]; then
+              echo "listing body (truncated): $(head -c 1500 /tmp/probe.json)"
             fi
           done
 
-      - name: Skip cleanup - no credentials
-        if: steps.check-creds.outputs.has_creds == 'false' && steps.check-creds.outputs.has_oidc == 'false'
-        run: |
-          echo "::warning::No Azure credentials configured (AZURE_CLIENT_ID/TENANT_ID/SUBSCRIPTION_ID for OIDC, or AZURE_CREDENTIALS for SP). Skipping cleanup."
-          echo "Configure OIDC federated credentials in Entra ID for this repo, or add AZURE_CREDENTIALS secret, to enable automated cleanup."
+          # Orphan sweep: preview envs are created per PR and removed by close_pull_request.
+          # Re-issue close_pull_request for every closed PR — idempotent GC of envs whose close job failed historically.
+          echo '### Closed-PR purge sweep' >> "$SUMMARY"
+          page=1
+          total=0
+          while [ "$page" -le 5 ]; do
+            resp=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls?state=closed&per_page=100&page=$page") || resp=""
+            nums=$(echo "$resp" | jq -r '.[].number' 2>/dev/null || true)
+            if [ -z "$nums" ]; then break; fi
+            for n in $nums; do
+              total=$((total+1))
+              if [ "$DRY" = "true" ]; then
+                echo "[dry] would close_pull_request PR #$n" | tee -a "$SUMMARY"
+              else
+                code=$(curl -s -o /tmp/close.out -w '%{http_code}' -X POST -H "Authorization: Bearer $SWA_TOKEN" "$DP/close_pull_request?api-version=1.0&pullrequestId=$n" || echo ERR)
+                echo "close_pull_request PR #$n -> $code"
+                if [ "$code" != "200" ] && [ "$code" != "404" ] && [ "$code" != "ERR" ]; then
+                  echo "unexpected response: $(head -c 300 /tmp/close.out)"
+                fi
+              fi
+            done
+            count=$(echo "$resp" | jq 'length')
+            [ "$count" -lt 100 ] && break
+            page=$((page+1))
+          done
+          if [ "$DRY" = "true" ]; then
+            echo "**[dry] would re-close $total closed PR(s) to purge orphaned envs**" >> "$SUMMARY"
+          else
+            echo "**Re-closed $total closed PR(s) against the data plane**" >> "$SUMMARY"
+          fi
+          echo "Open PRs untouched — branch-hygiene.yml closes those properly so close_pull_request_job cascades."
