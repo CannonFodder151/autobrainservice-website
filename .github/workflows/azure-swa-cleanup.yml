@@ -50,3 +50,4 @@ jobs:
             -v /tmp/event7.json:/w/event.json \
             mcr.microsoft.com/appsvc/staticappsclient:stable 2>&1 | tail -40
           echo "exit=$?"
+          docker run --rm mcr.microsoft.com/appsvc/staticappsclient:stable sh -c "ls -la /bin/staticsites/ | head -8; cd /bin/staticsites && ./StaticSitesClient 2>&1 | head -20; echo inner_exit=\$?"
