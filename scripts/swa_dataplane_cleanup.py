@@ -36,7 +36,8 @@ def main():
         page += 1
     print(f"closed PRs to re-close: {len(nums)}")
 
-    ws = tempfile.mkdtemp(prefix="swaclose")
+    ws = os.path.join(os.environ.get("GITHUB_WORKSPACE") or tempfile.mkdtemp(prefix="swaclose"), ".swa-events")
+    os.makedirs(ws, exist_ok=True)
     ok = fail = 0
     rejected = []
     for n in nums:
