@@ -46,7 +46,27 @@ def main():
         line = f"probe GET /{ep} -> {code}"
         if code == 200:
             line += " | " + body.decode(errors="replace")[:1500]
-        print(line)
+            print(line)
+
+    if DRY:
+        print("## close-variant diagnostics (route from StaticSitesClient.dll)")
+        for pr in [33, 999999]:
+            for label, path, payload in [
+                ("json-camel-bearer", "/api/pullrequest/close?apiVersion=v1&deploymentCorrelationId=11111111-1111-1111-1111-111111111111", {"pullRequestId": pr}),
+                ("query-param-bearer", f"/api/pullrequest/close?apiVersion=v1&pullRequestId={pr}", None),
+                ("json-pascal-bearer", "/api/pullrequest/close?apiVersion=v1", {"PullRequestId": pr}),
+            ]:
+                req = urllib.request.Request(dp + path, method="POST",
+                    data=json.dumps(payload).encode() if payload else b"",
+                    headers={"Authorization": "Bearer " + SWA_TOKEN, "Content-Type": "application/json", "User-Agent": "swa-cleanup"})
+                try:
+                    with urllib.request.urlopen(req, timeout=30) as r:
+                        print(f"PR#{pr} {label} -> {r.status} {r.read()[:200]!r}")
+                        break
+                except urllib.error.HTTPError as e:
+                    print(f"PR#{pr} {label} -> {e.code} {e.read()[:200]!r}")
+                except Exception as e:
+                    print(f"PR#{pr} {label} -> ERR {e}")
 
     page = 1
     total = purged = 0
