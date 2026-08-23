@@ -42,3 +42,5 @@ The Android app is distributed through **Google Play closed testing** (no APK is
 ## Contact
 
 sales@autobrainservice.app · [AutoBrain app source](https://github.com/CannonFodder151/autobrain)
+
+<!-- AUT-1451 purge verification -->
