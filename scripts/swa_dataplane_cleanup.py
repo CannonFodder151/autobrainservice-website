@@ -46,8 +46,15 @@ def main():
             continue
         evd = os.path.join(ws, str(n))
         os.makedirs(evd, exist_ok=True)
+        req1 = urllib.request.Request(f"{API}/pulls/{n}", headers={"Authorization": "Bearer " + GH_TOKEN, "User-Agent": "swa-cleanup"})
+        with urllib.request.urlopen(req1) as r:
+            pr = json.load(r)
+        req2 = urllib.request.Request(f"{API}", headers={"Authorization": "Bearer " + GH_TOKEN, "User-Agent": "swa-cleanup"})
+        with urllib.request.urlopen(req2) as r:
+            repo = json.load(r)
         with open(os.path.join(evd, "event.json"), "w") as f:
-            json.dump({"event_name": "pull_request", "action": "closed", "repository": {"default_branch": "main"}, "pull_request": {"number": n}}, f)
+            json.dump({"event_name": "pull_request", "action": "closed", "number": n,
+                       "pull_request": pr, "repository": repo}, f)
         cmd = [
             "docker", "run", "--rm",
             "-e", "INPUT_ACTION=close",
