@@ -7,7 +7,7 @@ import urllib.request
 
 REPO = os.environ["GITHUB_REPOSITORY"]
 SWA_TOKEN = os.environ.get("SWA_TOKEN", "")
-GH_TOKEN = os.environ["GITHUB_TOKEN"]
+GH_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 DRY = os.environ.get("DRY_RUN", "true") == "true"
 API = "https://api.github.com/repos/" + REPO
 FALLBACK_HOST = "happy-glacier-0f26af910.azurestaticapps.net"
