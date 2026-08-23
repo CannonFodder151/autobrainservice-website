@@ -32,3 +32,21 @@ jobs:
           SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true && 'true' || 'false' }}
         run: python3 scripts/swa_dataplane_cleanup.py
+
+      - name: Debug single close (dispatch only)
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run != true
+        env:
+          SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        run: |
+          set -x
+          echo '{"event_name":"pull_request","action":"closed","pull_request":{"number":7}}' > /tmp/event7.json
+          docker run --rm \
+            -e INPUT_ACTION=close \
+            -e INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN="$SWA_TOKEN" \
+            -e GITHUB_EVENT_PATH=/w/event.json \
+            -e GITHUB_EVENT_NAME=pull_request \
+            -e GITHUB_WORKSPACE=/w \
+            -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
+            -v /tmp/event7.json:/w/event.json \
+            mcr.microsoft.com/appsvc/staticappsclient:stable 2>&1 | tail -40
+          echo "exit=$?"
