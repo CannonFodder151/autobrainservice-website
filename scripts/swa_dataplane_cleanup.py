@@ -74,7 +74,7 @@ def main():
         if bad:
             rejected.append(n)
         print(f"PR #{n} -> {'REJECTED' if bad else 'ok'}")
-        for line in out[-4:]:
+        for line in out[-12:]:
             print(f"    {line[:200]}")
         if r.returncode == 0:
             ok += 1
