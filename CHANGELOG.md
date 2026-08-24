@@ -22,6 +22,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Website: merch page nav brand uses the AutoBrain logo again — the AutoBrain Shop logo is only used on the AutoBrain Shop site (AUT-1565).
+
 ## [0.3.131] - 2026-08-24
 
 ### Changed
