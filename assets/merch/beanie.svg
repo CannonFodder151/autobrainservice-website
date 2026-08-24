@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450" role="img" aria-label="AutoBrain Beanie placeholder photo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e14"/>
+      <stop offset="1" stop-color="#05131c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="450" fill="url(#g)"/>
+  <rect x="1.5" y="1.5" width="597" height="447" fill="none" stroke="#00B7FF" stroke-opacity="0.35" stroke-width="3"/>
+  <g fill="none" stroke="#00B7FF" stroke-opacity="0.12">
+    <path d="M0 90H600M0 180H600M0 270H600M0 360H600M100 0V450M200 0V450M300 0V450M400 0V450M500 0V450"/>
+  </g>
+  <circle cx="300" cy="120" r="14" fill="#00B7FF"/>
+  <path d="M220 250 C220 170 250 134 300 134 C350 134 380 170 380 250 Z" fill="none" stroke="#00B7FF" stroke-width="5"/>
+  <rect x="212" y="250" width="176" height="42" rx="10" fill="none" stroke="#00B7FF" stroke-width="5"/>
+  <text x="300" y="278" font-family="sans-serif" font-size="20" font-weight="800" fill="#00B7FF" text-anchor="middle">AB</text>
+  <text x="300" y="340" font-family="sans-serif" font-size="30" font-weight="700" fill="#F5F7FA" text-anchor="middle">AutoBrain Beanie</text>
+  <text x="300" y="380" font-family="sans-serif" font-size="17" fill="#9CA3AF" text-anchor="middle">Photo coming soon</text>
+</svg>
