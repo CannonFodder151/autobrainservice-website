@@ -19,7 +19,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
-- Website: Merch store page (`merch.html`) with the AutoBrain beanie product card and Merch nav link on all pages. Buy button shows "Coming soon" until the Stripe Payment Link is wired (AUT-1530)
+- Website: Merch store page (`merch.html`) with the AutoBrain beanie product card and Merch nav link on all pages. Buy button now opens the live Stripe Payment Link checkout (A$55 AUD) (AUT-1530)
 
 ## [0.3.127] - 2026-08-23
 
