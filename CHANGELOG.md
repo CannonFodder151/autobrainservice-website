@@ -18,6 +18,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Website: Merch store page (`merch.html`) with product-card grid (stickers, t-shirt, OBD2 adapter, cap) and Merch nav link on all pages. Buy buttons are placeholder "Coming soon" until Stripe Payment Links are wired (AUT-1530)
+
 ## [0.3.127] - 2026-08-23
 
 ### Added

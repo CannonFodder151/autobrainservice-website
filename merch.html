@@ -3,56 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoBrain for Car Clubs — a perk members actually use</title>
-<meta name="description" content="AutoBrain for car clubs: a dedicated hosted instance so members track vehicles and share service history. Club plan with onboarding and priority support.">
+<title>Merch — AutoBrain | Gear for Car Enthusiasts</title>
+<meta name="description" content="Official AutoBrain merch — stickers, shirts, caps and the AutoBrain OBD2 adapter for car enthusiasts. Secure checkout via Stripe.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
-<link rel="canonical" href="https://autobrainservice.app/car-clubs.html">
+<link rel="canonical" href="https://autobrainservice.app/merch.html">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
-<meta property="og:title" content="AutoBrain for Car Clubs">
-<meta property="og:description" content="A dedicated AutoBrain instance for your club — members track vehicles, share history, and keep renewing for the value.">
-<meta property="og:url" content="https://autobrainservice.app/car-clubs.html">
+<meta property="og:title" content="Merch — AutoBrain | Gear for Car Enthusiasts">
+<meta property="og:description" content="Official AutoBrain merch — stickers, shirts, caps and the AutoBrain OBD2 adapter.">
+<meta property="og:url" content="https://autobrainservice.app/merch.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AutoBrain for Car Clubs">
-<meta name="twitter:description" content="A dedicated AutoBrain instance for your club — members track vehicles, share history, and keep renewing for the value.">
+<meta name="twitter:title" content="Merch — AutoBrain">
+<meta name="twitter:description" content="Official AutoBrain merch — stickers, shirts, caps and the AutoBrain OBD2 adapter.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
-<link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
-    { "@type": "ListItem", "position": 2, "name": "AutoBrain for Car Clubs", "item": "https://autobrainservice.app/car-clubs.html" }
+    { "@type": "ListItem", "position": 2, "name": "Merch", "item": "https://autobrainservice.app/merch.html" }
   ]
 }
 </script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Car Clubs",
-      "item": "https://autobrainservice.app/car-clubs.html"
-    }
-  ]
-}
-</script> 
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -89,37 +68,57 @@
 
 <section class="page">
   <div class="container">
-    <h1>AutoBrain for car clubs —<br><span class="b">a perk members actually use</span></h1>
-    <p class="lead">A dedicated hosted instance for your club. Members track their vehicles, share service history, and renew because the perk is genuinely useful — not just another login they ignore.</p>
+    <h1>Auto<span class="b">Brain</span> Merch</h1>
+    <p class="lead">Gear for people who love their cars as much as we do. Checkout is handled securely by Stripe — all prices in AUD.</p>
 
-    <div class="grid u-grid-2col">
-      <div class="card">
-        <span class="icon">🏎️</span>
-        <h3>Dedicated deployment</h3>
-        <p>Your own AutoBrain instance, branded to feel like part of the club — no per-member sign-up maze.</p>
+    <!-- ponytail: placeholder catalogue + disabled buy buttons; swap each .cta-disabled span for
+         <a class="cta" href="https://buy.stripe.com/..." rel="noopener">Buy now</a> when Nathan's
+         Stripe Payment Links land (see AUT-1530). Plain anchors keep CSP script-src 'self' intact. -->
+    <div class="merch-grid">
+
+      <div class="card merch-card">
+        <img src="assets/merch/sticker-pack.svg" alt="AutoBrain sticker pack" width="600" height="450" loading="lazy">
+        <div class="merch-body">
+          <h3>Sticker Pack</h3>
+          <p>Five die-cut vinyl stickers — logo, wrench badge and glow variants. Weatherproof.</p>
+          <div class="merch-price">$8 <span>AUD</span></div>
+          <span class="cta cta-disabled" aria-disabled="true">Coming soon</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="icon">🗂️</span>
-        <h3>Shared vehicle history</h3>
-        <p>Members track vehicles and share service history within the club — the collective knowledge that keeps members coming back.</p>
+
+      <div class="card merch-card">
+        <img src="assets/merch/tshirt.svg" alt="AutoBrain t-shirt" width="600" height="450" loading="lazy">
+        <div class="merch-body">
+          <h3>T-Shirt</h3>
+          <p>Glow-print AutoBrain logo on premium cotton. Sizes S–XXL.</p>
+          <div class="merch-price">$35 <span>AUD</span></div>
+          <span class="cta cta-disabled" aria-disabled="true">Coming soon</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="icon">🇦🇺</span>
-        <h3>Club-reg aware</h3>
-        <p>Club-registered vehicles get their logbook handled correctly — no confusing logbook prompts for club plates.</p>
+
+      <div class="card merch-card">
+        <img src="assets/merch/obd2-adapter.svg" alt="AutoBrain OBD2 Bluetooth adapter" width="600" height="450" loading="lazy">
+        <div class="merch-body">
+          <h3>OBD2 Bluetooth Adapter</h3>
+          <p>The plug-and-play adapter tuned for the AutoBrain diagnostics guide.</p>
+          <div class="merch-price">$45 <span>AUD</span></div>
+          <span class="cta cta-disabled" aria-disabled="true">Coming soon</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="icon">🎓</span>
-        <h3>Priority support &amp; onboarding</h3>
-        <p>On the Club plan you get hands-on onboarding and priority support, so the rollout is on us, not you.</p>
+
+      <div class="card merch-card">
+        <img src="assets/merch/cap.svg" alt="AutoBrain workshop cap" width="600" height="450" loading="lazy">
+        <div class="merch-body">
+          <h3>Workshop Cap</h3>
+          <p>Embroidered logo cap. One size fits most grease monkeys.</p>
+          <div class="merch-price">$25 <span>AUD</span></div>
+          <span class="cta cta-disabled" aria-disabled="true">Coming soon</span>
+        </div>
       </div>
+
     </div>
 
-    <div class="u-center">
-      <a class="cta" href="mailto:sales@autobrainservice.app?subject=Club%20plan">Talk to sales</a>
-      <a class="cta-outline" href="contact.html">Request a demo</a>
-      <p class="u-mt-14-muted">Club is a dedicated deployment priced on enquiry — <a href="contact.html">send us a message</a> and we'll scope it with you.</p>
-    </div>
+    <p class="u-center-muted">Questions about an order or bulk club pricing? <a href="contact.html">Contact us</a>.</p>
   </div>
 </section>
 
@@ -129,8 +128,6 @@
     <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="contact.html">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a> · <a href="#" rel="noopener" aria-label="AutoBrain on X (coming soon)">X</a> · <a href="#" rel="noopener" aria-label="AutoBrain on Instagram (coming soon)">Instagram</a></div>
   </div>
 </footer>
-
 <script src="nav.js"></script>
-
 </body>
 </html>
