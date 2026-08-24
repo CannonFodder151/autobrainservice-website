@@ -24,6 +24,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Fixed
+- Website: About page hero replaced with the new AutoBrain banner (AUT-1560).
 - Website: merch page nav brand uses the AutoBrain logo again — the AutoBrain Shop logo is only used on the AutoBrain Shop site (AUT-1565).
 
 ## [0.3.132] - 2026-08-24
