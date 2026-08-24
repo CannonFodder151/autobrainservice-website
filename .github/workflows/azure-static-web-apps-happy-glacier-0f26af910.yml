@@ -9,6 +9,12 @@ on:
     branches:
       - main
 
+# SWA staging quota is app-wide: serialize uploads so concurrent main/PR deploys
+# never race environment creation (transient "max staging environments" BadRequest).
+concurrency:
+  group: swa-upload
+  cancel-in-progress: false
+
 jobs:
   build_and_deploy_job:
     if: github.event_name != 'pull_request'
