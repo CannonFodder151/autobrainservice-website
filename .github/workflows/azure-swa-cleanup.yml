@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   cleanup-staging:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Purge orphaned staging environments (SWA data plane)
     steps:
       - name: Checkout
