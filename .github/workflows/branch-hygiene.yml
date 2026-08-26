@@ -21,7 +21,9 @@ concurrency:
 
 jobs:
   hygiene:
-    runs-on: [self-hosted, linux, x64]
+    # AUT-1661: Moved from self-hosted (offline) to GitHub-hosted.
+    # Only runs a Python script + gh CLI — no Docker, no hardware deps.
+    runs-on: ubuntu-latest
     name: Close stale PRs and delete stale branches
     steps:
       - name: Checkout
