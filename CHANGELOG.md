@@ -28,10 +28,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
 ## [Unreleased]
 
-### Added
-- Blog: "What is AutoBrain?" — overview post covering the five core features (ATO logbook, fuel tracking, service records, mods tracker, Community Garage). Approved by human CMO (AUT-1572).
+## [0.3.140] - 2026-08-26
+
+### Fixed
+- Security: validated Discord webhook URL pattern in notification preferences to block SSRF via user-controlled webhook URLs; added `follow_redirects=False` as defense-in-depth (AUT-1603).
 
 ## [0.3.139] - 2026-08-26
 
