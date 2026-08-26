@@ -30,6 +30,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Blog: "What is AutoBrain?" — overview post covering the five core features (ATO logbook, fuel tracking, service records, mods tracker, Community Garage). Approved by human CMO (AUT-1572).
+
 ## [0.3.139] - 2026-08-26
 
 ### Fixed
