@@ -31,6 +31,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- CI: Azure SWA staging cleanup now runs on `ubuntu-latest` (self-hosted runners are unreliable); script improved with fork-PR skip, 100-PR cap, and per-PR outcome summary (AUT-1645).
+
 ## [0.3.140] - 2026-08-26
 
 ### Fixed

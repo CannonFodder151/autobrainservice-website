@@ -20,13 +20,13 @@ concurrency:
 
 jobs:
   cleanup-staging:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
     name: Purge orphaned staging environments (SWA data plane)
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - name: Probe data plane and sweep closed-PR preview environments
+      - name: Sweep closed-PR preview environments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
