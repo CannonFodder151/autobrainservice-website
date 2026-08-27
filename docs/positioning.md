@@ -4,9 +4,9 @@
 
 ## Core positioning
 
-**Tagline:** *Australian car maintenance that works offline.*
+**Tagline:** *Australian car maintenance with reliable AI.*
 
-**Elevator pitch:** AutoBrain is the car maintenance tracker built for Australians — digital logbook, rego lookup, fuel tracking, AI diagnostics and resale estimates. The AI works even when the network is down (deterministic rule-based fallbacks first), and you can self-host it for free or let us run it for you.
+**Elevator pitch:** AutoBrain is the car maintenance tracker built for Australians — digital logbook, rego lookup, fuel tracking, AI diagnostics and resale estimates. The AI works even when external AI services are unreachable (deterministic rule-based fallbacks first), and you can self-host it for free or let us run it for you.
 
 ## Pillars
 

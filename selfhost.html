@@ -88,7 +88,7 @@
       <ul>
         <li><strong>Your data stays yours</strong> — vehicles, records, receipts and backups never leave your infrastructure.</li>
         <li><strong>Free forever</strong> — MIT-licensed, no subscriptions, no artificial limits.</li>
-        <li><strong>Your own AI router</strong> — point it at any OpenAI-compatible router, or run offline with rule-based fallbacks.</li>
+        <li><strong>Your own AI router</strong> — point it at any OpenAI-compatible router, or use the built-in rule-based fallbacks (no external AI provider required).</li>
         <li><strong>No lock-in</strong> — full profile export and restore any time.</li>
       </ul>
     </div>
@@ -99,7 +99,7 @@
 cd autobrain
 cp .env.example .env</code></pre>
       </li>
-      <li><strong>Set your AI router</strong> — point <code>AI_ROUTER_URL</code> at any OpenAI-compatible router. No router? The built-in rule-based fallbacks keep everything working offline.</li>
+        <li><strong>Set your AI router</strong> — point <code>AI_ROUTER_URL</code> at any OpenAI-compatible router. No router? The built-in rule-based fallbacks keep AI features working without an external provider.</li>
       <li><strong>Bring it up</strong>:
         <pre><code>docker compose -f docker-compose.prod.yml up -d --build</code></pre>
       </li>
