@@ -11,11 +11,68 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
+
+
+
+
+
+
+
+
 ## [Unreleased]
 
-### Added
-- Website: coming-soon landing page for the Petrol Price Map — a paid data feature (paid hosted plans, not free tier) covering WA, NSW/ACT, QLD and (launching 14 Sep 2026) VIC, with SA/TAS/NT to follow; self-hosters supply their own fuel-price data API key. AUT-1857.
+### Fixed
+- **Shared-vehicle fuel-up "did not save" (AUT-1884):** a best-effort background
+  due-notification task dispatched after a fuel-up save ran via Celery; when the
+  broker (Redis) was momentarily down the dispatch raised AFTER the row was
+  committed and surfaced a 500 to the client — so the fill-up persisted but the
+  app read it as a failed save. The dispatch is now fire-and-forget
+  (`fire_and_forget`) and never masks a committed write. The same safe dispatch
+  is now used for receipt OCR + service-due sweeps everywhere `.delay()` was
+  called directly.
+- **Receipt OCR "did not work" (AUT-1884):** the fuel-receipt upload endpoint
+  gated the entire operation (including deterministic photo storage) behind the
+  AI rate limiter, which fails closed to 503 when Redis is unavailable — so a
+  Redis blip dropped the receipt and skipped OCR entirely. The limiter is now
+  best-effort (fail-open) for the storage/deterministic-OCR path; 9Router
+  enrichment still falls back to the rule-based baseline. Tesseract OCR also
+  now pre-processes receipt photos (grayscale -> 2x upscale -> Otsu threshold)
+  for far more reliable text extraction from phone photos.
+- **Camera did not open on receipt upload (AUT-1884):** the "Scan fuel receipt"
+  button now opens the device camera directly (ImagePicker) with a "Choose from
+  files" gallery option, instead of always launching the file picker.
 
+## [0.3.167] - 2026-08-29
+
+## [0.3.166] - 2026-08-29
+
+### Security
+- **CI security gate / AUT-1746:** new `security-pr-gate.yml` runs on every PR and push to `main`: (1) **gitleaks detect** — blocks on any committed secret (`.gitleaks.toml` extends the vendored `gitleaks` v8.18.1 default ruleset + an AutoBrain allowlist of known non-secret fixtures/examples so the gate survives the squash-merge workflow); (2) **trivy config (misconfig)** on every Dockerfile build target (`docker/frontend`, `docker/backend`, `docker/ai`, `docker/worker`, `market-data`) — fails on HIGH/CRITICAL; (3) **pip-audit** on `backend/`, `ai/` and `market-data/` requirements (extends the existing PR gate to market-data); (4) **flutter pub audit** (`dart pub audit`) on `frontend/`. Compose misconfig is covered by the existing `trivy-image-scan.yml` (digest-pin + base-image CVE scan of the postgres/nginx/python images compose references) rather than a structural compose gate — current trivy has no compose misconfig scanner, and `docker compose config` false-errors on the working dev/hosted stacks, so it was intentionally not added to avoid blocking on non-issues. Combined with the existing `security-scan.yml` (weekly full-resolution pip-audit + external image scans), this closes the "no visible CI security gate" gap. Residual risk drops from Medium toward Low once these jobs are set as required status checks in branch protection.
+- **Security reporting / AUT-1882:** `docs/security.md` now classifies the 9Router `:20128` port as **source-restricted, NOT internet-exposed** (reachable only from the allow-listed dev egress IP `122.199.30.128/32` + the internal docker subnet `172.18.0.0/16`, all else dropped by `fw-keeper`). Added explicit false-positive guidance: a scan launched from the allow-listed egress IP sees the port open *by design* and must not be reported as "accessible from the internet"; confirm non-exposure with multi-source external probes (e.g. check-host.net nodes), which time out. Stops the recurring false "9Router is internet-accessible" finding.
+
+## [0.3.165] - 2026-08-29
+
+## [0.3.164] - 2026-08-29
+
+### Added
+- Fuel: accurate 7-Eleven fuel prices via projectzerothree.info (`GET /vehicles/{id}/fuel/prices/7eleven`) — deterministic, no AI. Cheapest-by-region and nearest-store modes for auto-filling price-per-litre (AUT-1887).
+
+## [0.3.163] - 2026-08-29
+
+## [0.3.162] - 2026-08-29
+
+## [0.3.161] - 2026-08-29
+
+### Security
+- Backend (market-data): `_client_ip()` now honors `X-Forwarded-For` only when the direct socket peer is in the `TRUSTED_PROXIES` allowlist (mirroring `rego-lookup-api`), so spoofed `X-Forwarded-For` headers can no longer rotate per-IP rate-limit buckets (CWE-602, AUT-1741). Default (no `TRUSTED_PROXIES`) is unchanged: the socket peer keys the IP bucket and XFF is ignored.
+
+## [0.3.160] - 2026-08-29
+
+## [0.3.159] - 2026-08-29
+
+### Fixed
+- Backend: full-DB JSON backup now emits strict RFC-8259 JSON — non-finite Postgres `FLOAT` values (NaN/`Infinity` from `0/0` or divide-by-zero) are coerced to `null` instead of writing the invalid `NaN`/`Infinity` tokens that off-box backup agents reject (the "failed backup jobs for hosted" failure, AUT-1854). `scheduled_backup` also honours `BACKUP_ENABLED`.
 
 ## [0.3.158] - 2026-08-29
 
