@@ -195,17 +195,6 @@ pre code{color:var(--primary)}
 .back-link{display:inline-block;margin-bottom:24px;color:var(--muted);font-size:.9rem}
 .back-link:hover{color:var(--primary)}
 
-/* merch */
-.merch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
-.merch-card{padding:0;overflow:hidden;text-align:center;display:flex;flex-direction:column}
-.merch-card img{width:100%;height:auto;display:block;border-bottom:1px solid var(--border)}
-.merch-card .merch-body{padding:22px;display:flex;flex-direction:column;gap:8px;flex:1}
-.merch-card h3{font-size:1.1rem}
-.merch-price{font-family:"Orbitron",sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary);text-shadow:0 0 18px rgba(0,183,255,0.35)}
-.merch-price span{font-size:.8rem;font-weight:400;color:var(--muted);font-family:"Exo 2",sans-serif}
-.merch-body .cta{margin-top:auto;font-size:.95rem;padding:10px 18px;display:inline-block;align-self:center}
-.cta-disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.4);box-shadow:none}
-
 /* testimonials */
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 auto 48px;max-width:1080px}
 @media(max-width:900px){.testimonials{grid-template-columns:1fr;max-width:560px}}
