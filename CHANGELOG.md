@@ -11,11 +11,133 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+## [Unreleased]
+
+## [0.3.158] - 2026-08-29
+
+## [0.3.157] - 2026-08-29
+
+### Added
+- **Upgrade path for instances (AUT-1847):** new
+  `scripts/upgrade-instances.sh` redeploys the Demo → Default → Hosted Portainer
+  stacks in promotion order (pullImage, health-gated). Owned by the Deployment
+  Lead: CI publishes an image, posts a Discord `#ops` notify, and the Deployment
+  Lead triggers `deploy-instances.yml` (workflow_dispatch) to run the upgrade
+  path — no blind/automatic deploy (board direction).
+- **Real redeploy fix (AUT-1847):** the Portainer stack update now passes
+  `pullImage=true`, so the freshly published image is actually pulled and changed
+  services recreated. Without it the compose re-applied with the same digest and
+  instances silently never updated.
+
+### Fixed
+- **Hosted redeploy could never succeed (AUT-1847):** `docker-compose.hosted.yml`
+  required `POSTGRES_USER`/`POSTGRES_DB` via `${VAR:?...}`; a stack env missing
+  them failed compose interpolation. Now defaulted to `autobrain`, so a redeploy
+  can never fail at interpolation.
+
+
+
+
 
 
 ## [Unreleased]
 
-## [0.3.147] - 2026-08-28
+## [0.3.156] - 2026-08-29
+
+## [0.3.155] - 2026-08-29
+
+## [0.3.154] - 2026-08-28
+
+## [0.3.153] - 2026-08-28
+
+### Changed
+- **CI (AUT-1802):** OCR review job confined to the x64 runner (vm2); the arm64 Oracle VM runner is reserved exclusively for building arm images. Review/merge no longer stalls on the scarce arm runner.
+- **CI (AUT-1814):** when the advisory OCR (Open Code Review) gate stalls or fails, an approving review is submitted automatically so PRs don't park waiting on a manual gate. OCR remains non-blocking; real gating is other checks + owning-department QA/Security sign-off.
+- **Hosted (AUT-1713):** added `dongle-server` firmware-distribution service to the Oracle VM hosted stack (Portainer EP5) — MinIO-backed static asset serving, `/health` on 8012, `DONGLE_SERVER_API_KEY`/web-basic-auth injected via Portainer secrets (supersedes AUT-1673 naming).
+
+### Fixed
+- feat: add autobrain-dongle-server to hosted stack (AUT-1673) (gardened, AUT-1777).
+
+
+- API: rego-lookup endpoint now enforces a per-user hourly rate limit (default 20/hour, configurable via `REGO_RATE_LIMIT_PER_HOUR`, fail-open on Redis outage) to protect the downstream AU rego service (AUT-1607).
+
+- IAP: gracefully fall back to Stripe checkout when product IDs are not configured in the Play Store — prevents Google Play's native "in-app purchases not available" overlay from blocking the upgrade flow (AUT-1149).
+
+### Fixed
+- **AI gateway (AUT-1810):** AI router URL normalised to the corporate 9Router endpoint `http://10.0.3.17:20128/v1` (env `AI_ROUTER_URL` canonicalised) so OCR/AI calls never drift to a wrong/blank router.
+
+
+### Security
+- Hardened Redis in `docker-compose.prod.yml` — added `--requirepass` and updated healthcheck to authenticate; environment variable `REDIS_PASSWORD` is now required (AUT-1600).
+
+
+### Security
+- **Security (AUT-1735):** Bumped `docker/backend`, `docker/ai`, `docker/worker` and `market-data` Dockerfiles off the vulnerable `python:3.12-slim` base (trivy reported 18 HIGH/CRITICAL CVEs: CVE-2026-13221 perl RCE, CVE-2026-42496 perl-Archive-Tar path traversal, CVE-2026-8376 perl heap overflow, CVE-2026-14456 OpenSSL QUIC DoS, CVE-2026-11822/11824 SQLite FTS5 code exec, CVE-2025-7458 SQLite integer overflow, CVE-2023-45853 zlib heap overflow). All python bases now pin `python:3.13-slim@sha256:...` by digest. Added a python base-image scan to `.github/workflows/trivy-image-scan.yml` (`--severity HIGH,CRITICAL --exit-code 1`) plus a pin guard that fails any floating `FROM python:*` tag. `rego-lookup-api/Dockerfile` (separate private repo) tracked in follow-up AUT-1735-r1.
+
+
+### Security
+- (AUT-1181) Fail-closed secret defaults (HIGH): `SECRET_KEY` no longer has a
+  development default that can forge JWTs — missing/placeholder values (the
+  historic `change-me` and `change-me-to-a-long-random-string`) require a real
+  key (`python -c "import secrets; print(secrets.token_urlsafe(64))"`); in
+  `development` only, an ephemeral random key is generated per boot.
+  `ADMIN_API_KEY` must be ≥ 32 chars when enabled; when `STRIPE_SECRET_KEY`
+  is set, an empty `STRIPE_WEBHOOK_SECRET` now crashes at startup so forged
+  webhooks cannot mutate subscriptions.
+
+
+### Fixed
+- AI: rate limiter evicts stale buckets on overflow instead of clearing all entries, preventing 10K+ IP rotation from keeping limits perpetually ineffective (AUT-1605).
+
+
+### Fixed
+- **AUT-1185** AI gateway OOM DoS + auth bypass + prompt injection (security):
+  - social_image module: `width`/`height` now clamped to 200–2048 via Pydantic
+    validator — prevents ~3×10¹⁸-byte allocation from `width=height=999999999`.
+  - router_client: router response capped at 1 MB (`_MAX_ROUTER_RESPONSE_BYTES`),
+    nested schema validation enforces max depth 4 and max array length 100.
+  - router_client: user payload now wrapped in `<untrusted_user_data>` tags with
+    an explicit system instruction to treat it as data only (prompt-injection
+    mitigation).
+  - main: `AI_ENV=development` no longer disables auth; only the explicit
+    `AI_GATEWAY_AUTH_DISABLED=1` opt-out opens `/v1/*`.
+- **AUT-1185** Per-caller HMAC keyed auth is deferred — see follow-up issue for
+  rollout requiring backend coordination (key rotation + revocation lifecycle).
+
+### Added
+- Regression tests: `test_run_clamps_oversized_dimensions`, `test_validate_nested_depth_and_length`,
+  `test_ai_env_development_no_longer_bypasses_auth`, `test_enhance_drops_nested_too_deep`.
+
+
+### Fixed
+- **App (AUT-1771):** The 7-day free trial now appears on the Android (and iOS) app. The trial chip/Copy/CTA were previously hidden whenever the store (IAP) purchase path was active — and the hosted instance reports IAP as enabled, so Android users never saw the offer. The trial is now surfaced for both the Stripe checkout path and the store path, driven by the per-account `trial_available`/`trial_days` flags from `GET /auth/me`. Note: for the store path the native Google Play / App Store subscription base plan must be configured with the 7-day free trial for it to apply; the Stripe monthly checkout already grants it via `trial_period_days`.
+
+## [0.3.152] - 2026-08-28
+
+### Security
+- **CI/Infra (AUT-1739):** `market-data/Dockerfile` no longer runs as root (CWE-250): creates a non-root `appuser` (uid 1000), chowns the app tree, and sets `USER appuser`. Playwright Chromium's `chrome-sandbox` is kept root-owned + setuid (`4755`) so the market-data scraper sandboxes untrusted third-party content as non-root; `market-data/browser.py` (`scrape_sca`) now launches Chromium sandboxed and only falls back to `--no-sandbox` when the sandboxed launch fails (matching `scrape_bikesguide`). The `ai` image (`docker/ai/Dockerfile`, already non-root) now also sets the SUID bit on its Playwright Chromium `chrome-sandbox`. The `ai` service in `docker-compose{.prod,.hosted,yml}` now sets `shm_size: 256m` for an adequate `/dev/shm`.
+
+### Added
+- **CI/Ops (AUT-1720):** `scripts/runner-watchdog.sh` + `infra/systemd/gh-runner-watchdog.{service,timer}` (with `gh-runner-watchdog.sudoers` NOPASSWD drop-in) that self-heal the x64 runner. Each tick probes dockerd with a hard timeout and, only after repeated unresponsive probes (so a slow multi-minute `docker buildx` publish is never killed), restarts containerd + docker and prunes orphaned buildx/builder state. It also restarts a `Runner.Listener` stuck in uninterruptible sleep. Deployed live on the vm2 x64 runner host (`gh-runner2`).
+- **CI/Ops (AUT-1720):** `ci-queue-guard.yml` scheduled workflow that automatically cancels GitHub Actions runs left `queued` on a branch that has been merged/deleted — the exact condition that wedged the x64 publish pipeline (the run becomes an un-cancellable GitHub zombie that makes the queue look frozen).
+
+### Fixed
+- **CI/Ops (AUT-1720):** The x64 self-hosted runner no longer freezes indefinitely during heavy `docker buildx build --push` publishes. Root cause was an intermittent dockerd wedge (publish job would hang until GitHub killed it with `context deadline exceeded`); the new watchdog restarts the daemon proactively before it wedges the next job.
+
+
+
+## [0.3.150] - 2026-08-28
+
+- Market-data rate limiting now keys the per-IP limit on the socket remote address instead of `X-Forwarded-For`, so a forged forwarded header can no longer rotate the bucket and evade the limit (AUT-1326).
+- The market-data Playwright Chromium now launches **sandboxed**, falling back to `--no-sandbox` only when the sandboxed launch actually fails (AUT-1326).
+## [0.3.149] - 2026-08-28
+
+### Fixed
+- Deployment (hosted): `9Router` on `:20128` is now reachable at the public IP `http://152.69.188.133:20128/` from the allow-listed dev egress IP `122.199.30.128` (e.g. home). It was previously bound to `127.0.0.1` (ops via SSH tunnel only), making it unreachable. `docker-compose.hosted.yml` rebinds `:20128` to `0.0.0.0`; the host firewall (`fw-keeper`) now allows `:20128` from the dev IP + the internal docker subnet `172.18.0.0/16` and drops everything else. Backend/ai still call 9Router over docker DNS (`http://9router:20128/v1`) — the internal-subnet allow is required, since a blanket `DOCKER-USER` drop silently broke `backend → 9router`. AUT-1754.
+## [0.3.148] - 2026-08-28
+
+
+- Backend: SSRF hardening for Discord webhook URLs (AUT-1603). `discord_webhook_url` now allowlists `https://discord.com/api/webhooks/{id}/{token}` at two layers — a Pydantic `field_validator` on the notification-preference schema rejects non-Discord URLs at input time, and `_send_discord` re-checks the pattern before the outbound `httpx` call as defense-in-depth (rejecting internal/loopback addresses). `NotificationPreferenceOut` response schema restored so the preferences API keeps working.
 
 ### Added
 - Parts: Supercheap Auto parts-guide lookup integrated into market-data container. Users can now extract SCA parts categories by rego+state (via Playwright browser) or manually (plain HTTP). Integration provides clean Inventory-formatted JSON with 9Router tidying. AI suggested services now prefill parts (inventory-first, then SCA secondary). Feature AUT-1792.
@@ -42,6 +164,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - CI: tagged auto-bump commits `[skip ci]` so the version-cut push no longer re-triggers `build-hosted.yml`/`dockerhub-publish.yml` and cancels the in-flight multi-arch release build — this unblocks the missing `:hosted` image (AUT-1756, root cause AUT-1762).
 
 ## [0.3.142] - 2026-08-27
+
+### Added
+- CI: wired `CI_TRIAGE_WEBHOOK_SECRET`, `CI_TRIAGE_PARENT_ISSUE_ID`, `CI_TRIAGE_GOAL_ID`, `CI_TRIAGE_AGENT_ID`, and `PAPERCLIP_*` env into the AutoBrain-Hosted backend service in `docker-compose.hosted.yml`, so the merged CI triage webhook receiver (`backend/app/api/v1/ci.py`) is configured and reachable and can relay GitHub Actions CI failures into Paperclip (AUT-1751).
+
+
+## [Unreleased]
 
 ### Added
 - CI: added CI triage webhook receiver at `POST /api/v1/ci/webhook` with bearer auth, fail-closed PAPERCLIP config validation, and `repo`/`ref` payload validation to create Paperclip issues from GitHub Actions CI failures, replacing the broken n8n webhook (AUT-1669).
