@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rego Lookup Australia — Check Vehicle Registration &amp; History | AutoBrain</title>
-<meta name="description" content="Australian rego lookup — check vehicle registration status, expiry, and details using your rego number. AutoBrain's built-in rego check pulls live data from a rego-data provider.">
+<title>Rego Lookup Australia — Auto-fill VIN &amp; Vehicle Details | AutoBrain</title>
+<meta name="description" content="Australian rego lookup — enter a plate and AutoBrain auto-fills the VIN, make, model, year and vehicle type. Paid data feature on hosted plans; bring your own provider to self-host.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/blog/free-rego-lookup-australia.html">
 <link rel="icon" type="image/png" href="../assets/favicon.png">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="AutoBrain">
-<meta property="og:title" content="Rego Lookup Australia — Check Vehicle Registration & History">
-<meta property="og:description" content="Australian rego lookup — check vehicle registration status, expiry, and details. AutoBrain's built-in rego check pulls live data.">
+<meta property="og:title" content="Rego Lookup Australia — Auto-fill VIN & Vehicle Details">
+<meta property="og:description" content="Australian rego lookup — enter a plate and AutoBrain auto-fills the VIN, make, model, year and vehicle type. Paid data feature on hosted plans.">
 <meta property="og:url" content="https://autobrainservice.app/blog/free-rego-lookup-australia.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta property="article:published_time" content="2026-08-25">
-<meta property="article:modified_time" content="2026-08-25">
+<meta property="article:modified_time" content="2026-08-29">
 <meta property="article:author" content="https://autobrainservice.app/about.html">
 <meta property="article:section" content="Features">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rego Lookup Australia — Check Vehicle Registration & History">
-<meta name="twitter:description" content="Australian rego lookup — check vehicle registration status and details. AutoBrain's built-in rego check pulls live data.">
+<meta name="twitter:title" content="Rego Lookup Australia — Auto-fill VIN & Vehicle Details">
+<meta name="twitter:description" content="Australian rego lookup — AutoBrain auto-fills the VIN, make, model, year and vehicle type from a plate. Paid data feature on hosted plans.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <script type="application/ld+json">
 {
@@ -31,8 +31,8 @@
   "@graph": [
     {
       "@type": "Article",
-      "headline": "Rego Lookup Australia — Check Vehicle Registration & History",
-      "description": "Australian rego lookup — check vehicle registration status, expiry, and details using your rego number. AutoBrain's built-in rego check pulls live data from state registries.",
+      "headline": "Rego Lookup Australia — Auto-fill VIN & Vehicle Details",
+      "description": "Australian rego lookup — enter a plate and AutoBrain auto-fills the VIN, make, model, year and vehicle type. It identifies the vehicle; it does not check registration validity, expiry or encumbrances.",
       "author": { "@type": "Organization", "name": "AutoBrain" },
       "publisher": {
         "@type": "Organization",
@@ -40,7 +40,7 @@
         "logo": { "@type": "ImageObject", "url": "https://autobrainservice.app/assets/logo.png" }
       },
       "datePublished": "2026-08-25",
-      "dateModified": "2026-08-25",
+      "dateModified": "2026-08-29",
       "mainEntityOfPage": "https://autobrainservice.app/blog/free-rego-lookup-australia.html"
     },
     {
@@ -48,23 +48,23 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How do I check if a car's registration is current in Australia?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Enter the licence plate number into AutoBrain's rego lookup tool. It pulls live registration data from a rego-data provider (the same source the state registries publish) and returns the registration status, expiry date, vehicle make/model and other details." }
+          "name": "How do I fill in a car's details with a rego lookup?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Enter the licence plate number and state into AutoBrain's rego lookup. It returns the vehicle's VIN, make, model, year, body type and engine so you can add the car to your garage without typing a spec sheet by hand." }
         },
         {
           "@type": "Question",
-          "name": "What information does a rego lookup show?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A standard rego lookup returns: registration status (current/suspended/cancelled), expiry date, vehicle make, model and year, engine details, and whether the vehicle has any encumbrances (financial interests) recorded. Some states also show the odometer reading from the last inspection." }
+          "name": "What information does a rego lookup return?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A rego lookup returns the vehicle's identification details: VIN, make, model, year, body type (vehicle type) and engine. It does not return registration status, expiry dates or encumbrances — it identifies the vehicle only." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AutoBrain's rego lookup check if a registration is valid?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. AutoBrain's rego lookup only identifies the vehicle from its plate — it does not check whether the registration is current, suspended or cancelled, and it does not show encumbrances or expiry. For registration validity, plate history or money-owing checks, use the official state registry (Service NSW, VicRoads, and so on) or the PPSR ($2)." }
         },
         {
           "@type": "Question",
           "name": "Is AutoBrain's rego lookup included in my plan?",
           "acceptedAnswer": { "@type": "Answer", "text": "Rego lookup is a paid data feature. It's included with AutoBrain's paid hosted plans and is not available on the free tier. Self-hosters enable it by configuring their own rego-data provider API key." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use rego lookup before buying a used car?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Absolutely — a rego lookup is the first check you should do before buying any used car. It confirms the registration is current, reveals any financial encumbrances (money owing on the car), and verifies the vehicle details match what the seller has told you. Always do this before handing over any money." }
         },
         {
           "@type": "Question",
@@ -118,92 +118,74 @@
     <a class="back-link" href="../blog.html">← Back to blog</a>
     <article class="article">
       <h1 class="u-post-title">Rego Lookup <span class="b">Australia</span></h1>
-      <p class="meta">AutoBrain Team · 25 August 2026 · Features</p>
-      <p class="lead">Buying a used car? Checking if your rego is current? Need the vehicle details for insurance? A rego lookup takes 10 seconds and could save you thousands.</p>
+      <p class="meta">AutoBrain Team · 29 August 2026 · Features</p>
+      <p class="lead">Adding a car and can't find the VIN? A rego lookup takes 10 seconds and fills the vehicle's details for you — straight from the plate.</p>
 
       <h2>What is a rego lookup?</h2>
-      <p>A rego lookup checks a vehicle's registration details against the official state or territory transport registry. Enter a licence plate number and get back the current registration status, expiry date, vehicle make and model, engine details, and whether anyone has a financial interest (encumbrance) on the car.</p>
-      <p>In Australia, each state runs its own registry — VicRoads in Victoria, Service NSW in New South Wales, Department of Transport and Main Roads in Queensland, and so on. AutoBrain's rego lookup tool pulls live registration data from a rego-data provider (the same source the state registries publish), so you get it all in one place.</p>
+      <p>A rego lookup uses an Australian number plate to identify the vehicle it belongs to. Enter the plate and state, and AutoBrain fills in the VIN, make, model, year, body type and engine — no typing a spec sheet by hand. It's a convenience for adding a car to your garage, not a registration validity check.</p>
+      <p>In Australia, each state runs its own registry — VicRoads in Victoria, Service NSW in New South Wales, and so on. AutoBrain's rego lookup pulls the vehicle's identification from a rego-data provider (the same source the state registries publish), so the details land in your garage in one step.</p>
 
-      <h2>When to do a rego lookup</h2>
+      <h2>Why use a rego lookup?</h2>
       <ul>
-        <li><strong>Before buying a used car.</strong> This is the single most important check. It confirms the car's registration is current, reveals any money owing on the vehicle, and verifies the make/model matches what the seller claims. If the seller can't provide a current rego, walk away.</li>
-        <li><strong>Before renewing your own rego.</strong> A quick check confirms the expiry date and ensures there are no surprises (like a suspended registration you weren't told about).</li>
-        <li><strong>After an accident.</strong> Check the other driver's registration details to confirm they're insured and the vehicle details are correct.</li>
-        <li><strong>For insurance quotes.</strong> Insurers ask for registration details — a rego lookup gets you the exact information they need.</li>
-        <li><strong>Car club events.</strong> If you're running a cars and coffee or track day, a rego check on every entrant confirms the vehicles are legally registered.</li>
+        <li><strong>Add a car in seconds.</strong> Plate in, full spec out — VIN, make, model, year and body type filled automatically.</li>
+        <li><strong>Insurance and roadside.</strong> Insurers and roadside services ask for the VIN — a rego lookup gets you the exact identifier without hunting through paperwork.</li>
+        <li><strong>A tidy garage.</strong> Every vehicle carries consistent, correct details, so your logbook, services and exports stay clean.</li>
+        <li><strong>Club and fleet entries.</strong> Bulk-add member or fleet vehicles without re-keying each spec.</li>
       </ul>
 
-      <h2>What information does a rego lookup show?</h2>
-      <p>The exact data varies by state, but a standard rego lookup typically returns:</p>
+      <h2>What a rego lookup fills in</h2>
+      <p>The exact fields vary by state, but a rego lookup typically returns the vehicle's identification:</p>
       <ul>
-        <li><strong>Registration status:</strong> Current, suspended, cancelled or expired.</li>
-        <li><strong>Expiry date:</strong> When the registration needs renewal.</li>
-        <li><strong>Vehicle details:</strong> Make, model, year, body type, colour.</li>
-        <li><strong>Engine details:</strong> Engine number and type.</li>
-        <li><strong>Encumbrances:</strong> Whether a finance company has a security interest over the vehicle (i.e. money owing).</li>
-        <li><strong>Odometer:</strong> Some states record the odometer reading from the last inspection.</li>
+        <li><strong>VIN:</strong> The 17-character vehicle identification number.</li>
+        <li><strong>Make and model:</strong> e.g. Mazda 3, Toyota HiLux.</li>
+        <li><strong>Year:</strong> Manufacture/build year.</li>
+        <li><strong>Body type:</strong> The vehicle type — sedan, ute, wagon, SUV and so on.</li>
+        <li><strong>Engine:</strong> Engine number and type.</li>
       </ul>
 
-      <h2>Using rego lookup when buying a used car</h2>
-      <p>The used car buying process in Australia has a critical gap: there's no national requirement for sellers to provide a vehicle history report. A rego lookup fills the most important part of that gap.</p>
-      <p>Here's the checklist:</p>
-      <ol>
-        <li><strong>Get the rego number from the seller.</strong> If they won't provide it, consider that a red flag.</li>
-        <li><strong>Run the rego lookup.</strong> Check the status, expiry and vehicle details. If the car's registration is expired or suspended, the seller cannot legally sell it for on-road use.</li>
-        <li><strong>Check encumbrances.</strong> If there's a financial interest on the car, the finance company technically owns it until the loan is paid off. Buying a car with an encumbrance means the finance company can repossess it from you — even if you paid the seller in full.</li>
-        <li><strong>Match the details.</strong> Does the make/model/year on the registry match what the seller is showing you? Mismatches can indicate plate swapping or identity issues.</li>
-        <li><strong>Do the PPSR check.</strong> A rego lookup shows encumbrances, but a full Personal Property Securities Register ($2 via the PPSR website) gives you the complete picture.</li>
-      </ol>
+      <h2>Rego lookup does not check registration validity</h2>
+      <p>AutoBrain's rego lookup <strong>identifies the vehicle only</strong>. It does not tell you whether the registration is current, suspended or cancelled, and it does not show encumbrances, expiry or plate history.</p>
+      <p>If you need to confirm a registration is valid, check for money owing, or see a vehicle's history, use the official state registry (Service NSW, VicRoads, and so on) or the Personal Property Securities Register (PPSR, $2 via the PPSR website). AutoBrain fills in your car's details — those checks are separate.</p>
 
       <h2>Rego lookup pricing &amp; self-hosting</h2>
       <p>Rego lookup is one of AutoBrain's paid <strong>data features</strong> — it stays in sync with a live rego-data provider and is included with paid hosted plans. It is not available on the free tier.</p>
-      <p>For <strong>self-hosting</strong>, rego lookup (and other live data features like fuel prices) is opt-in: you acquire and configure your own rego-data provider API key (an <code>X-API-Key</code>-authenticated provider). Without it, AutoBrain returns a clean "provider not configured" message instead of live data — so a self-hosted instance degrades gracefully and is never misled by stale or fabricated results.</p>
+      <p>For <strong>self-hosting</strong>, rego lookup is opt-in: you acquire and configure your own rego-data provider API key (an <code>X-API-Key</code>-authenticated provider). Without it, AutoBrain returns a clean "provider not configured" message instead of live data — so a self-hosted instance degrades gracefully and is never misled by stale or fabricated results.</p>
       <p>AutoBrain resolves all Australian states and territories (NSW, Victoria, Queensland, South Australia, Western Australia, Tasmania, Northern Territory and ACT) through a single search — no need to know which state the car is registered in.</p>
 
-      <h2>Common rego lookup red flags</h2>
-      <ul>
-        <li><strong>Expired registration.</strong> The seller may be trying to sell an unregistered car. In most states, you can't transfer an expired registration — the car needs a roadworthy certificate first.</li>
-        <li><strong>Suspended registration.</strong> Usually due to uninsured driving or outstanding fines. The car can't be driven until the suspension is lifted.</li>
-        <li><strong>Encumbrances listed.</strong> Someone else has a financial claim on the vehicle. Get written proof that the loan is discharged before buying.</li>
-        <li><strong>Vehicle details don't match.</strong> If the registry says it's a 2018 Mazda 3 but the seller is showing you a 2020 model, something is wrong.</li>
-        <li><strong>Colour mismatch.</strong> Could be innocent (respray) or could indicate plate swapping.</li>
-      </ul>
-
       <h2>AutoBrain's built-in rego lookup</h2>
-      <p>AutoBrain's rego lookup is a paid data feature — included with paid plans and available to self-hosters who configure their own rego-data provider API key. Enter a plate number, get the registration details. It's integrated into the vehicle management flow — when you add a car to your garage, AutoBrain can auto-fill the make, model and year from the rego lookup, saving you manual entry.</p>
+      <p>AutoBrain's rego lookup is a paid data feature — included with paid plans and available to self-hosters who configure their own rego-data provider API key. Enter a plate number, get the vehicle's details (VIN, make, model and vehicle type). It's integrated into the vehicle management flow — when you add a car to your garage, AutoBrain can auto-fill the make, model and year from the rego lookup, saving you manual entry.</p>
       <p>Once the vehicle is identified, AutoBrain also auto-suggests the parts that fit that exact make and model — tyres, filters, fluids and common service items — so your parts inventory starts populated instead of blank. Pick what you need and they're added to your garage in one tap.</p>
-      <p>For car clubs and fleet managers, the Community Garage feature lets members share rego check results and flag vehicles with issues.</p>
+      <p>For car clubs and fleet managers, the Community Garage feature lets members share vehicle profiles and flag vehicles with issues.</p>
 
       <h2>Frequently asked questions</h2>
       <div class="faq">
         <details>
-          <summary>How do I check if a car's registration is current?</summary>
-          <p>Enter the licence plate number into AutoBrain's rego lookup tool. It queries the relevant state registry (VicRoads, Service NSW, etc.) and returns the registration status, expiry date, vehicle make/model and other details.</p>
+          <summary>How do I fill in a car's details with a rego lookup?</summary>
+          <p>Enter the licence plate number and state into AutoBrain's rego lookup. It returns the VIN, make, model, year, body type and engine so you can add the car without typing a spec sheet by hand.</p>
         </details>
         <details>
-          <summary>What information does a rego lookup show?</summary>
-          <p>A standard rego lookup returns: registration status (current/suspended/cancelled), expiry date, vehicle make, model and year, engine details, and whether the vehicle has any encumbrances (financial interests) recorded.</p>
+          <summary>What information does a rego lookup return?</summary>
+          <p>A rego lookup returns the vehicle's identification details: VIN, make, model, year, body type (vehicle type) and engine. It does not return registration status, expiry dates or encumbrances — it identifies the vehicle only.</p>
         </details>
         <details>
-           <summary>Is AutoBrain's rego lookup included in my plan?</summary>
-           <p>Rego lookup is a paid data feature. It's included with AutoBrain's paid hosted plans and is not available on the free tier. Self-hosters enable it by configuring their own rego-data provider API key — no key means no live data, but everything else still works.</p>
+           <summary>Does AutoBrain's rego lookup check if a registration is valid?</summary>
+           <p>No. AutoBrain's rego lookup only identifies the vehicle from its plate — it does not check whether the registration is current, suspended or cancelled, and it does not show encumbrances or expiry. Use the official state registry or the PPSR ($2) for that.</p>
          </details>
          <details>
-           <summary>Does rego lookup suggest parts for my car?</summary>
-           <p>Yes. After a rego lookup identifies your vehicle, AutoBrain auto-suggests the parts that fit that exact make and model — tyres, filters, fluids and common service items — which you can add straight to your parts inventory or a service record with one tap.</p>
-         </details>
-         <details>
-           <summary>Can I use rego lookup before buying a used car?</summary>
-          <p>Absolutely — a rego lookup is the first check you should do before buying any used car. It confirms the registration is current, reveals any financial encumbrances, and verifies the vehicle details match what the seller has told you.</p>
-        </details>
-        <details>
-          <summary>Which states does AutoBrain's rego lookup support?</summary>
-          <p>AutoBrain supports rego lookups across all Australian states and territories: NSW, Victoria, Queensland, South Australia, Western Australia, Tasmania, Northern Territory and ACT.</p>
-        </details>
+            <summary>Is AutoBrain's rego lookup included in my plan?</summary>
+            <p>Rego lookup is a paid data feature. It's included with AutoBrain's paid hosted plans and is not available on the free tier. Self-hosters enable it by configuring their own rego-data provider API key — no key means no live data, but everything else still works.</p>
+          </details>
+          <details>
+            <summary>Does rego lookup suggest parts for my car?</summary>
+            <p>Yes. After a rego lookup identifies your vehicle, AutoBrain auto-suggests the parts that fit that exact make and model — tyres, filters, fluids and common service items — which you can add straight to your parts inventory or a service record with one tap.</p>
+          </details>
+          <details>
+            <summary>Which states does AutoBrain's rego lookup support?</summary>
+            <p>AutoBrain supports rego lookups across all Australian states and territories: NSW, Victoria, Queensland, South Australia, Western Australia, Tasmania, Northern Territory and ACT.</p>
+          </details>
       </div>
 
-      <p class="u-mt-28">Look up any Australian rego with AutoBrain's rego lookup — included with paid plans, or bring your own rego-data provider API key when you self-host. <a href="https://demo.autobrainservice.app">Try the live demo</a> or <a href="../hosted.html">see hosted plans</a>.</p>
+      <p class="u-mt-28">Fill in any Australian vehicle's details with AutoBrain's rego lookup — included with paid plans, or bring your own rego-data provider API key when you self-host. <a href="https://demo.autobrainservice.app">Try the live demo</a> or <a href="../hosted.html">see hosted plans</a>.</p>
     </article>
   </div>
 </section>
