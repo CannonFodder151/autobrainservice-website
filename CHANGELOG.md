@@ -13,6 +13,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Website: coming-soon landing page for the Petrol Price Map — a paid data feature (paid hosted plans, not free tier) covering WA, NSW/ACT, QLD and (launching 14 Sep 2026) VIC, with SA/TAS/NT to follow; self-hosters supply their own fuel-price data API key. AUT-1857.
+
+
 ## [0.3.158] - 2026-08-29
 
 ## [0.3.157] - 2026-08-29
