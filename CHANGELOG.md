@@ -20,7 +20,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 
+
+
 ## [Unreleased]
+
+## [0.3.169] - 2026-08-29
+
+## [0.3.168] - 2026-08-29
 
 ### Fixed
 - **Shared-vehicle fuel-up "did not save" (AUT-1884):** a best-effort background
