@@ -16,7 +16,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
-- Website: coming-soon landing page for the Petrol Price Map, listing live government feed coverage (WA FuelWatch, NSW/ACT FuelCheck, QLD Fuel Prices), VIC launching soon (Servo Saver) and SA/TAS/NT coming soon (no free feed). AUT-1857.
+- Website: coming-soon landing page for the Petrol Price Map — a paid data feature (paid hosted plans, not free tier) covering WA, NSW/ACT, QLD and (launching 14 Sep 2026) VIC, with SA/TAS/NT to follow; self-hosters supply their own fuel-price data API key. AUT-1857.
 
 ## [0.3.147] - 2026-08-28
 
