@@ -99,7 +99,8 @@
 cd autobrain
 cp .env.example .env</code></pre>
       </li>
-        <li><strong>Set your AI router</strong> — point <code>AI_ROUTER_URL</code> at any OpenAI-compatible router. No router? The built-in rule-based fallbacks keep AI features working without an external provider.</li>
+      <li><strong>Set your AI router</strong> — point <code>AI_ROUTER_URL</code> at any OpenAI-compatible router. No router? The built-in rule-based fallbacks keep AI features working without an external provider.</li>
+      <li><strong>Enable live data features (optional)</strong> — rego lookup and fuel prices are <em>paid data features</em> on hosted plans. Self-hosters enable them by acquiring the relevant provider API keys (an <code>X-API-Key</code>-style key per provider) and setting them in your environment. Without a key, these features return a clean "provider not configured" message instead of live or fabricated data — every other feature keeps working.</li>
       <li><strong>Bring it up</strong>:
         <pre><code>docker compose -f docker-compose.prod.yml up -d --build</code></pre>
       </li>
