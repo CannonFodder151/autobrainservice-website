@@ -62,6 +62,7 @@ nav .cta.nav-cta{padding:8px 14px;font-size:.85rem;margin-top:6px;border-radius:
   nav .cta.nav-cta{margin:0 0 0 8px;padding:8px 16px}
   .nav-more .more-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:210px;background:var(--bg);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);padding:8px;margin:0;border-left:1px solid var(--border)}
   .nav-more .more-menu a{display:block;padding:8px 12px;border-radius:8px}
+nav .cta.nav-cta + .cta.nav-cta{margin-left:22px}
   .nav-more.open .more-menu{display:flex}
 }
 .cta{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505!important;font-weight:700;padding:10px 22px;border-radius:10px;border:1px solid var(--border-glow);box-shadow:0 0 20px rgba(0,183,255,0.35)}
