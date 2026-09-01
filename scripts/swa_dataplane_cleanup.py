@@ -38,7 +38,8 @@ def _gh(path, method="GET"):
         },
     )
     with urllib.request.urlopen(req) as r:
-        return json.loads(r.read()) if r.read() else None
+        body = r.read()
+        return json.loads(body) if body else None
 
 
 def _fetch_closed_prs():
