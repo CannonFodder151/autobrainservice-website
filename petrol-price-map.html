@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Petrol Price Map — AutoBrain | Live Fuel Prices for WA, NSW &amp; ACT</title>
-<meta name="description" content="AutoBrain's Petrol Price Map shows live fuel prices near you — powered by official government feeds across WA, NSW and ACT, with VIC and QLD coming soon. Premium feature on paid plans.">
+<title>Petrol Price Map — AutoBrain | Live Fuel Prices for WA &amp; QLD</title>
+<meta name="description" content="AutoBrain's Petrol Price Map shows live fuel prices near you — WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued. Premium feature on paid plans.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/petrol-price-map.html">
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
 <meta property="og:title" content="Petrol Price Map — AutoBrain">
-<meta property="og:description" content="Live fuel prices near you — powered by official government feeds across WA, NSW and ACT, with VIC and QLD coming soon. Premium feature on paid plans.">
+<meta property="og:description" content="WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued.">
 <meta property="og:url" content="https://autobrainservice.app/petrol-price-map.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Petrol Price Map — AutoBrain">
-<meta name="twitter:description" content="Live fuel prices near you — powered by official government feeds across WA, NSW and ACT, with VIC and QLD coming soon. Premium feature on paid plans.">
+<meta name="twitter:description" content="WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
@@ -27,7 +27,7 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "AutoBrain Petrol Price Map",
-  "description": "A paid data feature inside AutoBrain that shows live fuel prices near you for WA, NSW and ACT, with VIC and QLD coming later. Self-hosters supply their own fuel-price data API key.",
+  "description": "WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued. Self-hosters supply their own fuel-price data API key.",
   "brand": { "@type": "Brand", "name": "AutoBrain" },
   "url": "https://autobrainservice.app/petrol-price-map.html",
   "image": "https://autobrainservice.app/assets/og-image.png",
@@ -94,7 +94,7 @@
 <section class="page">
   <div class="container">
     <h1><span class="b">Petrol Price Map</span> for Australia</h1>
-    <p class="lead">See live fuel prices near you — mapped and sortable by distance and price. The Petrol Price Map is a paid data feature included with AutoBrain's paid hosted plans (it's not on the free tier). Day-one coverage is WA, NSW and ACT via official government feeds; VIC and QLD will follow as their feed access is wired in.</p>
+    <p class="lead">See live fuel prices near you — mapped and sortable by distance and price. The Petrol Price Map is a paid data feature included with AutoBrain's paid hosted plans (it's not on the free tier). Current coverage is WA via official government feed and QLD via fuelpricesqld partner feed. NSW, ACT and VIC will follow as their partner-feed keys are issued.</p>
 
     <div class="card">
       <h2>What it is</h2>
@@ -104,20 +104,20 @@
 
     <div class="card">
       <h2>Where it's live</h2>
-      <p>Day-one coverage is three states, all wired into official government feeds:</p>
+      <p>Live in two states — official government feed + partner feed:</p>
       <div class="state-grid">
         <div class="state"><h3>WA</h3><span class="status-pill status-live">Live</span><p>Western Australia via FuelWatch (DEMIRS).</p></div>
-        <div class="state"><h3>NSW</h3><span class="status-pill status-live">Live</span><p>New South Wales via FuelCheck (TfNSW).</p></div>
-        <div class="state"><h3>ACT</h3><span class="status-pill status-live">Live</span><p>Australian Capital Territory, served from the NSW FuelCheck feed.</p></div>
+        <div class="state"><h3>QLD</h3><span class="status-pill status-live">Live</span><p>Queensland via the fuelpricesqld partner feed.</p></div>
       </div>
     </div>
 
     <div class="card">
       <h2>Coming soon</h2>
-      <p>Two more states will follow once their data access is in place:</p>
+      <p>Three more states will follow once their partner-feed keys are issued:</p>
       <div class="state-grid">
-        <div class="state"><h3>QLD</h3><span class="status-pill status-soon">Coming soon</span><p>Queensland via fuelpricesqld.com.au — key pending (~14-day government access window).</p></div>
-        <div class="state"><h3>VIC</h3><span class="status-pill status-soon">Coming soon</span><p>Victoria via Servo Saver — application pending.</p></div>
+        <div class="state"><h3>NSW</h3><span class="status-pill status-soon">Coming soon</span><p>New South Wales — partner-feed key pending.</p></div>
+        <div class="state"><h3>ACT</h3><span class="status-pill status-soon">Coming soon</span><p>Australian Capital Territory — partner-feed key pending.</p></div>
+        <div class="state"><h3>VIC</h3><span class="status-pill status-soon">Coming soon</span><p>Victoria via Servo Saver — partner-feed key pending.</p></div>
       </div>
     </div>
 
@@ -128,7 +128,7 @@
 
     <div class="card">
       <h2>Where the data comes from</h2>
-      <p>The Petrol Price Map pulls live prices from the official state fuel-price feeds — WA FuelWatch, NSW/ACT FuelCheck, and (soon) QLD Fuel Prices and VIC Servo Saver — the same sources the states publish. As a paid data feature, coverage expands as more feeds are wired in.</p>
+      <p>The Petrol Price Map pulls live prices from the official state fuel-price feeds — WA FuelWatch, (soon) QLD Fuel Prices and VIC Servo Saver — the same sources the states publish. As a paid data feature, coverage expands as more feeds are wired in.</p>
     </div>
 
     <div class="card">

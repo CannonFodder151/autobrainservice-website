@@ -10,6 +10,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- **Petrol Price Map coverage:** marketing pages updated to reflect WA (FuelWatch) + QLD (fuelpricesqld partner feed) live, with NSW / ACT / VIC marked coming soon — partner-feed keys pending. Refreshed `petrol-price-map.html`, `features.html` (Servo Spy card), `index.html` (PPM Explore tile), and `docs/petrol-price-map-launch-checklist.md` state coverage matrix + flip checklist (AUT-2306).
+
 ## [0.3.214] - 2026-09-03
 
 ### Fix (AUT-2070)
