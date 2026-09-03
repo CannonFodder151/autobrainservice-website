@@ -25,29 +25,55 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "url": "https://autobrainservice.app/features.html",
-  "name": "AutoBrain Features",
-  "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/features.html#webpage",
+      "url": "https://autobrainservice.app/features.html",
+      "name": "AutoBrain Features",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Features",
-      "item": "https://autobrainservice.app/features.html"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://autobrainservice.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://autobrainservice.app/features.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does AutoBrain actually track?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Service history, fuel economy and cost per km, rego lookup, OBD2 live diagnostics with plain-English explanations, receipt and parts scanning, mods and inventory, resale estimates, and weekly AI summaries." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an OBD2 adapter?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Service history, fuel tracking, rego lookup and the resale estimate work without any hardware. Add a $15–$40 ELM327 adapter for live OBD2 diagnostics and AI predictions." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data portable?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Always. Export your full history as CSV/JSON at any time, or run the open-source edition yourself (MIT licensed). No vendor lock-in." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AutoBrain work in Australia?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AU rego lookup is built in (state-by-state), OBD2 codes map to local repair cost ranges, and fuel tracking is in L/100km and $/km." }
+        }
+      ]
     }
   ]
 }

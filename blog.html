@@ -25,20 +25,42 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
-    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://autobrainservice.app/blog.html" }
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://autobrainservice.app/blog.html#collection",
+      "url": "https://autobrainservice.app/blog.html",
+      "name": "AutoBrain Blog",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://autobrainservice.app/blog.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What topics does the AutoBrain blog cover?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Practical guides on Australian car maintenance, fuel economy, OBD2 diagnostics, rego lookup, digital logbooks, workshop tools and ownership costs — written for Australian drivers and mechanics." }
+        },
+        {
+          "@type": "Question",
+          "name": "How often do new posts go up?",
+          "acceptedAnswer": { "@type": "Answer", "text": "New posts land every few weeks. Subscribe via the changelog or follow #updates in Discord for the latest." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where can I read these guides offline?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain stores your service history and a copy of every published guide inside the app, so they're available even when the network is down." }
+        }
+      ]
+    }
   ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "url": "https://autobrainservice.app/blog.html",
-  "name": "AutoBrain Blog",
-  "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
 }
 </script>
 <link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/blog.html">
