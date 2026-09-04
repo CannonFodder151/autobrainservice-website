@@ -10,7 +10,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- **Rego Status feature page (paid tier):** new `rego-status.html` describing the AUT-2412 Rego Status feature (daily rego expiry tracking, in-app status badge on every vehicle card, expiry notifications, and the underlying Rego Lookup tool). Includes plan-fit section, FAQ schema, and JSON-LD. New "Rego Status" entry on `features.html`, the home-page Explore grid, the Rego Status FAQ on `index.html`, the More-menu nav, and `sitemap.xml` (AUT-2417).
+
 ### Changed
+- **Pricing/tiers page:** `hosted.html` Enthusiast and Garage cards now list **Rego Status** as an explicit paid-tier feature (daily expiry tracking, status badge, expiry notifications). OfferCatalog JSON-LD descriptions updated to match (AUT-2417).
 - **Petrol Price Map coverage:** marketing pages updated to reflect WA (FuelWatch) + QLD (fuelpricesqld partner feed) live, with NSW / ACT / VIC marked coming soon — partner-feed keys pending. Refreshed `petrol-price-map.html`, `features.html` (Servo Spy card), `index.html` (PPM Explore tile), and `docs/petrol-price-map-launch-checklist.md` state coverage matrix + flip checklist (AUT-2306).
 
 ## [0.3.214] - 2026-09-03
