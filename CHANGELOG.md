@@ -12,6 +12,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - **Rego Status feature page (paid tier):** new `rego-status.html` describing the AUT-2412 Rego Status feature (daily rego expiry tracking, in-app status badge on every vehicle card, expiry notifications, and the underlying Rego Lookup tool). Includes plan-fit section, FAQ schema, and JSON-LD. New "Rego Status" entry on `features.html`, the home-page Explore grid, the Rego Status FAQ on `index.html`, the More-menu nav, and `sitemap.xml` (AUT-2417).
+- **Coming Soon landing page:** new `coming-soon.html` hub page previewing the three EV/HEV/PHEV features rolling out in Q4 2026 — **Electric Spy** (charging-station price watch, EV cousin of Servo Spy), the **EV Log Book** (kWh / 100 km, $/100 km and per-charge cost for battery-electric vehicles) and **PHEV support** (dual-source tracking for plug-in hybrids on a single combined dashboard). Includes plan-fit section, FAQ schema, and JSON-LD. New 3-card section on `features.html`, a Coming Soon tile on the home-page Explore grid, an EV/HEV/PHEV FAQ entry on `index.html`, the More-menu nav, and `sitemap.xml` (AUT-2440).
 
 ### Changed
 - **Pricing/tiers page:** `hosted.html` Enthusiast and Garage cards now list **Rego Status** as an explicit paid-tier feature (daily expiry tracking, status badge, expiry notifications). OfferCatalog JSON-LD descriptions updated to match (AUT-2417).
