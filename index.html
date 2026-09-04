@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoBrain — Australian Car Maintenance Tracker with Reliable AI &amp; Digital Logbook</title>
-    <meta name="description" content="AutoBrain is the Australian car maintenance tracker with reliable AI — digital logbook, diagnostics, fuel tracking, rego lookup. Free hosted tier or self-hosted open source (MIT).">
+    <meta name="description" content="AutoBrain is the Australian car maintenance tracker with reliable AI — digital logbook, diagnostics, fuel tracking, rego lookup and Rego Status (paid). Free hosted tier or self-hosted open source (MIT).">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/">
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
 <meta property="og:title" content="AutoBrain — Australian Car Maintenance Tracker with Reliable AI">
-    <meta property="og:description" content="Track maintenance, fuel, diagnostics and rego lookup with reliable AI. Free hosted tier or self-hosted open source (MIT).">
+    <meta property="og:description" content="Track maintenance, fuel, diagnostics, rego lookup and Rego Status (paid) with reliable AI. Free hosted tier or self-hosted open source (MIT).">
 <meta property="og:url" content="https://autobrainservice.app/">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AutoBrain — Australian Car Maintenance Tracker with Reliable AI">
-    <meta name="twitter:description" content="Track maintenance, fuel, diagnostics and rego lookup with reliable AI. Free hosted tier or self-hosted (MIT).">
+    <meta name="twitter:description" content="Track maintenance, fuel, diagnostics, rego lookup and Rego Status (paid) with reliable AI. Free hosted tier or self-hosted (MIT).">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <script type="application/ld+json">
 {
@@ -48,7 +48,7 @@
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "Web",
       "url": "https://autobrainservice.app/",
-       "description": "Australian car maintenance tracker with reliable AI — digital logbook, diagnostics, fuel tracking, rego lookup. Free hosted tier or self-hosted open source (MIT).",
+       "description": "Australian car maintenance tracker with reliable AI — digital logbook, diagnostics, fuel tracking, rego lookup and Rego Status (paid). Free hosted tier or self-hosted open source (MIT).",
       "offers": [
         { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD" },
         { "@type": "Offer", "name": "Enthusiast Monthly", "price": "5.90", "priceCurrency": "AUD" },
@@ -69,17 +69,22 @@
         {
           "@type": "Question",
           "name": "How much does AutoBrain cost?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Hosted plans start free. Enthusiast is $5.90/month (or $59/year — 2 months free) for 1 vehicle with all AI features and rego lookup, Garage is $11.90/month (or $119/year — 2 months free) for 5 vehicles with priority support. Custom dedicated deployments for clubs and fleets are priced on enquiry. Monthly plans include a 7-day free trial." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Hosted plans start free. Enthusiast is $5.90/month (or $59/year — 2 months free) for 1 vehicle with all AI features, rego lookup and Rego Status, Garage is $11.90/month (or $119/year — 2 months free) for 5 vehicles with priority support. Custom dedicated deployments for clubs and fleets are priced on enquiry. Monthly plans include a 7-day free trial." }
         },
         {
           "@type": "Question",
           "name": "Can I self-host AutoBrain?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain ships as a complete Docker Compose stack (backend, AI gateway, worker, Postgres, Redis and MinIO) under an MIT licence. Your data never leaves your infrastructure." }
         },
+{
+      "@type": "Question",
+          "name": "Does AutoBrain support Australian cars?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain includes Australian rego (plate) lookup, paid-tier Rego Status with daily expiry tracking and expiry notifications, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records." }
+        },
         {
           "@type": "Question",
-          "name": "Does AutoBrain support Australian cars?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain includes Australian rego (plate) lookup, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records." }
+          "name": "What is Rego Status?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Rego Status is a paid-tier AutoBrain feature (Enthusiast and Garage plans) that refreshes each vehicle's rego expiry once a day, shows a colour-coded status badge on every vehicle card, and sends expiry notifications at 30 / 7 / 1 days before expiry, plus the moment the state reports the rego as expired or unregistered." }
         },
         {
           "@type": "Question",
@@ -154,6 +159,7 @@
         <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
         <ul class="more-menu">
           <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
           <li><a href="changelog.html">Changelog</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="privacy.html">Privacy</a></li>
@@ -203,6 +209,11 @@
       <a href="car-diagnostics.html" class="card u-center-inherit">
         <span class="icon">🔍</span><h3>Car diagnostics guide</h3>
         <p>Check engine light, P0300, P0420, brakes squealing, car overheating — plain-English symptoms, costs in Australia and OBD2 code help.</p>
+      </a>
+      <a href="rego-status.html" class="card u-center-inherit">
+        <div class="tier-tag">Paid · Enthusiast / Garage</div>
+        <span class="icon">🛡️</span><h3>Rego Status</h3>
+        <p>Daily rego expiry tracking, vehicle-card status badge, and expiry notifications for every vehicle on the paid plans.</p>
       </a>
       <a href="obd2.html" class="card u-center-inherit">
         <div class="soon u-badge-static">Coming soon</div>
@@ -266,7 +277,7 @@
       </details>
       <details>
         <summary>How much does AutoBrain cost?</summary>
-        <p>Hosted plans start free. Enthusiast is <strong>$5.90/month</strong> (or <strong>$59/year</strong> — 2 months free) for 1 vehicle with all AI features and rego lookup, Garage is <strong>$11.90/month</strong> (or <strong>$119/year</strong> — 2 months free) for 5 vehicles with priority support. Custom dedicated deployments for clubs and fleets are priced on enquiry. Monthly plans include a <strong>7-day free trial</strong>.</p>
+        <p>Hosted plans start free. Enthusiast is <strong>$5.90/month</strong> (or <strong>$59/year</strong> — 2 months free) for 1 vehicle with all AI features, rego lookup and <strong>Rego Status</strong>, Garage is <strong>$11.90/month</strong> (or <strong>$119/year</strong> — 2 months free) for 5 vehicles with priority support. Custom dedicated deployments for clubs and fleets are priced on enquiry. Monthly plans include a <strong>7-day free trial</strong>.</p>
       </details>
       <details>
         <summary>Can I self-host AutoBrain?</summary>
@@ -274,7 +285,11 @@
       </details>
       <details>
         <summary>Does AutoBrain support Australian cars?</summary>
-        <p>Yes. AutoBrain includes Australian rego (plate) lookup, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records.</p>
+        <p>Yes. AutoBrain includes Australian rego (plate) lookup, paid-tier <strong>Rego Status</strong> with daily expiry tracking and expiry notifications, L/100km fuel calculations and Australian financial-year exports for fuel and logbook records.</p>
+      </details>
+      <details>
+        <summary>What is Rego Status?</summary>
+        <p><strong>Rego Status</strong> is a paid-tier AutoBrain feature (Enthusiast and Garage plans) that refreshes each vehicle's rego expiry once a day, shows a colour-coded status badge on every vehicle card, and pings you 30 / 7 / 1 days before expiry plus the moment the state reports your rego as expired or unregistered. Free keeps the basic on-demand Rego Lookup tool only. <a href="rego-status.html">Learn more →</a></p>
       </details>
       <details>
         <summary>What does the AI do with my data?</summary>
