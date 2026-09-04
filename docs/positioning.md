@@ -6,7 +6,7 @@
 
 **Tagline:** *Australian car maintenance with reliable AI.*
 
-**Elevator pitch:** AutoBrain is the car maintenance tracker built for Australians — digital logbook, rego lookup, fuel tracking, AI diagnostics and resale estimates. A rego lookup also auto-suggests the parts that fit the exact vehicle, so the parts list and inventory start populated instead of blank. The AI works even when external AI services are unreachable (deterministic rule-based fallbacks first), and you can self-host it for free or let us run it for you.
+**Elevator pitch:** AutoBrain is the car maintenance tracker built for Australians — digital logbook, rego lookup, fuel tracking, AI diagnostics and resale estimates. A rego lookup also auto-suggests the parts that fit the exact vehicle, so the parts list and inventory start populated instead of blank. The AI works even when external AI services are unreachable (deterministic rule-based fallbacks first), and you can self-host it for free or let us run it for you. Ownership Advisor (coming soon) adds value, replace, upgrade, finance, dream and AI advice in one screen.
 
 ## Pillars
 
