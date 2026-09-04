@@ -267,6 +267,16 @@ p.lead.u-mt-26{margin-top:26px}
 .u-muted{color:var(--muted)}
 .u-pb-48{padding-bottom:48px}
 h1.u-post-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2.3rem);text-align:left;margin-bottom:8px}
+.u-post-header{margin-bottom:18px}
+.u-post-eyebrow{display:inline-block;padding:4px 10px;border:1px solid var(--primary);border-radius:999px;color:var(--primary);font-size:.75em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+.u-post-meta{color:var(--muted);font-size:.92em;margin:0 0 14px}
+.u-post-cta{margin-top:28px;padding:14px 18px;border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:10px;background:var(--surface);color:var(--text)}
+.u-post-cta a{color:var(--primary);font-weight:600;text-decoration:none}
+.u-post-cta a:hover{text-decoration:underline}
+.u-post-nav{margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}
+.u-post-modules{list-style:none;padding:0;margin:18px 0;display:grid;gap:10px}
+.u-post-modules li{padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text)}
+.u-post-modules li strong{color:var(--primary);font-family:'Orbitron',sans-serif;letter-spacing:.04em}
 .u-price-card{text-align:center;position:relative;padding:36px 28px}
 .u-trial-badge{color:var(--primary);font-weight:700;font-size:.85em}
 .u-py-28-8{padding:28px 0 8px}
