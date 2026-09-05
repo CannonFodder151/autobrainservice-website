@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon — AutoBrain | Electric Spy, EV Log Book &amp; PHEV Support</title>
-<meta name="description" content="What's next for AutoBrain: Electric Spy (EV charging station finder with live pricing), the EV Log Book (kWh, cost and efficiency for battery-electric vehicles) and PHEV support (dual-source tracking for plug-in hybrids). Be the first to know when these features ship.">
+<title>Coming Soon — AutoBrain | Home Assistant Integration, Electric Spy &amp; EV Features</title>
+    <meta name="description" content="Coming soon: Home Assistant integration (push analytics and service intervals into HA dashboards), Electric Spy (live EV charger pricing), EV Log Book (kWh efficiency and cost tracking) and PHEV support (dual-source petrol + electric tracking).">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/coming-soon.html">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
-<meta property="og:title" content="Coming Soon — AutoBrain | Electric Spy, EV Log Book &amp; PHEV Support">
-<meta property="og:description" content="What's next for AutoBrain: Electric Spy (EV charging station finder with live pricing), the EV Log Book (kWh, cost and efficiency) and PHEV support (dual-source tracking).">
+<meta property="og:title" content="Coming Soon — AutoBrain | Home Assistant Integration, Electric Spy &amp; EV Features">
+    <meta property="og:description" content="Coming soon: Home Assistant integration (push analytics and service intervals into HA dashboards), Electric Spy (live EV charger pricing), EV Log Book and PHEV support.">
 <meta property="og:url" content="https://autobrainservice.app/coming-soon.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Coming Soon — AutoBrain | Electric Spy, EV Log Book &amp; PHEV Support">
-<meta name="twitter:description" content="Electric Spy, EV Log Book and PHEV support — what we're building next for AutoBrain owners in Australia.">
+<meta name="twitter:title" content="Coming Soon — AutoBrain | Home Assistant Integration, Electric Spy &amp; EV Features">
+    <meta name="twitter:description" content="Home Assistant integration, Electric Spy, EV Log Book and PHEV support — what we're building next for AutoBrain owners in Australia.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
@@ -52,6 +52,11 @@
           "@type": "Question",
           "name": "Will the EV features work on the free tier?",
           "acceptedAnswer": { "@type": "Answer", "text": "The free tier will keep basic EV vehicle creation and charge logging. Live Electric Spy alerts, the EV Log Book efficiency dashboard and PHEV dual-source tracking will be available on the Enthusiast and Garage hosted plans, with the same code path available to self-hosters using their own charging-feed API key." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AutoBrain connect to Home Assistant?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain acts as the intelligence layer: it computes analytics and service intervals, then pushes processed insights into Home Assistant via REST and WebSocket. Phase 1 delivers sensor-style data feeds; Phase 2 adds a full HACS custom integration with config flow. No raw live OBD2 telemetry is sent — only the actionable data your HA dashboards, automations and calendars need." }
         },
         {
           "@type": "Question",
@@ -115,13 +120,19 @@
   <div class="container">
     <div class="soon u-badge-static" style="margin-bottom: 1rem;">Coming soon</div>
     <h1>What's <span class="b">next for AutoBrain</span></h1>
-    <p class="lead">AutoBrain is growing beyond petrol. Three new features are on the runway for Q4 2026 — built for Australian owners who already run a battery-electric, plug-in hybrid, or hybrid alongside their petrol fleet.</p>
+    <p class="lead">AutoBrain is growing beyond the dashboard. Four new features are on the runway — a Home Assistant integration that pushes your analytics and service intervals into HA, plus the EV family we already announced: Electric Spy, the EV Log Book and PHEV support. Built for Australian owners who already run Home Assistant, an EV, plug-in hybrid, or hybrid alongside their petrol fleet.</p>
     <div class="u-flex-center">
-      <a class="cta" href="mailto:sales@autobrainservice.app?subject=EV%20waitlist">Join the EV waitlist</a>
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Join the HA waitlist</a>
       <a class="cta-outline" href="features.html">See live features</a>
     </div>
 
     <div class="grid">
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">🏠</span>
+        <h3>Home Assistant integration</h3>
+        <p>AutoBrain becomes the intelligence layer behind your smart garage. Push your analytics — fuel efficiency, rego status, AI maintenance predictions — and your <strong>upcoming service intervals</strong> straight into Home Assistant as sensors, calendar events and notifications. REST + WebSocket for Phase 1, with a full HACS custom integration in Phase 2. You get a vehicle-aware HA dashboard, automations like "ping me when rego is 30 days out", and a calendar entry for every service due — without giving HA direct access to your car or your data.</p>
+      </div>
       <div class="card">
         <div class="soon u-badge-static">Coming soon</div>
         <span class="icon">🔌</span>
@@ -171,11 +182,39 @@
 
 <section class="u-py-56">
   <div class="container">
-    <h2>EV rollout <span class="b">FAQ</span></h2>
+    <h2>How the <span class="b">Home Assistant integration</span> fits in</h2>
+    <p class="lead">AutoBrain stays the single source of truth for your vehicle data. The HA integration publishes processed insights — not raw OBD2 streams — into your existing HA setup as sensors, calendar events and automations.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tier-tag">Phase 1</div>
+        <h3>REST + WebSocket feed</h3>
+        <p>HA configs that pull AutoBrain analytics and service-interval pushes over REST and WebSocket. Pick the insights you want inside HA — rego status badges, next-service calendars, AI maintenance predictions — and AutoBrain delivers them on the schedule you choose.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Phase 2</div>
+        <h3>HACS integration</h3>
+        <p>A full HACS custom integration with config flow: one-click install inside HA, entity setup for every vehicle, and per-entity toggles so you only expose what your dashboard and automations need. Same push model — AutoBrain computes, HA displays.</p>
+      </div>
+      <div class="card">
+        <div class="tier-tag">Privacy first</div>
+        <h3>No raw telemetry leaves AutoBrain</h3>
+        <p>Only processed insights — aggregated fuel costs, rego status, AI service predictions, charge-session summaries — are pushed. Your HA instance never sees raw OBD2 PIDs, live GPS routes, or anything you have not explicitly chosen to surface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>Rollout <span class="b">FAQ</span></h2>
     <div class="faq">
       <details open>
-        <summary>When will Electric Spy, EV Log Book and PHEV support ship?</summary>
-        <p>Targeted for <strong>Q4 2026</strong>, rolled out in waves — Electric Spy first, then the EV Log Book, then full PHEV dual-source support. Watch the public <a href="changelog.html">changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for the day each feature lands.</p>
+        <summary>When does the Home Assistant integration ship?</summary>
+        <p>Targeted for <strong>Q4 2026</strong>, starting with the Phase 1 REST + WebSocket feed (sensors and service-interval calendar entries) and followed by the HACS custom integration in Phase 2. Watch the public <a href="changelog.html">changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for the day each phase lands.</p>
+      </details>
+      <details>
+        <summary>What data does AutoBrain actually push to Home Assistant?</summary>
+        <p>Only processed insights you opt in to — current rego status and expiry, upcoming service intervals, AI maintenance predictions, fuel efficiency and cost trends, EV charge-session summaries. Raw OBD2 PIDs, live telemetry and GPS routes never leave AutoBrain unless you explicitly surface them.</p>
       </details>
       <details>
         <summary>Which plans will include the EV features?</summary>
@@ -200,9 +239,9 @@
 <section class="u-py-56" id="notify">
   <div class="container">
     <h2>Be the <span class="b">first to know</span></h2>
-    <p class="lead">Drop your email and we'll ping you the day Electric Spy, the EV Log Book or PHEV support lands on hosted AutoBrain — one email per feature, no marketing list.</p>
+    <p class="lead">Drop your email and we'll ping you the day the Home Assistant integration, Electric Spy, the EV Log Book or PHEV support lands on hosted AutoBrain — one email per feature, no marketing list.</p>
     <div class="u-center">
-      <a class="cta" href="mailto:sales@autobrainservice.app?subject=EV%20waitlist">Email sales@autobrainservice.app</a>
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Join the HA waitlist</a>
     </div>
     <p class="u-center-muted">Or watch the <a href="changelog.html">public changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for the day each feature ships.</p>
   </div>
