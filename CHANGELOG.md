@@ -11,6 +11,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
+- **Ownership Advisor — Now Live blog post:** new `blog/ownership-advisor-live.html` (CMO-approved launch content) covering the six modules (Value / Replace / Upgrade / Finance / Dream / AI Advisor), deterministic-first architecture, and FAQ schema. Added to `blog.html` index replacing the "coming soon" card, surfaced as a "Read the launch blog" teaser card from `ownership-advisor.html`, and listed in `sitemap.xml` (AUT-2644).
+
+### Changed
+- **Ownership Advisor page (`ownership-advisor.html`):** copy refreshed from "coming soon" → "now live" (meta description, OG description, Twitter description). Added "Read the launch blog" teaser card linking to the new blog post (AUT-2644).
+
+## [0.3.214] - 2026-09-03
+
+### Added
 - **Rego Status feature page (paid tier):** new `rego-status.html` describing the AUT-2412 Rego Status feature (daily rego expiry tracking, in-app status badge on every vehicle card, expiry notifications, and the underlying Rego Lookup tool). Includes plan-fit section, FAQ schema, and JSON-LD. New "Rego Status" entry on `features.html`, the home-page Explore grid, the Rego Status FAQ on `index.html`, the More-menu nav, and `sitemap.xml` (AUT-2417).
 - **Coming Soon landing page:** new `coming-soon.html` hub page previewing the three EV/HEV/PHEV features rolling out in Q4 2026 — **Electric Spy** (charging-station price watch, EV cousin of Servo Spy), the **EV Log Book** (kWh / 100 km, $/100 km and per-charge cost for battery-electric vehicles) and **PHEV support** (dual-source tracking for plug-in hybrids on a single combined dashboard). Includes plan-fit section, FAQ schema, and JSON-LD. New 3-card section on `features.html`, a Coming Soon tile on the home-page Explore grid, an EV/HEV/PHEV FAQ entry on `index.html`, the More-menu nav, and `sitemap.xml` (AUT-2440).
 
