@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Self-Host AutoBrain Free — Open Source AI Car Companion | MIT License</title>
-<meta name="description" content="Host AutoBrain yourself for free. MIT-licensed Docker Compose stack: backend, AI gateway, worker, Postgres, Redis and MinIO. Your data never leaves your infrastructure.">
+    <title>Self-Host AutoBrain Free — Open Source Car Maintenance App | MIT License</title>
+    <meta name="description" content="Run AutoBrain on your own server for free. MIT-licensed, full control over your data. Service reminders, fuel tracking, rego lookup and more.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/selfhost.html">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
-<meta property="og:title" content="Self-Host AutoBrain Free — Open Source AI Car Companion">
-<meta property="og:description" content="MIT-licensed Docker Compose stack: backend, AI gateway, worker, Postgres, Redis and MinIO. Free forever, no lock-in.">
-<meta property="og:url" content="https://autobrainservice.app/selfhost.html">
+    <meta property="og:title" content="Self-Host AutoBrain Free — Open Source Car Companion">
+    <meta property="og:description" content="Run AutoBrain on your own server. Full control, your data stays yours. Free forever under MIT license.">
+    <meta property="og:url" content="https://autobrainservice.app/selfhost.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Self-Host AutoBrain Free">
-<meta name="twitter:description" content="MIT-licensed Docker Compose stack. Free forever, no lock-in.">
+    <meta name="twitter:description" content="Run AutoBrain on your own server. Free forever, no lock-in.">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
@@ -80,16 +80,16 @@
 
 <section class="page">
   <div class="container">
-    <h1>Host it yourself — <span class="b">free</span></h1>
-    <p class="lead">AutoBrain is MIT-licensed and ships as a complete Docker Compose stack: backend, AI gateway, worker, Postgres, Redis and MinIO behind a single nginx entry point. Four vCPUs and 8&nbsp;GB of RAM is plenty.</p>
+    <h1>Run it yourself — <span class="b">for free</span></h1>
+    <p class="lead">AutoBrain is fully open source under MIT. You bring a cheap VPS, we bring the car intelligence: service reminders, fuel tracking, free rego lookup, logbook, mods tracker and diagnostics — all in one container stack. Four vCPUs and 8&nbsp;GB of RAM is plenty.</p>
 
     <div class="card u-max-860">
-      <h2>Why self-host?</h2>
+      <h2>Why run your own?</h2>
       <ul>
-        <li><strong>Your data stays yours</strong> — vehicles, records, receipts and backups never leave your infrastructure.</li>
-        <li><strong>Free forever</strong> — MIT-licensed, no subscriptions, no artificial limits.</li>
-        <li><strong>Your own AI router</strong> — point it at any OpenAI-compatible router, or use the built-in rule-based fallbacks (no external AI provider required).</li>
-        <li><strong>No lock-in</strong> — full profile export and restore any time.</li>
+        <li><strong>Your data stays yours</strong> — vehicles, records, receipts and backups never leave your server.</li>
+        <li><strong>Free forever</strong> — MIT licence, no subscriptions, no artificial limits.</li>
+        <li><strong>Full control</strong> — back up, restore and modify however you like.</li>
+        <li><strong>No lock-in</strong> — export everything anytime.</li>
       </ul>
     </div>
 
@@ -99,13 +99,13 @@
 cd autobrain
 cp .env.example .env</code></pre>
       </li>
-      <li><strong>Set your AI router</strong> — point <code>AI_ROUTER_URL</code> at any OpenAI-compatible router. No router? The built-in rule-based fallbacks keep AI features working without an external provider.</li>
-      <li><strong>Enable live data features (optional)</strong> — rego lookup and fuel prices are <em>paid data features</em> on hosted plans. Self-hosters enable them by acquiring the relevant provider API keys (an <code>X-API-Key</code>-style key per provider) and setting them in your environment. Without a key, these features return a clean "provider not configured" message instead of live or fabricated data — every other feature keeps working.</li>
+      <li><strong>Optional: plug in your own AI assistant</strong> — point the app at any AI service that works with OpenAI's format. Or skip this step entirely — the built-in rule-based engine keeps everything working without an external service.</li>
+      <li><strong>Optional: unlock live data</strong> — rego lookup and fuel prices are <em>paid data features</em> on hosted plans. Self-hosters can add them by getting the relevant provider API keys and adding them to your environment. Without a key, these features stay clean and offline — every other feature keeps working.</li>
       <li><strong>Bring it up</strong>:
         <pre><code>docker compose -f docker-compose.prod.yml up -d --build</code></pre>
       </li>
       <li><strong>Log in</strong> — the bootstrap admin is created from <code>ADMIN_EMAIL</code> / <code>ADMIN_INITIAL_PASSWORD</code> in <code>.env</code>. Create accounts for your users; there is no self sign-up.</li>
-      <li><strong>Protect it</strong> — enable TOTP MFA in <em>Settings &amp; security</em>, set a strong <code>SECRET_KEY</code>, and rotate the admin password.</li>
+      <li><strong>Protect it</strong> — enable two-factor authentication in <em>Settings &amp; security</em>, set a strong <code>SECRET_KEY</code>, and rotate the admin password.</li>
     </ol>
     <p class="lead u-mt-26">Full deployment, backup and Kubernetes guidance is in the repo docs — or <a href="mailto:sales@autobrainservice.app">ask us</a> and we'll help you set it up.</p>
   </div>
