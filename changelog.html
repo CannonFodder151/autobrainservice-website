@@ -102,8 +102,113 @@
 
     <!-- CHANGELOG-START -->
     <div class="release">
-      <h2>v0.3.196</h2>
-      <div class="date">2026-08-30</div>
+      <h2>v0.3.214</h2>
+      <div class="date">2026-09-03</div>
+      <h3>Fix (AUT-2070)</h3>
+      <ul>
+        <li>fix(docker): pin <code>nginxinc/nginx-unprivileged:stable-alpine</code> in <code>docker/frontend/Dockerfile</code> to the multi-arch manifest digest <code>sha256:45ce1e2e…</code> so the <code>Pin guard — frontend nginx image</code> gate stays green (was floating <code>:stable-alpine</code>).</li><li>fix(frontend): Servo Spy list view now exposes an inline fuel-type chip bar so the fuel filter is visible without opening the filter sheet. The selected-fuel price-match fix from PR #410 (AUT-2105) already shipped in 0.3.203.</li>
+      </ul>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(ci): replace the removed <code>dart pub audit</code> subcommand in the <code>Flutter — pub audit</code> PR gate with <code>osv-scanner --lockfile=pubspec.lock</code> so the gate stops failing every PR (Dart 3.6+ removed the subcommand). Repo-wide fix — unblocks merge of all open PRs.</li><li>fix(docker): pin <code>redis:7-alpine</code> in <code>docker-compose.yml</code> to <code>redis:7.2.5-alpine@sha256:6aaf3f5…</code> so the <code>Pin guard</code> PR gate stays green (was the only unpinned compose image left after PR #409 unpinned nginx for arm64 hosted builds).</li><li>fix(frontend): guard <code>pickPriceForFuel</code> against malformed price entries (non-Map, non-num/string price) so a bad API row no longer aborts the whole list view. OCR-review advisory.</li><li>test(frontend): extend <code>servo_spy_list_sort_test.dart</code> with cases for <code>selectedFuelType == null</code>, missing <code>prices</code> key, string-encoded price, and malformed price entries (OCR-review advisory).</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li>**AI gateway:** Extract router configuration (system prompts, schemas, payload caps, validation helpers) from <code>router_client.py</code> into new <code>router_utils.py</code> module. <code>router_client.py</code> now contains only HTTP transport. (AUT-1969)</li>
+      </ul>
+      <h3>Changed</h3>
+      <ul>
+        <li>**Servo Spy fuel map:** flip <code>FUEL_VIC_ENABLED</code> to <code>"true"</code> on Default and Hosted tiers and document the VIC Servo Saver partner-key wiring (<code>.env.example</code>, <code>docs/petrol-price-map.md</code>). The polling consumer is gated on an approved partner key being present in <code>/opt/autobrain/secrets</code> on Hosted, or <code>FUEL_VIC_API_KEY</code> on Default; absent the key the source silently skips per the existing <code>enabled()</code> check (AUT-1932).</li><li>**Stack/docker-compose (AUT-1853):** <code>docker-compose.hosted.yml</code> and <code>scripts/seed-secrets.sh</code> now default <code>SECRETS_DIR</code> to <code>/data/autobrain/secrets</code> instead of <code>/opt/autobrain/secrets</code>. The snap dockerd on the Oracle VM masks <code>/opt</code> from a read-only core24 squashfs, so the old bind-mount failed with <code>read-only file system</code> and took the hosted stack down; <code>/data</code> is daemon-visible and never masked. <code>docs/security.md</code> and <code>docs/deployment-guide.md</code> updated for the path migration (the live HostED cutover — re-seed + redeploy — is tracked separately in AUT-1853-live).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.212</h2>
+      <div class="date">2026-09-03</div>
+      <h3>Changed</h3>
+      <ul>
+        <li>Servo Spy QLD feed switched to FuelPricesQLD DirectAPI v1.5 (Bearer subscription token). Old open-data parser kept behind <code>FUEL_QLD_USE_OPEN_FALLBACK</code> flag for one cycle.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.204</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>CI (AUT-2097): fix buildx cache contamination in <code>build-hosted.yml</code> that shipped amd64 layer blobs inside arm64 manifests. Scoped GHA buildx cache per-architecture, disabled cache import for arm64 builds, added pre- and post-build arch verification steps, and gated manifest assembly on both arch checks passing.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.203</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(servo-spy): map view no longer renders a second inner <code>Scaffold</code> + <code>AppBar</code>, which was duplicating the back button and constraining the map so tiles failed to lay out. The map view now sits directly under the outer screen <code>Scaffold</code>; refresh / filter / enable-location actions moved into an inline header row inside the body (AUT-2073).</li><li>fix(servo-spy): list view now shows the price for the selected fuel type instead of always reading <code>prices[0]</code>. Parses the full <code>prices[]</code> array and adds a <code>priceFor(fuelType)</code> helper on <code>ServoStationRow</code>, mirroring the map view's <code>_MapStation.priceFor</code> (AUT-2105).</li>
+      </ul>
+      <h3>Security</h3>
+      <ul>
+        <li>**AUT-1602:** Cap inbound user payload length per field in <code>ai/app/router_client.py</code> (<code>_cap_payload</code>, per-field: symptoms 2000, content 50000, text/notes/reason/repair_notes 2000, description 5000, raw_text 10000, default 5000; 100k total-budget guard with iterative halving). Together with the <code>&amp;lt;user_data&amp;gt;</code> instruction barrier + hardened system prompt already shipped on this branch, this closes the OWASP LLM01 prompt-injection path on narrative fields (summary/reason/repair_notes/recommendations) which had no <code>_AI_IMMUTABLE</code> protection. Deterministic baseline + schema whitelist + immutable numeric/financial fields remain the first line of defence; AI output stays an enrichment overlay.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.202</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Security</h3>
+      <ul>
+        <li>**AUT-1189:** Pin three previously-unpinned transitives flagged by osv-scanner (idna 3.18, pycryptodome 3.23, pygments 2.20) plus bump <code>pypdf</code> 6.15.0 → 6.16.1 across <code>backend/requirements.txt</code> and <code>ai/requirements.txt</code>. The PR-time <code>pip-audit</code> gate (<code>security-pr-gate.yml</code>) audits direct pins in <code>--no-deps</code> mode, so an unpinned transitive inherits any build-time resolution. Pinning to the current safe release makes a vulnerable build fail the gate instead of silently shipping. Adds <code>security-pr-gate-rego.yml</code> so <code>rego-lookup-api/requirements.txt</code> gets the same direct-pin gate as the monorepo (weekly full-resolution scan already covers its transitives).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.201</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(hosted): bump frontend image digest to the multi-arch <code>:hosted</code> image published after PR #384 (AUT-1908 unpinned the nginx base digest). The previous pin (<code>sha256:44654bb…</code>) was an amd64-only build that crashed on the arm64 hosted VM (<code>exec format error</code>, restart loop every ~60s). The new pin (<code>sha256:8937c2bb…</code>) is a true OCI image index with both amd64 and arm64 manifests (AUT-2077).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.200</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(worker): correct <code>$</code> escaping in HEALTHCHECK CMD-SHELL. Docker escapes <code>$$</code> only for RUN instructions — not for CMD-SHELL / HEALTHCHECK — so the prior fix landed as literal <code>$$(tr ...)</code> and sh expanded <code>$$</code> to PID, breaking command substitution. Use single <code>$</code> for <code>$(...)</code> so it flows through unchanged to the runtime shell (AUT-2056).</li>
+      </ul>
+      <h3>Security</h3>
+      <ul>
+        <li>Disable <code>/docs</code>, <code>/openapi.json</code>, and <code>/redoc</code> on the <code>market-data</code> FastAPI service in production (AUT-1745). CWE-200 information disclosure — these endpoints previously exposed the full API surface (endpoints, parameters, schemas) without authentication, matching the backend's pattern. Adds <code>test_docs_disabled.py</code> regression test. Docs remain available when <code>ENVIRONMENT</code> is set to a non-production value for local debugging.</li><li>Unblock AUT-2165 PR security gates: pin <code>redis:7-alpine</code> by digest in <code>docker-compose.yml</code> (mirror the <code>docker-compose.prod.yml</code> / <code>.hosted.yml</code> pin from 0.3.198), bump <code>pypdf</code> 6.15.0 → 6.16.1 in <code>backend/</code> and <code>ai/</code> requirements (closes CVE-2026-84309/84310/84311), and replace the broken <code>dart pub audit</code> step in <code>.github/workflows/security-pr-gate.yml</code> with an <code>osv-scanner</code> scan against <code>frontend/pubspec.lock</code> so the Flutter dependency gate runs again on every PR.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.199</h2>
+      <div class="date">2026-09-02</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(worker): rewrite HEALTHCHECK to pure POSIX <code>sh</code>, drop <code>[ -z "$(find ...)" ]</code> (nested <code>$()</code> inside <code>[ ]</code> fails under busybox/dash), drop the <code>pgrep</code> dependency (not in <code>python:3.13-slim</code>), and fix the <code>case</code> pattern syntax (<code>* -B *</code> was parsed by bash as <code>PATTERN OPTIONS PATTERN</code>). Clears the 2000+ failing-strike healthcheck backlog on EP5 <code>autobrain-hosted-worker-1</code> (AUT-2056).</li><li>fix(worker): switch HEALTHCHECK shell from <code>sh</code> to <code>bash</code> so the embedded <code>"$(find ...)"</code> pattern parses cleanly under busybox/dash. Clears the 2000+ failing-strike healthcheck backlog on EP5 <code>autobrain-hosted-worker-1</code> (AUT-2056).</li><li>fix(hosted): bump worker image digest to the latest <code>:hosted</code> build carrying the AUT-2056 bash healthcheck.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.198</h2>
+      <div class="date">2026-09-01</div>
+      <h3>Security</h3>
+      <ul>
+        <li>Pin every application image (<code>backend</code>, <code>worker</code>, <code>ai</code>, <code>frontend</code>, <code>dongle-server</code>, <code>federation-hub</code>) by <code>@sha256</code> digest in <code>docker-compose.hosted.yml</code>, replacing the floating <code>:hosted</code> manifest tag. Resolves the mutable-tag supply-chain gap flagged in AUT-1881.</li><li>Pin <code>redis:7-alpine</code> by digest in <code>docker-compose.yml</code>, <code>docker-compose.prod.yml</code>, and <code>docker-compose.hosted.yml</code> (now <code>redis:7.2.5-alpine@sha256:6aaf3f5e...</code>).</li><li>Build pipeline (<code>build-hosted.yml</code>) now captures the multi-arch manifest digest of every published image as a <code>$GITHUB_OUTPUT</code> value, so the next digest bump is a single workflow_dispatch with no GHCR round-trip.</li><li>PR-time security gate (<code>security-pr-gate.yml</code>) gains a <code>pin-guard</code> job that fails any compose <code>image:</code> line lacking <code>@sha256</code> (with legitimate exemptions for <code>${VAR}</code> expansions and locally-built <code>build:</code> services).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.197</h2>
+      <div class="date">2026-09-01</div>
+      <h3>Fixed</h3>
+      <ul>
+        <li>fix(docker): unpin nginx base image digest in frontend Dockerfile (AUT-1908). The <code>@sha256:ee055adf...</code> digest was amd64-only; on arm64 hosted builds buildx pulled the amd64 binary into the arm64 image, causing <code>exec /docker-entrypoint.sh: exec format error</code> and a crash loop on hosted.autobrainservice.app. Use the <code>stable-alpine</code> tag so buildx resolves the correct architecture-specific manifest per build platform.</li>
+      </ul>
     </div>
 
     <div class="release">
@@ -112,42 +217,7 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.194</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.193</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.192</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.191</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.190</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.189</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.188</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.187</h2>
       <div class="date">2026-08-30</div>
     </div>
 
@@ -166,36 +236,6 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.184</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.183</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.182</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.181</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.180</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.179</h2>
-      <div class="date">2026-08-30</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.178</h2>
       <div class="date">2026-08-30</div>
       <h3>Added</h3>
@@ -209,11 +249,6 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.177</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.176</h2>
       <div class="date">2026-08-29</div>
       <h3>Added</h3>
@@ -223,22 +258,12 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.175</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.174</h2>
       <div class="date">2026-08-29</div>
       <h3>Added</h3>
       <ul>
         <li>**Servo Spy fuel-price pipeline (AUT-1817):** deterministic, no-AI ingest of public open-data feeds — WA FuelWatch, NSW FuelCheck, QLD Fuel Prices — into new <code>fuel_stations</code> / <code>fuel_prices</code> Postgres tables (Alembic migration <code>f0a1b2c3d4e5</code>), with a Celery beat task (<code>ingest_fuel_prices</code>, every 6h). Premium-gated read API at <code>/api/fuel/*</code> (<code>/types</code>, <code>/brands</code>, <code>/stations?lat&amp;amp;lon&amp;amp;radiusKm&amp;amp;fuelType</code>, <code>/station/{id}/prices</code>, <code>/attribution</code>) — free accounts get 403 "Fuel prices are a premium feature. Upgrade to enable it." Open-data attribution is attached to every response (<code>X-Fuel-Data-Attribution</code>).</li>
       </ul>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.173</h2>
-      <div class="date">2026-08-29</div>
     </div>
 
     <div class="release">
@@ -255,32 +280,12 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.171</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.170</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.169</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.168</h2>
       <div class="date">2026-08-29</div>
       <h3>Fixed</h3>
       <ul>
         <li>**Shared-vehicle fuel-up "did not save" (AUT-1884):** a best-effort background due-notification task dispatched after a fuel-up save ran via Celery; when the broker (Redis) was momentarily down the dispatch raised AFTER the row was committed and surfaced a 500 to the client — so the fill-up persisted but the app read it as a failed save. The dispatch is now fire-and-forget (<code>fire_and_forget</code>) and never masks a committed write. The same safe dispatch is now used for receipt OCR + service-due sweeps everywhere <code>.delay()</code> was called directly.</li><li>**Receipt OCR "did not work" (AUT-1884):** the fuel-receipt upload endpoint gated the entire operation (including deterministic photo storage) behind the AI rate limiter, which fails closed to 503 when Redis is unavailable — so a Redis blip dropped the receipt and skipped OCR entirely. The limiter is now best-effort (fail-open) for the storage/deterministic-OCR path; 9Router enrichment still falls back to the rule-based baseline. Tesseract OCR also now pre-processes receipt photos (grayscale -&gt; 2x upscale -&gt; Otsu threshold) for far more reliable text extraction from phone photos.</li><li>**Camera did not open on receipt upload (AUT-1884):** the "Scan fuel receipt" button now opens the device camera directly (ImagePicker) with a "Choose from files" gallery option, instead of always launching the file picker.</li>
       </ul>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.167</h2>
-      <div class="date">2026-08-29</div>
     </div>
 
     <div class="release">
@@ -293,27 +298,12 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.165</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.164</h2>
       <div class="date">2026-08-29</div>
       <h3>Added</h3>
       <ul>
         <li>Fuel: accurate 7-Eleven fuel prices via projectzerothree.info (<code>GET /vehicles/{id}/fuel/prices/7eleven</code>) — deterministic, no AI. Cheapest-by-region and nearest-store modes for auto-filling price-per-litre (AUT-1887).</li>
       </ul>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.163</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.162</h2>
-      <div class="date">2026-08-29</div>
     </div>
 
     <div class="release">
@@ -326,22 +316,12 @@
     </div>
 
     <div class="release">
-      <h2>v0.3.160</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
       <h2>v0.3.159</h2>
       <div class="date">2026-08-29</div>
       <h3>Fixed</h3>
       <ul>
         <li>Backend: full-DB JSON backup now emits strict RFC-8259 JSON — non-finite Postgres <code>FLOAT</code> values (NaN/<code>Infinity</code> from <code>0/0</code> or divide-by-zero) are coerced to <code>null</code> instead of writing the invalid <code>NaN</code>/<code>Infinity</code> tokens that off-box backup agents reject (the "failed backup jobs for hosted" failure, AUT-1854). <code>scheduled_backup</code> also honours <code>BACKUP_ENABLED</code>.</li>
       </ul>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.158</h2>
-      <div class="date">2026-08-29</div>
     </div>
 
     <div class="release">
@@ -355,21 +335,6 @@
       <ul>
         <li>**Hosted redeploy could never succeed (AUT-1847):** <code>docker-compose.hosted.yml</code> required <code>POSTGRES_USER</code>/<code>POSTGRES_DB</code> via <code>${VAR:?...}</code>; a stack env missing them failed compose interpolation. Now defaulted to <code>autobrain</code>, so a redeploy can never fail at interpolation.</li>
       </ul>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.156</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.155</h2>
-      <div class="date">2026-08-29</div>
-    </div>
-
-    <div class="release">
-      <h2>v0.3.154</h2>
-      <div class="date">2026-08-28</div>
     </div>
 
     <div class="release">
@@ -389,7 +354,7 @@
       </ul>
       <h3>Security</h3>
       <ul>
-        <li>Hardened Redis in <code>docker-compose.prod.yml</code> — added <code>--requirepass</code> and updated healthcheck to authenticate; environment variable <code>REDIS_PASSWORD</code> is now required (AUT-1600).</li>
+        <li>Hardened Redis in <code>docker-compose.prod.yml</code> — added <code>--requirepass</code> and updated healthcheck to authenticate; environment variable <code>REDIS_PASSWORD</code> is now required (AUT-1600).</li><li>**Security (AUT-1600):** hardened Redis healthcheck — <code>redis-cli</code> now receives <code>REDIS_PASSWORD</code> via the <code>REDISCLI_AUTH</code> env var instead of <code>redis-cli -a</code>, so the broker password never appears in the container process list (<code>docker-compose.yml</code>, <code>docker-compose.prod.yml</code>).</li>
       </ul>
       <h3>Security</h3>
       <ul>

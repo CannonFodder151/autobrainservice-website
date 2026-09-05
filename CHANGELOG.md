@@ -18,6 +18,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - **Pricing/tiers page:** `hosted.html` Enthusiast and Garage cards now list **Rego Status** as an explicit paid-tier feature (daily expiry tracking, status badge, expiry notifications). OfferCatalog JSON-LD descriptions updated to match (AUT-2417).
 - **Petrol Price Map coverage:** marketing pages updated to reflect WA (FuelWatch) + QLD (fuelpricesqld partner feed) live, with NSW / ACT / VIC marked coming soon — partner-feed keys pending. Refreshed `petrol-price-map.html`, `features.html` (Servo Spy card), `index.html` (PPM Explore tile), and `docs/petrol-price-map-launch-checklist.md` state coverage matrix + flip checklist (AUT-2306).
 
+### Fixed
+- **CI — PR Preview deploy blocked:** moved `build_and_deploy_job` and `build_and_deploy_pr_job` in `.github/workflows/azure-static-web-apps-happy-glacier-0f26af910.yml` from the offline self-hosted `vm2` runner to GitHub-hosted `ubuntu-latest`. The sole `vm2` runner (`gh-runner-autobrain-website-2`) is offline, so PR Preview jobs queued indefinitely; Azure SWA deploy is a pure HTTP upload with no Docker/hardware deps, so `ubuntu-latest` is sufficient (AUT-1661).
+
 ## [0.3.214] - 2026-09-03
 
 ### Fix (AUT-2070)
