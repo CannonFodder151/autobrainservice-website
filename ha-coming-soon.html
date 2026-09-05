@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon — AutoBrain Hosted Is Going High-Availability</title>
+<meta name="description" content="AutoBrain Hosted is migrating to Oracle Cloud Infrastructure — active/passive multi-zone deployment, zero-downtime updates. No action needed for existing subscribers. Sign up for migration notifications.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/ha-coming-soon.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Coming Soon — AutoBrain Hosted Goes High-Availability">
+<meta property="og:description" content="AutoBrain Hosted is migrating to Oracle Cloud Infrastructure — active/passive multi-zone deployment, zero-downtime updates. No action needed for existing subscribers.">
+<meta property="og:url" content="https://autobrainservice.app/ha-coming-soon.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coming Soon — AutoBrain Hosted Goes High-Availability">
+<meta name="twitter:description" content="AutoBrain Hosted migrating to Oracle Cloud Infrastructure — multi-zone deployment, zero-downtime updates. No action needed for existing subscribers.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/ha-coming-soon.html#webpage",
+      "url": "https://autobrainservice.app/ha-coming-soon.html",
+      "name": "AutoBrain Hosted HA Coming Soon",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "HA Coming Soon", "item": "https://autobrainservice.app/ha-coming-soon.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Will there be any downtime during the migration?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The migration uses a phased cutover with redundant capacity. You stay logged in and working throughout the entire process." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to update my app or settings?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The mobile app and web app continue to work exactly as before. No new app version or configuration is required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe during the migration?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. All data is encrypted in transit (TLS 1.3) and at rest (AES-256). The migration copies data to the new region with per-record verification before the cutover." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the pricing change?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. All existing plans and prices remain the same — Free, Enthusiast ($5.90/mo or $59/yr), and Garage ($11.90/mo or $119/yr). The HA architecture is included at no extra cost." }
+        },
+        {
+          "@type": "Question",
+          "name": "When exactly will the migration happen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Targeted for mid-October 2026. Sign up for launch notifications and we'll email you when the migration begins and completes." }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I self-host AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Self-hosted AutoBrain is unaffected. The HA migration applies only to the managed AutoBrain Hosted service. Your self-hosted deployment stays exactly as it is." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/ha-coming-soon.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/ha-coming-soon.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="soon u-badge-static" style="margin-bottom: 1rem;">Coming soon</div>
+    <h1>AutoBrain Hosted is going <span class="b">high-availability</span></h1>
+    <p class="lead">AutoBrain Hosted is migrating to Oracle Cloud Infrastructure — active/passive multi-zone deployment, automated failover, and zero-downtime updates. The move starts late Q3 2026. We'll keep you posted every step of the way.</p>
+    <div class="u-flex-center">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Be the first to know</a>
+      <a class="cta-outline" href="hosted.html">See hosted plans</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">🏗️</span>
+        <h3>Multi-zone deployment</h3>
+        <p>Primary + standby instances across two availability domains in the same OCI region. If one zone goes down, traffic fails over automatically — no manual intervention, no service interruption.</p>
+      </div>
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">🔄</span>
+        <h3>Zero-downtime updates</h3>
+        <p>Rolling deployments mean no maintenance windows and no service interruption for subscribers. Every update ships while the platform stays live — the same way major cloud services update themselves.</p>
+      </div>
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">🛡️</span>
+        <h3>Active/passive failover</h3>
+        <p>Health checks every 30 seconds; on failure, traffic routes to the standby within 60 seconds. Recovery time objective under 5 minutes, recovery point objective under 1 minute — built-in resilience you don't have to manage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>What's <span class="b">changing</span></h2>
+    <p class="lead">The migration is transparent to users. Everything underneath moves to Oracle Cloud Infrastructure, but your AutoBrain experience stays exactly the same — and gets more reliable.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tier-tag">Architecture</div>
+        <h3>OCI multi-zone</h3>
+        <p>AutoBrain Hosted moves from a single-zone deployment to Oracle Cloud Infrastructure with primary + standby across two availability domains. Single-zone failure no longer takes you offline.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Deployment</div>
+        <h3>Rolling updates</h3>
+        <p>Zero-downtime rolling deployments replace the old one-shot deploy. Updates ship incrementally with health checks at each stage. If something looks wrong, the rollout pauses — no impact on users.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Resilience</div>
+        <h3>Automatic failover</h3>
+        <p>Load balancer health checks every 30 seconds. If the primary zone fails, traffic reroutes to the standby within 60 seconds. No manual failover button, no waiting for a human to respond at 2 AM.</p>
+      </div>
+    </div>
+    <p class="u-center-muted">Self-hosted AutoBrain stays on the same self-host path. The HA migration applies only to the managed hosted service — your self-hosted deployment continues to run on the infrastructure you control. <a href="selfhost.html">Self-hosting guide →</a></p>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>Migration <span class="b">timeline</span></h2>
+    <p class="lead">Four phases, transparent milestones. We'll update the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel and the <a href="changelog.html">public changelog</a> at each phase gate.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Late Q3 2026</div>
+        <div class="timeline-phase">Planning &amp; preparation</div>
+        <p>OCI infrastructure built, data sync pipeline validated, monitoring and alerting configured. No user-facing changes.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Early October 2026</div>
+        <div class="timeline-phase">Soft cutover (staging)</div>
+        <p>Canary traffic routed to OCI. Final validation of failover, latency, and data consistency. Subscribers may see a brief notice but no interruption.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mid-October 2026</div>
+        <div class="timeline-phase">Production cutover</div>
+        <p>DNS switch to OCI endpoints. Monitoring ramp-up. Any issues are addressed during business hours with the standby zone holding the traffic.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Oct–Nov 2026</div>
+        <div class="timeline-phase">Post-migration review</div>
+        <p>Performance baseline review, incident retro, and any remaining configuration polish. HA architecture fully operational.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>HA Migration <span class="b">FAQ</span></h2>
+    <div class="faq">
+      <details open>
+        <summary>Will there be any downtime?</summary>
+        <p>No. The migration uses a phased cutover with redundant capacity. You stay logged in and working throughout — the standby zone is live and serving traffic before the primary zone transitions.</p>
+      </details>
+      <details>
+        <summary>Do I need to update my app or settings?</summary>
+        <p>No. The mobile app and web app continue to work exactly as before. No new app version or configuration is required — the DNS transition is seamless for existing connections.</p>
+      </details>
+      <details>
+        <summary>Is my data safe during the migration?</summary>
+        <p>Yes. All data is encrypted in transit (TLS 1.3) and at rest (AES-256). The migration copies data to the new OCI region with per-record verification before the cutover begins. Nothing is lost or corrupted in the process.</p>
+      </details>
+      <details>
+        <summary>Will the pricing change?</summary>
+        <p>No. All existing plans and prices remain the same — <strong>Free</strong>, <strong>Enthusiast ($5.90/mo or $59/yr)</strong>, and <strong>Garage ($11.90/mo or $119/yr)</strong>. The HA architecture is included at no extra cost.</p>
+      </details>
+      <details>
+        <summary>What if I self-host AutoBrain?</summary>
+        <p>Self-hosted AutoBrain is unaffected. The HA migration applies only to the managed AutoBrain Hosted service. Your self-hosted deployment stays exactly as it is — no changes needed on your end.</p>
+      </details>
+      <details>
+        <summary>When exactly will this happen?</summary>
+        <p>Targeted for mid-October 2026. We'll post updates on the public <a href="changelog.html">changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel as each phase completes. Sign up below to get notified directly.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56" id="notify">
+  <div class="container">
+    <h2>Be the <span class="b">first to know</span></h2>
+    <p class="lead">Drop your email and we'll send you a single migration status update when the cutover begins and when it completes — no marketing list, no recurring emails.</p>
+    <div class="u-center">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Email sales@autobrainservice.app</a>
+    </div>
+    <p class="u-center-muted">Or watch the <a href="changelog.html">public changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for live migration updates.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a> · <a href="#" rel="noopener" aria-label="AutoBrain on X (coming soon)">X</a> · <a href="#" rel="noopener" aria-label="AutoBrain on Instagram (coming soon)">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

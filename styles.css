@@ -283,3 +283,12 @@ h1.u-post-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2
 .u-py-48{padding:48px 0}
 .u-py-48-64{padding:48px 0 64px}
 .u-py-56{padding:56px 0}
+
+/* timeline */
+.timeline{max-width:860px;margin:0 auto;position:relative;padding-left:0}
+.timeline-item{padding:22px 0 22px 28px;border-left:2px solid var(--border);position:relative}
+.timeline-item:last-child{border-left-color:transparent}
+.timeline-item::before{content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px rgba(0,183,255,0.5)}
+.timeline-date{font-family:"Orbitron",sans-serif;font-size:.78rem;color:var(--primary);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.timeline-phase{font-weight:700;font-size:1.05rem;margin-bottom:6px}
+.timeline-item p{color:var(--muted);font-size:.95rem}
