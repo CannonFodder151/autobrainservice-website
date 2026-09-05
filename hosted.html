@@ -25,39 +25,67 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "OfferCatalog",
-  "name": "AutoBrain Hosted Plans",
-  "url": "https://autobrainservice.app/hosted.html",
-  "itemListElement": [
-    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock" },
-    { "@type": "Offer", "name": "Enthusiast Monthly", "price": "5.90", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "7-day free trial included. Includes Rego Status: daily expiry tracking, vehicle-card status badge, expiry notifications." },
-    { "@type": "Offer", "name": "Enthusiast Annual", "price": "59", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "Includes Rego Status: daily expiry tracking, vehicle-card status badge, expiry notifications." },
-    { "@type": "Offer", "name": "Garage Monthly", "price": "11.90", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "7-day free trial included. Rego Status for up to 5 vehicles." },
-     { "@type": "Offer", "name": "Garage Annual", "price": "119", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock" }
-   ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/hosted.html#webpage",
+      "url": "https://autobrainservice.app/hosted.html",
+      "name": "AutoBrain Hosted Plans",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Plans",
-      "item": "https://autobrainservice.app/hosted.html"
+      "@type": "OfferCatalog",
+      "name": "AutoBrain Hosted Plans",
+      "url": "https://autobrainservice.app/hosted.html",
+      "itemListElement": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock" },
+        { "@type": "Offer", "name": "Enthusiast Monthly", "price": "5.90", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "7-day free trial included. Includes Rego Status: daily expiry tracking, vehicle-card status badge, expiry notifications." },
+        { "@type": "Offer", "name": "Enthusiast Annual", "price": "59", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "Includes Rego Status: daily expiry tracking, vehicle-card status badge, expiry notifications." },
+        { "@type": "Offer", "name": "Garage Monthly", "price": "11.90", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock", "description": "7-day free trial included. Rego Status for up to 5 vehicles." },
+        { "@type": "Offer", "name": "Garage Annual", "price": "119", "priceCurrency": "AUD", "url": "https://autobrainservice.app/hosted.html", "availability": "https://schema.org/InStock" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's included in the free tier?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The free tier covers 1 vehicle with fuel, services, logbook and parts tracking, plus file exports and profile backup. AI features and rego lookup are disabled on the free tier." }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Enthusiast and Garage plans?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Enthusiast is 1 vehicle at $5.90/month (or $59/year), Garage is 5 vehicles at $11.90/month (or $119/year). Both include all AI features, rego lookup and Rego Status. Garage adds priority support." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cancel anytime during the trial?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Monthly plans include a 7-day free trial — cancel anytime during the trial and you won't be charged. Annual plans are paid upfront but come with 2 months free." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data portable?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Always. Export your full history as CSV/JSON at any time, or run the open-source edition yourself (MIT licensed). No vendor lock-in." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an OBD2 adapter?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Service history, fuel tracking, rego lookup and the resale estimate work without any hardware. Add a $15–$40 ELM327 adapter for live OBD2 diagnostics and AI predictions." }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Plans", "item": "https://autobrainservice.app/hosted.html" }
+      ]
     }
   ]
 }
-</script> 
+</script>
+
 <link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/hosted.html">
 <link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/hosted.html">
 </head>
@@ -158,6 +186,30 @@
         <p class="u-max-660-center">Always-on trip recording, auto sleep, GPS routes to your log book. Learn more.</p>
       </a>
     </div>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>What's included in the free tier?</summary>
+          <p>The free tier covers 1 vehicle with fuel, services, logbook and parts tracking, plus file exports and profile backup. AI features and rego lookup are disabled on the free tier.</p>
+        </details>
+        <details>
+          <summary>What's the difference between Enthusiast and Garage plans?</summary>
+          <p>Enthusiast is 1 vehicle at $5.90/month (or $59/year), Garage is 5 vehicles at $11.90/month (or $119/year). Both include all AI features, rego lookup and Rego Status. Garage adds priority support.</p>
+        </details>
+        <details>
+          <summary>Can I cancel anytime during the trial?</summary>
+          <p>Yes. Monthly plans include a 7-day free trial — cancel anytime during the trial and you won't be charged. Annual plans are paid upfront but come with 2 months free.</p>
+        </details>
+        <details>
+          <summary>Is my data portable?</summary>
+          <p>Always. Export your full history as CSV/JSON at any time, or run the open-source edition yourself (MIT licensed). No vendor lock-in.</p>
+        </details>
+        <details>
+          <summary>Do I need an OBD2 adapter?</summary>
+          <p>No. Service history, fuel tracking, rego lookup and the resale estimate work without any hardware. Add a $15–$40 ELM327 adapter for live OBD2 diagnostics and AI predictions.</p>
+        </details>
+      </div>
 
     <p class="terms">All prices in AUD. Annual billing gets 2 months free (Enthusiast $59/yr, Garage $119/yr). Monthly plans include a 7-day free trial — cancel anytime during the trial and you won't be charged.</p>
   </div>
