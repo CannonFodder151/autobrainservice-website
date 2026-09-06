@@ -11,6 +11,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
+- **Home Assistant Technical Deep-Dive (Part 2/2) blog post:** new `blog/autobrain-home-assistant-integration-part-2.html` (CMO-approved) covering embedded HA WebSocket client, wire format, processed entities, Lovelace card, real automation YAML, and beta scope. Cross-linked from Part 1 (`autobrain-home-assistant-integration.html`), added to `blog.html` index, HA section on `features.html` flipped from "coming soon" → live with link to Part 1, and listed in `sitemap.xml` (AUT-2554).
 - **Ownership Advisor — Now Live blog post:** new `blog/ownership-advisor-live.html` (CMO-approved launch content) covering the six modules (Value / Replace / Upgrade / Finance / Dream / AI Advisor), deterministic-first architecture, and FAQ schema. Added to `blog.html` index replacing the "coming soon" card, surfaced as a "Read the launch blog" teaser card from `ownership-advisor.html`, and listed in `sitemap.xml` (AUT-2644).
 
 ### Changed
