@@ -11,15 +11,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-## [0.3.256] - 2026-09-08
-
-### Added (AUT-1872)
-- feat(deploy): upgrade script + hardened hosted compose. `scripts/upgrade-instances.sh` redeploys Portainer stacks tier-by-tier (Demo → Default → Hosted) with explicit image pulls and health gates. `docker-compose.hosted.yml` drops dead `dongle-server` + duplicate `hub`, uses `:-` defaults for `POSTGRES_USER`/`POSTGRES_DB` and `DONGLE_SERVER_URL` so Portainer redeploys survive empty-stack env. PR #375.
-
-## [0.3.255] - 2026-09-08
-
-### Fixed (AUT-2042)
-- fix(backend): add error handling to vehicles list endpoint. `GET /vehicles` now wraps `list_user_vehicles` in try/except and returns a clean 500 ("Could not load vehicles") instead of leaking raw DB errors to the client. PR #383.
+### Fixed (AUT-2656)
+- fix(ci): restore arm64 flutter web compile in build-hosted.yml. Pin the
+  frontend Dockerfile to `ghcr.io/cirruslabs/flutter:3.38.2` (the `:stable`
+  tag had drifted past 3.27.x and introduced breaking Flutter API changes —
+  `MaterialBanner.actions` required, `MediaQuery.withClampedTextScaling`
+  `maxTextScale` removed, `Connectivity.instance` removed) and re-apply the
+  dart2js compat fixes from PR #579 (887c213): `Connectivity()`,
+  `Future<Database>? _opening`, indentation in login/signup/add_vehicle/edit_vehicle
+  screens, `MaterialBanner.actions` + `MediaQuery` clamp in app.dart.
 
 ## [0.3.254] - 2026-09-08
 ### Added (AUT-2386)
@@ -115,6 +115,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added (AUT-2446)
 - backend(advisor): Ownership Advisor Replace module — deterministic used/new replacement cost + funding gap + monthly saving target. New `GET /api/v1/advisor/replace` route (per ADR 0001) anchors on the same cached `market_listing_cache` median the Value module uses — no 9Router, no AI. Used replacement cost = current private-sale mid; new replacement cost applies age-based new-vs-used premium curve (1.0× at 0y → 1.4× at 3y → 1.8× at 6y → 2.2× at 10y, clamped at 3.0×). Funding gap: `gap = replacement_cost - current_value - trade_in_mid`; `monthly_target = gap / horizon_months`. Negative gap = `surplus=true` with zero monthly. Free accounts get 403. New schemas `AdvisorReplaceData`, `FundingGapBand`. New helpers `compute_replace`, `age_years`, `new_used_premium`, `_clamp_horizon`. Tests: `backend/tests/test_advisor_replace.py`.
+
+### Added (AUT-2376)
+- feat(frontend): Servo Spy station detail — 30-day price history chart. Tapping
+  a station in the Servo Spy **list** view (or the **map** detail sheet) opens
+  a new screen that calls `GET /api/v1/fuel/stations/{id}/history` and renders
+  one `fl_chart` `LineChart` line per fuel type (E10, 91, 95, 98, Diesel, LPG)
+  for the last 30 days, with a legend, a `\$x.xx` Y axis, and tap-to-tooltip.
+  The client groups the flat `(fuel_type, price, effective_at)` response from
+  the AUT-2375 endpoint by fuel type. Cached in-memory per station so a
+  re-open is instant. Empty state ("No price history yet") and 404 fallback
+  handled. New unit tests `frontend/test/fuel_prices_api_test.dart` cover the
+  flat contract and empty/404 cases. Closes AUT-2376.
 
 ## [0.3.239] - 2026-09-05
 
@@ -829,6 +841,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ### Security
 - Hardened Redis in `docker-compose.prod.yml` — added `--requirepass` and updated healthcheck to authenticate; environment variable `REDIS_PASSWORD` is now required (AUT-1600).
 - **Security (AUT-1600):** hardened Redis healthcheck — `redis-cli` now receives `REDIS_PASSWORD` via the `REDISCLI_AUTH` env var instead of `redis-cli -a`, so the broker password never appears in the container process list (`docker-compose.yml`, `docker-compose.prod.yml`).
+
 
 ### Security
 - **Security (AUT-1735):** Bumped `docker/backend`, `docker/ai`, `docker/worker` and `market-data` Dockerfiles off the vulnerable `python:3.12-slim` base (trivy reported 18 HIGH/CRITICAL CVEs: CVE-2026-13221 perl RCE, CVE-2026-42496 perl-Archive-Tar path traversal, CVE-2026-8376 perl heap overflow, CVE-2026-14456 OpenSSL QUIC DoS, CVE-2026-11822/11824 SQLite FTS5 code exec, CVE-2025-7458 SQLite integer overflow, CVE-2023-45853 zlib heap overflow). All python bases now pin `python:3.13-slim@sha256:...` by digest. Added a python base-image scan to `.github/workflows/trivy-image-scan.yml` (`--severity HIGH,CRITICAL --exit-code 1`) plus a pin guard that fails any floating `FROM python:*` tag. `rego-lookup-api/Dockerfile` (separate private repo) tracked in follow-up AUT-1735-r1.
