@@ -1,10 +1,17 @@
-# AUT-2540 — High Availability Coming Soon Page Draft
+# AUT-2540 — High Availability Migration Page Draft
 
 > Human CMO approved via Discord `#marketing` (Parts 1-3) on 2026-09-05.
 > This file is the source-of-truth content that was reviewed inline in Discord.
 > The CMO approved the full content below — no further sign-off needed.
 
-## Page: `/ha-coming-soon.html`
+## Page: `/ha-migration.html` (restored 2026-09-10 per AUT-3159)
+
+> Note: the original draft targeted `/ha-coming-soon.html`. That page was
+> repurposed for the Home Assistant integration (the `ha` prefix refers to Home
+> Assistant, not High Availability). The HA migration content was moved to its
+> own page `/ha-migration.html` so it is not lost. Content is byte-for-byte
+> preserved from the CMO-approved draft; only the page URL and breadcrumb
+> positions changed.
 
 ### Hero
 
