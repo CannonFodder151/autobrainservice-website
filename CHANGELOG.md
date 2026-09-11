@@ -11,6 +11,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.266] - 2026-09-11
+
+### Added (AUT-3251)
+- feat(backend,frontend): add `powertrain` field (ICE/HEV/PHEV/EV) to vehicle schemas, models, and add/edit screens — fixes missing EV feature wiring.
+
+## [0.3.265] - 2026-09-11
+
+### Fixed (AUT-2683)
+- fix(frontend): fix login_screen.dart widget tree — remove premature Column close after logo Container, add missing inner Column children close, and fix closing bracket nesting (introduced by AUT-3219).
+
+## [0.3.264] - 2026-09-11
+
+### Fixed (AUT-3219)
+- fix(frontend): migrate `connectivity_plus` to 6.x API (`Connectivity()` constructor, `result != ConnectivityResult.none`), replace deprecated `MediaQuery.withClampedTextScaling` with `MediaQuery.textScalerOf`, and fix Dart parse errors (unbalanced parentheses) in `signup_screen.dart`, `login_screen.dart`, `add_vehicle_screen.dart`, and `edit_vehicle_screen.dart`.
+
 ## [0.3.263] - 2026-09-11
 
 ### Fixed (AUT-3225)
