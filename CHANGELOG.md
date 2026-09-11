@@ -11,6 +11,48 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.263] - 2026-09-11
+
+### Fixed (AUT-3225)
+- fix(tests): add `sqflite_common_ffi` init to desktop layout tests — resolves `databaseFactory not initialized` error when running `flutter test` on desktop/CI environments.
+
+## [0.3.262] - 2026-09-11
+
+### Fixed (AUT-2683)
+- fix(frontend): replace `onReorderItem` with `onReorder` in `edit_build_screen.dart`. `ReorderableListView.builder` does not expose `onReorderItem` in Flutter 3.38.2, causing the amd64 Docker build to fail and blocking the Docker Hub `:latest` multi-arch publish.
+
+## [0.3.261] - 2026-09-10
+
+### Fixed (AUT-3154)
+- fix(docs): repair vector-store doc drift — all 5 embedding entity tables (`diagnostics`, `service_records`, `modifications`, `receipts`, `social_issue_posts`) now referenced consistently across `docs/Engineering/ai/vector.md`, `docs/Engineering/database-schema.md`, `docs/Engineering/container-architecture.md`, and `docs/Engineering/architecture.md`. Cross-references that pointed at the non-existent `docs/ai/vector.md` / `docs/README.md` / `postgres-pg17-upgrade.md` now resolve to the canonical `docs/Engineering/ai/vector.md`, `docs/index.md`, and `docs/Deployment-and-Infrastructure/server-migration.md`. Migration comments in `g7h8i9j0k1l2` / `h1i2j3k4l5m6` corrected (pg16 → pg17 image; IVFFlat-claim → HNSW-claim) and `vector.md`'s migration reference table now lists all three vector migrations (`g7h8i9j0k1l2`, `h1i2j3k4l5m6`, `u1v2w3x4y5z6`) with the verified single-head chain (`m3rge06`).
+
+## [0.3.260] - 2026-09-10
+
+### Added (AUT-3162)
+- feat(backend): seed deterministic demo fuel stations + prices into demo data for Servo Spy (/fuel/stations, /fuel/stations/{id}/history, /fuel/types, /fuel/brands). Adds 10 Melbourne-area stations across Ampol, BP, Caltex, Woolworths, 11-Seven, Shell, Coles Express with 91/95/98/E10/Diesel/LPG prices, source='demo' + arbitration rows, idempotent per reset_demo cycle.
+
+### Changed (AUT-3153)
+- infra(docker): merge the standalone Celery `worker` service into `backend` in `docker-compose.hosted.yml` (Phase 1 pillar a). The backend image already carries the worker dependencies and its default CMD runs API + Celery worker+beat in one container, matching `docker-compose.prod.yml`; the hosted stack drops from 9 to 8 long-running containers. The worker's fuel-poll env (`FUEL_NSW/VIC/QLD/SA_*_FILE`) moved to the backend service. Added `scripts/check-compose-config.py` fuel/dongle secret-file coverage and `scripts/seed-secrets.sh` mappings. Added `docs/Deployment-and-Infrastructure/container-consolidation-migration.md` migration checklist and refreshed the hosted topology/stack tables in `docs/Engineering/container-architecture.md` and `docs/Deployment-and-Infrastructure/deployment-guide.md`.
+
+## [0.3.259] - 2026-09-09
+
+### Fixed (AUT-2656)
+- fix(ci): arm64 build-hosted.yml no longer fails with `exec format error` at the first `RUN` step in `docker/backend/Dockerfile`. The previous `python:3.13-slim@sha256:cc9dffa…` pin was a **single-arch amd64** manifest (annotation `com.docker.official-images.bashbrew.arch: amd64`), so the arm64 runner pulled amd64 layers and every `RUN` died with exit 255 — the build never reached flutter/dart2js. Re-pin to the multi-arch index `python:3.13.15-slim-trixie@sha256:9d2e555…` (resolves to aarch64 on arm64) across backend/ai/worker/market-data Dockerfiles and the trivy scan env; add a pin-guard check that the python base index contains an arm64 manifest.
+
+## [0.3.258] - 2026-09-09
+
+### Fixed (AUT-2281)
+- fix(backend): `cost_per_km` divisor `/100` → `/10000` in `_project_price` (`app/api/v1/fuel_servo.py:399`) so the result is **$/km** not cents/km. The old code pre-divided `price` by 100 then divided again — double conversion. Also fixed `avg_litres_per_fill` → `avg_fill_litres` field-name mismatch in `_station_out` (`app/api/v1/fuel_servo.py:417`) and `annotate_station`/`annotate_prices` (`app/services/fuel_servo.py:69,93`); corrected an `IndentationError` in `_station_out`; updated frozen assertions in `tests/test_aut2201_station_annotations.py`. All 8 tests in `test_aut2201_station_annotations.py` + `test_servo_projection_aut2053.py` pass.
+
+## [0.3.257] - 2026-09-09
+### Added (AUT-2352)
+- test(frontend): add `frontend/test/app_config_validate_test.dart` — 6 hermetic reachability cases for `AppConfig.validate()` covering 2xx ok, 5xx fail, timeout, connection refused, malformed URL, and `healthz` origin stripping. Per-test isolation via `tearDown` resetting `apiBase` / `lastValidationOk` / `lastValidationError`. Closes AUT-2352.
+
+## [0.3.256] - 2026-09-09
+
+### Security (AUT-2060)
+- security(ci,docker): bump python:3.13-slim to digest cc9dffa (libssl3t64 3.5.7-1~deb13u2, resolves CVE-2026-14456 OpenSSL QUIC DoS) and nginx frontend to digest ee1643ae (util-linux/alpine update). Remove resolved CVE-2026-14456 suppression from .trivyignore. Add libuuid/util-linux HIGH CVE suppressions (CVE-2026-53612/53613/53614/76642/78408/78409/78410; nginx frontend never invokes mount/nsenter). Fix trivy-image-scan.yml to use aquasecurity/trivy-action@v0.36.0 with `scanner: vuln` inputs (v0.37.0 does not exist). Drop separate ai service from docker-compose.prod.yml — AI gateway runs inside backend container (AUT-2000). Add libexpat version-check workflow (AUT-2126). Add FUEL_SA_API_KEY/FUEL_SA_ENABLED env vars for SA SAFPIS ingester (AUT-2610).
+
 ## [0.3.255] - 2026-09-08
 
 ### Fixed (AUT-2656)
@@ -22,6 +64,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
   dart2js compat fixes from PR #579 (887c213): `Connectivity()`,
   `Future<Database>? _opening`, indentation in login/signup/add_vehicle/edit_vehicle
   screens, `MaterialBanner.actions` + `MediaQuery` clamp in app.dart.
+
+### Added (AUT-2118)
+- backend(tests): add `backend/tests/health_demo.test.py` — dedicated health endpoint CI gate asserting /health returns 200, status=ok, service=autobrain-backend, version matches APP_VERSION, and marks demo/hosted/default env when DEMO_MODE=true. Promoted from test_api.py. Also ships `.github/workflows/ci-tests.yml` (AUT-2119): pytest job on PR + push to main; a failing health_demo.test blocks merge and posts to Discord #updates on failure, keeping hosted/default from drifting out of parity.
 
 ## [0.3.254] - 2026-09-08
 ### Added (AUT-2386)
@@ -57,6 +102,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - fix(backend): PDF export table header text was black on dark background (unreadable). Header cells now use a cloned `BodyText` style with `textColor=colors.white` and `fontName=Helvetica-Bold` so the `TEXTCOLOR` table style (which only affects raw strings, not Paragraphs) is no longer relied upon. Applies to both service history and build sheet PDFs.
 - feat(backend,AUT-2960): vehicle rego now included in the PDF title on the front page. Service history: `Service History — {label} — {rego}`; build sheet: `Build Sheet — {label} — {rego}`. When rego is empty, title remains clean (no trailing separator). Updated API callers in `services.py` and `mods.py` to pass `vehicle.rego`. Added `test_pdf_export_rego_in_title` test.
 
+### Fixed (AUT-2481)
+- frontend(servo-spy): dart2js compile error on `_cartoApiKey`/`_cartoKeyParam`. The two were declared as instance fields on `_ServoSpyScreenState` but referenced from `_ServoSpyMapState.build()` (different class, so name-resolution failed at compile time). Promoted both to file-private top-level `const` so both widget trees see them; removed the `const` from `_cartoKeyParam` (the runtime `isEmpty` check is not a constant expression).
+
 ## [0.3.243] - 2026-09-06
 ### Fixed (AUT-2656)
 - fix(frontend): restore flutter web compile on arm64 runner. Three compile errors blocked `flutter build web` in the dockerhub-publish + build-hosted arm64 jobs: (1) `login_screen.dart:199` — `children:` under-indented by 2 spaces; (2) `signup_screen.dart:85` — `child:` under-indented by 2 spaces; (3) `reset_password_web.dart` — `import 'dart:html'` unsupported by Flutter ≥3.22 web builds (CanvasKit renderer), replaced with no-op `clearUrlToken()` (token detection in `app.dart` reads the fragment before navigation, so no data loss).
@@ -70,6 +118,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added (AUT-2651)
 - backend(advisor): Car Check module (AUT-2651) — deterministic deal score + AI 9Router narrative (system prompt instructs model never to invent numbers). New `POST /api/v1/advisor/car-check` route takes a parsed listing + optional reference price, computes a 0-100 deal score from price/km/age heuristics, then calls 9Router via `run_car_check_ai` (24h in-process LRU+TTL cache, mirrored from `run_advisor_ai`). When 9Router is unreachable, falls back to `car_check_fallback` (rule-based summary with red/green flags). `deal_score` is immutable via `_AI_IMMUTABLE["car-check"]` — the router can enrich prose but never override the score. Schema whitelist `_SCHEMAS["car-check"]` allows only `summary`, `red_flags`, `green_flags`. AI fallback: `ai/app/fallbacks/car_check.py`. AI module: `ai/app/modules/car_check.py`. Backend service: `backend/app/services/car_check.py`. Tests: `ai/tests/test_car_check.py` (17 cases) + `backend/tests/test_car_check_ai.py` (19 cases). Parent: AUT-2630.
+### Changed (AUT-1932)
+- deploy: VIC Servo Saver fuel feed deployed to Default + Hosted (AUT-1932).
 
 ## [0.3.240] - 2026-09-06
 ### Added (AUT-2703)
