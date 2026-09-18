@@ -1,51 +1,73 @@
-# AUT-2540 — Home Assistant Integration Coming Soon Page Draft
+# AUT-2540 — High Availability Coming Soon Page Draft
 
-> Updated 2026-09-09 for AUT-3156: page content corrected from "High-Availability migration" to "Home Assistant integration coming soon".
-> The `ha-` in the URL stands for **Home Assistant**, not High Availability.
-> The HA migration page content was moved to a separate internal issue (AUT-2540-HA-migration) — this page is the dedicated Home Assistant integration announcement.
+> Human CMO approved via Discord `#marketing` (Parts 1-3) on 2026-09-05.
+> This file is the source-of-truth content that was reviewed inline in Discord.
+> The CMO approved the full content below — no further sign-off needed.
 
 ## Page: `/ha-coming-soon.html`
 
 ### Hero
 
-**Headline:** AutoBrain is coming to Home Assistant
+**Headline:** AutoBrain Hosted Is Going High-Availability
 
-**Subhead:** Your car already lives in your phone — but it deserves better than a standalone app. AutoBrain is joining Home Assistant, pushing service reminders, fuel analytics, and running costs onto the same dashboard as your lights, locks, and laundry. Phase 1 lands in Q4 2026, with a closed beta opening in October.
+**Subhead:** AutoBrain Hosted is migrating to Oracle Cloud Infrastructure — active/passive multi-zone deployment, automated failover, and zero-downtime rolling updates. The move starts late Q3 2026. We'll keep you posted every step of the way.
 
-**CTA:** Join the HA waitlist → (mailto:sales@autobrainservice.app?subject=HA%20waitlist)
+**CTA:** Be the first to know → [Notify me on launch] (mailto:sales@autobrainservice.app?subject=HA%20waitlist)
 
-### What's coming
+### What's changing
 
-- **Service reminder sensors** — countdown entities per vehicle showing kilometres and days until the next service. Drop them into a Lovelace card or an HA todo list.
-- **Fuel economy trends** — rolling L/100km averages sitting next to your solar production on the same dashboard.
-- **Cost analytics** — total spend by category (fuel, service, rego), month-on-month deltas, and cost per kilometre rendered in native HA charts.
+AutoBrain Hosted is moving off the current single-zone setup to Oracle Cloud Infrastructure (OCI) with a High-Availability architecture:
 
-### How the integration works
+- **Multi-zone deployment** — primary + standby instances across two availability domains in the same region. If one zone goes down, traffic fails over automatically.
+- **Zero-downtime updates** — rolling deployments mean no maintenance windows, no service interruption for subscribers.
+- **Active/passive failover** — health checks every 30s; on failure, traffic routes to the standby within 60s. RTO < 5 min, RPO < 1 min.
+- **Same features, same price** — the hosted experience you already use. No data migration needed; existing accounts and subscriptions carry over unchanged.
 
-AutoBrain acts as the intelligence layer. It computes your analytics and service intervals, then pushes only the processed insights into Home Assistant — no raw telemetry, no cloud dependency, nothing leaving your network unless you want it to.
+### Timeline
 
-- **Phase 1 (Q4 2026):** REST + WebSocket feed. Pull AutoBrain analytics and service-interval pushes over REST and WebSocket. Pick the insights you want inside HA — rego status badges, next-service calendars, AI maintenance predictions.
-- **Phase 2 (2027):** Full HACS custom integration with config flow: one-click install inside HA, entity setup for every vehicle, per-entity toggles, and a custom Lovelace card styled to match your HA theme.
-- **Privacy first:** No raw telemetry leaves AutoBrain. Only processed insights — aggregated fuel costs, rego status, AI service predictions, charge-session summaries — are pushed. Your HA instance never sees raw OBD2 PIDs, live GPS routes, or anything you have not explicitly chosen to surface.
+| Phase | Window | What's happening |
+|-------|--------|-----------------|
+| Planning & preparation | Late Q3 2026 | Infrastructure built in OCI, data sync test |
+| Soft cutover (staging) | Early October 2026 | Canary traffic, final validation |
+| Production cutover | Mid-October 2026 | DNS switch, monitoring ramp-up |
+| Post-migration | October–November 2026 | Performance review, incident retrospectives |
 
-### Rollout FAQ
+### For existing subscribers
 
-**Q: When does the Home Assistant integration ship?**
-A: Phase 1 (REST + WebSocket feed) targets Q4 2026, with a closed beta opening in October. Phase 2 (full HACS custom integration with config flow) follows in 2027. Watch the public changelog and the AutoBrain #changelog channel for the day each phase lands.
+- **No action needed.** Your data, settings, and subscriptions stay exactly where they are.
+- **No downtime.** The migration uses a phased cutover — you keep working through the entire process.
+- **No price change.** All plans (Free, Enthusiast $5.90/mo, Garage $11.90/mo) stay the same.
+- **Same support.** All existing support channels remain live.
 
-**Q: What data does AutoBrain actually push to Home Assistant?**
-A: Only processed insights you opt in to — service reminders, fuel efficiency and cost trends, rego status, and AI maintenance predictions. Raw OBD2 PIDs, live telemetry and GPS routes never leave AutoBrain unless you explicitly surface them.
+### For new subscribers
 
-**Q: Do I need new hardware?**
-A: No. The integration runs on the same AutoBrain backend you already use — hosted or self-hosted. You just need a Home Assistant instance and a waitlist signup.
+- **Same plans.** Free tier plus Enthusiast and Garage paid plans — unchanged pricing and features.
+- **Built for reliability.** The HA architecture is included in every hosted plan at no extra cost.
 
-**Q: How do I join the beta?**
-A: Email sales@autobrainservice.app with subject "HA waitlist" or join the waitlist below. Beta testers are picked from the waitlist first.
+### FAQ
+
+**Q: Will there be any downtime?**
+A: No. The migration uses a phased cutover with redundant capacity. You stay logged in and working throughout.
+
+**Q: Do I need to update my app or settings?**
+A: No. The mobile app and web app continue to work exactly as before. No new app version or configuration required.
+
+**Q: Is my data safe?**
+A: Yes. All data is encrypted in transit (TLS 1.3) and at rest (AES-256). The migration copies data to the new region with per-record verification before the cutover.
+
+**Q: Will the pricing change?**
+A: No. All existing plans and prices remain the same. The HA architecture is included at no extra cost.
+
+**Q: What if I self-host?**
+A: Self-hosted AutoBrain is unaffected. The HA migration applies only to the managed AutoBrain Hosted service.
+
+**Q: When exactly will this happen?**
+A: Targeted for mid-October 2026. Sign up for launch notifications and we'll email you when the migration begins and completes.
 
 ### CTA (bottom)
 
-**Be the first to know.** Drop your email and we'll ping you the day the Home Assistant integration beta opens — one email, no marketing list, no spam.
+**Ready for the update?** Drop your email and we'll send you a single migration status update — no marketing list.
 
-Join the HA waitlist → (mailto:sales@autobrainservice.app?subject=HA%20waitlist)
+[Be the first to know →](mailto:sales@autobrainservice.app?subject=HA%20waitlist)
 
-Or watch the public changelog and the AutoBrain #changelog channel for the day the beta opens.
+Or watch the [public changelog](changelog.html) and the AutoBrain [#changelog](https://discord.com/channels/1397739559174053889/1426172943819493396) channel for live migration updates.

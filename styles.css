@@ -65,7 +65,8 @@ nav .cta.nav-cta{padding:8px 14px;font-size:.85rem;margin-top:6px;border-radius:
 nav .cta.nav-cta + .cta.nav-cta{margin-left:22px}
   .nav-more.open .more-menu{display:flex}
 }
-.cta{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#050505!important;font-weight:700;padding:10px 22px;border-radius:10px;border:1px solid var(--border-glow);box-shadow:0 0 20px rgba(0,183,255,0.35)}
+.rss-link{display:inline-block;margin-top:14px;font-weight:700;color:var(--primary);border-bottom:1px solid var(--primary);text-decoration:none}
+.rss-link:hover{text-shadow:0 0 12px rgba(0,183,255,0.5)}
 .cta:hover{color:#050505!important;box-shadow:0 0 30px rgba(0,183,255,0.55);text-shadow:none}
 .cta-outline{background:transparent;border:1px solid var(--border-glow);color:var(--primary)!important;font-weight:600;padding:15px 30px;border-radius:10px;display:inline-block;margin-left:12px}
 .cta-outline:hover{box-shadow:0 0 24px rgba(0,183,255,0.35);color:var(--primary)!important}
