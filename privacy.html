@@ -25,36 +25,47 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
-    { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://autobrainservice.app/privacy.html" }
-  ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://autobrainservice.app/privacy.html" }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Privacy Policy",
-      "item": "https://autobrainservice.app/privacy.html"
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What personal data does AutoBrain collect?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Account details (email, display name, MFA settings), vehicle records (rego, VIN, make, model, year, odometer), maintenance data (service history, fuel logs, logbook trips, parts, modifications, receipts), and uploaded document images for scanning. Payment details are handled by Stripe and never stored by AutoBrain." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data used to train AI models?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. AutoBrain never uses your data to train models. AI features send only the minimal snippet needed for the task to the configured router, and the output is stored with your records for reproducibility." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export or delete my data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can export your full profile (CSV/JSON) or delete your data at any time from the app, or email sales@autobrainservice.app and we will help." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is my data secured on the hosted service?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Passwords are hashed with enforced TOTP MFA, role-based access control limits provisioning to administrators, daily encrypted backups are stored across physically separate locations, and full isolation ensures no account can access another's data." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who operates AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain is a product of Perfection IT Services (ABN 25 839 782 423), based in Victoria, Australia. Contact: sales@autobrainservice.app." }
+        }
+      ]
     }
   ]
 }
 </script> 
-<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/privacy.html">
-<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/privacy.html">
 </head>
 <body>
 
