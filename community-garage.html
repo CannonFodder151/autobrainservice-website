@@ -24,31 +24,40 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "url": "https://autobrainservice.app/community-garage.html",
-  "name": "Community Garage — Now Live",
-  "description": "Community Garage is live: a social layer for AutoBrain with builds, photos, mod lists and a federated feed across AutoBrain instances.",
-  "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
-}
-</script>
-<link rel="stylesheet" href="styles.css">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "CollectionPage",
+      "url": "https://autobrainservice.app/community-garage.html",
+      "name": "Community Garage — Now Live",
+      "description": "Community Garage is live: a social layer for AutoBrain with builds, photos, mod lists and a federated feed across AutoBrain instances.",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Community Garage",
-      "item": "https://autobrainservice.app/community-garage.html"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Community Garage", "item": "https://autobrainservice.app/community-garage.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Community Garage?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A social layer for AutoBrain where you can share builds, photos and mod lists across a federated feed. Your data stays on your server — it's not a centralized social platform." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Community Garage free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — Community Garage is included with all AutoBrain plans (free, Enthusiast, Garage) and works on self-hosted deployments too." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does federation work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Each AutoBrain instance runs its own Community Garage feed. When you follow someone on another instance, their posts appear in your feed — like ActivityPub/Mastodon but built for car content." }
+        }
+      ]
     }
   ]
 }

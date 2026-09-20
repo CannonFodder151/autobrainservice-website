@@ -25,32 +25,47 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "AutoBrain Petrol Price Map",
-  "description": "WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued. Self-hosters supply their own fuel-price data API key.",
-  "brand": { "@type": "Brand", "name": "AutoBrain" },
-  "url": "https://autobrainservice.app/petrol-price-map.html",
-  "image": "https://autobrainservice.app/assets/og-image.png",
-  "category": "Fuel price comparison"
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "Product",
+      "name": "AutoBrain Petrol Price Map",
+      "description": "WA and QLD via official + partner feeds, with NSW, ACT and VIC coming as partner-feed keys are issued. Self-hosters supply their own fuel-price data API key.",
+      "brand": { "@type": "Brand", "name": "AutoBrain" },
+      "url": "https://autobrainservice.app/petrol-price-map.html",
+      "image": "https://autobrainservice.app/assets/og-image.png",
+      "category": "Fuel price comparison"
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Petrol Price Map",
-      "item": "https://autobrainservice.app/petrol-price-map.html"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Petrol Price Map", "item": "https://autobrainservice.app/petrol-price-map.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which states have live fuel prices?",
+          "acceptedAnswer": { "@type": "Answer", "text": "WA (via FuelWatch) and QLD (via fuelpricesqld) are live. NSW, ACT and VIC will follow as partner-feed keys are issued." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Petrol Price Map on the free plan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No — it's a paid data feature included with AutoBrain's paid hosted plans (Enthusiast and Garage). Free tier does not include live fuel prices." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it if I self-host AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — self-hosters supply their own fuel-price data API key. Without a key, the feature returns a clean 'provider not configured' message while every other AutoBrain feature keeps working." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Servo Spy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Servo Spy lets you watch your favourite stations and fuel types, then notifies you the moment a price moves past your custom % threshold versus the previous day." }
+        }
+      ]
     }
   ]
 }

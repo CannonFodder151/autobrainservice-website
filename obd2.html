@@ -25,32 +25,47 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "AutoBrain OBD2 Companion",
-  "description": "Custom OBD2 port from AutoBrain with always-on trip recording, auto sleep, GPS route data to your log book, live fault-code capture and VIN auto-fill.",
-  "brand": { "@type": "Brand", "name": "AutoBrain" },
-  "url": "https://autobrainservice.app/obd2.html",
-  "image": "https://autobrainservice.app/assets/og-image.png",
-  "category": "OBD2 vehicle diagnostics hardware"
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://autobrainservice.app/"
+      "@type": "Product",
+      "name": "AutoBrain OBD2 Companion",
+      "description": "Custom OBD2 port from AutoBrain with always-on trip recording, auto sleep, GPS route data to your log book, live fault-code capture and VIN auto-fill.",
+      "brand": { "@type": "Brand", "name": "AutoBrain" },
+      "url": "https://autobrainservice.app/obd2.html",
+      "image": "https://autobrainservice.app/assets/og-image.png",
+      "category": "OBD2 vehicle diagnostics hardware"
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "OBD2 Companion",
-      "item": "https://autobrainservice.app/obd2.html"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "OBD2 Companion", "item": "https://autobrainservice.app/obd2.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When will the OBD2 Companion be available?",
+          "acceptedAnswer": { "@type": "Answer", "text": "ETA is 14 September 2026 — the custom OBD2 port is in final testing against real cars. Join the waitlist by emailing sales@autobrainservice.app." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it work with my car?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — it plugs into any standard OBD2 port (most cars since 1996 in Australia). The port reads your vehicle's VIN automatically on first connection." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it need my phone to be on to log trips?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The OBD2 Companion has on-board GPS and storage, so it logs every trip even with your phone off. It auto-sleeps when the car is off to protect your battery." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it with the self-hosted version of AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The OBD2 Companion pairs with AutoBrain over Bluetooth — it works with both hosted and self-hosted deployments." }
+        }
+      ]
     }
   ]
 }
