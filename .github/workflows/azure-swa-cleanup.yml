@@ -1,4 +1,4 @@
-# AUT-1798: x64 jobs dispatch to the new vm2 runner (gh-runner-autobrain-website-2). ARM stays on Oracle VM.
+# AUT-3718: use GitHub-hosted runners (ubuntu-latest) instead of self-hosted vm2 runner (gh-runner-autobrain-website-2). ARM stays on Oracle VM.
 name: Azure SWA Staging Cleanup
 
 on:
@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   cleanup-staging:
-    runs-on: [self-hosted, linux, x64, vm2]
+    runs-on: ubuntu-latest
     name: Purge orphaned staging environments (SWA data plane)
     steps:
       - name: Checkout
