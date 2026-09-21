@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
 <meta property="og:title" content="Features — AutoBrain | AI Vehicle Maintenance, Diagnostics &amp; HA Integration">
-    <meta property="og:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (coming soon), Electric Spy, EV Log Book, PHEV support (coming soon) and analytics.">
+    <meta property="og:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (Phase 1 live, Phase 2 coming soon), Electric Spy, EV Log Book, PHEV support (coming soon) and analytics.">
 <meta property="og:url" content="https://autobrainservice.app/features.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -138,18 +138,33 @@
     <h1>What is <span class="b">AutoBrain</span>?</h1>
     <p class="lead">AutoBrain is your all-in-one car companion — part digital logbook, part cost tracker, part garage organiser. Whether you're tracking tax-deductible kilometres, logging your latest mod, or comparing fuel costs over time, AutoBrain keeps everything in one place so you can focus on driving.</p>
     <div class="grid">
-      <div class="card"><span class="icon">📋</span><h3>ATO Compliance Logbook</h3><p>Keep track of your tax-deductible kilometres with a digital logbook that meets ATO requirements. Record trips automatically or manually, and export reports for your accountant. An OBD device for automatic trip tracking is on the way — ETA 14 September 2026.</p></div>
-      <div class="card"><span class="icon">⛽</span><h3>Fuel &amp; Service Record Tracking</h3><p>Log every fill-up and service to see how much your car really costs to run. Track fuel economy in L/100km, monitor spending trends, and claim back a percentage of your fuel and service costs on tax with easy exports. Servo Spy (below) watches fuel prices for you.</p></div>
-      <div class="card"><span class="icon">🔧</span><h3>DIY + Shop Servicing Records</h3><p>Whether you're a hands-on enthusiast who wrenches on weekends or you prefer a trusted mechanic, keep a complete service history with dates, mileage and costs. Perfect for staying organised and knowing exactly what's been done.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">📋</span><h3>ATO Compliance Logbook</h3><p>Keep track of your tax-deductible kilometres with a digital logbook that meets ATO requirements. Record trips automatically or manually, and export reports for your accountant. An OBD device for automatic trip tracking is on the way — ETA 14 September 2026.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">⛽</span><h3>Fuel &amp; Service Record Tracking</h3><p>Log every fill-up and service to see how much your car really costs to run. Track fuel economy in L/100km, monitor spending trends, and claim back a percentage of your fuel and service costs on tax with easy exports. Servo Spy (below) watches fuel prices for you.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">🔧</span><h3>DIY + Shop Servicing Records</h3><p>Whether you're a hands-on enthusiast who wrenches on weekends or you prefer a trusted mechanic, keep a complete service history with dates, mileage and costs. Perfect for staying organised and knowing exactly what's been done.</p></div>
       <div class="card">
         <div class="tier-tag">Paid · Enthusiast / Garage</div>
         <span class="icon">🛡️</span><h3>Rego Status</h3>
         <p>Daily rego expiry tracking for every vehicle, a colour-coded status badge on each vehicle card, and expiry notifications 30 / 7 / 1 days out (plus the moment the state flips your rego to expired or unregistered). Backs onto the same Australian Rego Lookup tool that returns VIN, body, colour and current status. <a href="rego-status.html">Learn more →</a></p>
       </div>
-      <div class="card"><span class="icon">🔔</span><h3>Servo Spy — Fuel Price Watch</h3><p>Star your favourite servos, pick the fuel types you run, and set a custom % move. Servo Spy tracks each station's price against the previous day and notifies you the moment it rises or drops past your threshold — straight into your existing notification settings (up/down arrows and colours). Build your watchlist of stations and fuel types, then let the price moves come to you. Currently live on WA via the official government feed and QLD via the fuelpricesqld partner feed; NSW, ACT and VIC follow as partner-feed keys are issued.</p></div>
-      <div class="card"><span class="icon">🏷️</span><h3>Car Modifications Tracker</h3><p>Document every modification with photos, costs and installation dates. Great for personal records and can be used for ATO claims when mods are work-related. See your build evolve over time.</p></div>
-      <div class="card"><span class="icon">🏁</span><h3>Community Garage</h3><p>Share your builds, photos and mod lists with other car enthusiasts. Connect with like-minded owners, get inspiration for your next project, and show off what you've been working on.</p></div>
       <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">🔔</span><h3>Servo Spy — Fuel Price Watch</h3>
+        <p>Star your favourite servos, pick the fuel types you run, and set a custom % move. Servo Spy tracks each station's price against the previous day and notifies you the moment it rises or drops past your threshold — straight into your existing notification settings (up/down arrows and colours). Build your watchlist of stations and fuel types, then let the price moves come to you. Currently live on WA via the official government feed and QLD via the fuelpricesqld partner feed; NSW, ACT and VIC follow as partner-feed keys are issued.</p>
+      </div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">🏷️</span><h3>Car Modifications Tracker</h3><p>Document every modification with photos, costs and installation dates. Great for personal records and can be used for ATO claims when mods are work-related. See your build evolve over time.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">🏁</span><h3>Community Garage</h3><p>Share your builds, photos and mod lists with other car enthusiasts. Connect with like-minded owners, get inspiration for your next project, and show off what you've been working on.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
         <span class="icon">🏠</span><h3>Home Assistant Integration</h3>
         <p>Push AutoBrain analytics and service intervals into Home Assistant as sensors, calendar events and notifications. AutoBrain computes the insights — rego status, next-service dates, maintenance predictions, fuel efficiency — and HA displays them in your dashboards and automations. REST + WebSocket in Phase 1, HACS custom integration in Phase 2. No raw OBD2 telemetry leaves AutoBrain unless you opt in. <a href="blog/autobrain-home-assistant-integration.html">Learn more →</a></p>
       </div>
