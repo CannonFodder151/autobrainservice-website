@@ -18,6 +18,22 @@
   --secondary:#1A4DFF;--white:#0B1220;--muted:#5B6472;--card-bg:rgba(255,255,255,0.75);--text:#0B1220;
   --shadow:0 8px 30px rgba(26,77,255,0.10);--grid-line:rgba(0,123,255,0.06);
 }
+
+/* Light mode logo visibility fix */
+[data-theme="light"] .brand img{
+  background:var(--text);
+  border-radius:8px;
+  padding:4px;
+}
+[data-theme="light"] .hero .logo-badge{
+  background:var(--text);
+  border-radius:16px;
+  padding:8px;
+  display:inline-block;
+}
+[data-theme="light"] .hero .logo-badge img{
+  filter:none;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
