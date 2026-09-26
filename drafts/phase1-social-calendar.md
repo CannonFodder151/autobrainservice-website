@@ -69,7 +69,7 @@ If the router times out, returns low confidence, or is unreachable? The rule-bas
 
 This isn't a backup plan. It's the primary architecture.
 
-13 AI modules | 14 deterministic fallbacks | 0 hard AI dependencies
+12 AI modules | 13 deterministic fallbacks | 0 hard AI dependencies
 
 Your data, your rules, your uptime.
 
@@ -83,7 +83,7 @@ The problem with most "AI-powered" apps: when the model API goes down, the featu
 AutoBrain Phase 1 flipped this. Every AI feature runs a deterministic rule-based path FIRST. The AI router (9Router) is an enrichment layer — it adds confidence scoring, natural language summaries, and anomaly detection only when reachable and confident.
 
 Architecture:
-• 13 AI modules (diagnostics, valuation, fuel prediction, receipt OCR, etc.)
+• 12 AI modules (diagnostics, valuation, fuel prediction, receipt OCR, etc.)
 • 14 deterministic fallback functions — pure Python, zero external deps
 • Circuit breaker + timeout budget on every router call
 • Rule result always ships; AI only upgrades it

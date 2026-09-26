@@ -67,7 +67,7 @@ The stack is leaner, your data is vectorised and searchable, and the documentati
 
 **What changed:** The AI gateway is now a small set of shared utilities (`router_utils.py`) with per-module fallbacks in `fallbacks/`. Adding a feature means adding one module — not a new service to deploy, run, and maintain.
 
-**Count:** 13 AI modules, 14 fallback implementations. Each module declares its immutable fields and allowed schema so a bad model response can never inject junk.
+**Count:** 12 AI modules, 13 fallback implementations. Each module declares its immutable fields and allowed schema so a bad model response can never inject junk.
 
 ---
 
