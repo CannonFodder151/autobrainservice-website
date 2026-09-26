@@ -6,7 +6,7 @@
 <link>https://autobrainservice.app/blog.html</link>
 <atom:link href="https://autobrainservice.app/rss.xml" rel="self" type="application/rss+xml" />
 <language>en-AU</language>
-<lastBuildDate>Wed, 09 Sep 2026 09:48:08 +0000</lastBuildDate>
+<lastBuildDate>Thu, 24 Sep 2026 15:18:19 +0000</lastBuildDate>
 <item>
 <title>What is AutoBrain?</title>
 <description>Five things AutoBrain does for you and your car — in plain English. ATO logbook, fuel tracking, service records, mods tracker, and a community for car people.</description>
@@ -169,6 +169,13 @@
 <pubDate>Sat, 08 Aug 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
+<title>How Much Do Mechanics Cost in Australia? 2026 Complete Price Guide</title>
+<description>Real 2026 Australian mechanic prices: hourly rates, common service costs, dealer vs independent benchmarks, and how to avoid being overcharged on common repairs.</description>
+<link>https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</guid>
+<pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
 <title>Best Mechanic Near Me Australia — How to Choose the Right Workshop 2026</title>
 <description>Red flags to watch for, fair pricing benchmarks, dealer vs independent, and how AutoBrain Shop connects Australian owners with trusted mechanics.</description>
 <link>https://autobrainservice.app/blog/best-mechanic-near-me-australia.html</link>
@@ -197,13 +204,6 @@
 <pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-<title>How Much Do Mechanics Cost in Australia? 2026 Complete Price Guide</title>
-<description>Real 2026 Australian mechanic prices: hourly rates, common service costs, dealer vs independent benchmarks, and how to avoid being overcharged on common repairs.</description>
-<link>https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</link>
-<guid isPermaLink="true">https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</guid>
-<pubDate>Mon, 07 Sep 2026 00:00:00 +1000</pubDate>
-</item>
-<item>
 <title>Workshop Management Software for Australian Mechanics</title>
 <description>Digital job cards, signed customer approvals, AU rego lookup and job costing — AutoBrain Shop is coming soon. Join the waitlist for priority access and 50% off the first year.</description>
 <link>https://autobrainservice.app/blog/workshop-management-software-australian-mechanics.html</link>
@@ -216,6 +216,13 @@
 <link>https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</guid>
 <pubDate>Fri, 21 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>What Need Does AutoBrain Fulfil?</title>
+<description>The five real problems AutoBrain solves for car owners — from ATO logbooks that don&#x27;t lie to fuel costs you can actually see, plus the ownership decisions you&#x27;ve been guessing at.</description>
+<link>https://autobrainservice.app/blog/what-need-does-autobrain-fulfil.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/what-need-does-autobrain-fulfil.html</guid>
+<pubDate>Fri, 18 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 </channel>
 </rss>
