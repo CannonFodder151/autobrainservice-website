@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoBrain — Stop Forgetting Car Services. Never Overpay for Fuel or Rego Again.</title>
-    <meta name="description" content="AutoBrain is the car maintenance app that sends reminders before your next service, tracks fuel costs, checks Australian rego for free, and helps diagnose warning lights. Hosted free forever or bring your own server.">
+    <title>AutoBrain — Car Maintenance That Works Even When AI Is Down</title>
+    <meta name="description" content="AutoBrain sends service reminders, tracks fuel, checks Australian rego free, and diagnoses warning lights. Deterministic-first AI: insights stay available when the router is down. Hosted free or self-hosted (MIT).">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="theme-color" content="#050505">
     <link rel="canonical" href="https://autobrainservice.app/">
@@ -180,14 +180,14 @@
 <header class="hero">
   <div class="container">
     <div class="logo-badge"><img src="assets/logo.png" alt="AutoBrain" width="96" height="96" fetchpriority="high"></div>
-     <h1>Your car deserves better than a spreadsheet.<br><span class="b">Let AutoBrain do the thinking.</span></h1>
-     <p class="sub">AutoBrain sends you service reminders, tracks every fill-up, checks your rego for free, and figures out what that engine light actually means — so you can spend less time chasing paperwork and more time driving.</p>
+     <h1>Your car deserves better than a spreadsheet.<br><span class="b">Let AutoBrain do the thinking — even when AI is down.</span></h1>
+     <p class="sub">AutoBrain sends you service reminders, tracks every fill-up, checks your rego for free, and figures out what that engine light actually means — so you can spend less time chasing paperwork and more time driving. Every AI feature runs on a deterministic rule-based path first; 9Router only enriches when reachable. Your records stay usable even when the entire AI layer is offline.</p>
      <div class="u-flex-center">
        <a class="cta" href="https://hosted.autobrainservice.app">Get started for free</a>
        <a class="cta-outline" href="https://demo.autobrainservice.app">Live demo — no sign-up</a>
        <a class="cta-outline" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Shop AutoBrain merch</a>
      </div>
-     <small>Demo login: demo@autobrainservice.app / demo · Free tier available · 7-day free trial on Enthusiast ($5.90/mo) &amp; Garage ($11.90/mo) · Self-hosted is free &amp; open source (MIT) — runs on a cheap VPS<br><strong>Android app:</strong> in beta — <a href="mailto:sales@autobrainservice.app">join the waitlist</a> · <strong>iOS app:</strong> coming after Android reaches general availability</small>
+     <small>Live demo runs the Phase 1 stack — log in with <strong>demo@autobrainservice.app / demo</strong> (pre-filled, no sign-up). Try diagnostics, valuations and receipt scanning; every feature still works with the AI router disabled. · Free tier available · 7-day free trial on Enthusiast ($5.90/mo) &amp; Garage ($11.90/mo) · Self-hosted is free &amp; open source (MIT) — runs on a cheap VPS<br><strong>Android app:</strong> in beta — <a href="mailto:sales@autobrainservice.app">join the waitlist</a> · <strong>iOS app:</strong> coming after Android reaches general availability</small>
   </div>
 </header>
 
@@ -202,11 +202,11 @@
       </a>
       <a href="hosted.html" class="card u-center-inherit">
         <span class="icon">☁️</span><h3>Hosted plans</h3>
-        <p>We run it for you — secure and backed up, from free to custom deployments.</p>
+        <p>We run it for you — backed by a simplified, consolidated stack that's easier to secure and back up, from free to custom deployments.</p>
       </a>
       <a href="selfhost.html" class="card u-center-inherit">
         <span class="icon">🏠</span><h3>Self-Host</h3>
-        <p>MIT-licensed on your own infrastructure. Simpler container stack — your data stays yours, always.</p>
+        <p>MIT-licensed on your own infrastructure. Leaner container stack — your data stays yours, always.</p>
       </a>
       <a href="car-diagnostics.html" class="card u-center-inherit">
         <span class="icon">🔍</span><h3>Car diagnostics guide</h3>
@@ -253,6 +253,36 @@
         <span class="icon">🤖</span><h3>AI &amp; your data</h3>
         <p>Exactly what the AI reads for each feature, and what happens to it.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="phase1" class="u-py-48">
+  <div class="container u-max-860-center">
+    <div class="u-center u-mb-22">
+      <span class="release u-badge-static">Phase 1 · engineering refresh</span>
+      <h2 class="u-mt-14">Simpler. Faster. More reliable.</h2>
+      <p class="lead u-max-660-center">We rebuilt AutoBrain's core around one principle: the app should work even when the AI layer doesn't. Phase 1 cut the container count, vectorised your data, made every AI feature deterministic-first, and rewrote the docs from the ground up.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="icon">📦</span><h3>Fewer containers, simpler ops</h3><p>The hosted stack consolidated its long-running services — the standalone Celery worker now runs inside the backend image. Same functionality, a smaller, easier-to-run deployment.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🔍</span><h3>Vector search for your records</h3><p>Service history, receipts and diagnostics are embedded and stored in your own database. Natural-language search over your garage — no external index, no third-party data pipeline.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🛡️</span><h3>Deterministic-first AI</h3><p>Every AI feature runs a rule-based path first — valuations, diagnostics, receipt OCR, service prediction. 9Router only enriches when reachable, and immutable fields can never be overwritten. <a href="ai-data.html">How it works →</a></p>
+      </div>
+      <div class="card">
+        <span class="icon">🧱</span><h3>Modular, easy to extend</h3><p>The AI gateway is a small set of shared utilities with per-module fallbacks. Adding a feature means adding a module — not a new service to run and maintain.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📚</span><h3>Docs rewritten</h3><p>Every page in the docs mirror is refreshed: architecture, deployment, security, testing, and a new marketing section. Source of truth is the team wiki; the repo mirror is kept in sync on every change.</p>
+      </div>
+      <div class="card">
+        <span class="icon">⚡</span><h3>Faster on the path you use</h3><p>Consolidated services mean fewer moving parts to start, poll, and back up. Self-hosted instances boot from a leaner container set — your data, your server, your pace.</p>
+      </div>
     </div>
   </div>
 </section>

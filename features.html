@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Features — AutoBrain | AI Vehicle Maintenance, Diagnostics &amp; HA Integration</title>
-    <meta name="description" content="Every AutoBrain feature: predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, Australian rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (coming soon), Electric Spy, EV Log Book and PHEV support (coming soon).">
+    <meta name="description" content="Every AutoBrain feature: predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, Australian rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (Phase 1 live), Electric Spy, EV Log Book and PHEV support (coming soon). Deterministic-first AI keeps insights available when the router is down.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/features.html">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
 <meta property="og:title" content="Features — AutoBrain | AI Vehicle Maintenance, Diagnostics &amp; HA Integration">
-    <meta property="og:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (Phase 1 live, Phase 2 coming soon), Electric Spy, EV Log Book, PHEV support (coming soon) and analytics.">
+    <meta property="og:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (Phase 1 live), Electric Spy, EV Log Book, PHEV support (coming soon) and analytics — all deterministic-first.">
 <meta property="og:url" content="https://autobrainservice.app/features.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -182,6 +182,36 @@
         <div class="soon u-badge-static">Coming soon</div>
         <span class="icon">🔋</span><h3>PHEV support</h3>
         <p>Plug-in hybrids get the best of both. The new vehicle powertrain enum adds EV / HEV / PHEV / ICE as a per-vehicle setting, so a PHEV owner sees a single combined dashboard: petrol fill-ups, charge sessions, electric-vs-petrol split, and the same per-km cost tracking you already get for pure ICE. <a href="coming-soon.html">Learn more →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="phase1" class="u-py-48">
+  <div class="container u-max-860-center">
+    <div class="u-center u-mb-22">
+      <span class="release u-badge-static">Phase 1 · engineering refresh</span>
+      <h2 class="u-mt-14">Built to keep working when the AI layer doesn't</h2>
+      <p class="lead u-max-660-center">Phase 1 rewrote AutoBrain's core around one principle: AI is an enhancement, not a dependency. Fewer containers, vectorised records, deterministic-first modules, and a docs structure that stays in sync with the code.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="icon">📦</span><h3>Fewer containers</h3><p>The hosted stack consolidated its long-running services — the standalone Celery worker now runs inside the backend image. Same functionality, a smaller, easier-to-run deployment.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🔍</span><h3>Vector search</h3><p>Service history, receipts and diagnostics are embedded and stored in your own database. Natural-language search over your garage — no external index, no third-party data pipeline.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🛡️</span><h3>Deterministic-first AI</h3><p>Every AI feature runs a rule-based path first — valuations, diagnostics, receipt OCR, service prediction. 9Router only enriches when reachable, and deterministic fields can never be overwritten. <a href="ai-data.html">How it works →</a></p>
+      </div>
+      <div class="card">
+        <span class="icon">🧱</span><h3>Modular</h3><p>The AI gateway is a small set of shared utilities with per-module fallbacks. Adding a feature means adding a module — not a new service to run and maintain.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📚</span><h3>Docs rewritten</h3><p>Every page in the docs mirror is refreshed: architecture, deployment, security, testing, and a new marketing section. Source of truth is the team wiki; the repo mirror is kept in sync on every change.</p>
+      </div>
+      <div class="card">
+        <span class="icon">⚡</span><h3>Faster on the path you use</h3><p>Consolidated services mean fewer moving parts to start, poll, and back up. Self-hosted instances boot from a leaner container set — your data, your server, your pace.</p>
       </div>
     </div>
   </div>
