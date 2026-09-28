@@ -5,7 +5,13 @@ CHANGELOG.md follows Keep a Changelog (see the autobrain repo). Only tagged
 releases are rendered; [Unreleased] is intentionally excluded from the public
 site. Idempotent: run from the repo root (or anywhere) and changelog.html is
 rewritten between the CHANGELOG-START / CHANGELOG-END markers.
+
+Only the MAX_RELEASES most recent releases are rendered. The mirror
+CHANGELOG.md is a full, append-only file synced from CannonFodder151/autobrain;
+rendering all of it produced a ~143 KB single page that ate the crawl budget for
+every other page on the site. Older releases stay readable on GitHub.
 """
+import os
 import re
 import sys
 from pathlib import Path
@@ -16,6 +22,12 @@ HTML = ROOT / "changelog.html"
 
 START = "<!-- CHANGELOG-START -->"
 END = "<!-- CHANGELOG-END -->"
+
+# ponytail: 60 releases (~6 months at the current ~10-releases/week rate).
+# Changelog is not a compliance log — full history lives in the autobrain repo.
+# Raise it if the public page ever needs a deeper window.
+MAX_RELEASES = int(os.environ.get("CHANGELOG_MAX_RELEASES", "60"))
+FULL_HISTORY_URL = "https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md"
 
 
 def esc(s):
@@ -64,15 +76,30 @@ def build_release(sec):
 
 def main():
     md = MD.read_text()
-    blocks = [b for b in (build_release(s) for s in re.split(r"(?m)^## ", md)[1:]) if b]
+    all_blocks = [b for b in (build_release(s) for s in re.split(r"(?m)^## ", md)[1:]) if b]
+    blocks = all_blocks[:MAX_RELEASES]
+    hidden = len(all_blocks) - len(blocks)
     html = HTML.read_text()
     if START not in html or END not in html:
         sys.exit(f"{HTML.name}: missing {START} / {END} markers")
     head, _, rest = html.partition(START)
     _, _, tail = rest.partition(END)
     body = "\n\n".join(blocks)
+    if hidden > 0:
+        body += (
+            f'\n\n    <div class="release">\n'
+            f"      <h2>Older releases</h2>\n"
+            f'      <div class="date">{len(all_blocks)} total</div>\n'
+            f"      <p>This page shows the {len(blocks)} most recent releases. "
+            f'The {hidden} older ones are in the <a href="{FULL_HISTORY_URL}" '
+            f'rel="noopener">full changelog</a>.</p>\n'
+            f"    </div>"
+        )
     HTML.write_text(f"{head}{START}\n{body}\n    {END}{tail}")
-    print(f"wrote {len(blocks)} releases to {HTML.name}")
+    print(
+        f"wrote {len(blocks)} of {len(all_blocks)} releases to {HTML.name}"
+        + (f" ({hidden} older releases linked to the repo)" if hidden else "")
+    )
 
 
 if __name__ == "__main__":
