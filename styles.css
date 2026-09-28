@@ -110,6 +110,13 @@ section h2 .b{color:var(--primary)}
 .card h3{font-size:1.12rem;margin-bottom:10px;font-weight:700}
 .card p{color:var(--muted);font-size:.94rem}
 
+/* merch */
+.merch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.merch-card{padding:0;overflow:hidden;text-align:center;display:flex;flex-direction:column}
+.merch-card img{width:100%;height:auto;display:block;border-bottom:1px solid var(--border)}
+.merch-card .merch-body{padding:22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.merch-card h3{font-size:1.1rem}
+
 /* pricing */
 #pricing .grid,.hosted-grid{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){#pricing .grid,.hosted-grid{grid-template-columns:repeat(2,1fr)}}
