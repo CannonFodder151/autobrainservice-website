@@ -6,7 +6,7 @@
 <link>https://autobrainservice.app/blog.html</link>
 <atom:link href="https://autobrainservice.app/rss.xml" rel="self" type="application/rss+xml" />
 <language>en-AU</language>
-<lastBuildDate>Wed, 09 Sep 2026 09:48:08 +0000</lastBuildDate>
+<lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0000</lastBuildDate>
 <item>
 <title>What is AutoBrain?</title>
 <description>Five things AutoBrain does for you and your car — in plain English. ATO logbook, fuel tracking, service records, mods tracker, and a community for car people.</description>
@@ -134,14 +134,28 @@
 <pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-<title>Car Dashboard Warning Lights Australia — What They Mean &amp; What to Do</title>
-<description>Red, amber or green? A plain-English guide to the warning lights Australian drivers see most — and exactly what to do (and when to stop) when each one appears.</description>
-<link>https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</link>
-<guid isPermaLink="true">https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</guid>
-<pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+  <title>Car Dashboard Warning Lights Australia — What They Mean & What to Do</title>
+  <description>Red, amber or green? A plain-English guide to the warning lights Australian drivers see most — and exactly what to do (and when to stop) when each one appears.</description>
+  <link>https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-<title>Have You Ever Been Blindsided by a Repair Bill?</title>
+  <title>Car Won't Start? 14 Common Causes & How to Fix Them</title>
+  <description>Car won't start? Check these 14 causes — dead battery, flat alternator, starter motor, fuel pump, immobiliser and more. Step-by-step troubleshooting for Australian drivers.</description>
+  <link>https://autobrainservice.app/blog/car-wont-start-causes.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-wont-start-causes.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>How Much Does an Oil Change Cost in Australia? 2026 Guide</title>
+  <description>How much does an oil change cost in Australia? 2026 price guide for synthetic, conventional and diesel oil changes. Dealer vs independent costs. Free reminder tool.</description>
+  <link>https://autobrainservice.app/blog/oil-change-cost-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/oil-change-cost-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Have You Ever Been Blindsided by a Repair Bill?</title>
 <description>Cars rarely fail without warning — they whisper first. Five ways AutoBrain turns &quot;I didn&#x27;t see that coming&quot; into &quot;sorted that months ago&quot;.</description>
 <link>https://autobrainservice.app/blog/have-you-ever-repair-bill.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/have-you-ever-repair-bill.html</guid>
@@ -190,14 +204,21 @@
 <pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-<title>AutoBrain Ownership Advisor — Now Live</title>
-<description>What should you do with your car? A single feature combining live market valuation, replacement cost analysis, upgrade options, finance modelling, dream-car affordability and AI-driven ownership advice — all in one screen.</description>
-<link>https://autobrainservice.app/blog/ownership-advisor-live.html</link>
-<guid isPermaLink="true">https://autobrainservice.app/blog/ownership-advisor-live.html</guid>
-<pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+  <title>AutoBrain Ownership Advisor — Now Live</title>
+  <description>What should you do with your car? A single feature combining live market valuation, replacement cost analysis, upgrade options, finance modelling, dream-car affordability and AI-driven ownership advice — all in one screen.</description>
+  <link>https://autobrainservice.app/blog/ownership-advisor-live.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/ownership-advisor-live.html</guid>
+  <pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-<title>How Much Do Mechanics Cost in Australia? 2026 Complete Price Guide</title>
+  <title>Coming Soon — Ownership Advisor by AutoBrain</title>
+  <description>Six modules, one question: what should you do next with your car? Ownership Advisor launches soon on AutoBrain — value, replace, upgrade, finance, dream, and AI advice in one screen.</description>
+  <link>https://autobrainservice.app/blog/ownership-advisor-coming-soon.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/ownership-advisor-coming-soon.html</guid>
+  <pubDate>Fri, 04 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>How Much Do Mechanics Cost in Australia? 2026 Complete Price Guide</title>
 <description>Real 2026 Australian mechanic prices: hourly rates, common service costs, dealer vs independent benchmarks, and how to avoid being overcharged on common repairs.</description>
 <link>https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</guid>
