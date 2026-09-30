@@ -19,7 +19,7 @@ on:
 jobs:
   build_and_deploy_job:
     if: github.event_name != 'pull_request'
-    runs-on: [self-hosted, linux, x64, vm2]
+    runs-on: ubuntu-latest
     name: Build and Deploy Job
     # App-wide staging quota: serialize uploads (AUT-1350). Job-level so the
     # merge-triggered close job can never displace a queued main deploy.
@@ -61,7 +61,7 @@ jobs:
 
   build_and_deploy_pr_job:
     if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, linux, x64, vm2]
+    runs-on: ubuntu-latest
     name: Build and Deploy PR Preview Job
     concurrency:
       group: swa-upload
