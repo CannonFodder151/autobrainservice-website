@@ -11,6 +11,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.287] - 2026-09-30
+
+- **CI (AUT-1029):** `dockerhub-publish.yml` gains a `dedupe-main-queue` job that cancels superseded `queued`/`pending` publish runs on `main` before the heavy jobs start, so a burst of merges no longer queues N full 5-image builds behind the 3-runner fleet. In-flight runs are never cancelled (AUT-967/AUT-1756 behaviour preserved).
+
+### Changed (AUT-4503)
+- chore(deploy): the EP2 9Router (`10.0.3.17:20128`) is a managed Portainer
+  stack (`9router`, id 128) from `docker-compose.9router.yml` instead of a loose
+  `docker run` container — it was invisible to Portainer's stack view, so it had
+  no consistent update path and no health signal
+- chore(deploy): the EP2 router image is pinned by digest
+  (`decolua/9router:0.5.91@sha256:efc6e88c…`) — the same image the floating
+  `:latest` tag was already resolving to, so no version change
+- feat(deploy): the EP2 router stack carries an `/api/health` healthcheck; the
+  loose container had none
+- docs(deploy): document all three 9Router instances (EP2 stack, EP5 inside
+  `autobrain-hosted`, EP6 has none and uses the EP2 one) and the two ways to
+  break the shared `:20128` route
+
 ## [0.3.286] - 2026-09-29
 
 ### Added (AUT-3503)
