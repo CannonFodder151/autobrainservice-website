@@ -32,6 +32,26 @@
 | Week 3 | "ATO logbook made simple for Australian drivers" | Blog → #blog, Facebook | Drive ATO compliance sign-ups |
 | Week 4 | Customer spotlight: car club using AutoBrain | #updates, Facebook | Social proof |
 
+## Scheduled week: Mon 28 Sep – Sun 4 Oct 2026 (AUT-4422 batch)
+
+Cadence restored to 2 posts/day across LinkedIn + Facebook, with two blog publishes. All items require
+human CMO approval in Discord #marketing before scheduling (see Approval gate below).
+
+| Date | Channel | Item | Type |
+|------|---------|------|------|
+| Mon 28 Sep | LinkedIn | AutoBrain batch kickoff — reliable AI + AU-built positioning | Social post |
+| Mon 28 Sep | Facebook | Community question: what breaks first on your car? | Social post |
+| Wed 30 Sep | LinkedIn | Promo: "Fair Price for Used Cars 2026" blog | Social post |
+| Wed 30 Sep | Facebook | Share: "Fair Price for Used Cars 2026" blog | Social post |
+| Fri 2 Oct | LinkedIn | Promo: "OBD2 Adapter Buying Guide 2026" blog | Social post |
+| Fri 2 Oct | Facebook | Share: "OBD2 Adapter Buying Guide 2026" blog | Social post |
+| Sun 4 Oct | LinkedIn | Ownership Advisor case study carousel | Social carousel |
+| Sun 4 Oct | Facebook | Community story: Ownership Advisor case study | Social post |
+| Wed 1 Oct | Blog | Publish "Fair Price for Used Cars 2026" | Blog publish |
+| Fri 3 Oct | Blog | Publish "OBD2 Adapter Buying Guide 2026" | Blog publish |
+
+> This table is the repo mirror of the Outline content calendar. Outline sync is tracked in AUT-4520.
+
 ## Channels
 
 - **Website** (autobrainservice.app) — primary marketing surface
