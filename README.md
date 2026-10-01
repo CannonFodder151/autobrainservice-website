@@ -29,8 +29,9 @@ the blocks between the `CHANGELOG-START` / `CHANGELOG-END` markers in
   every versioned deploy, so the site updates as part of the release flow
   (AUT-168 makes the changelog iteration mandatory in CI).
 - **Only the 60 most recent releases are rendered.** `CHANGELOG.md` is a full
-  append-only mirror (~146 KB / 149 releases) and rendering all of it produced a
-  140 KB single page that crowded out crawl budget for every other page. Older
+  append-only mirror (grows ~1 release per deploy; well over 100 KB) and
+  rendering all of it produced a 140+ KB single page that crowded out crawl
+  budget for every other page. Older
   releases link out to the full changelog in the `autobrain` repo. Override with
   `CHANGELOG_MAX_RELEASES=149 python3 scripts/gen_changelog.py`.
 
@@ -62,7 +63,8 @@ Regenerate locally: `python3 scripts/gen_changelog.py`
 | `blog/*.html` | 33 long-form SEO posts |
 | `docs/positioning.md` | Positioning, pillars, content calendar (Phase 1 refresh) |
 | `docs/petrol-price-map-launch-checklist.md` | Petrol Price Map launch readiness checklist |
-| `docs/seo-review.md` | SEO audit & action items (refreshed 2026-09-28) |
+| `docs/seo-review.md` | SEO state & action items (refreshed 2026-09-28, AUT-4312) |
+| `docs/SEO-AUDIT-2026-09-30.md` | Bi-daily SEO audit run log (AUT-4588) — includes the "audit from origin/main, never the managed checkout" process rule |
 
 The Android app is distributed through **Google Play closed testing** (no APK is
 served from this site). The iOS app will be developed after Android reaches

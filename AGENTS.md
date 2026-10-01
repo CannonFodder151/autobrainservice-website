@@ -71,6 +71,9 @@ Plain HTML + `styles.css` + a few small JS files.
 - `docs/positioning.md` — messaging, pillars, content calendar
 - `docs/petrol-price-map-launch-checklist.md` — launch readiness for the fuel map
 - `docs/seo-review.md` — current SEO state and action items
+- `docs/SEO-AUDIT-2026-09-30.md` — bi-daily audit run log; read the process
+  finding before any SEO run — **audit from a fresh `origin/main` clone, never
+  the managed checkout** (it silently diverges and loses work)
 
 <!-- graft:start -->
 ## Graft — repo context graph
