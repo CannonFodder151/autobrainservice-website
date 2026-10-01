@@ -66,11 +66,26 @@ jobs:
     concurrency:
       group: swa-upload
       cancel-in-progress: false
+    # AUT-4827: the free plan allows only 3 preview environments and this repo
+    # routinely has more than 3 open PRs, so Azure refuses the upload with
+    # "This Static Web App already has the maximum number of staging
+    # environments". A preview URL is a review convenience, not a correctness
+    # gate, so a failure here must not block review or merge.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
         with:
           submodules: true
           lfs: false
+      - name: Reclaim a preview slot
+        # Free plan cap is 3 preview environments; evict least-recently-updated
+        # open PRs so this PR's upload fits. Never blocks the deploy.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          CURRENT_PR: ${{ github.event.pull_request.number }}
+          PREVIEW_LIMIT: 3
+        run: python3 scripts/swa_preview_reclaim.py
       - name: Regenerate changelog
         run: python3 scripts/gen_changelog.py
       - name: Build And Deploy
