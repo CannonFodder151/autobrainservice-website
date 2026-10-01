@@ -74,7 +74,17 @@ def _load_deps():
         _close_pr, _gh = close_fn, gh_fn
 
 
-_STAGING_URL_RE = re.compile(r"https://[a-z0-9.-]+\.azurestaticapps\.net[^\s)\"'>]*")
+# Only preview environments are candidates. A production staging URL
+# (https://<app>.azurestaticapps.net) has one label before the domain, while a
+# preview environment has the PR number and region
+# (https://<app>-<pr>.<region>.<n>.azurestaticapps.net). Requiring two or more
+# extra labels means a comment quoting the production hostname is not mistaken
+# for a live slot holder - it would waste an eviction on a miscount. Closing a
+# victim's env never touches production, so this is a miscount guard, not a
+# safety guard.
+_STAGING_URL_RE = re.compile(
+    r"https://[a-z0-9-]+(?:\.[a-z0-9-]+){2,}\.azurestaticapps\.net[^\s)\"'>]*"
+)
 _PROBE_TIMEOUT = 20
 _RELEASE_TIMEOUT = 150   # Azure tears an environment down asynchronously.
 _PROBE_INTERVAL = 10
@@ -189,13 +199,18 @@ def main():
     os.makedirs(workspace, exist_ok=True)
 
     freed, unreleased = [], []
+    token = os.environ.get("SWA_TOKEN", "")
     try:
         for number in victims:
             status, detail = _close_pr(number, workspace)
             if status != "ok":
                 say(f"- PR #{number} -> close **{status.upper()}**, slot NOT released")
                 unreleased.append(number)
+                # Client output is unfiltered text and lands in the step
+                # summary; a secret that can reach a log will eventually.
                 tail = "\n".join((detail or "").splitlines()[-6:])
+                if token:
+                    tail = tail.replace(token, "***")
                 if tail:
                     say("  ```")
                     for line in tail.splitlines():

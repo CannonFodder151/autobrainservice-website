@@ -3,8 +3,11 @@
 
 Run: python3 scripts/test_swa_preview_reclaim.py
 """
+import contextlib
+import io
 import os
 import sys
+import tempfile
 import unittest
 from unittest import mock
 
@@ -14,6 +17,7 @@ os.environ.setdefault("GITHUB_REPOSITORY", "CannonFodder151/autobrainservice-web
 import swa_preview_reclaim as spr  # noqa: E402
 
 LIVE_URL = "https://brave-sand-02a651b10-141.centralus.7.azurestaticapps.net"
+SECRET = "swa-token-should-never-appear-in-logs"
 DEAD_URL = "https://brave-sand-02a651b10-136.centralus.7.azurestaticapps.net"
 
 
@@ -37,6 +41,12 @@ class TestStagingUrlFromComments(unittest.TestCase):
             spr.staging_url_from_comments([{"body": "see " + LIVE_URL + "."}]),
             LIVE_URL,
         )
+
+    def test_production_hostname_is_not_a_staging_url(self):
+        # A PR comment quoting the production host must not read as a live slot
+        # holder, or the reclaim step evicts a slot it does not need to.
+        self.assertIsNone(spr.staging_url_from_comments(
+            [{"body": "deployed to https://brave-sand-02a651b10.azurestaticapps.net/"}]))
 
 
 class TestSelectVictims(unittest.TestCase):
@@ -85,13 +95,6 @@ class TestSelectVictims(unittest.TestCase):
         self.assertEqual(
             spr.select_victims([], current_pr=140, preview_limit=3), ([], []))
 
-    def test_production_is_never_a_candidate(self):
-        # Only open PRs are ever passed in, so main is unreachable by
-        # construction; assert the cap logic cannot produce it.
-        keep, victims = spr.select_victims([141, 139, 123], current_pr=140,
-                                           preview_limit=3)
-        self.assertNotIn("main", keep + victims)
-
 
 class TestAwaitRelease(unittest.TestCase):
     def test_returns_true_once_url_stops_serving(self):
@@ -125,6 +128,63 @@ class TestServing(unittest.TestCase):
         with mock.patch.object(spr.urllib.request, "urlopen",
                                side_effect=OSError("dns failure")):
             self.assertFalse(spr.serving("https://nope.azurestaticapps.net"))
+
+
+class TestWorkflowContract(unittest.TestCase):
+    """The step promise: a reclaim failure never skips the deploy (AUT-4983).
+
+    main() only wraps the victim loop in try/finally, so a GhAuthError /
+    URLError / missing env var raised earlier propagates and fails the step.
+    Job-level continue-on-error only neutralises the job conclusion - the
+    default `if: success()` guard still skips *Regenerate changelog* and
+    *Build And Deploy*. Only step-level continue-on-error keeps that promise.
+    """
+
+    WF = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir,
+                      ".github", "workflows",
+                      "azure-static-web-apps-happy-glacier-0f26af910.yml")
+
+    def test_reclaim_step_has_step_level_continue_on_error(self):
+        import yaml
+        with open(self.WF) as fh:
+            wf = yaml.safe_load(fh)
+        job = wf["jobs"]["build_and_deploy_pr_job"]
+        reclaim = [s for s in job["steps"] if s.get("name") == "Reclaim a preview slot"]
+        self.assertEqual(len(reclaim), 1)
+        self.assertIs(reclaim[0].get("continue-on-error"), True)
+        # Upload must run on the default success() guard, not behind a skip.
+        for name in ("Regenerate changelog", "Build And Deploy"):
+            step = next(s for s in job["steps"] if s.get("name") == name)
+            self.assertNotIn("if", step, f"{name} is guarded by an if: condition")
+
+
+class TestTokenRedaction(unittest.TestCase):
+    """R2: unfiltered client output must not carry the SWA token into the log."""
+
+    def _run(self, detail):
+        pr = {"number": 141, "head": {"repo": {"full_name": os.environ["GITHUB_REPOSITORY"]}}}
+        env = {"CURRENT_PR": "140", "PREVIEW_LIMIT": "1",
+               "GITHUB_WORKSPACE": tempfile.mkdtemp(prefix="swa-test")}
+        spr._lines.clear()
+        comments = [{"body": "Your stage site is ready! Visit it here: " + LIVE_URL}]
+        with mock.patch.dict(os.environ, {**env, "SWA_TOKEN": SECRET}, clear=False), \
+             mock.patch.object(spr, "_load_deps"), \
+             mock.patch.object(spr, "_gh", side_effect=[[pr], comments]), \
+             mock.patch.object(spr, "serving", return_value=True), \
+             mock.patch.object(spr, "await_release", return_value=True), \
+             mock.patch.object(spr, "_close_pr", return_value=("error", detail)), \
+             contextlib.redirect_stdout(io.StringIO()):
+            spr.main()
+        return "\n".join(spr._lines)
+
+    def test_token_is_redacted_from_reported_client_output(self):
+        out = self._run("failed with token " + SECRET + " in the request")
+        self.assertNotIn(SECRET, out)
+        self.assertIn("***", out)
+
+    def test_output_without_a_token_is_unchanged(self):
+        out = self._run("BadRequest: maximum number of staging environments")
+        self.assertIn("maximum number of staging environments", out)
 
 
 if __name__ == "__main__":

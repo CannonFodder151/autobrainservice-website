@@ -106,16 +106,37 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Fetch trusted reclaim script
+        # Never execute PR-head code with AZURE_STATIC_WEB_APPS_API_TOKEN in its
+        # environment: that token can upload to production. Run the copy that
+        # QA + Security reviewed on the default branch.
+        env:
+          TRUSTED_REF: ${{ github.event.repository.default_branch }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$TRUSTED_REF"
+          mkdir -p "$RUNNER_TEMP/reclaim"
+          git archive FETCH_HEAD \
+            scripts/swa_preview_reclaim.py \
+            scripts/swa_dataplane_cleanup.py \
+            | tar -x -C "$RUNNER_TEMP/reclaim"
       - name: Reclaim a preview slot
         # The cap counts environments, not open PRs, so eviction targets only
         # PRs whose staging URL is actually live, LRU-first. Waits for each
         # release to take effect. Never blocks the deploy (AUT-4799).
+        # continue-on-error is required at STEP level: main() only wraps the
+        # victim loop in try/finally, so a GhAuthError/URLError/missing env var
+        # raised earlier propagates and fails the step. Job-level
+        # continue-on-error only neutralises the job conclusion - it does not
+        # stop the default `if: success()` guard from skipping *Regenerate
+        # changelog* and *Build And Deploy* below.
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           CURRENT_PR: ${{ github.event.pull_request.number }}
           PREVIEW_LIMIT: 3
-        run: python3 scripts/swa_preview_reclaim.py
+          GITHUB_WORKSPACE: ${{ runner.temp }}/reclaim   # keep event payloads out of app_location
+        run: python3 "$RUNNER_TEMP/reclaim/scripts/swa_preview_reclaim.py"
       - name: Regenerate changelog
         run: python3 scripts/gen_changelog.py
       - name: Build And Deploy
