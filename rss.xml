@@ -6,7 +6,7 @@
 <link>https://autobrainservice.app/blog.html</link>
 <atom:link href="https://autobrainservice.app/rss.xml" rel="self" type="application/rss+xml" />
 <language>en-AU</language>
-<lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0000</lastBuildDate>
+<lastBuildDate>Thu, 01 Oct 2026 00:00:00 +0000</lastBuildDate>
 <item>
 <title>What is AutoBrain?</title>
 <description>Five things AutoBrain does for you and your car — in plain English. ATO logbook, fuel tracking, service records, mods tracker, and a community for car people.</description>
@@ -134,14 +134,14 @@
 <pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-  <title>Car Dashboard Warning Lights Australia — What They Mean & What to Do</title>
+  <title>Car Dashboard Warning Lights Australia — What They Mean &amp; What to Do</title>
   <description>Red, amber or green? A plain-English guide to the warning lights Australian drivers see most — and exactly what to do (and when to stop) when each one appears.</description>
   <link>https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</link>
   <guid isPermaLink="true">https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</guid>
   <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
 </item>
 <item>
-  <title>Car Won't Start? 14 Common Causes & How to Fix Them</title>
+  <title>Car Won't Start? 14 Common Causes &amp; How to Fix Them</title>
   <description>Car won't start? Check these 14 causes — dead battery, flat alternator, starter motor, fuel pump, immobiliser and more. Step-by-step troubleshooting for Australian drivers.</description>
   <link>https://autobrainservice.app/blog/car-wont-start-causes.html</link>
   <guid isPermaLink="true">https://autobrainservice.app/blog/car-wont-start-causes.html</guid>
@@ -237,6 +237,48 @@
 <link>https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</guid>
 <pubDate>Fri, 21 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Brake Pad Replacement Cost Australia 2026</title>
+  <description>How much do brake pads cost in Australia? 2026 prices for front and rear pads, fitted vs DIY, dealer vs independent mechanic.</description>
+  <link>https://autobrainservice.app/blog/brake-pad-replacement-cost-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/brake-pad-replacement-cost-australia.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Car Battery Replacement Cost Australia 2026</title>
+  <description>How much does a car battery cost in Australia? 2026 prices for AGM and lithium, fitted vs DIY, and the signs you need a new one.</description>
+  <link>https://autobrainservice.app/blog/battery-replacement-cost-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/battery-replacement-cost-australia.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Finding a Mechanic in Australia: A Car Owner&#x27;s Guide</title>
+  <description>How to find a reliable workshop in Australia: red flags, questions to ask, OBD2 diagnostics, and how to keep a trusted service history.</description>
+  <link>https://autobrainservice.app/blog/car-enthusiast-mechanic-guide-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-enthusiast-mechanic-guide-australia.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Cheap Car Servicing Australia 2026 Without Shortcuts</title>
+  <description>Find cheap car servicing in Australia without cutting corners: 2026 logbook service prices, where you can save, and what to never skip.</description>
+  <link>https://autobrainservice.app/blog/cheap-car-servicing-australia-2026.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/cheap-car-servicing-australia-2026.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>What a Used Car Should Cost in Australia 2026</title>
+  <description>What is a fair price for a used car in Australia in 2026? Market data, valuation tools, red flags and how to negotiate the final price.</description>
+  <link>https://autobrainservice.app/blog/fair-price-used-car-2026.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/fair-price-used-car-2026.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>OBD2 Adapter Buying Guide Australia 2026</title>
+  <description>Best OBD2 adapter for Australia in 2026: ELM327 Bluetooth vs WiFi vs USB, which clones to avoid, and what works with AutoBrain and Torque.</description>
+  <link>https://autobrainservice.app/blog/obd2-adapter-buying-guide-2026.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/obd2-adapter-buying-guide-2026.html</guid>
+  <pubDate>Thu, 01 Oct 2026 00:00:00 +1000</pubDate>
 </item>
 </channel>
 </rss>
