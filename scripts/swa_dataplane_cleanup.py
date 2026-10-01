@@ -64,10 +64,20 @@ def _gh(path, method="GET"):
             if e.code not in RETRY_CODES:
                 raise
             last = e
-            delay = float(e.headers.get("Retry-After") or 0) or GH_BACKOFF * 2 ** attempt
+            # Retry-After is untrusted and may be an HTTP-date, negative, nan or
+            # inf (RFC 9110 allows delta-seconds OR a date). Anything outside
+            # (0, 60) falls back to exponential backoff.
+            try:
+                delay = float(e.headers.get("Retry-After") or 0)
+            except (TypeError, ValueError):
+                delay = 0.0
+            if not 0.0 < delay < 60.0:  # also rejects nan (False), 0, inf, -5
+                delay = GH_BACKOFF * 2 ** attempt
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             last = e
             delay = GH_BACKOFF * 2 ** attempt
+        if attempt + 1 == GH_ATTEMPTS:
+            break  # doomed call — do not sleep before raising
         delay = min(delay, 60.0) + random.uniform(0, 1)
         print(f"::warning::GitHub API transient failure on {path} "
               f"({last}); retry {attempt + 2}/{GH_ATTEMPTS} in {delay:.1f}s", flush=True)
@@ -177,6 +187,7 @@ def main():
             # auth broke mid-sweep: nothing after this can work either
             print(f"::error::{e} — aborting sweep at PR #{n}.")
             print(f"::error::Sweep incomplete: {counters['ok']} environment(s) cleaned before abort.")
+            shutil.rmtree(ws, ignore_errors=True)
             return 1
         except urllib.error.HTTPError as e:
             # 404 = the PR/route is gone; nothing to purge, not a failure

@@ -84,6 +84,59 @@ class TestGhRetry(unittest.TestCase):
         self.assertEqual(m.call_count, 1)
 
 
+class TestRetryAfterHardened(unittest.TestCase):
+    """AUT-4974: Retry-After is an untrusted header — RFC 9110 allows an
+    HTTP-date, and nothing stops negative/nan/inf values. No input may make
+    float() raise ValueError out of _gh(), nor make time.sleep() raise."""
+
+    HOSTILE = [
+        "Wed, 21 Oct 2026 07:28:00 GMT",  # HTTP-date form
+        "abc",
+        "-1",
+        "-5",
+        "nan",
+        "inf",
+        "1e9",
+        "999999999999999999999",
+        "7",  # sane, still bounded
+    ]
+
+    def _sleeps_for(self, header, attempts=None):
+        """Drive a doomed _gh() call, returning every sleep value it makes."""
+        attempts = attempts or swc.GH_ATTEMPTS
+        delays = []
+        with mock.patch.object(swc, "GH_ATTEMPTS", attempts), \
+             mock.patch.object(
+                 swc.urllib.request, "urlopen",
+                 side_effect=[_http_error(429, {"Retry-After": header})] * attempts,
+             ), mock.patch.object(swc.time, "sleep", side_effect=delays.append):
+            with self.assertRaises(urllib.error.HTTPError):
+                swc._gh("/pulls/1")
+        return delays
+
+    def test_http_date_retry_after_falls_back_to_backoff(self):
+        delays = self._sleeps_for("Wed, 21 Oct 2026 07:28:00 GMT", attempts=2)
+        self.assertEqual(len(delays), 1)
+        # first backoff step is GH_BACKOFF * 2**0 = 2.0 (+ up to 1s jitter)
+        self.assertGreaterEqual(delays[0], 2.0)
+        self.assertLess(delays[0], 3.0)
+
+    def test_negative_retry_after_sleeps_positive(self):
+        for d in self._sleeps_for("-1", attempts=2):
+            self.assertGreater(d, 0.0)
+
+    def test_every_sleep_is_bounded(self):
+        for header in self.HOSTILE:
+            with self.subTest(header=header):
+                for d in self._sleeps_for(header, attempts=swc.GH_ATTEMPTS):
+                    self.assertGreater(d, 0.0, f"{header} -> {d}")
+                    self.assertLessEqual(d, 61.0, f"{header} -> {d}")
+
+    def test_no_sleep_after_final_attempt(self):
+        delays = self._sleeps_for("abc", attempts=swc.GH_ATTEMPTS)
+        self.assertEqual(len(delays), swc.GH_ATTEMPTS - 1)
+
+
 class TestSweepContinues(unittest.TestCase):
     def test_one_bad_pr_does_not_abort_the_sweep(self):
         calls = []
