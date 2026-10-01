@@ -8,13 +8,19 @@ Improvements over v1:
 - Caps at the 100 most-recent closed PRs (older ones are already cleaned).
 - Classifies and summarises outcomes (ok / rejected / timeout / skip).
 - Dry-run prints the plan without touching anything.
+- One transient GitHub API error no longer aborts the sweep: _gh() retries
+  429/502/503/504 and connection errors with backoff + jitter, and main()
+  records a per-PR failure and continues.
 """
 import json
 import os
+import random
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.error
 import urllib.request
 
 REPO = os.environ["GITHUB_REPOSITORY"]
@@ -25,9 +31,18 @@ API = "https://api.github.com/repos/" + REPO
 MAX_PRS = 100          # only sweep the most-recent closed PRs
 DOCKER_TIMEOUT = 180   # seconds per close attempt
 IMAGE = "mcr.microsoft.com/appsvc/staticappsclient:stable"
+RETRY_CODES = {429, 502, 503, 504}   # transient — secondary rate limit / backend blip
+AUTH_CODES = {401, 403}              # real config regression — retrying will not help
+GH_ATTEMPTS = 4                     # 1 try + 3 retries
+GH_BACKOFF = 2.0                    # seconds, doubled each retry
+
+
+class GhAuthError(RuntimeError):
+    """401/403 from GitHub — the token/permission is wrong, not transient."""
 
 
 def _gh(path, method="GET"):
+    """GET a GitHub API path, retrying transient failures with backoff + jitter."""
     req = urllib.request.Request(
         API + path,
         method=method,
@@ -37,9 +52,27 @@ def _gh(path, method="GET"):
             "User-Agent": "swa-cleanup",
         },
     )
-    with urllib.request.urlopen(req) as r:
-        body = r.read()
-        return json.loads(body) if body else None
+    last = None
+    for attempt in range(GH_ATTEMPTS):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                body = r.read()
+                return json.loads(body) if body else None
+        except urllib.error.HTTPError as e:
+            if e.code in AUTH_CODES:
+                raise GhAuthError(f"GitHub API {e.code} on {path}") from e
+            if e.code not in RETRY_CODES:
+                raise
+            last = e
+            delay = float(e.headers.get("Retry-After") or 0) or GH_BACKOFF * 2 ** attempt
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last = e
+            delay = GH_BACKOFF * 2 ** attempt
+        delay = min(delay, 60.0) + random.uniform(0, 1)
+        print(f"::warning::GitHub API transient failure on {path} "
+              f"({last}); retry {attempt + 2}/{GH_ATTEMPTS} in {delay:.1f}s", flush=True)
+        time.sleep(delay)
+    raise last
 
 
 def _fetch_closed_prs():
@@ -47,17 +80,7 @@ def _fetch_closed_prs():
     nums = []
     page = 1
     while len(nums) < MAX_PRS and page <= 5:
-        req = urllib.request.Request(
-            f"{API}/pulls?state=closed&sort=updated&direction=desc"
-            f"&per_page=100&page={page}",
-            headers={
-                "Authorization": "Bearer " + GH_TOKEN,
-                "Accept": "application/vnd.github+json",
-                "User-Agent": "swa-cleanup",
-            },
-        )
-        with urllib.request.urlopen(req) as r:
-            prs = json.loads(r.read())
+        prs = _gh(f"/pulls?state=closed&sort=updated&direction=desc&per_page=100&page={page}")
         if not prs:
             break
         for p in prs:
@@ -127,7 +150,11 @@ def main():
         print("::error::GITHUB_TOKEN / GH_TOKEN missing.")
         return 1
 
-    nums = _fetch_closed_prs()
+    try:
+        nums = _fetch_closed_prs()
+    except GhAuthError as e:
+        print(f"::error::{e} — check the workflow token permissions.")
+        return 1
     print(f"Closed same-repo PRs to check: {len(nums)}")
     if DRY:
         for n in nums:
@@ -141,14 +168,25 @@ def main():
     )
     os.makedirs(ws, exist_ok=True)
 
-    counters = {"ok": 0, "rejected": 0, "timeout": 0, "error": 0}
+    counters = {"ok": 0, "rejected": 0, "timeout": 0, "error": 0, "skipped": 0}
     details = []
     for n in nums:
-        status, out = _close_pr(n, ws)
+        try:
+            status, out = _close_pr(n, ws)
+        except GhAuthError as e:
+            # auth broke mid-sweep: nothing after this can work either
+            print(f"::error::{e} — aborting sweep at PR #{n}.")
+            print(f"::error::Sweep incomplete: {counters['ok']} environment(s) cleaned before abort.")
+            return 1
+        except urllib.error.HTTPError as e:
+            # 404 = the PR/route is gone; nothing to purge, not a failure
+            status, out = ("skipped", "") if e.code == 404 else ("error", f"HTTP {e.code}")
+        except Exception as e:  # noqa: BLE001 - one bad PR must not kill the sweep
+            status, out = "error", f"{type(e).__name__}: {e}"
         counters[status] = counters.get(status, 0) + 1
         detail = f"PR #{n} -> {status.upper()}"
         if status in ("rejected", "error"):
-            last_lines = "\n".join(out.splitlines()[-6:])
+            last_lines = "\n".join(str(out).splitlines()[-6:])
             detail += f"\n    {last_lines}"
         details.append(detail)
         print(detail)
@@ -156,11 +194,18 @@ def main():
     shutil.rmtree(ws, ignore_errors=True)
 
     print(f"\n--- SWA staging cleanup summary ---")
-    print(f"  ok:       {counters['ok']}")
-    print(f"  rejected: {counters['rejected']}")
-    print(f"  timeout:  {counters['timeout']}")
-    print(f"  error:    {counters['error']}")
-    print(f"  total:    {sum(counters.values())}")
+    for k in ("ok", "rejected", "timeout", "error", "skipped"):
+        print(f"  {k + ':':10s}{counters[k]}")
+    print(f"  {'total:':10s}{sum(counters.values())}")
+
+    if counters["error"]:
+        print(f"::warning::{counters['error']} PR(s) failed this sweep; "
+              f"the next daily run retries them.")
+    # only fail the run when nothing at all got cleaned — a partial sweep is
+    # still worth more than a red run that skips the remaining 89 PRs
+    if nums and counters["ok"] == 0 and counters["error"] == len(nums):
+        print("::error::Every PR failed — treating as a hard failure.")
+        return 1
     return 0
 
 

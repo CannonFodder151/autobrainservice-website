@@ -27,6 +27,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
+      - name: Self-check cleanup script
+        run: python3 scripts/test_swa_dataplane_cleanup.py
+
       - name: Sweep closed-PR preview environments
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
