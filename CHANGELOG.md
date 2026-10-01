@@ -11,6 +11,40 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.291] - 2026-10-01
+
+### Fixed (AUT-4855)
+- ci(release): `scripts/bump-version.sh` printed `docker build` instructions that
+  interpolated `"$CARTO_API_KEY"` even though the commands are only echoed, never
+  run. Under `set -u` — how CI invokes it via `auto-bump.sh` — an unset
+  `CARTO_API_KEY` killed the script at line 64 with `unbound variable`, after the
+  CHANGELOG had been promoted but before the version bump could be committed. That
+  broke the `auto-bump` job in both `Publish images to Docker Hub` and
+  `Build hosted images (multi-arch)`, blocking every release off `main`. This was a
+  regression introduced by AUT-4824 (PR #822). The three lines now print a literal
+  `$CARTO_API_KEY` placeholder for the operator to substitute; the `set -u` guard
+  is untouched. New `scripts/test-bump-version.sh` runs the real script in a
+  sandbox with the key unset and set, asserting exit 0 and that the bump lands.
+
+### Fixed (AUT-4824)
+- docs(docker): the `CARTO_API_KEY` hard-fail introduced by AUT-4690 (PR #822)
+  left three documented/scripted frontend build paths passing no
+  `--build-arg CARTO_API_KEY`, so all of them failed if copied: the manual
+  `docker build -f docker/frontend/Dockerfile` snippet in
+  `docs/Deployment-and-Infrastructure/deployment-guide.md`, the three
+  hosted/default/demo build commands printed by `scripts/bump-version.sh`, and
+  the stale "Empty -> key-less public basemap" comments in `.env.example`,
+  `docker-compose.yml` and `docker-compose.prod.yml` (the empty default is
+  intentional — it fails the build loud rather than shipping a watermapped map).
+  No behaviour change. New `scripts/check-carto-build-arg-propagation.py`
+  statically asserts that every documented/scripted frontend build passes the key;
+  it now runs as the `carto build-arg propagation` CI job so the paths cannot
+  silently regress. `scripts/publish-images.sh` also sources the key from `.env`
+  and hard-fails early instead of letting `docker build` reject it, and
+  `dockerhub-publish.yml` fails with a readable message when the
+  `CARTO_API_KEY` secret is unset rather than surfacing an opaque error deep
+  inside the build.
+
 ## [0.3.290] - 2026-09-30
 
 ### Fixed (AUT-2784)
@@ -60,6 +94,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
   blocking the hosted deploy pipeline, not just this PR. The API used by
   `app/core/security.py` and `app/services/iap.py` (`encode`/`decode`/
   `get_unverified_header`/`PyJWTError`/`InvalidTokenError`) is unchanged.
+### Fixed (AUT-4690)
+- **CI:** `docker/frontend/Dockerfile` now hard-fails when `CARTO_API_KEY` is
+  unset/expired, and asserts the key value is actually present in the built
+  `main.dart.js`. Previously an empty secret produced a *green* build and the
+  Servo Spy map silently fell back to the watermapped public basemap, only
+  caught weeks later by a human QA curl (AUT-4533, AUT-4649). The empty-key
+  check runs before `flutter build web` so it fails fast.
 
 ## [0.3.287] - 2026-09-30
 
