@@ -3,3 +3,4 @@ Allow: /
 Disallow: /delete-account.html
 
 Sitemap: https://autobrainservice.app/sitemap.xml
+<!-- aut-4967 merge capability probe -->
