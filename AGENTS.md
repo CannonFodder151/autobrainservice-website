@@ -47,6 +47,32 @@ Plain HTML + `styles.css` + a few small JS files.
 5. Push, open a PR, wait for QA + Security sign-off, then squash-merge
 6. The merge auto-deploys to SWA — no manual deploy step
 
+### Merging on this repo (read before merging)
+
+This repo is **private on the GitHub Free plan**, so two GitHub features are
+unavailable (verified AUT-4967, 2026-10-01):
+
+| Feature | Status | Evidence |
+|---|---|---|
+| Branch protection / required reviews | Not available | `GET /branches/main/protection` → 403 "Upgrade to GitHub Pro or make this repository public" |
+| Auto-merge (`allow_auto_merge`) | Not available | `PATCH /repos/... -d '{"allow_auto_merge":true}'` → HTTP 200 but field stays `false` |
+
+Consequence: **do NOT use `gh pr merge --auto --squash` here.** It exits 0 and
+prints nothing while doing nothing — `autoMergeRequest` stays `null`. That silent
+no-op is the failure mode AUT-4967 was raised for.
+
+**Merge explicitly instead**, once QA + Security have signed off on the PR:
+
+```bash
+gh pr merge <PR#> --repo CannonFodder151/autobrainservice-website --squash --delete-branch
+```
+
+Squash merge is permitted (`allow_squash_merge: true`) and needs no plan upgrade.
+If it fails with a non-`UNSTABLE`/non-`BLOCKED` `mergeStateStatus`, mergeability
+is a real signal — read `gh pr checks <PR#>` before retrying. The company-wide
+rule "once QA and Security have approved a PR, squash-merge it immediately"
+still applies; only the mechanism differs from `autobrain` and other public repos.
+
 ## SEO checklist for new pages
 
 - `<title>` ≤ 60 chars, `<meta name="description">` ≤ 155 chars
