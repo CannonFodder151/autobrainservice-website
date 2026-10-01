@@ -47,6 +47,17 @@ Plain HTML + `styles.css` + a few small JS files.
 5. Push, open a PR, wait for QA + Security sign-off, then squash-merge
 6. The merge auto-deploys to SWA — no manual deploy step
 
+> **Merge mechanics (AUT-4967):** do **not** use `gh pr merge --auto` here. This repo is
+> private on a plan without branch protection or auto-merge, so `--auto` exits 0 and does
+> nothing. Once QA + Security have signed off, merge explicitly:
+>
+> ```bash
+> gh pr merge <PR> --squash --delete-branch
+> ```
+>
+> An explicit squash merge needs no GitHub UI click — verified via PR #143. No human merge
+> step is required.
+
 ## SEO checklist for new pages
 
 - `<title>` ≤ 60 chars, `<meta name="description">` ≤ 155 chars
