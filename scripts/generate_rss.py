@@ -10,10 +10,13 @@ FEED_DESC = "Practical guides on car maintenance tracking, fuel intelligence, AI
 def parse_date(s):
     for fmt in ("%d %B %Y", "%d %b %Y"):
         try:
-            return datetime.strptime(s.strip(), fmt).strftime("%a, %d %b %Y 00:00:00 +1000")
+            return datetime.strptime(s.strip(), fmt)
         except ValueError:
             pass
-    return datetime(2026, 8, 1).strftime("%a, %d %b %Y 00:00:00 +1000")
+    return datetime(2026, 8, 1)
+
+def rfc822(d):
+    return d.strftime("%a, %d %b %Y 00:00:00 +1000")
 
 def main():
     txt = open("blog.html").read()
@@ -50,7 +53,7 @@ def main():
         lines.append(f"<description>{html.escape(desc)}</description>")
         lines.append(f"<link>{html.escape(url)}</link>")
         lines.append(f"<guid isPermaLink=\"true\">{html.escape(guid)}</guid>")
-        lines.append(f"<pubDate>{pub_date}</pubDate>")
+        lines.append(f"<pubDate>{rfc822(pub_date)}</pubDate>")
         lines.append("</item>")
     lines += ["</channel>", "</rss>"]
 
