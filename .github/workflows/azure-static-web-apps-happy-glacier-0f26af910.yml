@@ -110,6 +110,13 @@ jobs:
         # Never execute PR-head code with AZURE_STATIC_WEB_APPS_API_TOKEN in its
         # environment: that token can upload to production. Run the copy that
         # QA + Security reviewed on the default branch.
+        #
+        # continue-on-error for the same reason as the reclaim step below: a
+        # failing step skips every later step on the default success() guard,
+        # which would skip the deploy entirely. The pathspec is absent until
+        # this script has merged once, so the fetch legitimately fails on the
+        # PR that introduces it - the deploy must still run.
+        continue-on-error: true
         env:
           TRUSTED_REF: ${{ github.event.repository.default_branch }}
         run: |
@@ -136,7 +143,12 @@ jobs:
           CURRENT_PR: ${{ github.event.pull_request.number }}
           PREVIEW_LIMIT: 3
           GITHUB_WORKSPACE: ${{ runner.temp }}/reclaim   # keep event payloads out of app_location
-        run: python3 "$RUNNER_TEMP/reclaim/scripts/swa_preview_reclaim.py"
+        run: |
+          if [ -f "$RUNNER_TEMP/reclaim/scripts/swa_preview_reclaim.py" ]; then
+            python3 "$RUNNER_TEMP/reclaim/scripts/swa_preview_reclaim.py"
+          else
+            echo "::warning::Trusted reclaim script not on the default branch - deploying without reclaiming a slot"
+          fi
       - name: Regenerate changelog
         run: python3 scripts/gen_changelog.py
       - name: Build And Deploy

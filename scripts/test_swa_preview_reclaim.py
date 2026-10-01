@@ -152,6 +152,13 @@ class TestWorkflowContract(unittest.TestCase):
         reclaim = [s for s in job["steps"] if s.get("name") == "Reclaim a preview slot"]
         self.assertEqual(len(reclaim), 1)
         self.assertIs(reclaim[0].get("continue-on-error"), True)
+        # The trusted-script fetch is equally able to fail (the pathspec is
+        # absent until this change merges once), and it sits before the deploy
+        # steps, so it must not be allowed to skip them either.
+        fetch = [s for s in job["steps"]
+                 if s.get("name") == "Fetch trusted reclaim script"]
+        self.assertEqual(len(fetch), 1)
+        self.assertIs(fetch[0].get("continue-on-error"), True)
         # Upload must run on the default success() guard, not behind a skip.
         for name in ("Regenerate changelog", "Build And Deploy"):
             step = next(s for s in job["steps"] if s.get("name") == name)
