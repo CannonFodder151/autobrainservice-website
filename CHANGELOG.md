@@ -10,24 +10,77 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 ## [Unreleased]
+- fix(backup): the backend no longer runs a second retention engine against the
+  off-site backup store. `backup_offsite.py::_apply_tiered_retention()` pruned
+  by file **age** (via `_tier_for_age`) while `autobrain-backup` prunes by
+  **count per tier directory** (`engine.py::_prune`, defaults hourly 24 /
+  daily 30 / weekly 12) — two policies, one store. Age-derived tiers ignored
+  the tier directory the API returns (a `daily/` snapshot 10 days old collapsed
+  to one per ISO week) and the backend's `monthly` tier does not exist on the
+  service side at all, so anything older than 24 weeks was deleted outright.
+  Repro against `main` @ `0f1f9248`: a listing the service itself considers
+  fully in-policy (24 hourly + 30 daily + 12 weekly) lost **29 of 66**
+  snapshots. Removed `_apply_tiered_retention`, `_list_existing_offsite`,
+  `_delete_offsite`, `_tier_for_age`, `_slot_key` and `_OFFSITE_TIERS`; the
+  hourly push and the `BACKUP_OFFSITE_ENABLED` guard are unchanged. Per-tier
+  retention is configured on the autobrain-backup instance
+  (`retention.hourly` / `retention.daily` / `retention.weekly`). Regression test
+  feeds the 66-snapshot in-policy listing through `run_backup_offsite()` and
+  asserts one ingest POST and zero deletes. Note: this task was a no-op before
+  AUT-3975 / PR #757, so no production data was lost yet.
 
-### Security (AUT-5045)
-- site: stop publishing the shared demo credential in cleartext on public,
-  indexable pages. `ownership-advisor.html` published `demo@autobrainservice.app / demo`
-  next to the demo link, and `index.html` did the same in the hero `<small>`
-  block plus a "no sign-up" claim that is no longer true. Both now point at the
-  demo URL and a "ask for a demo login" mailto instead; the demo anchor itself
-  stays. The published credential must be treated as compromised regardless of
-  this edit — rotation on the demo host is tracked separately in AUT-5047.
-  The FAQ JSON-LD in `ownership-advisor.html` already named only the demo URL,
-  so it needed no change.
-- ci: `scripts/check_seo_pages.py` gained a `check_credentials()` invariant
-  alongside the existing SEO checks — it fails the `seo-drift` gate if any page
-  pairs an email address with a password-shaped literal. Scans every page,
-  not just indexable ones, because a `noindex` page still serves its source to
-  anyone who requests it. Verified to fail on the pre-fix pages and to stay
-  silent on the 55-page tree (which is full of `mailto:` anchors that the
-  pattern deliberately ignores).
+## [0.3.297] - 2026-10-02
+- fix(hosted): the hosted backend now runs `alembic upgrade head` before
+  bootstrap, so migration-only changes (new index, constraint, column rename,
+  data backfill) stop being dead code in production. Hosted booted straight
+  into `app.db.bootstrap`, whose `create_all` fallback swallowed every
+  migration failure — `alembic_version` sat at `aut4925_missing_tables` and
+  `fuel_price_snapshots` existed only because `create_all` happened to build it.
+  Guarded by `scripts/check-compose-consolidation.py` (with negative tests) and
+  a new `alembic-migrations` CI job that proves a create_all-built database
+  at the hosted stamp reaches head and that the pending revision performs real
+  DDL instead of only bumping a version string.
+- feat(alembic): add migration for `fuel_price_snapshots` — the table was only
+
+### Fixed (AUT-4678)
+- `scripts/check-compose-config.py` crashed with `KeyError: 'ai'` on `main`
+  after the AUT-3153 merge removed the standalone `ai` service, so the hosted
+  compose structural guard had been dead. Optional services are now filtered
+  by presence (`SECRET_SERVICES` + `present()`), `BACKUP_OFFSITE_GUI_KEY_FILE`
+  / `BACKUP_OFFSITE_INGEST_KEY_FILE` (and gh-runner's `github_pat`) are known
+  secret files, and the corresponding plain-env keys are forbidden.
+- `scripts/check-compose-consolidation.py` asserted the standalone `ai`
+  service existed; it now asserts the merged gateway indirection
+  (`AI_GATEWAY_API_KEY_FILE` / `AI_ROUTER_API_KEY_FILE`) lives on `backend`.
+- `scripts/seed-secrets.sh` aborted immediately: a comment inside a `sed`
+  backslash continuation (`# -e 's/^FUEL_VIC_API_KEY$/…' \`) terminated the
+  pipeline, so `set -eu` killed the script and **no** secret file was ever
+  seeded. Comment moved above the pipeline; `BACKUP_OFFSITE_GUI_KEY` /
+  `BACKUP_OFFSITE_INGEST_KEY` are now mapped to secret files.
+- New `.github/workflows/compose-checks.yml` runs every `scripts/check-*.py`
+  plus `scripts/test_check_compose_config.py` on compose/script changes, so
+  the guards can no longer rot unnoticed.
+
+## [0.3.296] - 2026-10-02
+
+### Fixed (AUT-5032)
+- test: three pre-existing failures in `backend/tests/test_workers.py` that
+  reproduced on a clean `origin/main` checkout (not env-dependent, and not
+  caused by the AUT-3827/AUT-3977 branch diff — root cause was the test
+  harness, not the code under test):
+  - `test_scheduled_backup_skips_on_missing_minio_credentials` asserted on
+    `caplog` (stdlib `logging`), but the worker logs through `structlog`, so the
+    records never reached `caplog`. It now uses
+    `structlog.testing.capture_logs()` and asserts on the
+    `reason="minio_credentials_missing"` event field, matching the pattern in
+    `backend/tests/test_aut324_rego_log_redaction.py`.
+  - `test_ingest_fuel_prices_no_typeerror_when_source_in_result` and
+    `test_run_due_checks_runs_inner_coro_via_run` raised `NameError` at the
+    `patch.object(...)` / `asyncio.new_event_loop()` call sites because
+    `unittest.mock.patch` and `asyncio` were never imported. Both are now
+    imported at module top.
+  - No production code changed. `python3 -m pytest backend/tests/test_workers.py`
+    is green (7 passed) with only `DATABASE_URL` + `SECRET_KEY` exported.
 
 ### Security (AUT-5041)
 - deps: bump `pypdf` `6.16.1` -> `6.19.0` in `backend/requirements.txt` and
