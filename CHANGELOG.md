@@ -11,6 +11,86 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Security (AUT-5041)
+- deps: bump `pypdf` `6.16.1` -> `6.19.0` in `backend/requirements.txt` and
+  `ai/requirements.txt`. 6.16.1 carried 8 known vulnerabilities
+  (PYSEC-2026-4153..4160), which kept the `pip-audit-gate` job of
+  `Publish images to Docker Hub` red on `main` and blocked every PR merge.
+  `pip-audit --disable-pip --no-deps` over the deduplicated backend+ai pin
+  list is now clean. The receipt worker's `_pdf_text()` and the reportlab PDF
+  export paths are unchanged (`pypdf` is only ever a reader there); guarded by
+  `backend/tests/test_deps_pypdf_pin.py` (floor raised to 6.19.0),
+  `backend/tests/test_pdf_dos_regression.py` and the `test_api.py` PDF export
+  tests.
+
+## [0.3.295] - 2026-10-02
+
+### Fixed (AUT-3827)
+- backup: include the `monthly` tier when listing off-site snapshots
+  (`backend/app/services/backup_offsite.py`). Retention manages four tiers but the
+  off-site listing flattened only `hourly`/`daily`/`weekly`, so monthly backups were
+  invisible to `_apply_tiered_retention` — never deduped per month slot and never
+  pruned past the 6-month window. Tier list is now a single `_OFFSITE_TIERS`
+  constant. Guarded by `backend/tests/test_backup_offsite.py` (new).
+
+### Fixed (AUT-4976)
+- deploy(hosted): set `FUEL_VIC_ENABLED: "false"` in `docker-compose.hosted.yml`,
+  matching `docker-compose.prod.yml`. The VIC Servo Saver endpoint
+  `api.servosaver.com.au` is NXDOMAIN (AUT-4143), so the hosted nightly beat
+  (`ingest-fuel-prices`) raised `FuelFeedError` for VIC on every run. NSW, QLD and
+  SA feeds are unaffected. The VIC secret files stay mounted so the feed can be
+  re-enabled when a paid VIC aggregator is available. Guarded by
+  `backend/tests/test_fuel_feed_flags.py`.
+
+## [0.3.294] - 2026-10-01
+
+### Fixed (AUT-4911)
+- deploy(hosted): remove the `gh-runner` service from `docker-compose.hosted.yml`.
+  It carried an inline `build:` block, and Portainer cannot build service images for
+  a remote endpoint with no uploaded build context, so every compose-pin sync of this
+  file failed with `HTTP 500` on `PUT /stacks/122?endpointId=5` (body:
+  `failed to deploy a stack: compose build operation failed: listing workers for Build`)
+  — reproduced on EP5 and EP6. The ARM64 runner already runs as its own Portainer
+  stack (`gh-runner-autobrain-arm64`, stack 123 on EP5) on the external
+  `autobrain-hosted_default` network, and its image `autobrain-gh-runner:arm64-latest`
+  is unpublished, so the inlined service could never have started on EP5 anyway.
+- deploy(hosted): `scripts/sync-compose-to-portainer.py` now prints the Portainer
+  response body on failure and exits 4 instead of logging a bare `HTTP Error 500`,
+  so the next such error names itself in the CI log.
+- ci: this entry lands as a `CHANGELOG.md`-only commit. The AUT-4911 merge itself
+  shipped without one, so the post-merge `changelog-gate` job failed on `main` and
+  took the `Publish images to Docker Hub` run down with it, leaving the release queue
+  stuck. A changelog-only diff does not re-trip the gate.
+
+## [0.3.293] - 2026-10-01
+
+### Fixed (AUT-4919)
+- fix(ci): stop lineage sync from committing editor backup files. `sync-mobile.yml`
+  commits with `git add -A`, so a stray `CHANGELOG.md.bak` left in the
+  `autobrain-mobile` working tree was swept into commit `b102347` and stayed
+  tracked (140KB) in every clone. Two fixes: `autobrain-mobile` now gitignores
+  `*.bak` and `*~`, and `scripts/sync-mobile.sh` runs a pre-flight that aborts
+  the sync if a backup artifact is present on either side of the copy — before
+  any file is written, so there is no partial sync. Covered by
+  `scripts/test_sync_mobile_backup_guard.sh`.
+
+### Fixed (AUT-4925)
+- fix(backend): repair the Alembic head that hard-failed on every boot of the hosted
+  stack. `alembic_version` read `aut3447_passkey_credentials`, but `passkey_credentials`,
+  `engineers` and `engineer_reviews` did not exist, so head migration `f7e8d9c0b1a2`
+  raised `UndefinedTableError: relation "passkey_credentials" does not exist`.
+  `bootstrap()` then fell back to `create_all`, which could not repair the gap
+  because `app/models/__init__.py` never imported those three models — so the
+  version never advanced and the loop repeated indefinitely. Passkey sign-in and
+  the engineer marketplace were both non-functional on hosted as a result. Three
+  changes: `f7e8d9c0b1a2` is now guarded and no-ops when the table is absent; a new
+  guarded migration `aut4925_missing_tables` creates the three tables
+  column-for-column identical to the ORM models (including
+  `engineer_reviews.updated_at`, which `a3661engineers` omits); and the three
+  models are imported so the `create_all` fallback covers them. A new
+  `test_every_model_table_is_exported_for_create_all` guard fails if any model
+  class declaring `__tablename__` is not exported from `app.models`.
+
 ## [0.3.292] - 2026-10-01
 
 ### Security (AUT-4701)
