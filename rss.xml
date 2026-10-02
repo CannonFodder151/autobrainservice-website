@@ -251,7 +251,46 @@
 <link>https://autobrainservice.app/blog/community-garage-ga.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/community-garage-ga.html</guid>
 <pubDate>Thu, 13 Aug 2026 00:00:00 +1000</pubDate>
+<title>AutoBrain is coming to Home Assistant</title>
+<description>Service reminders, fuel analytics, and cost trends on your smart-home dashboard. The Q4 2026 beta is your first look at the AutoBrain + Home Assistant integration.</description>
+<link>https://autobrainservice.app/blog/autobrain-home-assistant-integration.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-home-assistant-integration.html</guid>
+<pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
 </item>
+<item>
+<title>How the AutoBrain × Home Assistant Integration Actually Works</title>
+<description>The technical deep-dive: architecture, wire format, entities, install steps, Lovelace cards, real automations, and the local-first design that keeps everything on your network.</description>
+<link>https://autobrainservice.app/blog/autobrain-home-assistant-integration-part-2.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-home-assistant-integration-part-2.html</guid>
+<pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Car Dashboard Warning Lights Australia — What They Mean &amp; What to Do</title>
+  <description>Red, amber or green? A plain-English guide to the warning lights Australian drivers see most — and exactly what to do (and when to stop) when each one appears.</description>
+  <link>https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Car Won&#x27;t Start? 14 Common Causes &amp; How to Fix Them</title>
+  <description>Car won't start? Check these 14 causes — dead battery, flat alternator, starter motor, fuel pump, immobiliser and more. Step-by-step troubleshooting for Australian drivers.</description>
+  <link>https://autobrainservice.app/blog/car-wont-start-causes.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-wont-start-causes.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>How Much Does an Oil Change Cost in Australia? 2026 Guide</title>
+  <description>How much does an oil change cost in Australia? 2026 price guide for synthetic, conventional and diesel oil changes. Dealer vs independent costs. Free reminder tool.</description>
+  <link>https://autobrainservice.app/blog/oil-change-cost-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/oil-change-cost-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Have You Ever Been Blindsided by a Repair Bill?</title>
+<description>Cars rarely fail without warning — they whisper first. Five ways AutoBrain turns &quot;I didn&#x27;t see that coming&quot; into &quot;sorted that months ago&quot;.</description>
+<link>https://autobrainservice.app/blog/have-you-ever-repair-bill.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/have-you-ever-repair-bill.html</guid>
+<pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate></item>
 <item>
 <title>Why a Simpler Stack Is a Better Stack</title>
 <description>AutoBrain&#x27;s Phase 1 rewrite cut its container footprint. Same features, less moving parts — because a maintenance app should be boring to run, not impressive to debug.</description>
@@ -293,6 +332,13 @@
 <link>https://autobrainservice.app/blog/autobrain-for-car-clubs.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-for-car-clubs.html</guid>
 <pubDate>Thu, 06 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Car Service Checklist Australia — Complete 2026 Guide</title>
+<description>Complete car service checklist for Australia. Logbook intervals, brake jobs, tyres, seasonal checks. Free printable PDF. Track everything in AutoBrain.</description>
+<link>https://autobrainservice.app/blog/car-service-checklist-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/car-service-checklist-australia.html</guid>
+<pubDate>Thu, 24 Sep 2026 00:00:00 +1000</pubDate>
 </item>
 </channel>
 </rss>
