@@ -274,7 +274,8 @@ def main():
     if unreleased:
         say("")
         say("> An evicted PR regains its preview on its next push. Production "
-            "and closed PRs are never touched.")
+            "is never touched; a closed PR is only evicted while its staging "
+            "environment is still live.")
     flush_summary()
 
     if unreleased:
