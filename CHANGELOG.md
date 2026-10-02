@@ -11,6 +11,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Security (AUT-5045)
+- site: stop publishing the shared demo credential in cleartext on public,
+  indexable pages. `ownership-advisor.html` published `demo@autobrainservice.app / demo`
+  next to the demo link, and `index.html` did the same in the hero `<small>`
+  block plus a "no sign-up" claim that is no longer true. Both now point at the
+  demo URL and a "ask for a demo login" mailto instead; the demo anchor itself
+  stays. The published credential must be treated as compromised regardless of
+  this edit — rotation on the demo host is tracked separately in AUT-5047.
+  The FAQ JSON-LD in `ownership-advisor.html` already named only the demo URL,
+  so it needed no change.
+- ci: `scripts/check_seo_pages.py` gained a `check_credentials()` invariant
+  alongside the existing SEO checks — it fails the `seo-drift` gate if any page
+  pairs an email address with a password-shaped literal. Scans every page,
+  not just indexable ones, because a `noindex` page still serves its source to
+  anyone who requests it. Verified to fail on the pre-fix pages and to stay
+  silent on the 55-page tree (which is full of `mailto:` anchors that the
+  pattern deliberately ignores).
+
 ### Security (AUT-5041)
 - deps: bump `pypdf` `6.16.1` -> `6.19.0` in `backend/requirements.txt` and
   `ai/requirements.txt`. 6.16.1 carried 8 known vulnerabilities

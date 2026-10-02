@@ -19,6 +19,11 @@ Plus site-level integrity, which is where the 404s came from:
   every internal href resolves to a file that exists
   sitemap.xml covers every indexable page
 
+And one security invariant, added after AUT-5045 (a shared demo password was
+published in cleartext on an indexable page):
+
+  no email address is followed by a password-shaped literal
+
 Exit 0 = clean. Exit 1 = violations, listed.
 
 Override a limit with an env var when a page genuinely needs more:
@@ -40,6 +45,18 @@ EXEMPT = {"delete-account.html"}
 # Not HTML, so no page-level invariants apply, but its presence in the sitemap
 # is checked by sitemap coverage below.
 NON_HTML = {"rss.xml"}
+
+# An email address immediately followed by a separator and a bare token:
+# "demo@autobrainservice.app / demo", "a@b.com: hunter2". The second group must
+# not be another address ("sales@x.com · ask for access") and must not be a tag,
+# attribute or quote, so mailto anchors stay clean.
+CREDENTIAL_LITERAL = re.compile(
+    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"   # the address
+    r"\s*(?:/|\||·|:|—|–|-)\s*"                # "...and the password is"
+    r"(?![A-Za-z0-9._%+-]+@)"                          # not another address
+    r"(?![<{&\"'])"                                  # not a tag / attribute
+    r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,})"           # the secret
+)
 
 
 def html_files():
@@ -122,6 +139,17 @@ def check_sitemap():
     return missing, len(listed)
 
 
+def check_credentials():
+    """Every page is scanned, not just indexable ones — a noindex page still
+    serves its source to anyone who requests it."""
+    bad = []
+    for path in html_files():
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        for m in CREDENTIAL_LITERAL.finditer(text):
+            line = text[:m.start()].count("\n") + 1
+            bad.append(f"{path}:{line} credential-shaped literal: {m.group(0)!r}")
+    return bad
+
 def main():
     violations = []
 
@@ -140,6 +168,9 @@ def main():
     for path in missing:
         violations.append(f"{path}: indexable but not in sitemap.xml")
 
+    for hit in check_credentials():
+        violations.append(f"published credential: {hit}")
+
     if violations:
         print("on-page SEO violations:\n")
         for v in violations:
@@ -149,7 +180,7 @@ def main():
 
     print(f"OK: {len(html_files())} pages clean — titles <= {TITLE_MAX}, "
           f"descriptions <= {DESC_MAX}, hreflang complete, no broken links, "
-          f"sitemap has {listed} entries")
+          f"no published credentials, sitemap has {listed} entries")
     return 0
 
 
