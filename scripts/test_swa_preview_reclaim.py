@@ -96,6 +96,95 @@ class TestSelectVictims(unittest.TestCase):
             spr.select_victims([], current_pr=140, preview_limit=3), ([], []))
 
 
+class TestLeakedClosedPrs(unittest.TestCase):
+    """A merged PR whose environment is still live consumes a slot (AUT-4799).
+
+    Live shape on 2026-10-02: open PRs #146 and #139 held slots and PR #141 was
+    merged the day before yet still answered on its staging URL. The open-only
+    scan reported 2/3 in use and reclaimed nothing, so Azure rejected the next
+    PR preview.
+    """
+
+    def test_closed_leak_is_evicted_even_below_the_cap(self):
+        # 2 open + 1 leaked is exactly the cap and the current PR already holds
+        # a slot, so nothing needs freeing for the upload - the leak is still
+        # removed, because a closed PR's environment is never wanted.
+        keep, victims = spr.select_victims([146, 139, 147], current_pr=147,
+                                           preview_limit=3, leaked=[141])
+        self.assertEqual(victims, [141])
+        self.assertEqual(sorted(keep), [139, 146])
+
+    def test_leak_frees_the_slot_so_no_open_pr_is_dropped(self):
+        # 2 open + 1 leaked = the cap of 3, and the current PR needs a slot of
+        # its own. Evicting the leak alone is enough; no open preview is lost.
+        keep, victims = spr.select_victims([146, 139], current_pr=147,
+                                           preview_limit=3, leaked=[141])
+        self.assertEqual(victims, [141])
+        self.assertEqual(sorted(keep), [139, 146])
+
+    def test_leak_shrinks_the_open_keep_budget(self):
+        # 3 open + 2 leaks = 5 live against a cap of 3, and the current PR needs
+        # a slot of its own, so 3 must go: both leaks and the stalest open holder.
+        keep, victims = spr.select_victims([146, 139, 130], current_pr=147,
+                                           preview_limit=3, leaked=[141, 142])
+        self.assertEqual(keep, [146, 139])
+        self.assertEqual(sorted(victims), [130, 141, 142])
+
+    def test_no_leaks_behaves_exactly_as_before(self):
+        self.assertEqual(
+            spr.select_victims([146, 139], current_pr=147, preview_limit=3,
+                               leaked=[]),
+            spr.select_victims([146, 139], current_pr=147, preview_limit=3))
+
+
+class TestMainScanIncludesClosedPrs(unittest.TestCase):
+    """main() must probe closed PRs; the open-only scan is the bug (AUT-4799)."""
+
+    def _run(self):
+        repo = os.environ["GITHUB_REPOSITORY"]
+        # 146 and 147 both hold slots, 147 being the PR being deployed.
+        open_prs = [{"number": 146, "head": {"repo": {"full_name": repo}}},
+                    {"number": 147, "head": {"repo": {"full_name": repo}}}]
+        closed_prs = [{"number": 141, "head": {"repo": {"full_name": repo}}}]
+        comments = [{"body": "Your stage site is ready! Visit it here: " + LIVE_URL}]
+        spr._lines.clear()
+        env = {"CURRENT_PR": "147", "PREVIEW_LIMIT": "3",
+               "GITHUB_WORKSPACE": tempfile.mkdtemp(prefix="swa-test")}
+        paths = []
+
+        def gh(path, *a, **kw):
+            paths.append(path)
+            if path.startswith("/pulls?state=closed"):
+                return closed_prs
+            if path.startswith("/pulls"):
+                return open_prs
+            return comments
+
+        with mock.patch.dict(os.environ, {**env, "SWA_TOKEN": "t"}, clear=False), \
+             mock.patch.object(spr, "_load_deps"), \
+             mock.patch.object(spr, "_gh", side_effect=gh), \
+             mock.patch.object(spr, "serving", return_value=True), \
+             mock.patch.object(spr, "await_release", return_value=True), \
+             mock.patch.object(spr, "_close_pr", return_value=("ok", "")), \
+             contextlib.redirect_stdout(io.StringIO()):
+            spr.main()
+        return "\n".join(spr._lines), paths
+
+    def test_closed_pr_holding_a_slot_is_reported_and_evicted(self):
+        out, paths = self._run()
+        self.assertIn("#141 is **closed but still serving**", out)
+        self.assertIn("Leaked from closed PRs (always evicted): [141]", out)
+        self.assertIn("(2 open, 1 leaked from closed PRs)", out)
+
+    def test_closed_prs_are_actually_fetched(self):
+        # The open-only scan is the bug: without the closed sweep, #141 is
+        # invisible and nothing gets evicted.
+        _, paths = self._run()
+        self.assertTrue(any(p.startswith("/pulls?state=closed") for p in paths),
+                        "main() never scanned closed PRs")
+        self.assertIn("/issues/141/comments?per_page=100", paths)
+
+
 class TestAwaitRelease(unittest.TestCase):
     def test_returns_true_once_url_stops_serving(self):
         with mock.patch.object(spr, "serving", side_effect=[True, True, False]) as m, \
@@ -176,7 +265,10 @@ class TestTokenRedaction(unittest.TestCase):
         comments = [{"body": "Your stage site is ready! Visit it here: " + LIVE_URL}]
         with mock.patch.dict(os.environ, {**env, "SWA_TOKEN": SECRET}, clear=False), \
              mock.patch.object(spr, "_load_deps"), \
-             mock.patch.object(spr, "_gh", side_effect=[[pr], comments]), \
+             mock.patch.object(spr, "_gh", side_effect=[
+                 [pr], comments,   # open PR #141
+                 [], [],           # closed-PR scan finds nothing
+             ]), \
              mock.patch.object(spr, "serving", return_value=True), \
              mock.patch.object(spr, "await_release", return_value=True), \
              mock.patch.object(spr, "_close_pr", return_value=("error", detail)), \

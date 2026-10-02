@@ -26,12 +26,16 @@ What this does
 Preview environments are a fixed-size cache keyed by PRs that actually hold an
 environment, not by PRs that are merely open:
 
-  1. Read each open same-repo PR's staging URL from its newest "Your stage site
-     is ready!" comment and probe it.
+  1. Read each same-repo PR's staging URL from its newest "Your stage site is
+     ready!" comment and probe it. Both open and recently closed PRs are
+     scanned: a merged PR whose environment was never torn down still holds a
+     slot, and an open-only scan undercounts it and fails to free it.
   2. A PR with a reachable URL holds a slot. A PR without one does not, and is
      never an eviction candidate.
-  3. Keep the current PR plus the (PREVIEW_LIMIT - 1) most recently updated
-     slot holders; evict the remaining holders, least recently updated first.
+  3. Evict every closed PR that still holds a slot - nobody reviews a closed PR -
+     then keep the current PR plus the (PREVIEW_LIMIT - 1) most recently updated
+     open slot holders; evict the remaining holders, least recently updated
+     first.
   4. Confirm each eviction released the slot by polling the victim's staging
      URL until it stops serving.
 
@@ -41,7 +45,8 @@ seconds later while the environment was still being torn down.
 
 Never blocks the deploy: failures are reported and the upload is still
 attempted, since the current PR may already hold a slot. Production is never
-touched and closed PRs are never evicted.
+touched, and a closed PR is only ever evicted when its environment still
+answers - closing one that is already gone is a no-op.
 
 Env vars:
   SWA_TOKEN             AZURE_STATIC_WEB_APPS_API_TOKEN (required)
@@ -49,6 +54,7 @@ Env vars:
   GITHUB_REPOSITORY     owner/name (required)
   CURRENT_PR            the PR being deployed (required)
   PREVIEW_LIMIT         preview env cap for the plan (default 3, free plan)
+  CLOSED_SCAN           closed PRs inspected for leaked envs (default 30)
   GITHUB_STEP_SUMMARY   optional; results are mirrored here
 """
 import os
@@ -88,6 +94,10 @@ _STAGING_URL_RE = re.compile(
 _PROBE_TIMEOUT = 20
 _RELEASE_TIMEOUT = 150   # Azure tears an environment down asynchronously.
 _PROBE_INTERVAL = 10
+# Closed PRs are ranked by recency, so a leak that has already aged out of the
+# window is left to the nightly sweep rather than probed here. 30 covers the
+# merged-PR lifetime comfortably; probing 100 URLs per PR push is not worth it.
+_CLOSED_SCAN = 30
 
 _lines = []
 
@@ -136,21 +146,34 @@ def await_release(url):
         time.sleep(_PROBE_INTERVAL)
 
 
-def select_victims(holders, current_pr, preview_limit):
+def select_victims(holders, current_pr, preview_limit, leaked=()):
     """Split live slot holders into (kept, evicted), evicting LRU-first.
 
-    holders must be ordered most-recently-updated first. The current PR always
-    keeps its slot, even when it is the stalest holder.
+    holders must be the *open* slot holders ordered most-recently-updated first.
+    leaked holds closed PR numbers whose environments are still serving. They
+    are always evicted: nobody reviews a closed PR, so its environment is pure
+    quota waste and there is never a reason to keep one.
+
+    Open holders then give way only as far as the cap requires: every live
+    environment Azure can see, minus the cap, plus one for the slot this deploy
+    is about to take, less whatever the leak evictions already free. Open
+    holders give way least-recently-updated first and the current PR is never
+    evicted.
     """
+    leaked = list(leaked)
+    live = len(holders) + len(leaked)
+    needed = live - preview_limit + (0 if current_pr in holders else 1)
+    evicted_open = max(0, needed - len(leaked))
     others = [n for n in holders if n != current_pr]
-    keep = others[: max(0, preview_limit - 1)]
-    return keep, others[len(keep):]
+    keep = others[: max(0, len(others) - evicted_open)]
+    return keep, leaked + others[len(keep):]
 
 
 def main():
     _load_deps()
     current_pr = int(os.environ["CURRENT_PR"])
     preview_limit = int(os.environ.get("PREVIEW_LIMIT", "3"))
+    closed_scan = int(os.environ.get("CLOSED_SCAN", _CLOSED_SCAN))
     repo = os.environ["GITHUB_REPOSITORY"]
 
     say("### SWA preview-slot reclaim")
@@ -179,17 +202,38 @@ def main():
         else:
             say(f"- PR #{pr['number']} holds no live environment - not a candidate")
 
-    keep, victims = select_victims(holders, current_pr, preview_limit)
+    # A merged or closed PR whose environment was never torn down still consumes
+    # a slot, and Azure counts it. Scanning only open PRs undercounts the slots
+    # in use and so never frees one (AUT-4799).
+    leaked = []
+    closed_prs = _gh(
+        f"/pulls?state=closed&per_page={closed_scan}&sort=updated&direction=desc"
+    ) or []
+    for pr in closed_prs:
+        if ((pr.get("head") or {}).get("repo") or {}).get("full_name") != repo:
+            continue
+        url = staging_url_from_comments(
+            _gh(f"/issues/{pr['number']}/comments?per_page=100")
+        )
+        if url and serving(url):
+            urls[pr["number"]] = url
+            leaked.append(pr["number"])
+            say(f"- PR #{pr['number']} is **closed but still serving** - {url}")
+
+    keep, victims = select_victims(holders, current_pr, preview_limit, leaked)
     say("")
-    say(f"Slots in use: **{len(holders)}** / {preview_limit}.")
+    say(f"Slots in use: **{len(holders) + len(leaked)}** / {preview_limit} "
+        f"({len(holders)} open, {len(leaked)} leaked from closed PRs).")
     if not victims:
         say("Nothing to reclaim.")
         flush_summary()
         return 0
 
     say("")
+    if leaked:
+        say(f"Leaked from closed PRs (always evicted): {sorted(leaked)}")
     say(f"Keeping {sorted(keep) or 'none'}; evicting **{len(victims)}** "
-        f"least-recently-updated slot(s): {victims}")
+        f"slot(s) in total: {victims}")
     say("")
 
     workspace = os.path.join(
