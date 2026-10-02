@@ -18,7 +18,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
   block plus a "no sign-up" claim that is no longer true. Both now point at the
   demo URL and a "ask for a demo login" mailto instead; the demo anchor itself
   stays. The published credential must be treated as compromised regardless of
-  this edit — rotation on the demo host is tracked separately in AUT-5047.
+  this edit — rotation on the demo host is tracked separately in AUT-5057.
   The FAQ JSON-LD in `ownership-advisor.html` already named only the demo URL,
   so it needed no change.
 - ci: `scripts/check_seo_pages.py` gained a `check_credentials()` invariant
