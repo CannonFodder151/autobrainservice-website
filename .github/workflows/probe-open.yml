@@ -1,0 +1,33 @@
+name: TEST-ONLY open bot-authored probe PR
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-probe:
+    if: github.event.pull_request.head.ref == 'test/aut-5336-website-botopener'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open the test PR as github-actions[bot]
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HEAD_BRANCH: 'test/aut-5336-bot-authored'
+        run: |
+          set -euo pipefail
+          gh pr create --repo "$REPO" \
+            --head "$HEAD_BRANCH" --base main \
+            --title 'docs: document approval-gated automerge gates (AUT-5328 automerge proof)' \
+            --body 'AUT-5336 end-to-end proof for the ported automerge workflow.
+
+          PR author is deliberately `github-actions[bot]` so that the APPROVED review can
+          come from a genuine non-author identity (`CannonFodder151`): GitHub Actions
+          cannot submit approvals (HTTP 422 "GitHub Actions is not permitted to approve
+          pull requests"), so the author/approver identities have to be inverted.
+
+          Expected: the approving review fires `.github/workflows/automerge.yml`, all six
+          gates pass, and the workflow squash-merges this PR.'
