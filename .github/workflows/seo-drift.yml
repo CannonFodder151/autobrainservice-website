@@ -1,0 +1,27 @@
+name: SEO Drift Check
+
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "blog.html"
+      - "sitemap.xml"
+      - "rss.xml"
+      - "scripts/check_seo_*.py"
+      - ".github/workflows/seo-drift.yml"
+  schedule:
+    - cron: "0 6 * * 1"  # weekly Monday 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: [self-hosted, linux, x64, vm2]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Check blog/sitemap/rss consistency
+        run: python3 scripts/check_seo_drift.py
+      - name: Check on-page SEO invariants
+        run: python3 scripts/check_seo_pages.py

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon — AutoBrain x Home Assistant Integration</title>
+<meta name="description" content="Home Assistant integration for AutoBrain is coming: push service reminders, fuel analytics and cost trends into your smart-home dashboard. Q4 2026.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/ha-coming-soon.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Coming Soon — AutoBrain x Home Assistant Integration">
+<meta property="og:description" content="Service reminders, fuel analytics, and cost trends on your smart-home dashboard. AutoBrain x Home Assistant — coming Q4 2026.">
+<meta property="og:url" content="https://autobrainservice.app/ha-coming-soon.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coming Soon — AutoBrain x Home Assistant Integration">
+<meta name="twitter:description" content="Service reminders, fuel analytics, and cost trends on your smart-home dashboard. AutoBrain x Home Assistant — coming Q4 2026.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/ha-coming-soon.html#webpage",
+      "url": "https://autobrainservice.app/ha-coming-soon.html",
+      "name": "AutoBrain x Home Assistant Integration — Coming Soon",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Coming Soon", "item": "https://autobrainservice.app/coming-soon.html" },
+        { "@type": "ListItem", "position": 3, "name": "Home Assistant Integration", "item": "https://autobrainservice.app/ha-coming-soon.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does AutoBrain connect to Home Assistant?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain acts as the intelligence layer: it computes analytics and service intervals, then pushes processed insights into Home Assistant via REST and WebSocket. Phase 1 delivers sensor-style data feeds; Phase 2 adds a full HACS custom integration with config flow. No raw live OBD2 telemetry is sent — only the actionable data your HA dashboards, automations and calendars need." }
+        },
+        {
+          "@type": "Question",
+          "name": "When will the Home Assistant integration ship?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Phase 1 (REST + WebSocket feed) targets Q4 2026, with a closed beta opening in October. Phase 2 (full HACS custom integration with config flow) follows in 2027." }
+        },
+        {
+          "@type": "Question",
+          "name": "What data does AutoBrain push to Home Assistant?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Only processed insights you opt in to — service reminders, fuel efficiency and cost trends, rego status, and AI maintenance predictions. Raw OBD2 PIDs, live telemetry and GPS routes never leave AutoBrain unless you explicitly surface them." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need new hardware?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The integration runs on the same AutoBrain backend you already use — hosted or self-hosted. You just need a Home Assistant instance and a waitlist signup." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I join the beta?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Email sales@autobrainservice.app with subject 'HA waitlist' or join the waitlist below. Beta testers are picked from the waitlist first." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/ha-coming-soon.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/ha-coming-soon.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="soon u-badge-static" style="margin-bottom: 1rem;">Coming soon</div>
+    <h1>AutoBrain is coming to <span class="b">Home Assistant</span></h1>
+    <p class="lead">Your car already lives in your phone — but it deserves better than a standalone app. AutoBrain is joining Home Assistant, pushing service reminders, fuel analytics, and running costs onto the same dashboard as your lights, locks, and laundry. Phase 1 lands in <strong>Q4 2026</strong>, with a closed beta opening in October.</p>
+    <div class="u-flex-center">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Join the HA waitlist</a>
+      <a class="cta-outline" href="blog/autobrain-home-assistant-integration.html">Read the announcement</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">🔧</span>
+        <h3>Service reminder sensors</h3>
+        <p>Countdown entities per vehicle showing kilometres and days until the next service. Drop them into a Lovelace card or an HA <code>todo</code> list — a reminder that turns the office light orange and adds a calendar event your mechanic can see.</p>
+      </div>
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">⛽</span>
+        <h3>Fuel economy trends</h3>
+        <p>Rolling L/100km averages sitting next to your solar production on the same dashboard. See the week-over-week jump that tells you something needs attention before the check-engine light does.</p>
+      </div>
+      <div class="card">
+        <div class="soon u-badge-static">Coming soon</div>
+        <span class="icon">📊</span>
+        <h3>Cost analytics</h3>
+        <p>Total spend by category — fuel, service, rego — month-on-month deltas, and cost per kilometre rendered in native HA charts. Your car's running costs finally sit next to your electricity bill.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>How the <span class="b">integration</span> works</h2>
+    <p class="lead">AutoBrain acts as the intelligence layer. It computes your analytics and service intervals, then pushes only the processed insights into Home Assistant — no raw telemetry, no cloud dependency, nothing leaving your network unless you want it to.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tier-tag">Phase 1</div>
+        <h3>REST + WebSocket feed</h3>
+        <p>Q4 2026. Pull AutoBrain analytics and service-interval pushes over REST and WebSocket. Pick the insights you want inside HA — rego status badges, next-service calendars, AI maintenance predictions — and AutoBrain delivers them on the schedule you choose.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Phase 2</div>
+        <h3>HACS integration</h3>
+        <p>2027. A full HACS custom integration with config flow: one-click install inside HA, entity setup for every vehicle, and per-entity toggles so you only expose what your dashboard and automations need. Plus a custom Lovelace card styled to match your HA theme.</p>
+      </div>
+      <div class="card">
+        <div class="tier-tag">Privacy first</div>
+        <h3>No raw telemetry leaves AutoBrain</h3>
+        <p>Only processed insights — aggregated fuel costs, rego status, AI service predictions, charge-session summaries — are pushed. Your HA instance never sees raw OBD2 PIDs, live GPS routes, or anything you have not explicitly chosen to surface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>Rollout <span class="b">FAQ</span></h2>
+    <div class="faq">
+      <details open>
+        <summary>When does the Home Assistant integration ship?</summary>
+        <p>Phase 1 (REST + WebSocket feed) targets <strong>Q4 2026</strong>, with a closed beta opening in October. Phase 2 (full HACS custom integration with config flow) follows in 2027. Watch the public <a href="changelog.html">changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for the day each phase lands.</p>
+      </details>
+      <details>
+        <summary>What data does AutoBrain actually push to Home Assistant?</summary>
+        <p>Only processed insights you opt in to — service reminders, fuel efficiency and cost trends, rego status, and AI maintenance predictions. Raw OBD2 PIDs, live telemetry and GPS routes never leave AutoBrain unless you explicitly surface them.</p>
+      </details>
+      <details>
+        <summary>Do I need new hardware?</summary>
+        <p>No. The integration runs on the same AutoBrain backend you already use — hosted or self-hosted. You just need a Home Assistant instance and a waitlist signup.</p>
+      </details>
+      <details>
+        <summary>How do I join the beta?</summary>
+        <p>Email <a href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">sales@autobrainservice.app</a> with subject <em>HA waitlist</em> or join the waitlist below. Beta testers are picked from the waitlist first.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56" id="notify">
+  <div class="container">
+    <h2>Be the <span class="b">first to know</span></h2>
+    <p class="lead">Drop your email and we'll ping you the day the Home Assistant integration beta opens — one email, no marketing list, no spam.</p>
+    <div class="u-center">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=HA%20waitlist">Join the HA waitlist</a>
+    </div>
+    <p class="u-center-muted">Or watch the <a href="changelog.html">public changelog</a> and the AutoBrain <a href="https://discord.com/channels/1397739559174053889/1426172943819493396">#changelog</a> channel for the day the beta opens.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a> · <a href="#" rel="noopener" aria-label="AutoBrain on X (coming soon)">X</a> · <a href="#" rel="noopener" aria-label="AutoBrain on Instagram (coming soon)">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

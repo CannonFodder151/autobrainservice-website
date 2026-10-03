@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rego Status — Daily Expiry Tracking & Badges | AutoBrain</title>
+<meta name="description" content="Daily rego expiry tracking, a status badge on every vehicle card and expiry notifications. Included with Enthusiast and Garage plans.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/rego-status.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Rego Status — AutoBrain | Daily Rego Expiry Tracking (Paid)">
+<meta property="og:description" content="Daily rego expiry tracking, in-app status badge on vehicle cards, expiry notifications and the AU Rego Lookup tool. Enthusiast &amp; Garage plans.">
+<meta property="og:url" content="https://autobrainservice.app/rego-status.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rego Status — AutoBrain | Daily Rego Expiry Tracking (Paid)">
+<meta name="twitter:description" content="Daily rego expiry tracking, in-app status badge on vehicle cards, expiry notifications and the AU Rego Lookup tool. Enthusiast &amp; Garage plans.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/rego-status.html#webpage",
+      "url": "https://autobrainservice.app/rego-status.html",
+      "name": "AutoBrain Rego Status",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://autobrainservice.app/features.html" },
+        { "@type": "ListItem", "position": 3, "name": "Rego Status", "item": "https://autobrainservice.app/rego-status.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which AutoBrain plans include Rego Status?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Rego Status is included on the Enthusiast ($5.90/month or $59/year) and Garage ($11.90/month or $119/year) hosted plans. The Free tier supports the basic Rego Lookup tool only — daily expiry tracking, the in-app status badge and expiry notifications are paid features." }
+        },
+        {
+          "@type": "Question",
+          "name": "How often does Rego Status refresh?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Once per day, around midnight local time, the AutoBrain backend queries the state rego feeds (via the AutoBrain Rego Lookup service) and updates each vehicle card with the latest rego status and expiry date. Lookups happen in the background — no manual refresh needed." }
+        },
+        {
+          "@type": "Question",
+          "name": "What notifications will I get?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain pushes expiry notifications 30 days, 7 days and 1 day before your rego expires, and a separate alert the moment the state reports your rego as expired or unregistered. You can mute any of them in Settings." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which states are covered?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every Australian state and territory. Vehicle details and rego status return from the same state-by-state AutoBrain Rego Lookup service that powers the free Rego Lookup tool on autobrainservice.app." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work for multiple vehicles?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Enthusiast covers 1 vehicle, Garage covers up to 5 vehicles — every vehicle gets its own status badge and expiry notifications." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my rego data shared?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Rego lookups are scoped to your account only. The AutoBrain backend writes a status snapshot against your own record; nothing is shared with other owners or used to train models." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/rego-status.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/rego-status.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+    <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1><span class="b">Rego Status</span> — paid-tier feature</h1>
+    <p class="lead">Stop guessing when it's due. AutoBrain checks every vehicle's rego daily, shows the current status on each vehicle card, and tells you the moment it's about to expire. <strong>Included on Enthusiast and Garage hosted plans.</strong></p>
+    <div class="u-flex-center">
+      <a class="cta" href="https://hosted.autobrainservice.app">Start 7-day free trial</a>
+      <a class="cta-outline" href="hosted.html">Compare plans</a>
+    </div>
+
+    <div class="grid">
+      <div class="card"><span class="icon">📅</span><h3>Daily expiry tracking</h3><p>A background job runs every night around midnight (your account timezone) and refreshes each vehicle's rego expiry from the state source. Open AutoBrain in the morning and the date on your vehicle card is already current — no manual refresh.</p></div>
+      <div class="card"><span class="icon">🟢</span><h3>Status badge on every vehicle card</h3><p>Every vehicle card carries a colour-coded rego status badge: green when current, amber inside the warning window, red the day it lapses. Tap the badge to drill into the state record and full vehicle details.</p></div>
+      <div class="card"><span class="icon">🔔</span><h3>Expiry notifications</h3><p>AutoBrain pings 30 days, 7 days and 1 day before rego expires, plus a separate alert the moment the state reports the registration as expired or unregistered. Mute any of them in Settings.</p></div>
+      <div class="card"><span class="icon">🔎</span><h3>Rego Lookup tool — VIN + rego</h3><p>Already have a plate? Run the Rego Lookup tool directly from AutoBrain to pull make, model, VIN, body, colour, fuel type and current registration status — same backing service that runs the free <a href="https://autobrainservice.app/blog/free-rego-lookup-australia.html">rego lookup</a> on the website.</p></div>
+      <div class="card"><span class="icon">🇦🇺</span><h3>Every Australian state &amp; territory</h3><p>NSW, VIC, QLD, WA, SA, TAS, ACT and NT — the lookup and daily refresh run through the state-by-state AutoBrain Rego Lookup service.</p></div>
+      <div class="card"><span class="icon">🔒</span><h3>Private by design</h3><p>Lookups are scoped to your account, snapshots are written to your own vehicle record, and nothing is shared with other owners or used to train models. Self-hosted AutoBrain uses the same code path against your own rego-lookup-api.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>How Rego Status fits in</h2>
+    <p class="lead">Daily tracking, badges and notifications ride on the paid plans; the basic <strong>Rego Lookup</strong> tool (type a plate, get make / model / VIN / rego) is the free foundation underneath. Self-hosted AutoBrain gets the same code path against your own rego-lookup-api.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="tier-tag">Free</div>
+        <h3>Rego Lookup</h3>
+        <p>On-demand plate lookup from any Australian state. Returns VIN, body, colour, fuel and current rego status. No daily refresh, no badges, no notifications.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Enthusiast</div>
+        <h3>Rego Status · 1 vehicle</h3>
+        <p>Daily expiry refresh, vehicle-card status badge, 30 / 7 / 1-day expiry notifications and expiry-state alerts. Rego Lookup included.</p>
+      </div>
+      <div class="card popular">
+        <div class="tier-tag">Garage</div>
+        <h3>Rego Status · up to 5 vehicles</h3>
+        <p>Everything in Enthusiast, scaled across up to 5 vehicles — every vehicle gets its own badge and its own notifications.</p>
+      </div>
+    </div>
+    <p class="u-center-muted"><a href="hosted.html">See full plan comparison →</a></p>
+  </div>
+</section>
+
+<section class="u-py-56">
+  <div class="container">
+    <h2>Rego Status <span class="b">FAQ</span></h2>
+    <div class="faq">
+      <details open>
+        <summary>Which plans include Rego Status?</summary>
+        <p><strong>Enthusiast ($5.90/month or $59/year)</strong> and <strong>Garage ($11.90/month or $119/year)</strong>. Free keeps the basic on-demand Rego Lookup tool only — no daily refresh, no badge, no notifications.</p>
+      </details>
+      <details>
+        <summary>How often does the data refresh?</summary>
+        <p>Once a day, around midnight in your account timezone. The AutoBrain backend queries the state rego feeds (through the AutoBrain Rego Lookup service) and writes a fresh status snapshot to your vehicle record.</p>
+      </details>
+      <details>
+        <summary>What notifications will I receive?</summary>
+        <p>Expiry heads-up at <strong>30 days, 7 days and 1 day</strong> out, plus a separate alert the moment the state flips your rego to <strong>expired or unregistered</strong>. Mute any of them under Settings → Notifications.</p>
+      </details>
+      <details>
+        <summary>Which states are covered?</summary>
+        <p>Every Australian state and territory — NSW, VIC, QLD, WA, SA, TAS, ACT and NT. The lookup tool and the daily job route through the state-by-state AutoBrain Rego Lookup service.</p>
+      </details>
+      <details>
+        <summary>Does it work for shared vehicles?</summary>
+        <p>Yes. Garage plans cover up to 5 vehicles; every vehicle gets its own badge and its own notifications. Shared ownership rules (who gets the alerts) follow the same logic as the rest of AutoBrain's vehicle-sharing.</p>
+      </details>
+      <details>
+        <summary>Is my rego data shared with anyone?</summary>
+        <p>No. Lookups are scoped to your account, snapshots are stored against your own vehicle record, and nothing is shared with other owners or used to train models. Self-hosted instances keep every lookup on your own rego-lookup-api.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-56" id="start">
+  <div class="container">
+    <h2>Get <span class="b">Rego Status</span> today</h2>
+    <p class="lead">Try any paid plan free for 7 days. Cancel before the trial ends and you won't be charged.</p>
+    <div class="u-center">
+      <a class="cta" href="https://hosted.autobrainservice.app">Start 7-day free trial</a>
+    </div>
+    <p class="u-center-muted">Self-hosting? Rego Status uses the open <a href="https://github.com/CannonFodder151/rego-lookup-api">rego-lookup-api</a> plus the same daily Celery beat the rest of AutoBrain runs — wire your key and enable the rego refresh beat on your own infra.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

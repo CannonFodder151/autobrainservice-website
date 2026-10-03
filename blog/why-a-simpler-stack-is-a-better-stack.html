@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why a simpler stack is a better stack — AutoBrain Blog</title>
+<meta name="description" content="AutoBrain's Phase 1 rewrite cut its container footprint. Fewer containers means less memory, faster boots and easier upgrades.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Why a simpler stack is a better stack">
+<meta property="og:description" content="AutoBrain's Phase 1 rewrite cut its container footprint. Fewer containers means less memory, faster boots and easier upgrades.">
+<meta property="og:url" content="https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/blog/og/why-a-simpler-stack-is-a-better-stack.png" >
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630" >
+<meta property="article:published_time" content="2026-08-08"
+<meta property="article:modified_time" content="2026-08-08">
+<meta property="article:author" content="https://autobrainservice.app/about.html#nathan" >
+>
+<meta property="article:section" content="Engineering">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why a simpler stack is a better stack">
+<meta name="twitter:description" content="AutoBrain's Phase 1 rewrite cut its container footprint. Fewer containers means less memory, faster boots and easier upgrades.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/blog/og/why-a-simpler-stack-is-a-better-stack.png" >
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "inLanguage": "en-AU",
+ "headline": "Why a simpler stack is a better stack",
+ "articleSection": "Engineering",
+ "description": "AutoBrain's Phase 1 rewrite reduced its container footprint. Fewer containers means less memory, faster boots and easier upgrades.",
+ "author": {
+   "@type": "Person",
+   "@id": "https://autobrainservice.app/#nathan",
+   "name": "Nathan",
+   "jobTitle": "IT professional and car enthusiast",
+   "url": "https://autobrainservice.app/about.html#nathan",
+   "worksFor": { "@type": "Organization", "name": "AutoBrain", "@id": "https://autobrainservice.app/#org" },
+   "sameAs": "https://www.linkedin.com/in/nathanmartina"
+  },
+ "publisher": {
+  "@type": "Organization",
+  "name": "AutoBrain",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://autobrainservice.app/assets/logo.png"
+  }
+ },
+ "datePublished": "2026-08-08",
+ "dateModified": "2026-08-08",
+ "mainEntityOfPage": "https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html",
+ "image": "https://autobrainservice.app/assets/blog/og/why-a-simpler-stack-is-a-better-stack.png"
+}
+</script>
+<link rel="stylesheet" href="../styles.css">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://autobrainservice.app/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Blog",
+   "item": "https://autobrainservice.app/blog.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Why a simpler stack is a better stack",
+   "item": "https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html"
+  }
+ ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="../assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="../selfhost.html">Self-Host</a></li>
+      <li><a href="../hosted.html">Plans</a></li>
+      <li><a href="../car-clubs.html">Car Clubs</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="../car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="../changelog.html">Changelog</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../privacy.html">Privacy</a></li>
+          <li><a href="../ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <a class="back-link" href="../blog.html">← Back to blog</a>
+    <article class="article">
+      <h1 class="u-post-title">Why a simpler stack is <span class="b">a better stack</span></h1>
+      <p class="meta">AutoBrain Team · 8 August 2026 · Engineering</p>
+      <p class="lead">Same features, less moving parts. AutoBrain's Phase 1 rewrite reduced the container footprint while keeping the full AI toolkit — because a maintenance app should be boring to run, not impressive to debug.</p>
+
+      <h2>More containers is not more reliable</h2>
+      <p>Every service in a stack is a thing that can fail, drift out of sync, or eat memory on a machine you're paying for. The industry has spent years adding layers; Phase 1 spent some time taking them away. We consolidated the stack so the things you actually need run in fewer processes — fewer moving parts, fewer places for a version mismatch to hide.</p>
+
+      <h2>What fewer containers buys you</h2>
+      <ul>
+        <li><strong>Less memory.</strong> Every process reserves resources. Cut the process count and the same host does more — or a smaller host does the same.</li>
+        <li><strong>Faster boots and upgrades.</strong> Fewer images to pull, fewer services to bring up in order, shorter windows between "upgrade started" and "back online".</li>
+        <li><strong>Easier upgrades.</strong> A release is a smaller set of changes, which means fewer surprises when you deploy on your own hardware.</li>
+        <li><strong>Easier to reason about.</strong> When something does go wrong, you want to know where to look. A short stack tells you instantly.</li>
+      </ul>
+
+      <h2>Boring is a feature</h2>
+      <p>You shouldn't have to think about your maintenance app's infrastructure. You should open it, see your cars, and close it. That's the direction of Phase 1: same features, same AI toolkit, less to operate. For self-hosters especially, that difference shows up as a smaller footprint on their own server and updates that just work.</p>
+
+      <p class="u-mt-28">Curious what it's like to run? <a href="https://demo.autobrainservice.app">Try the live demo</a> or see what's changed in the <a href="../changelog.html">changelog</a>.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="../privacy.html">Privacy</a> · <a href="../ai-data.html">AI &amp; your data</a> · <a href="../about.html">About</a> · <a href="../changelog.html">Changelog</a> · <a href="../blog.html">Blog</a> · <a href="../contact.html">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a> · <a href="#" rel="noopener" aria-label="AutoBrain on X (coming soon)">X</a> · <a href="#" rel="noopener" aria-label="AutoBrain on Instagram (coming soon)">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="../nav.js"></script>
+
+</body>
+</html>
