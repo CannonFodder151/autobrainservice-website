@@ -11,6 +11,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.304] - 2026-10-03
+
+### Fixed (AUT-2203)
+- fix(backend): `test_aut2203_station_annotations.py` constructed `FuelStats` with `avg_litres_per_fill` instead of the declared `avg_fill_litres` field, so 2 of its 7 tests raised a pydantic `ValidationError` and the `cost_per_km` / `avg_fill_cost` coverage the issue asked for never actually ran on `main`
+
+## [0.3.303] - 2026-10-03
+
+### Added
+- Demo-tier frontend image build (`cannonfodder151/autobrain-frontend:demo`) in `dockerhub-publish.yml` (AUT-5261). The Demo stack had no frontend build job: `API_BASE_URL` is compiled into the Flutter bundle, so Demo needed its own image and the only pre-existing `:demo` artifact was built 2026-09-28 with Hosted's API base.
+
 ## [0.3.302] - 2026-10-02
 - fix(fuel): disable the SA (SAFPIS) feed (AUT-5072).
   `FUEL_SA_ENABLED: "true"` was set in both compose files
