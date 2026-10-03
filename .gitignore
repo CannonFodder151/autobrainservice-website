@@ -1,0 +1,14 @@
+# Build artifacts (keep tracked APK in /downloads)
+*.tmp
+.DS_Store
+Thumbs.db
+
+downloads/*.apk
+downloads/*.aab
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/

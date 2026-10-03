@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Changelog & Release Notes — AutoBrain</title>
+<meta name="description" content="AutoBrain release notes — what's new, fixed and changed in every version of the AI vehicle maintenance platform.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/changelog.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Changelog &amp; Release Notes — AutoBrain">
+<meta property="og:description" content="AutoBrain release notes — what's new, fixed and changed in every version.">
+<meta property="og:url" content="https://autobrainservice.app/changelog.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Changelog &amp; Release Notes — AutoBrain">
+<meta name="twitter:description" content="AutoBrain release notes — what's new, fixed and changed in every version.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Changelog", "item": "https://autobrainservice.app/changelog.html" }
+      ]
+    }
+  ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/changelog.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/changelog.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>Changelog</h1>
+    <p class="lead">Every release of AutoBrain — new features, fixes and improvements. Also tracked in the repo's CHANGELOG.md.</p>
+
+    <div class="card u-max-860-center">
+      <h2>Want to see a new feature?</h2>
+      <p>Tell me what you'd like AutoBrain to do — I read every message.</p>
+      <p class="u-mt-14"><a class="cta" href="mailto:sales@autobrainservice.app">Email sales@autobrainservice.app</a></p>
+    </div>
+
+    <!-- CHANGELOG-START -->
+    <div class="release">
+      <h2>v0.3.284</h2>
+      <div class="date">2026-09-28</div>
+      <h3>Fixed (AUT-4317)</h3>
+      <ul>
+        <li>fix(frontend): match both MinIO bucket prefixes (<code>autobrain-assets</code> on dev/hosted, <code>autobrainservice-assets</code> on demo/default) in nginx so community-hub photos load instead of serving the SPA shell; the regex location forwards the original URI (with its bucket prefix) to MinIO</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.283</h2>
+      <div class="date">2026-09-28</div>
+      <h3>Fixed (AUT-4327, AUT-4357)</h3>
+      <ul>
+        <li>fix(frontend): login, signup and server-setup logo is no longer stretched (<code>BoxFit.cover</code> → <code>BoxFit.contain</code>) and sits in a black circle instead of a white one, on all three auth screens (AUD-427 user report)</li><li>fix(frontend): <code>ApiClient.getCachedDecoded</code> no longer throws when the local cache backend is unavailable (web/sqflite); the vehicle manage screen, timeline, and every other cache-first screen fall through to the network path instead of failing to load</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.282</h2>
+      <div class="date">2026-09-27</div>
+      <h3>Changed (AUT-4289)</h3>
+      <ul>
+        <li>fix(frontend): remove the "Petrol Prices" feature tile from the home screen feature grid; <code>PetrolPriceMapScreen</code> itself is unchanged and still reachable from <code>frontend/lib/screens/fuel/petrol_price_map_screen.dart</code></li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.281</h2>
+      <div class="date">2026-09-27</div>
+      <h3>Fixed (AUT-4259)</h3>
+      <ul>
+        <li>fix(backend): merge alembic heads <code>a3661engineers</code> (engineer marketplace) and <code>aut3447_passkey_credentials</code> (WebAuthn) via new merge revision <code>m3rge07</code>; restores single-head guarantee so <code>alembic upgrade head</code> works and pytest-smoke gate passes</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.280</h2>
+      <div class="date">2026-09-27</div>
+      <h3>Added (AUT-4120)</h3>
+      <ul>
+        <li>feat(backend): Redis cache (TTL 1h) for query embeddings in <code>vector_search.py</code>; repeated searches return cached vector without 9Router call</li><li>fix(backend): cached vectors are re-validated against <code>EMBEDDING_DIMENSION</code> on read; a poisoned/wrong-dimension cache entry is rejected and the router path re-derives the vector instead of binding it to SQL (22P02)</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.279</h2>
+      <div class="date">2026-09-26</div>
+      <h3>Fixed (AUT-3570)</h3>
+      <ul>
+        <li>fix(frontend): wire CARTO_API_KEY into Servo Spy map tile URLs; embedded <code>?key=</code> param now passes the build-time <code>--dart-define=CARTO_API_KEY</code> value so CARTO basemaps render without watermark</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.278</h2>
+      <div class="date">2026-09-26</div>
+      <h3>Fixed (AUT-3979)</h3>
+      <ul>
+        <li>fix(docker): remove orphaned top-level <code>volumes:</code> block left in <code>docker-compose.hosted.yml</code> by the AUT-3827 backup-agent removal, so the file has a single valid top-level <code>volumes:</code> key (duplicate keys are rejected by the Docker Compose strict YAML parser).</li><li>fix(docker): drop the now-unused <code>/data/autobrain-backup/agent-data</code> bind mount. Merging it into <code>autobrain-backup</code> would have duplicated the <code>/backups</code> container path already served by <code>/data/autobrain-backup/data</code>, and the <code>backup-agent</code> service that owned that directory was removed.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.277</h2>
+      <div class="date">2026-09-25</div>
+      <h3>Added (AUT-2631)</h3>
+      <ul>
+        <li>feat(ios): define Fastlane release pipeline for TestFlight beta uploads and App Store releases. New <code>beta</code> and <code>release</code> lanes in <code>frontend/ios/fastlane/Fastfile</code> with <code>match</code> for cert/profile sync via S3, API key authentication, build number increment, and changelog integration.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.276</h2>
+      <div class="date">2026-09-25</div>
+      <h3>Fixed (AUT-3049)</h3>
+      <ul>
+        <li>fix(frontend): replace <code>withValues(alpha:)</code> with <code>withOpacity(alpha:)</code> in servo_spy_screen.dart for dart2js arm64 compatibility (PR #608)</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.275</h2>
+      <div class="date">2026-09-21</div>
+      <h3>Added (AUT-3661)</h3>
+      <ul>
+        <li>feat(engineer): new engineer marketplace API with search/filter endpoints</li><li>GET <code>/api/v1/engineers/search</code> — geospatial search by postcode/radius, specialty multi-select, minimum rating, price range, availability window filters</li><li>GET <code>/api/v1/engineers/{id}</code> — engineer profile detail with reviews</li><li>Pagination and sorting by rating, distance, price</li><li>Backend: <code>Engineer</code> + <code>EngineerReview</code> models, pgvector embedding support for semantic search</li><li>Database migration: <code>a3661engineers_add_engineer_marketplace.py</code></li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.274</h2>
+      <div class="date">2026-09-18</div>
+      <h3>Fixed (AUT-3515)</h3>
+      <ul>
+        <li>fix(advisor): create missing finance/dream/baseline modules to fix ModuleNotFoundError at startup; revert backend to working image and redeploy stacks</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.273</h2>
+      <div class="date">2026-09-18</div>
+      <h3>Fixed (AUT-3495)</h3>
+      <ul>
+        <li>fix(frontend): fix Dart syntax error in vehicle_timeline_screen.dart</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.272</h2>
+      <div class="date">2026-09-18</div>
+      <h3>Fixed (AUT-3456)</h3>
+      <ul>
+        <li>fix(frontend): wrap getCachedDecoded in try/catch to prevent indefinite spinner on web</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.271</h2>
+      <div class="date">2026-09-18</div>
+      <h3>Added (AUT-3447)</h3>
+      <ul>
+        <li>feat(backend): WebAuthn passkey authentication — registration &amp; authentication endpoints, DB schema, validation. Accepts credential creation options and verifies assertions. Endpoints: POST /api/v1/auth/passkey/register/begin, POST /api/v1/auth/passkey/register/complete, POST /api/v1/auth/passkey/authenticate/begin, POST /api/v1/auth/passkey/authenticate/complete, GET /api/v1/auth/passkey/list, DELETE /api/v1/auth/passkey/{credential_id}.</li>
+      </ul>
+      <h3>Changed (AUT-3172)</h3>
+      <ul>
+        <li>infra(ci): retire the standalone <code>autobrain-worker</code> image build (AUT-3153 follow-up). Removed the <code>worker</code> leg from every <code>for svc in backend worker ai frontend</code> loop in <code>.github/workflows/build-hosted.yml</code> (build, per-arch verify, manifest assembly, digest capture) and <code>.github/workflows/dockerhub-publish.yml</code> (amd64 build + manifest assembly), dropped the <code>WORKER_DIGEST</code> env + <code>worker=...</code> arg from the compose-pin step, and removed the <code>worker</code> pin from <code>scripts/update-compose-pins.py</code>. CI no longer publishes the unused multi-arch worker image. The <code>docker/worker/Dockerfile</code> stays on disk as a reference for the security-scan workflows; <code>infra/k8s/worker.yaml</code> already runs the Celery worker+beat from <code>autobrain-backend:latest</code> and is unchanged.</li>
+      </ul>
+      <h3>Fixed (AUT-3189)</h3>
+      <ul>
+        <li>infra(env): declare <code>FUEL_SA_API_KEY</code> and <code>FUEL_SA_ENABLED</code> in <code>.env.example</code> so hosted operators can provision the SA SAFPIS feed referenced by <code>docker-compose.hosted.yml</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.270</h2>
+      <div class="date">2026-09-17</div>
+      <h3>Fixed (AUT-1805)</h3>
+      <ul>
+        <li>fix(ci): add job-level <code>timeout-minutes: 15</code> to the <code>ocr-review</code> job in <code>.github/workflows/code-review.yml</code> so a 9Router stall or runner hang can never hold the x64 runner beyond 15 min (previously unbounded at job level). The step-level 10 min timeout remains as the inner guard.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.269</h2>
+      <div class="date">2026-09-17</div>
+      <h3>Added (AUT-1872)</h3>
+      <ul>
+        <li>feat(deploy): upgrade script + hardened hosted compose. <code>scripts/upgrade-instances.sh</code> redeploys Portainer stacks tier-by-tier (Demo → Default → Hosted) with explicit image pulls and health gates. <code>docker-compose.hosted.yml</code> drops dead <code>dongle-server</code> + duplicate <code>hub</code>, uses <code>:-</code> defaults for <code>POSTGRES_USER</code>/<code>POSTGRES_DB</code> and <code>DONGLE_SERVER_URL</code> so Portainer redeploys survive empty-stack env. PR #375.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.268</h2>
+      <div class="date">2026-09-16</div>
+      <h3>Fixed (AUT-3039)</h3>
+      <ul>
+        <li>fix(test): fix <code>pumpAndSettle</code> timeout in desktop layout visual regression tests by mocking <code>getCachedDecoded</code> in <code>_FakeApi</code>, setting <code>_loading = false</code> in <code>VehicleListScreen._load()</code>, and correcting test assertions. The visual regression workflow (desktop 1280/1440/1920) now passes.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.267</h2>
+      <div class="date">2026-09-15</div>
+      <h3>Fixed (AUT-3080)</h3>
+      <ul>
+        <li>fix(security): restrict CORS <code>allow_methods</code> to explicit set (GET/POST/PATCH/DELETE) and <code>allow_headers</code> to narrow list (Authorization, Content-Type, Accept, X-Requested-With). Add startup validator rejecting <code>CORS_ALLOWED_ORIGINS=["*"]</code> with <code>allow_credentials=True</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.266</h2>
+      <div class="date">2026-09-11</div>
+      <h3>Security (AUT-2060)</h3>
+      <ul>
+        <li>Bumped <code>python:3.13-slim</code> base image digest from <code>7ce4b6d...</code> to <code>cc9dffa...</code> (2026-08-31 Docker Hub latest) in <code>docker/backend/Dockerfile</code>, <code>docker/ai/Dockerfile</code>, <code>docker/worker/Dockerfile</code>, and <code>market-data/Dockerfile</code>. New digest ships <code>libssl3t64</code> 3.5.7-1~deb13u2, resolving CVE-2026-14456 (OpenSSL QUIC DoS) and related HIGH CVEs. Updated <code>PYTHON_BASE_IMAGE</code> env var in <code>.github/workflows/trivy-image-scan.yml</code>. Removed resolved CVE-2026-14456 suppression from <code>.trivyignore</code>.</li>
+      </ul>
+      <h3>Added (AUT-3251)</h3>
+      <ul>
+        <li>feat(backend,frontend): add <code>powertrain</code> field (ICE/HEV/PHEV/EV) to vehicle schemas, models, and add/edit screens — fixes missing EV feature wiring.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.265</h2>
+      <div class="date">2026-09-11</div>
+      <h3>Fixed (AUT-2683)</h3>
+      <ul>
+        <li>fix(frontend): fix login_screen.dart widget tree — remove premature Column close after logo Container, add missing inner Column children close, and fix closing bracket nesting (introduced by AUT-3219).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.264</h2>
+      <div class="date">2026-09-11</div>
+      <h3>Fixed (AUT-3219)</h3>
+      <ul>
+        <li>fix(frontend): migrate <code>connectivity_plus</code> to 6.x API (<code>Connectivity()</code> constructor, <code>result != ConnectivityResult.none</code>), replace deprecated <code>MediaQuery.withClampedTextScaling</code> with <code>MediaQuery.textScalerOf</code>, and fix Dart parse errors (unbalanced parentheses) in <code>signup_screen.dart</code>, <code>login_screen.dart</code>, <code>add_vehicle_screen.dart</code>, and <code>edit_vehicle_screen.dart</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.263</h2>
+      <div class="date">2026-09-11</div>
+      <h3>Fixed (AUT-3225)</h3>
+      <ul>
+        <li>fix(tests): add <code>sqflite_common_ffi</code> init to desktop layout tests — resolves <code>databaseFactory not initialized</code> error when running <code>flutter test</code> on desktop/CI environments.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.262</h2>
+      <div class="date">2026-09-11</div>
+      <h3>Fixed (AUT-2683)</h3>
+      <ul>
+        <li>fix(frontend): replace <code>onReorderItem</code> with <code>onReorder</code> in <code>edit_build_screen.dart</code>. <code>ReorderableListView.builder</code> does not expose <code>onReorderItem</code> in Flutter 3.38.2, causing the amd64 Docker build to fail and blocking the Docker Hub <code>:latest</code> multi-arch publish.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.261</h2>
+      <div class="date">2026-09-10</div>
+      <h3>Fixed (AUT-3154)</h3>
+      <ul>
+        <li>fix(docs): repair vector-store doc drift — all 5 embedding entity tables (<code>diagnostics</code>, <code>service_records</code>, <code>modifications</code>, <code>receipts</code>, <code>social_issue_posts</code>) now referenced consistently across <code>docs/Engineering/ai/vector.md</code>, <code>docs/Engineering/database-schema.md</code>, <code>docs/Engineering/container-architecture.md</code>, and <code>docs/Engineering/architecture.md</code>. Cross-references that pointed at the non-existent <code>docs/ai/vector.md</code> / <code>docs/README.md</code> / <code>postgres-pg17-upgrade.md</code> now resolve to the canonical <code>docs/Engineering/ai/vector.md</code>, <code>docs/index.md</code>, and <code>docs/Deployment-and-Infrastructure/server-migration.md</code>. Migration comments in <code>g7h8i9j0k1l2</code> / <code>h1i2j3k4l5m6</code> corrected (pg16 → pg17 image; IVFFlat-claim → HNSW-claim) and <code>vector.md</code>'s migration reference table now lists all three vector migrations (<code>g7h8i9j0k1l2</code>, <code>h1i2j3k4l5m6</code>, <code>u1v2w3x4y5z6</code>) with the verified single-head chain (<code>m3rge06</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.260</h2>
+      <div class="date">2026-09-10</div>
+      <h3>Added (AUT-3162)</h3>
+      <ul>
+        <li>feat(backend): seed deterministic demo fuel stations + prices into demo data for Servo Spy (/fuel/stations, /fuel/stations/{id}/history, /fuel/types, /fuel/brands). Adds 10 Melbourne-area stations across Ampol, BP, Caltex, Woolworths, 11-Seven, Shell, Coles Express with 91/95/98/E10/Diesel/LPG prices, source='demo' + arbitration rows, idempotent per reset_demo cycle.</li>
+      </ul>
+      <h3>Changed (AUT-3153)</h3>
+      <ul>
+        <li>infra(docker): merge the standalone Celery <code>worker</code> service into <code>backend</code> in <code>docker-compose.hosted.yml</code> (Phase 1 pillar a). The backend image already carries the worker dependencies and its default CMD runs API + Celery worker+beat in one container, matching <code>docker-compose.prod.yml</code>; the hosted stack drops from 9 to 8 long-running containers. The worker's fuel-poll env (<code>FUEL_NSW/VIC/QLD/SA_*_FILE</code>) moved to the backend service. Added <code>scripts/check-compose-config.py</code> fuel/dongle secret-file coverage and <code>scripts/seed-secrets.sh</code> mappings. Added <code>docs/Deployment-and-Infrastructure/container-consolidation-migration.md</code> migration checklist and refreshed the hosted topology/stack tables in <code>docs/Engineering/container-architecture.md</code> and <code>docs/Deployment-and-Infrastructure/deployment-guide.md</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.259</h2>
+      <div class="date">2026-09-09</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(ci): arm64 build-hosted.yml no longer fails with <code>exec format error</code> at the first <code>RUN</code> step in <code>docker/backend/Dockerfile</code>. The previous <code>python:3.13-slim@sha256:cc9dffa…</code> pin was a **single-arch amd64** manifest (annotation <code>com.docker.official-images.bashbrew.arch: amd64</code>), so the arm64 runner pulled amd64 layers and every <code>RUN</code> died with exit 255 — the build never reached flutter/dart2js. Re-pin to the multi-arch index <code>python:3.13.15-slim-trixie@sha256:9d2e555…</code> (resolves to aarch64 on arm64) across backend/ai/worker/market-data Dockerfiles and the trivy scan env; add a pin-guard check that the python base index contains an arm64 manifest.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.258</h2>
+      <div class="date">2026-09-09</div>
+      <h3>Fixed (AUT-3154)</h3>
+      <ul>
+        <li>fix(docs): repair vector-store doc drift — all 5 embedding entity tables (<code>diagnostics</code>, <code>service_records</code>, <code>modifications</code>, <code>receipts</code>, <code>social_issue_posts</code>) now referenced consistently across <code>docs/Engineering/ai/vector.md</code>, <code>docs/Engineering/database-schema.md</code>, <code>docs/Engineering/container-architecture.md</code>, and <code>docs/Engineering/architecture.md</code>. Cross-references that pointed at the non-existent <code>docs/ai/vector.md</code> / <code>docs/README.md</code> / <code>postgres-pg17-upgrade.md</code> now resolve to the canonical <code>docs/Engineering/ai/vector.md</code>, <code>docs/index.md</code>, and <code>docs/Deployment-and-Infrastructure/server-migration.md</code>. Migration comments in <code>g7h8i9j0k1l2</code> / <code>h1i2j3k4l5m6</code> corrected (pg16 → pg17 image; IVFFlat-claim → HNSW-claim) and <code>vector.md</code>'s migration reference table now lists all three vector migrations (<code>g7h8i9j0k1l2</code>, <code>h1i2j3k4l5m6</code>, <code>u1v2w3x4y5z6</code>) with the verified single-head chain (<code>m3rge06</code>).</li>
+      </ul>
+      <h3>Fixed (AUT-3152)</h3>
+      <ul>
+        <li>fix(ai/tests): isolate test env globals. <code>ai/tests/test_car_check.py</code>, <code>test_advisor.py</code>, <code>test_fallbacks.py</code>, <code>test_parts_guide.py</code>, <code>test_router_validation.py</code>, <code>test_gateway_security.py</code>, and <code>test_social_image.py</code> previously set <code>AI_ROUTER_URL</code> / <code>AI_GATEWAY_API_KEY</code> via module-level <code>os.environ.setdefault</code>, leaking <code>AI_GATEWAY_AUTH_DISABLED=1</code> across the pytest process and producing 2 false 401s in <code>test_gateway_security.py</code> during combined runs. All module-level env mutation is now done through per-test <code>monkeypatch.setenv</code>/<code>delenv</code> autouse fixtures; <code>test_gateway_security.py</code> additionally clears <code>AI_GATEWAY_AUTH_DISABLED</code> so its 401 assertions hold regardless of run order. Verified: <code>pytest ai/tests</code> passes 109/109 both clean (<code>-u</code> env) and combined.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.260</h2>
+      <div class="date">2026-09-10</div>
+      <h3>Fixed (AUT-2281)</h3>
+      <ul>
+        <li>fix(backend): <code>cost_per_km</code> divisor <code>/100</code> → <code>/10000</code> in <code>_project_price</code> (<code>app/api/v1/fuel_servo.py:399</code>) so the result is **$/km** not cents/km. The old code pre-divided <code>price</code> by 100 then divided again — double conversion. Also fixed <code>avg_litres_per_fill</code> → <code>avg_fill_litres</code> field-name mismatch in <code>_station_out</code> (<code>app/api/v1/fuel_servo.py:417</code>) and <code>annotate_station</code>/<code>annotate_prices</code> (<code>app/services/fuel_servo.py:69,93</code>); corrected an <code>IndentationError</code> in <code>_station_out</code>; updated frozen assertions in <code>tests/test_aut2201_station_annotations.py</code>. All 8 tests in <code>test_aut2201_station_annotations.py</code> + <code>test_servo_projection_aut2053.py</code> pass.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.257</h2>
+      <div class="date">2026-09-09</div>
+      <h3>Added (AUT-2352)</h3>
+      <ul>
+        <li>test(frontend): add <code>frontend/test/app_config_validate_test.dart</code> — 6 hermetic reachability cases for <code>AppConfig.validate()</code> covering 2xx ok, 5xx fail, timeout, connection refused, malformed URL, and <code>healthz</code> origin stripping. Per-test isolation via <code>tearDown</code> resetting <code>apiBase</code> / <code>lastValidationOk</code> / <code>lastValidationError</code>. Closes AUT-2352.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.256</h2>
+      <div class="date">2026-09-09</div>
+      <h3>Security (AUT-2060)</h3>
+      <ul>
+        <li>security(ci,docker): bump python:3.13-slim to digest cc9dffa (libssl3t64 3.5.7-1~deb13u2, resolves CVE-2026-14456 OpenSSL QUIC DoS) and nginx frontend to digest ee1643ae (util-linux/alpine update). Remove resolved CVE-2026-14456 suppression from .trivyignore. Add libuuid/util-linux HIGH CVE suppressions (CVE-2026-53612/53613/53614/76642/78408/78409/78410; nginx frontend never invokes mount/nsenter). Fix trivy-image-scan.yml to use aquasecurity/trivy-action@v0.36.0 with <code>scanner: vuln</code> inputs (v0.37.0 does not exist). Drop separate ai service from docker-compose.prod.yml — AI gateway runs inside backend container (AUT-2000). Add libexpat version-check workflow (AUT-2126). Add FUEL_SA_API_KEY/FUEL_SA_ENABLED env vars for SA SAFPIS ingester (AUT-2610).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.255</h2>
+      <div class="date">2026-09-08</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(ci): restore arm64 flutter web compile in build-hosted.yml. Pin the frontend Dockerfile to <code>ghcr.io/cirruslabs/flutter:3.38.2</code> (the <code>:stable</code> tag had drifted past 3.27.x and introduced breaking Flutter API changes — <code>MaterialBanner.actions</code> required, <code>MediaQuery.withClampedTextScaling</code> <code>maxTextScale</code> removed, <code>Connectivity.instance</code> removed) and re-apply the dart2js compat fixes from PR #579 (887c213): <code>Connectivity()</code>, <code>Future&amp;lt;Database&amp;gt;? _opening</code>, indentation in login/signup/add_vehicle/edit_vehicle screens, <code>MaterialBanner.actions</code> + <code>MediaQuery</code> clamp in app.dart.</li>
+      </ul>
+      <h3>Added (AUT-2118)</h3>
+      <ul>
+        <li>backend(tests): add <code>backend/tests/health_demo.test.py</code> — dedicated health endpoint CI gate asserting /health returns 200, status=ok, service=autobrain-backend, version matches APP_VERSION, and marks demo/hosted/default env when DEMO_MODE=true. Promoted from test_api.py. Also ships <code>.github/workflows/ci-tests.yml</code> (AUT-2119): pytest job on PR + push to main; a failing health_demo.test blocks merge and posts to Discord #updates on failure, keeping hosted/default from drifting out of parity.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.254</h2>
+      <div class="date">2026-09-08</div>
+      <h3>Added (AUT-2386)</h3>
+      <ul>
+        <li>feat(backend): source-arbitration rule for multi-feed overlap. `<code>FuelPrice</code><code> now carries </code><code>source_id</code><code> + </code><code>arbitration_score</code><code>; new </code><code>fuel_price_arbitrations</code>` table stores the daily winning source per (station, fuel_type, day). PR #473.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.253</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(frontend): restore flutter web compile on arm64 runner. PR #530 (AUT-2478) introduced a class name collision in <code>home_screen.dart</code> — the <code>_OwnershipAdvisorLaunchCard</code> class had its constructor renamed to <code>_ErrorView</code>, nesting it and breaking dart2js. Separated <code>_ErrorView</code> as its own top-level class and restored <code>_ErrorView.build</code> body. Also fixed <code>servo_spy_screen.dart</code> <code>_openHistory()</code> missing <code>BuildContext</code> argument (passed <code>context</code> to <code>Navigator.of(context)</code> but the method signature lacked the parameter, causing <code>context</code> to resolve to the enclosing <code>build</code> scope).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.252</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Fixed (AUT-2726)</h3>
+      <ul>
+        <li>fix(backend,frontend): apply missing rego columns to existing vehicles + clearer server error messages. <code>backend/app/db/bootstrap.py</code> now falls back from <code>alembic upgrade head</code> to <code>alembic upgrade heads</code> before <code>create_all</code>, so a database that predates the <code>m3rge05</code> merge migration (which adds <code>rego_status</code>, <code>rego_expiry_date</code>, <code>rego_checked_at</code>, <code>powertrain</code>, <code>rego_state</code> to <code>vehicles</code>) no longer silently skips column creation — <code>create_all</code> does not add columns to existing tables, leaving vehicles without rego state and the frontend showing a masked 500 ("Could not reach the server"). <code>frontend/lib/screens/home/home_screen.dart</code> now distinguishes <code>ApiException</code> (server error, surface the status code + message) from a genuine network timeout so users see the real failure instead of a misleading connection error. Immediate mitigation: missing columns applied directly to hosted, demo, and default databases; <code>alembic_version</code> stamped to <code>m3rge05</code> on all three.</li>
+      </ul>
+      <h3>Fixed (AUT-2518)</h3>
+      <ul>
+        <li>fix(market-data): relax chrome-sandbox SUID guard to warn-and-continue. Playwright 1234+ (Chrome for Testing) removed <code>chrome-sandbox</code> from <code>/ms-playwright</code> — Chromium now uses user namespaces in headless mode. The previous <code>exit 1</code> on zero matches aborted the <code>build-hosted.yml</code> loop before the frontend image could be built. <code>market-data/Dockerfile</code> now matches both <code>chrome-sandbox</code> (hyphen) and <code>chrome_sandbox</code> (underscore) and warns to stderr when neither is present, letting the build continue. The <code>docker/ai/Dockerfile</code> already had this behaviour from the AUT-2582 fix. Both images fall back to <code>--no-sandbox</code> at runtime per <code>market-data/browser.py</code>, so the SUID helper is an optional hardening layer.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.251</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Added (AUT-2706)</h3>
+      <ul>
+        <li>firmware+backend: per-row <code>ev_mode</code> flag and vehicle-type detection. The ESP32-DIY firmware now computes <code>ev_mode</code> per trip row (0=ICE / 1=EV / 2=HYBRID) from RPM-vs-pack_current hysteresis and classifies vehicle type from the dominant ev_mode over the first trip (1=EV, 2=HEV, 4=PHEV), persisting it to the backend via <code>POST /devices/{device_id}/vehicle-type</code>. Vehicle type is stored on the <code>Device</code> model (<code>vehicle_type</code> string column, new Alembic migration <code>aut2706_device_vehicle_type.py</code>) with a <code>DeviceVehicleTypeIn</code> schema. EV manufacturer PID tables keyed by VIN WMI are selected per AUT-2702, Mode 01 0x2F fuel level is reported for PHEVs, and the firmware self-check (<code>firmware/esp32-diy/test/self_check.cpp</code>) now covers the new EV profile and vehicle-type paths. Closes AUT-2706.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.250</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(frontend): replace reverted <code>withValues(alpha:)</code> with <code>withOpacity(alpha:)</code> in car_check_screen.dart to restore dart2js arm64 build.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.249</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(frontend): remove duplicate <code>_vehicleId</code> declarations in servo_spy_screen.dart (2 locations) and add <code>package:flutter/foundation.dart</code> import in connectivity_service.dart to resolve dart2js compile errors on arm64 runner. Restores dockerhub-publish + build-hosted arm64 image builds.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.248</h2>
+      <div class="date">2026-09-07</div>
+      <h3>Fixed (AUT-2960)</h3>
+      <ul>
+        <li>fix(backend): PDF export table header text was black on dark background (unreadable). Header cells now use a cloned <code>BodyText</code> style with <code>textColor=colors.white</code> and <code>fontName=Helvetica-Bold</code> so the <code>TEXTCOLOR</code> table style (which only affects raw strings, not Paragraphs) is no longer relied upon. Applies to both service history and build sheet PDFs.</li><li>feat(backend,AUT-2960): vehicle rego now included in the PDF title on the front page. Service history: <code>Service History — {label} — {rego}</code>; build sheet: <code>Build Sheet — {label} — {rego}</code>. When rego is empty, title remains clean (no trailing separator). Updated API callers in <code>services.py</code> and <code>mods.py</code> to pass <code>vehicle.rego</code>. Added <code>test_pdf_export_rego_in_title</code> test.</li>
+      </ul>
+      <h3>Fixed (AUT-2481)</h3>
+      <ul>
+        <li>frontend(servo-spy): dart2js compile error on <code>_cartoApiKey</code>/<code>_cartoKeyParam</code>. The two were declared as instance fields on <code>_ServoSpyScreenState</code> but referenced from <code>_ServoSpyMapState.build()</code> (different class, so name-resolution failed at compile time). Promoted both to file-private top-level <code>const</code> so both widget trees see them; removed the <code>const</code> from <code>_cartoKeyParam</code> (the runtime <code>isEmpty</code> check is not a constant expression).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.243</h2>
+      <div class="date">2026-09-06</div>
+      <h3>Fixed (AUT-2656)</h3>
+      <ul>
+        <li>fix(frontend): restore flutter web compile on arm64 runner. Three compile errors blocked <code>flutter build web</code> in the dockerhub-publish + build-hosted arm64 jobs: (1) <code>login_screen.dart:199</code> — <code>children:</code> under-indented by 2 spaces; (2) <code>signup_screen.dart:85</code> — <code>child:</code> under-indented by 2 spaces; (3) <code>reset_password_web.dart</code> — <code>import 'dart:html'</code> unsupported by Flutter ≥3.22 web builds (CanvasKit renderer), replaced with no-op <code>clearUrlToken()</code> (token detection in <code>app.dart</code> reads the fragment before navigation, so no data loss).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.242</h2>
+      <div class="date">2026-09-06</div>
+      <h3>Added (AUT-2118)</h3>
+      <ul>
+        <li>backend(tests): add <code>backend/tests/test_health_demo.py</code> — dedicated health endpoint CI gate asserting /health returns 200, status=ok, service=autobrain-backend, version matches APP_VERSION, and marks demo/hosted/default env when DEMO_MODE=true. Promoted from test_api.py.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.241</h2>
+      <div class="date">2026-09-06</div>
+      <h3>Added (AUT-2651)</h3>
+      <ul>
+        <li>backend(advisor): Car Check module (AUT-2651) — deterministic deal score + AI 9Router narrative (system prompt instructs model never to invent numbers). New <code>POST /api/v1/advisor/car-check</code> route takes a parsed listing + optional reference price, computes a 0-100 deal score from price/km/age heuristics, then calls 9Router via <code>run_car_check_ai</code> (24h in-process LRU+TTL cache, mirrored from <code>run_advisor_ai</code>). When 9Router is unreachable, falls back to <code>car_check_fallback</code> (rule-based summary with red/green flags). <code>deal_score</code> is immutable via <code>_AI_IMMUTABLE["car-check"]</code> — the router can enrich prose but never override the score. Schema whitelist <code>_SCHEMAS["car-check"]</code> allows only <code>summary</code>, <code>red_flags</code>, <code>green_flags</code>. AI fallback: <code>ai/app/fallbacks/car_check.py</code>. AI module: <code>ai/app/modules/car_check.py</code>. Backend service: <code>backend/app/services/car_check.py</code>. Tests: <code>ai/tests/test_car_check.py</code> (17 cases) + <code>backend/tests/test_car_check_ai.py</code> (19 cases). Parent: AUT-2630.</li>
+      </ul>
+      <h3>Changed (AUT-1932)</h3>
+      <ul>
+        <li>deploy: VIC Servo Saver fuel feed deployed to Default + Hosted (AUT-1932).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.240</h2>
+      <div class="date">2026-09-06</div>
+      <h3>Added (AUT-2703)</h3>
+      <ul>
+        <li>feat(firmware,backend,frontend): extend trip CSV row schema with EV/PHEV fields (<code>soc_pct,pack_v,pack_a,pack_temp_c,odo_km,ev_mode</code>) for AUT-2437. <code>format_trip_row</code> in <code>obd_pids.h</code> now emits 13-field rows (old 7-field rows still accepted via default args). CSV header updated to <code>epoch,rpm,speed,coolant,throttle,lat,lon,soc_pct,pack_v,pack_a,pack_temp_c,odo_km,ev_mode</code>. <code>csv_to_gps_json</code> (upload_payload.h), backend <code>parse_board_csv</code> (trip_gps.py), and frontend <code>tripCsvToJson</code> (dongle_relay.dart) all tolerate both old and new row lengths via fixed-position reads. Dart tests expanded with backward-compat + EV-field cases. C++ self_check expanded with EV-field assertions + old-format CSV tolerance.</li>
+      </ul>
+      <h3>Fixed (AUT-2600)</h3>
+      <ul>
+        <li>fix(frontend): restore flutter web compile on arm64 runner. Three compile errors were tripping dart2js: <code>login_screen.dart:199</code> (under-indented children), <code>signup_screen.dart:85</code> (under-indented child), and <code>reset_password_web.dart</code> (dart:html import). Restores dockerhub-publish + build-hosted arm64 image builds.</li>
+      </ul>
+      <h3>Added (AUT-2053)</h3>
+      <ul>
+        <li>feat(fuel/servo): Servo Spy station prices now show <code>$ per km</code> and <code>avg fill cost</code> projections derived from the requesting user's current vehicle's fuel stats. Backend: <code>FuelStats</code> gains <code>avg_fill_litres</code> (mean of full-tank fills); <code>/fuel/stations</code> and <code>/fuel/station/{id}/prices</code> accept <code>?vehicle_id=</code> and return <code>cost_per_km</code> + <code>avg_fill_cost</code> on every <code>FuelPriceOut</code>. Silently omits projections when the vehicle is inaccessible or stats are missing. Frontend: <code>ServoFuelPrice</code>/<code>StationRow</code> rows surface the new fields in both list and map detail views. No AI in the hot path — deterministic arithmetic only. Tests: <code>backend/tests/test_servo_projection_aut2053.py</code> + <code>backend/tests/test_services_extraction.py</code> extended; frontend tests updated for the new fields. Closes AUT-2053.</li>
+      </ul>
+      <h3>Added (AUT-2449)</h3>
+      <ul>
+        <li>backend(advisor): Ownership Advisor Dream Car module — deterministic lookup + affordability + repayments, no 9Router, no AI. New <code>POST /api/v1/advisor/dream</code> route (per ADR 0001) is the third POST module in the Ownership Advisor surface: target lookup anchors on the same cached <code>market_listing_cache</code> row the Value module uses (same <code>(make, model, year)</code> key shape, 24h TTL — no duplicate storage per ADR §2.5), affordability is pure arithmetic on the optional request body finance profile (<code>annual_income</code>, <code>monthly_expenses</code>, <code>cash_on_hand</code>), and indicative repayments reuse the existing <code>_loan_monthly_payment</code> helper the Finance module publishes so consecutive calls return the same numbers for the same inputs. Three blocks in the response: (1) <code>data.target</code> — market-data lookup for an arbitrary (make, model, year), with low/mid/high band, source, sample_size, and a <code>note</code> explaining the gap when the cache has no row; (2) <code>data.affordability</code> — <code>deposit_required</code>, <code>monthly_disposable_income</code>, <code>cash_gap</code> (negative = shortfall), and a <code>surplus</code> flag that fires only when the user can fund the deposit AND keep the indicative monthly under the 30% debt-service-ratio ceiling on disposable income; (3) <code>data.repayments</code> — <code>principal</code>, <code>monthly_repayment</code>, <code>total_interest</code> with the same constants the Finance module publishes (term clamped to [12, 84] default 60, rate clamped to [0, 30] default 7.5% p.a., deposit clamped to [0, 100] default 20%). Finance inputs are ephemeral — no DB migration, no user-settings tab (ADR §2.4); when <code>annual_income</code>/<code>monthly_expenses</code> are missing the affordability block returns a well-formed <code>note</code> explaining the gap instead of crashing. <code>vehicle_id</code> in the envelope is <code>None</code> (Dream Car is not anchored on the user's current vehicle). Free accounts get 403. New schemas: <code>AdvisorDreamRequest</code>, <code>DreamTarget</code>, <code>DreamAffordability</code>, <code>DreamRepayments</code>, <code>AdvisorDreamData</code> (<code>backend/app/schemas/advisor.py</code>). New service helper <code>compute_dream</code> plus constant clamps (<code>DREAM_DSR_CEILING</code>, <code>DREAM_DEFAULT_FINANCE_TERM_MONTHS</code>, etc.) in <code>backend/app/services/advisor.py</code>. New route <code>POST /api/v1/advisor/dream</code> in <code>backend/app/api/v1/advisor.py</code> (registered alongside the Value/Finance/AI routes); entitlement gate reuses <code>_enforce_entitlement</code> (free accounts get 403). Tests: <code>backend/tests/test_advisor_dream.py</code> covers three regions: target-lookup shape (market_data cache miss/hit, note propagation), affordability arithmetic (no profile → note, surplus/shortfall flags under 30% DSR ceiling), and repayments math (principal = mid × (1 - deposit_pct), monthly = <code>_loan_monthly_payment</code>, edge cases for zero rate / clamped term). Closes AUT-2449.</li>
+      </ul>
+      <h3>Fixed (AUT-2618)</h3>
+      <ul>
+        <li>fix(ci): replace 42 occurrences of <code>Color.withValues(alpha:)</code> (requires Flutter ≥3.27) with <code>Color.withOpacity(alpha:)</code> (deprecated but supported across 3.x) in 16 frontend files. The <code>ghcr.io/cirruslabs/flutter:stable</code> Docker image auto-upgraded to a Flutter version that doesn't support <code>withValues</code>, causing <code>dart2js</code> to fail with <code>Error: Can't find ')' to match '('</code> at every <code>withValues(alpha:)</code> call site during <code>flutter build web</code>. This blocked <code>build-hosted.yml</code> (amd64 + arm64) since 10:37Z and prevented any new hosted images (including AUT-2446 Replace + AUT-2447 Upgrade) from reaching EP5. <code>dart:html</code> warning in <code>reset_password_web.dart</code> is unrelated (wasm dry-run, not fatal).</li>
+      </ul>
+      <h3>Added (AUT-2447)</h3>
+      <ul>
+        <li>backend(advisor): Ownership Advisor Upgrade module — deterministic upgrade options + similar suggestions + trade-up estimate. New <code>GET /api/v1/advisor/upgrade</code> route anchors on the value module's cached market median. No 9Router. No AI. Free accounts get 403. New schemas <code>UpgradeOption</code>, <code>SimilarVehicleSuggestion</code>, <code>TradeUpDelta</code>, <code>AdvisorUpgradeData</code>. New helpers <code>compute_upgrade</code>, <code>find_upgrade_options</code>, <code>find_similar_vehicles</code>, <code>build_trade_up</code>, <code>_amortize_monthly</code>, <code>_similarity_score</code>, <code>_clamp_finance_term/rate/deposit_pct</code>, <code>_tier_label</code>, <code>_median_for</code>. Tests: <code>backend/tests/test_advisor_upgrade.py</code>.</li>
+      </ul>
+      <h3>Added (AUT-2478)</h3>
+      <ul>
+        <li>feat(frontend,advisor): Ownership Advisor launch card on <code>HomeScreen</code> — a full-width purple (<code>#6366F1</code>) branded card above the feature grid with title, tagline, and a <code>Wrap</code> of six <code>_ModuleChip</code> pills (Value/Replace/Upgrade/Finance/Dream/AI) mirroring the 6-module Overview shell per AUT-2451. The existing feature-tile entry is preserved so users who scroll past the launch card still reach <code>AdvisorOverviewScreen(vehicleId:)</code> via <code>_AdvisorEntry</code>. Copy matches the <code>#changelog</code> embed payload for sibling AUT-2477 (module names, "deterministic where possible, AI only for the final call"). New test <code>test/advisor_home_card_test.dart</code> (4 cases: card found, title, tagline, chip count). Closes AUT-2478.</li>
+      </ul>
+      <h3>Added (AUT-2376)</h3>
+      <ul>
+        <li>feat(frontend): Servo Spy station detail — 30-day price history chart. Tapping a station in the Servo Spy **list** view (or the **map** detail sheet) opens a new screen that calls <code>GET /api/v1/fuel/stations/{id}/history</code> and renders one <code>fl_chart</code> <code>LineChart</code> line per fuel type (E10, 91, 95, 98, Diesel, LPG) for the last 30 days, with a legend, a <code>\$x.xx</code> Y axis, and tap-to-tooltip. The client groups the flat <code>(fuel_type, price, effective_at)</code> response from the AUT-2375 endpoint by fuel type. Cached in-memory per station so a re-open is instant. Empty state ("No price history yet") and 404 fallback handled. New unit tests <code>frontend/test/fuel_prices_api_test.dart</code> cover the flat contract and empty/404 cases. Closes AUT-2376.</li>
+      </ul>
+      <h3>Added (AUT-2416)</h3>
+      <ul>
+        <li>mobile+web: premium-only **Rego Lookup** tool. New <code>frontend/lib/screens/rego/rego_lookup_screen.dart</code> lets premium users type an Australian plate + state, hits the existing <code>POST /vehicles/rego-lookup</code> endpoint, and renders VIN + vehicle details + rego status + expiry in a card. Plate input is uppercase / alphanumeric / 8-char max via <code>TextInputFormatter</code>. Premium gate via <code>AuthState.premium</code>; non-premium sees the <code>PremiumGate</code> upgrade prompt (screen never calls the endpoint). New <code>Rego Lookup</code> feature tile on the home grid, only inserted for premium users so the entry doesn't appear at all on free plans. Backend result now persists <code>rego_status</code> / <code>rego_expiry_date</code> / <code>rego_checked_at</code> on the Vehicle (new model columns + Alembic migration <code>a1b2c3d4e5f8</code>) so the badge + expiry notification both read the cache. Status mapping (<code>valid</code>/<code>registered</code>/<code>current</code>/<code>active</code> → <code>registered</code>; <code>expired</code>/<code>unregistered</code>/<code>cancelled</code> → <code>expired</code>) lives in <code>app.services.rego._map_provider</code>. <code>VehicleOut</code> schema exposes the new fields (always ISO <code>YYYY-MM-DD</code>).</li><li>mobile+web: premium-only **Rego expiry alert** setting. New <code>notification_preferences.rego_expiry_days</code> column (0 = off). The settings card on <code>NotificationsScreen</code> adds a "Rego expiry alert" section with a "PREMIUM" chip and a number input; non-premium sees the <code>PremiumGate</code> lock instead of the field. The existing <code>run_daily_notification_checks</code> Celery beat task now evaluates rego expiry for every premium user: when <code>vehicle.rego_expiry_date - today &amp;lt;= pref.rego_expiry_days</code> (and no dedupe row exists) it fires <code>deliver_rego_expiry</code> on the user's existing channels (email / Discord / push). Reuses the same delivery + dedupe pattern as <code>service_due_days</code>. New <code>rego_expiry</code> kind in <code>NotificationDelivery</code> and the dedupe <code>IN</code> list. <code>NotificationPreferenceIn</code> / <code>NotificationPreferenceOut</code> schemas accept the field. Migration <code>a1b2c3d4e5f8</code> adds both the preference and vehicle columns atomically; merges the AUT-1859 fuel-price-alerts branch so <code>alembic upgrade head</code> stays a single linear path (AUT-702 single-head guard). Tests: <code>backend/tests/test_rego_expiry_notify_aut2416.py</code> (10 cases) + <code>frontend/test/rego_lookup_screen_test.dart</code> (7 cases).</li><li>mobile+web: rego status badge + expiry on every vehicle card. New <code>Vehicle.regoStatus</code> / <code>Vehicle.regoExpiryDate</code> fields (parsed from <code>rego_status</code> / <code>rego_expiry_date</code>) drive a green/red <code>RegoStatusBadge</code> widget shown on the home hero card and the vehicle-list rows. Forward-compatible with AUT-2414's nightly Celery beat job: when <code>rego_status</code> / <code>rego_expiry_date</code> are absent the badge is hidden entirely. Gated behind <code>AuthState.premium</code> so free accounts see no rego chrome. <code>formattedRegoExpiry</code> renders <code>12 Mar 2027</code> style dates. Tests: <code>frontend/test/rego_status_badge_test.dart</code>.</li>
+      </ul>
+      <h3>Added (AUT-2451)</h3>
+      <ul>
+        <li>feat(frontend,advisor): Ownership Advisor front-door — single home-screen card on <code>HomeScreen</code> that opens a 7-tab nested shell (Overview + 6 sub-modules) per ADR 0001. Overview tab shows 6 <code>ActionChip</code> chips routing Value/Replace/Upgrade/Finance/Dream/AI into their own screens. Back button preserves tab selection when navigating back to the Advisor. Deep-links <code>/advisor/{value|replace|upgrade|finance|dream|ai}</code> select the matching tab from the home screen; unknown tokens fall through to Overview. Offline path: <code>AdvisorApi._callWithCache</code> reads <code>OfflineCache</code> before every request and serves the cached response on any <code>ApiException</code>, so each sub-module shows a cached last-known snapshot when offline. New files: <code>lib/screens/advisor/advisor_models.dart</code> (shared <code>AdvisorResponse</code>/<code>AdvisorValueData</code>/<code>AdvisorFinanceData</code>/etc.), <code>lib/screens/advisor/advisor_api.dart</code> (<code>AdvisorApi</code> + <code>cacheKey</code> + <code>_bodyKey</code>), and one screen per module (<code>value_screen.dart</code>, <code>replace_screen.dart</code>, <code>upgrade_screen.dart</code>, <code>finance_screen.dart</code>, <code>dream_screen.dart</code>, <code>ai_screen.dart</code>). Test: <code>test/advisor_overview_test.dart</code> (3 widget tests: seven-tab shell, initial-tab selection, chip count). Mobile team will split these same files into <code>autobrain-mobile</code> unchanged.</li>
+      </ul>
+      <h3>Fixed (AUT-1878)</h3>
+      <ul>
+        <li>fix(deploy): pin hosted worker to a specific arm64 digest in <code>docker-compose.hosted.yml</code> and replace the Celerybeat-schedule mtime HEALTHCHECK with a deterministic <code>/proc</code> PID + <code>GET /health</code> probe. The previous mtime probe falsely flapped when no tasks were due within the window (the production norm for the worker), cycling containers; the new probe stays Healthy on the Oracle VM.</li>
+      </ul>
+      <h3>Added (AUT-2446)</h3>
+      <ul>
+        <li>backend(advisor): Ownership Advisor Replace module — deterministic used/new replacement cost + funding gap + monthly saving target. New <code>GET /api/v1/advisor/replace</code> route (per ADR 0001) anchors on the same cached <code>market_listing_cache</code> median the Value module uses — no 9Router, no AI. Used replacement cost = current private-sale mid; new replacement cost applies age-based new-vs-used premium curve (1.0× at 0y → 1.4× at 3y → 1.8× at 6y → 2.2× at 10y, clamped at 3.0×). Funding gap: <code>gap = replacement_cost - current_value - trade_in_mid</code>; <code>monthly_target = gap / horizon_months</code>. Negative gap = <code>surplus=true</code> with zero monthly. Free accounts get 403. New schemas <code>AdvisorReplaceData</code>, <code>FundingGapBand</code>. New helpers <code>compute_replace</code>, <code>age_years</code>, <code>new_used_premium</code>, <code>_clamp_horizon</code>. Tests: <code>backend/tests/test_advisor_replace.py</code>.</li>
+      </ul>
+      <h3>Added (AUT-2376)</h3>
+      <ul>
+        <li>feat(frontend): Servo Spy station detail — 30-day price history chart. Tapping a station in the Servo Spy **list** view (or the **map** detail sheet) opens a new screen that calls <code>GET /api/v1/fuel/stations/{id}/history</code> and renders one <code>fl_chart</code> <code>LineChart</code> line per fuel type (E10, 91, 95, 98, Diesel, LPG) for the last 30 days, with a legend, a <code>\$x.xx</code> Y axis, and tap-to-tooltip. The client groups the flat <code>(fuel_type, price, effective_at)</code> response from the AUT-2375 endpoint by fuel type. Cached in-memory per station so a re-open is instant. Empty state ("No price history yet") and 404 fallback handled. New unit tests <code>frontend/test/fuel_prices_api_test.dart</code> cover the flat contract and empty/404 cases. Closes AUT-2376.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.239</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Added (AUT-2450)</h3>
+      <ul>
+        <li>backend+ai(advisor): AI Advisor module. New <code>POST /api/v1/advisor/ai</code> route consumes structured outputs from the Value/Replace/Upgrade/Finance/Dream sub-modules and returns <code>{decision, confidence, rationale, next_actions, based_on}</code>. Deterministic-first per ADR 0001: a small rule tree (mirrored in <code>backend/app/services/advisor.compute_advisor_recommendation</code> and <code>ai/app/fallbacks/advisor.advisor_fallback</code>) always runs and its decision is the source of truth; 9Router may add a richer rationale and sharper <code>next_actions</code> but cannot change the decision (listed in <code>_AI_IMMUTABLE["advisor"]</code> and the system prompt forbids it). The AI never invents numbers — any number in the response is one of the supplied module outputs verbatim. Graceful fallback: when the AI gateway is unreachable the route returns the deterministic baseline with <code>model = "rule-based-fallback"</code> and <code>factors.fallback_reason = "ai_gateway_unreachable"</code>; the user always gets an answer. 24h in-process LRU+TTL cache keyed by <code>sha256(sorted_module_outputs)</code> in <code>app.services.ai_client</code> (per the spec; per-process is acceptable because the cache only optimises repeat calls, not correctness — restart-eviction loses nothing). New <code>AdvisorAIRequest</code> + <code>AdvisorAIData</code> + <code>AdvisorAIBasedOn</code> schemas in <code>backend/app/schemas/advisor.py</code>; new <code>app.services.ai_client.run_advisor_ai</code>; new AI-gateway module <code>ai/app/modules/advisor.py</code> + system prompt + <code>_SCHEMAS["advisor"]</code> + <code>_AI_IMMUTABLE["advisor"]</code> in <code>ai/app/router_utils.py</code>. New module is registered in <code>ai/app/modules/__init__.py: MODULES["advisor"]</code> and the route is registered in <code>backend/app/api/v1/advisor.py</code>. Free accounts get 403 (same as every advisor module). Tests: <code>backend/tests/test_advisor_ai.py</code> (14 cases: pure-helper decision tree, never-invents-numbers invariant, request/response schema, FastAPI route for both gateway-up and gateway-down, free-account 403, cache dedupe); <code>ai/tests/test_advisor.py</code> (19 cases: gateway fallback, validate_advisor_response clamp, module registration, system-prompt/immutable/schema contract).</li>
+      </ul>
+      <h3>Changed (AUT-2619)</h3>
+      <ul>
+        <li>chore(mobile-release): gate the APK build in <code>autobrain-mobile</code>'s <code>release-mobile.yml</code> on a 2-day cooldown + a meaningful-change check so store binaries are only produced when mobile code (<code>lib/</code>, <code>assets/</code>) changed since the previous release and at least 48h have passed since the last APK build (floating <code>apk-built</code> tag ref). Pure version bumps skip the APK; the <code>.aab</code> is never throttled. <code>docs/mobile-release.md</code> + <code>docs/ci-cd.md</code> updated to document the policy.</li>
+      </ul>
+      <h3>Added (AUT-2450)</h3>
+      <ul>
+        <li>backend+ai(advisor): AI Advisor module. New <code>POST /api/v1/advisor/ai</code> route consumes structured outputs from the Value/Replace/Upgrade/Finance/Dream sub-modules and returns <code>{decision, confidence, rationale, next_actions, based_on}</code>. Deterministic-first per ADR 0001: a small rule tree (mirrored in <code>backend/app/services/advisor.compute_advisor_recommendation</code> and <code>ai/app/fallbacks/advisor.advisor_fallback</code>) always runs and its decision is the source of truth; 9Router may add a richer rationale and sharper <code>next_actions</code> but cannot change the decision (listed in <code>_AI_IMMUTABLE["advisor"]</code> and the system prompt forbids it). The AI never invents numbers — any number in the response is one of the supplied module outputs verbatim. Graceful fallback: when the AI gateway is unreachable the route returns the deterministic baseline with <code>model = "rule-based-fallback"</code> and <code>factors.fallback_reason = "ai_gateway_unreachable"</code>; the user always gets an answer. 24h in-process LRU+TTL cache keyed by <code>sha256(sorted_module_outputs)</code> in <code>app.services.ai_client</code> (per the spec; per-process is acceptable because the cache only optimises repeat calls, not correctness — restart-eviction loses nothing). New <code>AdvisorAIRequest</code> + <code>AdvisorAIData</code> + <code>AdvisorAIBasedOn</code> schemas in <code>backend/app/schemas/advisor.py</code>; new <code>app.services.ai_client.run_advisor_ai</code>; new AI-gateway module <code>ai/app/modules/advisor.py</code> + system prompt + <code>_SCHEMAS["advisor"]</code> + <code>_AI_IMMUTABLE["advisor"]</code> in <code>ai/app/router_utils.py</code>. New module is registered in <code>ai/app/modules/__init__.py: MODULES["advisor"]</code> and the route is registered in <code>backend/app/api/v1/advisor.py</code>. Free accounts get 403 (same as every advisor module). Tests: <code>backend/tests/test_advisor_ai.py</code> (14 cases: pure-helper decision tree, never-invents-numbers invariant, request/response schema, FastAPI route for both gateway-up and gateway-down, free-account 403, cache dedupe); <code>ai/tests/test_advisor.py</code> (19 cases: gateway fallback, validate_advisor_response clamp, module registration, system-prompt/immutable/schema contract).</li>
+      </ul>
+      <h3>Added (AUT-2543)</h3>
+      <ul>
+        <li>docs: <code>docs/home-assistant-integration.md</code> — Home Assistant setup guide: token creation (<code>POST /api/v1/ha/tokens</code>), <code>rest</code> + <code>command_line</code> sensor examples for <code>/api/v1/ha/vehicles</code>, <code>/service-reminders</code>, per-vehicle <code>/analytics</code> and <code>/service-intervals</code>, service-due mobile-notification automation (≤7d), Lovelace cards, and the optional <code>wss://&amp;lt;host&amp;gt;/ws/ha/{vehicle_id}</code> real-time push path. Registered the HA route table (<code>GET /ha/vehicles</code>, <code>/vehicles/{id}/service-intervals</code>, <code>/vehicles/{id}/analytics</code>, <code>/service-reminders</code>; <code>POST/GET/DELETE /ha/tokens</code>) in <code>docs/api-spec.md</code>.</li>
+      </ul>
+      <h3>Added (AUT-2543)</h3>
+      <ul>
+        <li>tests: <code>backend/tests/test_ha_docs.py</code> — drift guard asserting the documented <code>/api/v1/ha/*</code> paths match the real router table (catches the <code>ha/v1/</code> double- prefix regression from the draft PR) and that every field referenced in the doc examples exists on the <code>HaAnalyticsOut</code>/<code>HaServiceReminderOut</code>/<code>HaServiceIntervalOut</code> /<code>HaVehicleOut</code> schemas. Skips the field-name checks while AUT-2541's schemas are absent so CI stays green on <code>main</code>; activates once PR-520 lands.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.238</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2526)</h3>
+      <ul>
+        <li>fix(frontend, web): cap content width on the desktop web app so screens reported as oversized in the audit no longer stretch to 1920px. Added <code>frontend/lib/widgets/responsive.dart</code> with a <code>CenteredMaxWidth</code> layout widget, <code>Breakpoints</code> (desktop ≥1100, wideDesktop 1400) and a <code>BuildContext.isDesktop</code> extension. Wrapped the bodies of: home dashboard, Servo Spy map controls + error banner, vehicle list, vehicle timeline, settings, login, signup, server setup, forgot-password, reset-password, add-vehicle, edit-vehicle and share-vehicle. Home <code>FeatureGrid</code> now picks <code>crossAxisCount</code> 2/3/4 by width (mobile / desktop / wide desktop) and the <code>childAspectRatio</code> widens on desktop. Added a global <code>MediaQuery.withClampedTextScaling(maxScale: 1.5)</code> in <code>app.dart</code> <code>builder</code> so desktop zoom can't balloon text beyond a readable ceiling. Added <code>frontend/test/responsive_test.dart</code> covering the breakpoint constants and the <code>CenteredMaxWidth</code> cap on 1920px.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.237</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2108)</h3>
+      <ul>
+        <li>fix(backend): <code>Settings</code> now declares <code>AI_ROUTER_API_KEY_FILE</code> and a <code>model_validator</code> populates <code>AI_ROUTER_API_KEY</code> from the secret file when the plain env var is unset. Compose already set <code>AI_ROUTER_API_KEY_FILE=/run/secrets/ai_router_api_key</code> (AUT-1533), but the field did not exist on <code>Settings</code>, so the file was never read and embedding requests to the 9Router went unauthenticated. Plain env still wins; missing files are silently skipped. Parent: AUT-2091.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.236</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2568)</h3>
+      <ul>
+        <li>fix(deploy): frontend healthcheck in <code>docker-compose.yml</code>, <code>docker-compose.prod.yml</code>, and <code>docker-compose.hosted.yml</code> now references <code>${BACKEND_URL:-http://backend:8000}</code> (matching the existing <code>environment:</code> block) instead of bare <code>${BACKEND_URL}</code>, so compose interpolation can never resolve the URL to empty at deploy time (AUT-2350 follow-up: was producing <code>wget: bad address "/health"</code> and flipping the Portainer frontend container unhealthy). Also fixes the grep pattern from <code>"status": "ok"</code> to <code>"status":"ok"</code> so it matches FastAPI/ORJSON compact output <code>{"status":"ok",...}</code> — the with-space variant never matched and would silently re-break the healthcheck on a fresh redeploy from main. Repo now matches the stack actually running on EP5 (frontend Healthy).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.235</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2467)</h3>
+      <ul>
+        <li>fix(backend): resolve structlog <code>source</code> kwarg collision in <code>ingest_fuel_prices</code> (<code>app/workers/tasks.py:509</code>). <code>res</code> dict from <code>ingest_all_fuel</code> already contains a <code>source</code> key; passing <code>source=source</code> as a separate kwarg caused <code>TypeError: got multiple values for keyword argument 'source'</code>. Now logged as <code>logger.info("fuel_ingest_summary", **res)</code>. Also fixed <code>_run(_run())</code> in <code>run_due_checks</code> (<code>app/services/notify.py:257</code>) — inner <code>_run</code> had no args, so the coroutine was never scheduled. Renamed to <code>_coro</code> and routed through <code>tasks._run()</code>. Adds regression tests <code>test_ingest_fuel_prices_no_typeerror_when_source_in_result</code> and <code>test_run_due_checks_calls_check_for_each_vehicle</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.234</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2484)</h3>
+      <ul>
+        <li>redeploy(homed): bump autobrain-backend :hosted-arm64 digest to include AUT-2277 duplicate-FuelPrice-class fix. EP5 was crash-looping on the pre-fix image (two <code>FuelPrice</code> classes claiming <code>fuel_prices</code> in <code>Base.metadata</code>). Source fix is already merged (f7db5b6d); rebuilt arm64 image from main <code>6e394007</code> and pinned the new digest in <code>docker-compose.hosted.yml</code>.</li>
+      </ul>
+      <h3>Fixed (AUT-2469)</h3>
+      <ul>
+        <li>fix(hosted, ci): replace standalone <code>myoung34/github-runner:latest</code> (amd64-only) on EP5 with a compose-managed <code>gh-runner</code> service using the official multi-arch <code>ghcr.io/actions/actions-runner:latest</code> (includes linux/arm64 binaries). The myoung34 image shipped amd64-only <code>.NET</code> binaries (<code>Runner.Listener</code>, <code>libcoreclr.so</code>); on the aarch64 Oracle VM the runner was in a permanent restart loop (<code>ldd: ./bin/libcoreclr.so: No such file or directory</code>), leaving ARM CI on Hosted dead. <code>build-hosted.yml</code> arm64 builds are unblocked. <code>docker/runner/entrypoint.sh</code> refreshes the short-lived runner registration token on every boot via the PAT secret file (AUT-1533 <code>*_FILE</code> pattern). <code>docker-compose.hosted.yml</code> now defines the <code>gh-runner</code> service; <code>scripts/seed-secrets.sh</code> seeds <code>github_pat</code> into the secrets dir. Deployment: stop the old standalone container before <code>docker compose up</code> to avoid a name collision (<code>docker stop gh-runner-autobrain-arm64 &amp;amp;&amp;amp; docker rm gh-runner-autobrain-arm64</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.238</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2526)</h3>
+      <ul>
+        <li>fix(frontend, web): cap content width on the desktop web app so screens reported as oversized in the audit no longer stretch to 1920px. Added <code>frontend/lib/widgets/responsive.dart</code> with a <code>CenteredMaxWidth</code> layout widget, <code>Breakpoints</code> (desktop ≥1100, wideDesktop 1400) and a <code>BuildContext.isDesktop</code> extension. Wrapped the bodies of: home dashboard, Servo Spy map controls + error banner, vehicle list, vehicle timeline, settings, login, signup, server setup, forgot-password, reset-password, add-vehicle, edit-vehicle and share-vehicle. Home <code>FeatureGrid</code> now picks <code>crossAxisCount</code> 2/3/4 by width (mobile / desktop / wide desktop) and the <code>childAspectRatio</code> widens on desktop. Added a global <code>MediaQuery.withClampedTextScaling(maxScale: 1.5)</code> in <code>app.dart</code> <code>builder</code> so desktop zoom can't balloon text beyond a readable ceiling. Added <code>frontend/test/responsive_test.dart</code> covering the breakpoint constants and the <code>CenteredMaxWidth</code> cap on 1920px.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.237</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2108)</h3>
+      <ul>
+        <li>fix(backend): <code>Settings</code> now declares <code>AI_ROUTER_API_KEY_FILE</code> and a <code>model_validator</code> populates <code>AI_ROUTER_API_KEY</code> from the secret file when the plain env var is unset. Compose already set <code>AI_ROUTER_API_KEY_FILE=/run/secrets/ai_router_api_key</code> (AUT-1533), but the field did not exist on <code>Settings</code>, so the file was never read and embedding requests to the 9Router went unauthenticated. Plain env still wins; missing files are silently skipped. Parent: AUT-2091.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.236</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2568)</h3>
+      <ul>
+        <li>fix(deploy): frontend healthcheck in <code>docker-compose.yml</code>, <code>docker-compose.prod.yml</code>, and <code>docker-compose.hosted.yml</code> now references <code>${BACKEND_URL:-http://backend:8000}</code> (matching the existing <code>environment:</code> block) instead of bare <code>${BACKEND_URL}</code>, so compose interpolation can never resolve the URL to empty at deploy time (AUT-2350 follow-up: was producing <code>wget: bad address "/health"</code> and flipping the Portainer frontend container unhealthy). Also fixes the grep pattern from <code>"status": "ok"</code> to <code>"status":"ok"</code> so it matches FastAPI/ORJSON compact output <code>{"status":"ok",...}</code> — the with-space variant never matched and would silently re-break the healthcheck on a fresh redeploy from main. Repo now matches the stack actually running on EP5 (frontend Healthy).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.235</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2467)</h3>
+      <ul>
+        <li>fix(backend): resolve structlog <code>source</code> kwarg collision in <code>ingest_fuel_prices</code> (<code>app/workers/tasks.py:509</code>). <code>res</code> dict from <code>ingest_all_fuel</code> already contains a <code>source</code> key; passing <code>source=source</code> as a separate kwarg caused <code>TypeError: got multiple values for keyword argument 'source'</code>. Now logged as <code>logger.info("fuel_ingest_summary", **res)</code>. Also fixed <code>_run(_run())</code> in <code>run_due_checks</code> (<code>app/services/notify.py:257</code>) — inner <code>_run</code> had no args, so the coroutine was never scheduled. Renamed to <code>_coro</code> and routed through <code>tasks._run()</code>. Adds regression tests <code>test_ingest_fuel_prices_no_typeerror_when_source_in_result</code> and <code>test_run_due_checks_calls_check_for_each_vehicle</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.234</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2484)</h3>
+      <ul>
+        <li>redeploy(homed): bump autobrain-backend :hosted-arm64 digest to include AUT-2277 duplicate-FuelPrice-class fix. EP5 was crash-looping on the pre-fix image (two <code>FuelPrice</code> classes claiming <code>fuel_prices</code> in <code>Base.metadata</code>). Source fix is already merged (f7db5b6d); rebuilt arm64 image from main <code>6e394007</code> and pinned the new digest in <code>docker-compose.hosted.yml</code>.</li>
+      </ul>
+      <h3>Fixed (AUT-2469)</h3>
+      <ul>
+        <li>fix(hosted, ci): replace standalone <code>myoung34/github-runner:latest</code> (amd64-only) on EP5 with a compose-managed <code>gh-runner</code> service using the official multi-arch <code>ghcr.io/actions/actions-runner:latest</code> (includes linux/arm64 binaries). The myoung34 image shipped amd64-only <code>.NET</code> binaries (<code>Runner.Listener</code>, <code>libcoreclr.so</code>); on the aarch64 Oracle VM the runner was in a permanent restart loop (<code>ldd: ./bin/libcoreclr.so: No such file or directory</code>), leaving ARM CI on Hosted dead. <code>build-hosted.yml</code> arm64 builds are unblocked. <code>docker/runner/entrypoint.sh</code> refreshes the short-lived runner registration token on every boot via the PAT secret file (AUT-1533 <code>*_FILE</code> pattern). <code>docker-compose.hosted.yml</code> now defines the <code>gh-runner</code> service; <code>scripts/seed-secrets.sh</code> seeds <code>github_pat</code> into the secrets dir. Deployment: stop the old standalone container before <code>docker compose up</code> to avoid a name collision (<code>docker stop gh-runner-autobrain-arm64 &amp;amp;&amp;amp; docker rm gh-runner-autobrain-arm64</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.238</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2526)</h3>
+      <ul>
+        <li>fix(frontend, web): cap content width on the desktop web app so screens reported as oversized in the audit no longer stretch to 1920px. Added <code>frontend/lib/widgets/responsive.dart</code> with a <code>CenteredMaxWidth</code> layout widget, <code>Breakpoints</code> (desktop ≥1100, wideDesktop 1400) and a <code>BuildContext.isDesktop</code> extension. Wrapped the bodies of: home dashboard, Servo Spy map controls + error banner, vehicle list, vehicle timeline, settings, login, signup, server setup, forgot-password, reset-password, add-vehicle, edit-vehicle and share-vehicle. Home <code>FeatureGrid</code> now picks <code>crossAxisCount</code> 2/3/4 by width (mobile / desktop / wide desktop) and the <code>childAspectRatio</code> widens on desktop. Added a global <code>MediaQuery.withClampedTextScaling(maxScale: 1.5)</code> in <code>app.dart</code> <code>builder</code> so desktop zoom can't balloon text beyond a readable ceiling. Added <code>frontend/test/responsive_test.dart</code> covering the breakpoint constants and the <code>CenteredMaxWidth</code> cap on 1920px.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.237</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2108)</h3>
+      <ul>
+        <li>fix(backend): <code>Settings</code> now declares <code>AI_ROUTER_API_KEY_FILE</code> and a <code>model_validator</code> populates <code>AI_ROUTER_API_KEY</code> from the secret file when the plain env var is unset. Compose already set <code>AI_ROUTER_API_KEY_FILE=/run/secrets/ai_router_api_key</code> (AUT-1533), but the field did not exist on <code>Settings</code>, so the file was never read and embedding requests to the 9Router went unauthenticated. Plain env still wins; missing files are silently skipped. Parent: AUT-2091.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.236</h2>
+      <div class="date">2026-09-05</div>
+      <h3>Fixed (AUT-2568)</h3>
+      <ul>
+        <li>fix(deploy): frontend healthcheck in <code>docker-compose.yml</code>, <code>docker-compose.prod.yml</code>, and <code>docker-compose.hosted.yml</code> now references <code>${BACKEND_URL:-http://backend:8000}</code> (matching the existing <code>environment:</code> block) instead of bare <code>${BACKEND_URL}</code>, so compose interpolation can never resolve the URL to empty at deploy time (AUT-2350 follow-up: was producing <code>wget: bad address "/health"</code> and flipping the Portainer frontend container unhealthy). Also fixes the grep pattern from <code>"status": "ok"</code> to <code>"status":"ok"</code> so it matches FastAPI/ORJSON compact output <code>{"status":"ok",...}</code> — the with-space variant never matched and would silently re-break the healthcheck on a fresh redeploy from main. Repo now matches the stack actually running on EP5 (frontend Healthy).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.235</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2467)</h3>
+      <ul>
+        <li>fix(backend): resolve structlog <code>source</code> kwarg collision in <code>ingest_fuel_prices</code> (<code>app/workers/tasks.py:509</code>). <code>res</code> dict from <code>ingest_all_fuel</code> already contains a <code>source</code> key; passing <code>source=source</code> as a separate kwarg caused <code>TypeError: got multiple values for keyword argument 'source'</code>. Now logged as <code>logger.info("fuel_ingest_summary", **res)</code>. Also fixed <code>_run(_run())</code> in <code>run_due_checks</code> (<code>app/services/notify.py:257</code>) — inner <code>_run</code> had no args, so the coroutine was never scheduled. Renamed to <code>_coro</code> and routed through <code>tasks._run()</code>. Adds regression tests <code>test_ingest_fuel_prices_no_typeerror_when_source_in_result</code> and <code>test_run_due_checks_calls_check_for_each_vehicle</code>.</li>
+      </ul>
+      <h3>Fixed (AUT-2383)</h3>
+      <ul>
+        <li>fix(frontend,servo-spy): CARTO basemap tile URL query param was <code>?api_key=</code> but CARTO requires <code>?key=</code> — the watermark persisted because the API silently ignored the wrong parameter. Updated tile URL template in <code>frontend/lib/screens/servo_spy/servo_spy_screen.dart</code> to use <code>?key=$_cartoApiKey</code>; updated comment in <code>docker/frontend/Dockerfile</code>. Caching is already optimal: tiles are immutable <code>{z}/{x}/{y}</code> hashes so CDN/browser cache-hit rate is naturally high — no extra layer needed.</li>
+      </ul>
+      <h3>Fixed (AUT-2383)</h3>
+      <ul>
+        <li>fix(frontend): CARTO basemap tile URL now uses <code>?key=</code> instead of <code>?api_key=</code>. The legacy <code>?api_key=</code> parameter is silently ignored by CARTO raster basemaps, leaving the "API key required" watermark on Servo Spy's map even with <code>CARTO_API_KEY</code> injected. <code>?key=</code> is CARTO's required parameter name; <code>flutter_map</code>'s <code>BuiltInMapCachingProvider</code> handles disk tile caching to keep request volume low. Regression test in <code>frontend/test/servo_spy_carto_key_test.dart</code>.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.234</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2484)</h3>
+      <ul>
+        <li>redeploy(homed): bump autobrain-backend :hosted-arm64 digest to include AUT-2277 duplicate-FuelPrice-class fix. EP5 was crash-looping on the pre-fix image (two <code>FuelPrice</code> classes claiming <code>fuel_prices</code> in <code>Base.metadata</code>). Source fix is already merged (f7db5b6d); rebuilt arm64 image from main <code>6e394007</code> and pinned the new digest in <code>docker-compose.hosted.yml</code>.</li>
+      </ul>
+      <h3>Fixed (AUT-2469)</h3>
+      <ul>
+        <li>fix(hosted, ci): replace standalone <code>myoung34/github-runner:latest</code> (amd64-only) on EP5 with a compose-managed <code>gh-runner</code> service using the official multi-arch <code>ghcr.io/actions/actions-runner:latest</code> (includes linux/arm64 binaries). The myoung34 image shipped amd64-only <code>.NET</code> binaries (<code>Runner.Listener</code>, <code>libcoreclr.so</code>); on the aarch64 Oracle VM the runner was in a permanent restart loop (<code>ldd: ./bin/libcoreclr.so: No such file or directory</code>), leaving ARM CI on Hosted dead. <code>build-hosted.yml</code> arm64 builds are unblocked. <code>docker/runner/entrypoint.sh</code> refreshes the short-lived runner registration token on every boot via the PAT secret file (AUT-1533 <code>*_FILE</code> pattern). <code>docker-compose.hosted.yml</code> now defines the <code>gh-runner</code> service; <code>scripts/seed-secrets.sh</code> seeds <code>github_pat</code> into the secrets dir. Deployment: stop the old standalone container before <code>docker compose up</code> to avoid a name collision (<code>docker stop gh-runner-autobrain-arm64 &amp;amp;&amp;amp; docker rm gh-runner-autobrain-arm64</code>).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.232</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Fixed (AUT-2472)</h3>
+      <ul>
+        <li>docker(ai): Playwright 1.62+ removed <code>chrome-sandbox</code> under <code>/ms-playwright</code> (kernel-namespace sandbox replaces SUID). The AUT-1739 <code>RUN find ... -name chrome-sandbox | chown root:root &amp;amp;&amp;amp; chmod 4755</code> was failing every hosted build with <code>FATAL: no chrome-sandbox found</code>. Relaxed the guard: if at least one <code>chrome-sandbox</code> is found, re-SUID it; if none, log a warning and continue (the market-data scraper already falls back to <code>--no-sandbox</code> per <code>market-data/browser.py:81,158</code>). Keeps the build green and the AUT-2258 hard-fail behaviour when <code>chrome-sandbox</code> exists but is mis-owned.</li>
+      </ul>
+      <h3>Added</h3>
+      <ul>
+        <li>feat(fuel): AUT-2381 multi-source data-quality arbitration (best-price selection per station, SourceTrust enum)</li>
+      </ul>
+      <h3>Fixed (AUT-2402 B1)</h3>
+      <ul>
+        <li>fix(backend): <code>enable_utc=False</code> on the Celery app. AUT-2375 set <code>timezone="Australia/Sydney"</code> but left <code>enable_utc=True</code>, which forces Celery to interpret crontab schedules in UTC regardless of the <code>timezone</code> value — so <code>crontab(hour=2)</code> was firing at 02:00 UTC = 13:00 AEST, not the intended 02:00 AEST off-peak window. With <code>enable_utc=False</code>, the cron resolves in <code>Australia/Sydney</code> and the daily ingest lands at the intended wall-clock time. Test <code>test_celery_app_beat_uses_sydney_timezone_for_off_peak_cron</code> now asserts both <code>timezone == "Australia/Sydney"</code> and <code>enable_utc is False</code>.</li>
+      </ul>
+      <h3>Fixed (AUT-2404)</h3>
+      <ul>
+        <li>fix(backend): drop legacy <code>ingest-fuel-prices</code> beat entry from <code>app/workers/celery_app.py</code>. AUT-2375 added <code>fuel-ingest-all-daily</code> on the same 02:00 cron, so both fired daily and each upstream fuel feed (WA FuelWatch, NSW FuelCheck, QLD Fuel Prices) was hit twice per day for identical rows. Backwards-compat alias <code>ingest_fuel_prices = ingest_fuel_all</code> in <code>tasks.py</code> is preserved for dashboard / ad-hoc <code>.delay()</code> callers.</li>
+      </ul>
+      <h3>Fixed (AUT-2403 rebase follow-ups)</h3>
+      <ul>
+        <li>fix(backend): <code>app/services/fuel_prices.py</code> <code>from __future__ import annotations</code> moved to line 1 (was buried after the module docstring, line 188) so test_api / test_fuel_price_alerts can collect the module under Python 3.13. Pre-existing since PR #347 (AUT-1868) — surfaced by the AUT-2403 rebase because the smoke collection now hits the import path.</li><li>fix(backend): add <code>FuelPriceWatchlistIn</code> / <code>FuelPriceWatchlistOut</code> pydantic schemas (<code>direction ∈ {up,down,both}</code>, <code>threshold_pct &amp;gt; 0</code>, defaults <code>both</code> / <code>5.0</code>). <code>backend/app/api/v1/fuel_prices.py</code> imports them since PR #347 but the schema definitions were never added, so 30+ test modules fail pytest collection (<code>cannot import name 'FuelPriceWatchlistIn'</code>).</li><li>feat(backend): add <code>compute_price_change(price, previous)</code> pure helper to <code>app/services/fuel_prices.py</code> — day-over-day % move + up/down direction (AUT-1859). Returns <code>(None, None)</code> until both prices are present and previous is non-zero; zero delta is <code>(0.0, None)</code>. Used by <code>app/workers/tasks.py::check_fuel_price_alerts</code> (already importing it) and the watchlist unit tests.</li><li>fix(backend): alembic migration <code>aut2375_fuel_history_index</code> <code>down_revision</code> rebased from <code>z2a3b4c5d6e7</code> to <code>aut2434_vehicle_powertrain</code> so the migration chain has a single head after AUT-2434 (vehicle powertrain) landed on main (originally <code>aut1859_fuel_price_alerts</code>, then <code>aut2434_vehicle_powertrain</code> once that migration reached main).</li>
+      </ul>
+      <h3>Added (AUT-2375)</h3>
+      <ul>
+        <li>feat(backend): Servo Spy fuel ingest now runs **once per day at 02:00 AEST** via Celery beat (<code>fuel-ingest-all-daily</code> cron, <code>timezone="Australia/Sydney"</code>, <code>enable_utc=False</code> so crontab schedules resolve in <code>Australia/Sydney</code> rather than UTC — see AUT-2402 B1). The previous 6-hour interval was over-fetching every upstream fuel API — every client request still served cached rows, but the schedule itself made a fresh API call four times a day for no UX gain. New schedule entries:</li><li><code>fuel-ingest-all-daily</code> (<code>ingest_fuel_all</code>) — single source of truth for the daily sweep.</li><li><code>ingest_fuel_wa</code>, <code>ingest_fuel_nsw</code>, <code>ingest_fuel_qld</code> — per-state tasks operators can <code>.delay()</code> to retry a single feed without re-running the others.</li><li>When AUT-2374 lands the SA/TAS/NT ingesters they hook into <code>ingest_fuel_all</code> automatically; no further scheduler changes needed.</li><li>feat(backend): <code>GET /api/v1/fuel/stations/{station_id}/history?days=30&amp;amp;fuel_type=...</code> — premium-gated, reads exclusively from the <code>fuel_prices</code> cache, never fans out to the upstream APIs. One 30-day series per fuel type, ascending <code>effective_at</code>.</li><li>feat(backend): <code>_replace_station_prices</code> now **keeps the last 30 days** of price history instead of wiping the table on every ingest run. Upstream duplicates (same <code>fuel_type</code> + <code>effective_at</code>) are still replaced with the fresher value, then anything older than the retention window is pruned in one DELETE. Same <code>(station_id, fuel_type)</code> upsert semantics for the latest row.</li><li>chore(backend): alembic migration <code>aut2375_fuel_history_index</code> adds <code>ix_fuel_prices_station_fuel_eff</code> on <code>(station_id, fuel_type, effective_at)</code> so the history endpoint serves without a sort step. Idempotent.</li><li>test(backend): <code>tests/test_aut2375_daily_fuel_scheduler.py</code> is DB-free and asserts the history endpoint is premium-gated, the route is on the router, the beat schedule uses a cron (not a 6-hour interval), the timezone is <code>Australia/Sydney</code> with <code>enable_utc=False</code> (AUT-2402 B1), and the per-source tasks are registered.</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>v0.3.231</h2>
+      <div class="date">2026-09-04</div>
+      <h3>Added (AUT-2448)</h3>
+      <ul>
+        <li>backend(advisor): Ownership Advisor Finance module — deterministic buy / finance / lease (and novated-lease toggle, future-flagged). New <code>POST /api/v1/advisor/finance</code> route (per ADR 0001) takes <code>{down_payment, term_months, rate_pct, novated?}</code>, anchors <code>vehicle_price</code> on the value module's deterministic <code>mid</code> (so finance and value never disagree), and returns four mode blocks: <code>buy</code> (outright, zero monthly / interest), <code>finance</code> (standard amortising loan — full per-period schedule + total interest + total cost), <code>lease</code> (operating lease — residual % + residual value + money factor + monthly, scaled 25–75% across 12–60 month terms), and <code>novated</code> (gated by the <code>novated</code> request flag, always returns <code>status: "coming_soon"</code> until EV / FBT rules land in a follow-up ADR). Term is clamped per-mode (finance 12–84m, lease 12–60m); down payment caps at the vehicle price; zero-price vehicles emit a <code>note</code> instead of fabricating numbers. No 9Router / no AI — pure function <code>compute_finance_plan()</code> in <code>app.services.advisor</code>. New schemas <code>AmortizationRow</code>, <code>AdvisorFinanceModeBuy/Finance/Lease/Novated</code>, <code>AdvisorFinanceData</code>, <code>AdvisorFinanceRequest</code> in <code>app.schemas.advisor</code>. New <code>tests/test_advisor_finance.py</code> (19 cases: pure-helper amortisation / lease / residual / money-factor; per-mode shape; novated gating; term clamping; zero-price handling; zero-rate promo; textbook formula match).</li>
+      </ul>
+    </div>
+
+    <div class="release">
+      <h2>Older releases</h2>
+      <div class="date">149 total</div>
+      <p>This page shows the 60 most recent releases. The 89 older ones are in the <a href="https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md" rel="noopener">full changelog</a>.</p>
+    </div>
+    <!-- CHANGELOG-END -->
+
+    <div class="u-center-mt-8">
+      <a class="cta" href="https://github.com/CannonFodder151/autobrain/blob/main/CHANGELOG.md">Full changelog on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

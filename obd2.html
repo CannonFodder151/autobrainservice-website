@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBD2 Companion — Auto-Sleep Trip Logging | AutoBrain</title>
+<meta name="description" content="A custom OBD2 port that logs trips automatically with GPS routes, auto-sleep that spares your battery and always-on recording. Coming soon.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/obd2.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="OBD2 Companion — AutoBrain">
+<meta property="og:description" content="AutoBrain is working on a custom OBD2 port. Auto-sleep, GPS route data straight to your log book, and always-on trip recording. Coming soon.">
+<meta property="og:url" content="https://autobrainservice.app/obd2.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OBD2 Companion — AutoBrain">
+<meta name="twitter:description" content="AutoBrain is working on a custom OBD2 port — auto-sleep, GPS routes to your log book, always-on trip recording. Coming soon.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "AutoBrain OBD2 Companion",
+      "description": "Custom OBD2 port from AutoBrain with always-on trip recording, auto sleep, GPS route data to your log book, live fault-code capture and VIN auto-fill.",
+      "brand": { "@type": "Brand", "name": "AutoBrain" },
+      "url": "https://autobrainservice.app/obd2.html",
+      "image": "https://autobrainservice.app/assets/og-image.png",
+      "category": "OBD2 vehicle diagnostics hardware"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "OBD2 Companion", "item": "https://autobrainservice.app/obd2.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When will the OBD2 Companion be available?",
+          "acceptedAnswer": { "@type": "Answer", "text": "ETA is 14 September 2026 — the custom OBD2 port is in final testing against real cars. Join the waitlist by emailing sales@autobrainservice.app." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it work with my car?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — it plugs into any standard OBD2 port (most cars since 1996 in Australia). The port reads your vehicle's VIN automatically on first connection." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it need my phone to be on to log trips?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The OBD2 Companion has on-board GPS and storage, so it logs every trip even with your phone off. It auto-sleeps when the car is off to protect your battery." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it with the self-hosted version of AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The OBD2 Companion pairs with AutoBrain over Bluetooth — it works with both hosted and self-hosted deployments." }
+        }
+      ]
+    }
+  ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/obd2.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/obd2.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <div class="soon u-badge-static-center">Coming soon</div>
+    <h1>A custom <span class="b">OBD2 port</span> for your car</h1>
+    <p class="lead">We're building our own OBD2 hardware port that plugs into any car and talks straight to AutoBrain. Plug in once, and every drive is logged automatically — even if your phone dies.</p>
+
+    <div class="card">
+      <h2>What it is</h2>
+      <p>AutoBrain is working on a custom OBD2 port — a small adapter that slots into your car's diagnostic port (the same port mechanics use) and records your drives without a phone in your hand. No cables, no dashboard units, no manual log entries.</p>
+      <p>Designed for people who actually work on their own cars: it turns every drive into data and every warning light into a question the app can answer.</p>
+    </div>
+
+    <div class="card">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>Always-on trip recording</strong> — every trip is logged automatically the moment the engine starts, even with your phone off.</li>
+        <li><strong>Auto sleep</strong> — detects when the car is off and goes to sleep, so it never drains your battery.</li>
+        <li><strong>GPS data to your log book</strong> — on-board GPS records your route, and every drive shows as a route on the map in your log book.</li>
+        <li><strong>Live fault-code capture</strong> — if the check-engine light comes on, the code is captured and explained by AutoBrain's AI diagnostics.</li>
+        <li><strong>Automatic odometer updates</strong> — your odometer stays in sync without typing a number.</li>
+        <li><strong>VIN auto-fill</strong> — reads the vehicle identification number straight from the car.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Plug it in</strong> — into the OBD2 port under the dash (most cars since 1996).</li>
+        <li><strong>Pair it</strong> — one tap in the AutoBrain app over Bluetooth.</li>
+        <li><strong>Drive</strong> — the port logs your trips, route and fault codes in the background, and sleeps when you park.</li>
+        <li><strong>Let AutoBrain explain</strong> — AI turns codes and trends into plain-language maintenance advice.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>When?</h2>
+      <p>ETA until deployment is 14 September 2026 — the custom OBD2 port is in final testing against real cars. If you'd like to be first in line (or help beta test), tell me.</p>
+      <p class="u-mt-14"><a class="cta" href="mailto:sales@autobrainservice.app?subject=OBD2%20companion">Email about OBD2</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
