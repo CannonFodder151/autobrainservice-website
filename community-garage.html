@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Garage — Now Live | AutoBrain</title>
+<meta name="description" content="Community Garage is live — share builds, photos and mod lists across AutoBrain instances with a federated feed. Your data stays on your server.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/community-garage.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Community Garage — Now Live">
+<meta property="og:description" content="A social layer for AutoBrain, now live: share builds, photos and mod lists with a federated feed across AutoBrain instances. Data stays on your server.">
+<meta property="og:url" content="https://autobrainservice.app/community-garage.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Community Garage — Now Live">
+<meta name="twitter:description" content="A social layer for AutoBrain, now live: share builds, photos and mod lists. Data stays on your server.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "url": "https://autobrainservice.app/community-garage.html",
+      "name": "Community Garage — Now Live",
+      "description": "Community Garage is live: a social layer for AutoBrain with builds, photos, mod lists and a federated feed across AutoBrain instances.",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Community Garage", "item": "https://autobrainservice.app/community-garage.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Community Garage?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A social layer for AutoBrain where you can share builds, photos and mod lists across a federated feed. Your data stays on your server — it's not a centralized social platform." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Community Garage free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — Community Garage is included with all AutoBrain plans (free, Enthusiast, Garage) and works on self-hosted deployments too." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does federation work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Each AutoBrain instance runs its own Community Garage feed. When you follow someone on another instance, their posts appear in your feed — like ActivityPub/Mastodon but built for car content." }
+        }
+      ]
+    }
+  ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/community-garage.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/community-garage.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<header class="hero u-pb-48">
+  <div class="container">
+    <h1>Community <span class="b">Garage</span></h1>
+    <p class="sub">A social layer for AutoBrain. Show off your build, browse fellow owners, and follow builds from other AutoBrain instances — with privacy built in. Live now on AutoBrain-hosted and federating via the hub.</p>
+    <div class="u-flex-center">
+      <a class="cta" href="https://hosted.autobrainservice.app">Open Community Garage</a>
+    </div>
+    <small>Now live on AutoBrain-hosted. Federation is included free with AutoBrain-hosted plans; self-hosted servers pay <strong>$20/yr</strong> to join the hub. Read the <a href="blog/community-garage-ga.html">launch announcement</a>.</small>
+  </div>
+</header>
+
+<section class="u-py-48" id="what">
+  <div class="container">
+    <h2>What is <span class="b">Community Garage</span>?</h2>
+    <p class="lead">Your vehicles, your mods, your photos — now shareable with a community of owners, without handing over your data.</p>
+    <div class="grid">
+      <div class="card u-center">
+        <span class="icon">📸</span><h3>Build posts</h3>
+        <p>Publish a build with car photos, specs and a full mod list — pulled straight from the data you already track in AutoBrain.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">🌐</span><h3>Cross-instance social</h3>
+        <p>See builds from other AutoBrain instances that opt in to the community. One feed, many servers.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">🔗</span><h3>Shareable build links</h3>
+        <p>Share any build with a link that works across instances — viewable no matter which server the viewer is on.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">💬</span><h3>Comments &amp; likes</h3>
+        <p>Like and comment on builds from other owners. Interaction stays tied to the build's home server.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">🔒</span><h3>Data stays local</h3>
+        <p>Federated, not centralised. Your photos, vehicles and mods stay in your instance's database. You opt in per build and choose exactly what to share — nothing is public by default.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">⭐</span><h3>A premium feature</h3>
+        <p>Community Garage is part of AutoBrain's paid plans — Enthusiast and Garage (already priced on Stripe). Local social stays free on every server; federation is included free with AutoBrain-hosted plans and is a <strong>$20/yr</strong> add-on for self-hosted servers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-48" id="privacy">
+  <div class="container u-max-780">
+    <h2>Built on a <span class="b">privacy-first</span> model</h2>
+    <ul class="u-grid-list">
+      <li>✅ <strong>Opt-in sharing.</strong> You decide whether each build is shared, and what's in it — photos, make and model, mod list, and optionally odometer and notes.</li>
+      <li>✅ <strong>Data stays on your server.</strong> The community hub routes posts between instances — it never stores your photos or your data.</li>
+      <li>✅ <strong>Your admin stays in control.</strong> Servers can keep social entirely local or opt out of federation, and can disable the feature altogether.</li>
+      <li>✅ <strong>Moderation by design.</strong> Rate limits, reporting and block lists keep the feed usable.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="u-py-48" id="garage-issues">
+  <div class="container u-max-780-center">
+    <h2>Community Garage <span class="b">Issues Blog</span></h2>
+    <p class="lead">Community Garage Issues Blog: get help from real owners.</p>
+    <p class="u-muted">A blog-style help board inside Community Garage. Post a problem, search past issues, and get answers from owners who've been there — an old-school forum feel for the modern garage.</p>
+    <div class="grid u-mt-24-left">
+      <div class="card u-center">
+        <span class="icon">📝</span><h3>Post your problem</h3>
+        <p>Engine won't start, rattle at 60km/h — describe it with your vehicle context and let the community weigh in.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">🔎</span><h3>Searchable archive</h3>
+        <p>Browse past issues by tag and keyword — the fix someone else already found might be yours too.</p>
+      </div>
+      <div class="card u-center">
+        <span class="icon">💬</span><h3>Help from real owners</h3>
+        <p>Threaded answers from people who've driven the same problems. Mark the answer that worked and close it out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="u-py-48-64" id="cta">
+  <div class="container">
+    <h2>Step into <span class="b">the garage</span></h2>
+    <p class="lead">Community Garage is live. Open it from your AutoBrain-hosted account to share your build and follow the feed. Self-hosting? Join the federation for $20/yr.</p>
+    <div class="u-center-flex">
+      <a class="cta" href="https://hosted.autobrainservice.app">Open Community Garage</a>
+    </div>
+    <p class="u-center-muted">Read the full story in the <a href="blog/community-garage-ga.html">launch announcement</a>, or see everything else AutoBrain does on the <a href="features.html">features page</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

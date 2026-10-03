@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>AutoBrain Blog</title>
+<description>Practical guides on car maintenance tracking, fuel intelligence, AI diagnostics and smart vehicle ownership — from the team behind AutoBrain.</description>
+<link>https://autobrainservice.app/blog.html</link>
+<atom:link href="https://autobrainservice.app/rss.xml" rel="self" type="application/rss+xml" />
+<language>en-AU</language>
+<lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0000</lastBuildDate>
+<item>
+<title>What is AutoBrain?</title>
+<description>Five things AutoBrain does for you and your car — in plain English. ATO logbook, fuel tracking, service records, mods tracker, and a community for car people.</description>
+<link>https://autobrainservice.app/blog/what-is-autobrain.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/what-is-autobrain.html</guid>
+<pubDate>Wed, 26 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>AutoBrain Android: Closed Testing Complete — Full Release in 14 Days</title>
+<description>AutoBrain&#x27;s Android app has cleared Google Play&#x27;s closed-testing bar. The full public release is on track in about 14 days — no waitlist, just open availability on the Play Store.</description>
+<link>https://autobrainservice.app/blog/android-app-full-release.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/android-app-full-release.html</guid>
+<pubDate>Wed, 19 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Digital Car Logbook Australia — Free Vehicle Service History App</title>
+<description>Replace your paper logbook with AutoBrain — a free digital car logbook for Australia. Track every service, repair and inspection with date, mileage and cost.</description>
+<link>https://autobrainservice.app/blog/digital-car-logbook-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/digital-car-logbook-australia.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>How Much Does Car Service Cost in Australia? 2026 Guide</title>
+<description>How much does car service cost in Australia? 2026 price guide for logbook servicing, brake jobs, tyres and more. Compare dealer vs independent mechanic costs.</description>
+<link>https://autobrainservice.app/blog/car-service-cost-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/car-service-cost-australia.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Rego Lookup Australia — Auto-fill VIN &amp; Vehicle Details</title>
+<description>Australian rego lookup — enter a plate and AutoBrain auto-fills the vehicle&#x27;s VIN, make, model, year and type. A paid data feature on hosted plans; bring your own provider to self-host.</description>
+<link>https://autobrainservice.app/blog/free-rego-lookup-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/free-rego-lookup-australia.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>OBD2 Code Reader App Australia — Free Car Diagnostic Tool</title>
+<description>Free OBD2 code reader app for Australia — scan check engine light codes, get plain-English explanations and repair cost estimates. Works with any ELM327 adapter.</description>
+<link>https://autobrainservice.app/blog/obd2-code-reader-app-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/obd2-code-reader-app-australia.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Predictive Maintenance for Cars — AI Diagnostics That Prevent Breakdowns</title>
+<description>How AI predictive maintenance catches car problems before they strand you. AutoBrain analyses OBD2 data, service history and driving patterns to predict failures.</description>
+<link>https://autobrainservice.app/blog/predictive-maintenance-car-ai-diagnostics.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/predictive-maintenance-car-ai-diagnostics.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Car Fuel Tracker Australia — Track Fuel Costs Per Kilometre</title>
+<description>Track every fill-up, calculate cost per km, and see your real fuel economy in L/100km. AutoBrain&#x27;s fuel tracker for Australian drivers works with any fuel type.</description>
+<link>https://autobrainservice.app/blog/car-fuel-tracker-app-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/car-fuel-tracker-app-australia.html</guid>
+<pubDate>Tue, 25 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Best Car Maintenance App Australia 2026</title>
+<description>AutoBrain is the AI-powered car maintenance app built for Australian owners — service history, fuel, logbook and AI predictions in one place, backed by OBD2 diagnostics and resale estimates.</description>
+<link>https://autobrainservice.app/blog/best-car-maintenance-app-australia-2026.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/best-car-maintenance-app-australia-2026.html</guid>
+<pubDate>Thu, 20 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Community Garage Is Live: A Federated Social Layer for AutoBrain</title>
+<description>Community Garage is now live on AutoBrain-hosted — build posts, local social and a federated feed via the hub at hub.autobrainservice.app. Pricing, how to join and what&#x27;s included.</description>
+<link>https://autobrainservice.app/blog/community-garage-ga.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/community-garage-ga.html</guid>
+<pubDate>Thu, 13 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>How to Use AutoBrain: A Guided Tour of the App</title>
+<description>Screen by screen through the live app — main menu, vehicle profile, timeline, fuel, AI diagnostics, receipts, parts, mods, logbook, valuation, analytics and settings.</description>
+<link>https://autobrainservice.app/blog/autobrain-app-tour.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-app-tour.html</guid>
+<pubDate>Thu, 06 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Top 5 Car Maintenance Trackers You Should Care About</title>
+<description>Not all maintenance trackers are equal. We break down the five worth your time — and why a tracker that predicts problems beats one that just logs them.</description>
+<link>https://autobrainservice.app/blog/top-5-car-maintenance-trackers.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/top-5-car-maintenance-trackers.html</guid>
+<pubDate>Thu, 06 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>AutoBrain Is Just for Individual Users, Right?</title>
+<description>Actually, no. Car clubs get their own dedicated instance, hosted by AutoBrain — and turn it into a membership perk that keeps members renewing.</description>
+<link>https://autobrainservice.app/blog/autobrain-for-car-clubs.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-for-car-clubs.html</guid>
+<pubDate>Thu, 06 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Check Engine Light On? Australian OBD2 Code Meanings &amp; Repair Costs 2026</title>
+<description>Check engine light on in Australia? Read the most common OBD2 code meanings and what they actually cost to fix in 2026 — from a $20 sensor to a $3,500 catalytic converter.</description>
+<link>https://autobrainservice.app/blog/check-engine-light-australia-obd2-codes-2026.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/check-engine-light-australia-obd2-codes-2026.html</guid>
+<pubDate>Thu, 03 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>What the AutoBrain OBD2 Adapter Will Do</title>
+<description>Automatic trip logging with on-board GPS routes, auto-sleep that never drains your battery, live fault-code capture, odometer and VIN sync — a plain-language look at the adapter we&#x27;re building.</description>
+<link>https://autobrainservice.app/blog/what-our-obd2-adapter-will-do.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/what-our-obd2-adapter-will-do.html</guid>
+<pubDate>Sun, 23 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>The Issues Blog Is Live: Real Help From Real Owners</title>
+<description>Post a car problem, search past issues and get answers from owners who&#x27;ve been there — a blog-style help board inside Community Garage, live now on AutoBrain-hosted.</description>
+<link>https://autobrainservice.app/blog/issues-blog.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/issues-blog.html</guid>
+<pubDate>Sun, 16 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>AutoBrain is coming to Home Assistant</title>
+<description>Service reminders, fuel analytics, and cost trends on your smart-home dashboard. The Q4 2026 beta is your first look at the AutoBrain + Home Assistant integration.</description>
+<link>https://autobrainservice.app/blog/autobrain-home-assistant-integration.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-home-assistant-integration.html</guid>
+<pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>How the AutoBrain × Home Assistant Integration Actually Works</title>
+<description>The technical deep-dive: architecture, wire format, entities, install steps, Lovelace cards, real automations, and the local-first design that keeps everything on your network.</description>
+<link>https://autobrainservice.app/blog/autobrain-home-assistant-integration-part-2.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/autobrain-home-assistant-integration-part-2.html</guid>
+<pubDate>Sun, 06 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Car Dashboard Warning Lights Australia — What They Mean & What to Do</title>
+  <description>Red, amber or green? A plain-English guide to the warning lights Australian drivers see most — and exactly what to do (and when to stop) when each one appears.</description>
+  <link>https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-dashboard-warning-lights-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Car Won't Start? 14 Common Causes & How to Fix Them</title>
+  <description>Car won't start? Check these 14 causes — dead battery, flat alternator, starter motor, fuel pump, immobiliser and more. Step-by-step troubleshooting for Australian drivers.</description>
+  <link>https://autobrainservice.app/blog/car-wont-start-causes.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/car-wont-start-causes.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>How Much Does an Oil Change Cost in Australia? 2026 Guide</title>
+  <description>How much does an oil change cost in Australia? 2026 price guide for synthetic, conventional and diesel oil changes. Dealer vs independent costs. Free reminder tool.</description>
+  <link>https://autobrainservice.app/blog/oil-change-cost-australia.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/oil-change-cost-australia.html</guid>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>Have You Ever Been Blindsided by a Repair Bill?</title>
+<description>Cars rarely fail without warning — they whisper first. Five ways AutoBrain turns &quot;I didn&#x27;t see that coming&quot; into &quot;sorted that months ago&quot;.</description>
+<link>https://autobrainservice.app/blog/have-you-ever-repair-bill.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/have-you-ever-repair-bill.html</guid>
+<pubDate>Sat, 29 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Why a Simpler Stack Is a Better Stack</title>
+<description>AutoBrain&#x27;s Phase 1 rewrite cut its container footprint. Same features, less moving parts — because a maintenance app should be boring to run, not impressive to debug.</description>
+<link>https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/why-a-simpler-stack-is-a-better-stack.html</guid>
+<pubDate>Sat, 08 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>AI That Works Even When the AI Is Down</title>
+<description>Every AI feature has a deterministic fallback path, so your records stay usable even when the router is unreachable. The difference between a feature and a gamble.</description>
+<link>https://autobrainservice.app/blog/ai-that-works-even-when-the-ai-is-down.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/ai-that-works-even-when-the-ai-is-down.html</guid>
+<pubDate>Sat, 08 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Your Data, Your Way: Self-Host, Export, or Let Us Run It</title>
+<description>MIT-licensed source, full JSON export/import and no vendor lock-in. AutoBrain is the maintenance app that works the way you do.</description>
+<link>https://autobrainservice.app/blog/your-data-your-way.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/your-data-your-way.html</guid>
+<pubDate>Sat, 08 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Best Mechanic Near Me Australia — How to Choose the Right Workshop 2026</title>
+<description>Red flags to watch for, fair pricing benchmarks, dealer vs independent, and how AutoBrain Shop connects Australian owners with trusted mechanics.</description>
+<link>https://autobrainservice.app/blog/best-mechanic-near-me-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/best-mechanic-near-me-australia.html</guid>
+<pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Fuel Consumption Australia — Real-World Guide vs Official Figures 2026</title>
+<description>Why your car burns more fuel than the sticker says, how to calculate real L/100km properly, and what costs you money at the bowser in Australia.</description>
+<link>https://autobrainservice.app/blog/fuel-consumption-australia-real-world.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/fuel-consumption-australia-real-world.html</guid>
+<pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>EV Battery Health Australia — How to Extend EV Battery Life 2026</title>
+<description>Everything Australian EV owners need to know about battery health: range, degradation, hot-weather tips, and what Electric Spy tracks. Free with AutoBrain Q4 2026.</description>
+<link>https://autobrainservice.app/blog/ev-battery-health-australia.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/ev-battery-health-australia.html</guid>
+<pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>AutoBrain Ownership Advisor — Now Live</title>
+  <description>What should you do with your car? A single feature combining live market valuation, replacement cost analysis, upgrade options, finance modelling, dream-car affordability and AI-driven ownership advice — all in one screen.</description>
+  <link>https://autobrainservice.app/blog/ownership-advisor-live.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/ownership-advisor-live.html</guid>
+  <pubDate>Sat, 05 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>What is Ownership Advisor? The six modules explained</title>
+  <description>Six modules, one question: what should you do next with your car? An explainer of what each module computes — value, replace, upgrade, finance, dream, and AI advice.</description>
+  <link>https://autobrainservice.app/blog/ownership-advisor-coming-soon.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/ownership-advisor-coming-soon.html</guid>
+  <pubDate>Fri, 04 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+  <title>How Much Do Mechanics Cost in Australia? 2026 Complete Price Guide</title>
+<description>Real 2026 Australian mechanic prices: hourly rates, common service costs, dealer vs independent benchmarks, and how to avoid being overcharged on common repairs.</description>
+<link>https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/mechanic-prices-australia-2026.html</guid>
+<pubDate>Mon, 07 Sep 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Workshop Management Software for Australian Mechanics</title>
+<description>Digital job cards, signed customer approvals, AU rego lookup and job costing — AutoBrain Shop is coming soon. Join the waitlist for priority access and 50% off the first year.</description>
+<link>https://autobrainservice.app/blog/workshop-management-software-australian-mechanics.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/workshop-management-software-australian-mechanics.html</guid>
+<pubDate>Fri, 21 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+<item>
+<title>Best Car Maintenance Tracker Apps 2026</title>
+<description>What separates a good car maintenance app from a glorified calendar? Predictive maintenance, fuel intelligence, OBD2 diagnostics and AU rego lookup — and why AutoBrain leads for Australian drivers.</description>
+<link>https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</link>
+<guid isPermaLink="true">https://autobrainservice.app/blog/best-car-maintenance-tracker-apps.html</guid>
+<pubDate>Fri, 21 Aug 2026 00:00:00 +1000</pubDate>
+</item>
+</channel>
+</rss>

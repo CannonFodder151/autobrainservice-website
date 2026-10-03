@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact AutoBrain — demos, plans & support</title>
+<meta name="description" content="Talk to the AutoBrain team about a demo, a hosted plan, a car-club deployment or self-hosting. We usually reply within one business day.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/contact.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Contact AutoBrain">
+<meta property="og:description" content="Talk to the AutoBrain team about a demo, a hosted plan, a car-club deployment or self-hosting.">
+<meta property="og:url" content="https://autobrainservice.app/contact.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact AutoBrain">
+<meta name="twitter:description" content="Talk to the AutoBrain team about a demo, a hosted plan, a car-club deployment or self-hosting.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "url": "https://autobrainservice.app/contact.html",
+  "about": { "@type": "Organization", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://autobrainservice.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contact",
+      "item": "https://autobrainservice.app/contact.html"
+    }
+  ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/contact.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/contact.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <h1>Talk to <span class="b">AutoBrain</span></h1>
+    <p class="lead">Demos, hosted plans, car-club deployments, self-hosting — tell us what you're after and we'll get back to you, usually within one business day.</p>
+
+    <form class="contact-form" id="leadForm" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="interest">I'm interested in</label>
+        <select id="interest" name="interest">
+          <option value="Free demo">Free demo</option>
+          <option value="Enthusiast plan">Enthusiast plan</option>
+          <option value="Garage plan">Garage plan</option>
+          <option value="Custom deployment">Custom deployment</option>
+          <option value="Self-host">Self-host</option>
+          <option value="App support request">App support request</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What would you like to know?"></textarea>
+      </div>
+      <div class="field u-hidden" id="turnstile-field">
+        <div id="turnstile-widget"></div>
+      </div>
+      <div class="hp-field" aria-hidden="true">
+        <label for="website">Leave this field empty</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="u-center">
+        <button class="cta u-btn-plain" type="submit">Send message</button>
+      </div>
+      <div class="form-msg" id="formMsg" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI &amp; your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="contact.html">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" integrity="sha384-WvykcXOFmx4gv5x+RbitNq8ErqYDzeDmWG33p+AewiLdZo6kXtYDxJKPzyZsLB8r" crossorigin="anonymous" async defer></script>
+<script src="lead.js"></script>
+<script src="nav.js"></script>
+
+</body>
+</html>
