@@ -1,0 +1,29 @@
+name: TEST-ONLY approve probe PR
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: probe-approve-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  approve:
+    if: github.event.pull_request.head.ref == 'test/aut-5336-website-probe'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve the target test PR as github-actions[bot]
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TARGET: '153'
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPO/pulls/$TARGET/reviews" --method POST \
+            -f event=APPROVE \
+            -f body='TEST-ONLY non-author approval to prove the automerge gate (AUT-5336).' \
+            --jq '{user:.user.login,state}'
