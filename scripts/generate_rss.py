@@ -8,6 +8,8 @@ FEED_TITLE = "AutoBrain Blog"
 FEED_DESC = "Practical guides on car maintenance tracking, fuel intelligence, AI diagnostics and smart vehicle ownership — from the team behind AutoBrain."
 
 def parse_date(s):
+    """Return a datetime, not the RFC 822 string: sorting the feed on the
+    formatted string sorts by weekday name, not by date."""
     for fmt in ("%d %B %Y", "%d %b %Y"):
         try:
             return datetime.strptime(s.strip(), fmt)
