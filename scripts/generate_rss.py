@@ -2,6 +2,12 @@
 import re
 import html
 from datetime import datetime
+from pathlib import Path
+
+# Anchored to the repo root, not the process CWD: this runs from a CI step, a
+# pre-commit hook and a developer's shell, and a relative "blog.html" read a
+# different file (or none) in all but one of them.
+ROOT = Path(__file__).resolve().parent.parent
 
 SITE = "https://autobrainservice.app"
 FEED_TITLE = "AutoBrain Blog"
@@ -21,7 +27,7 @@ def rfc822(d):
     return d.strftime("%a, %d %b %Y 00:00:00 +1000")
 
 def main():
-    txt = open("blog.html").read()
+    txt = (ROOT / "blog.html").read_text(encoding="utf-8")
     cards = re.findall(r"<article class=\"card blog-card u-inherit\">(.*?)</article>", txt, re.DOTALL)
     items = []
     for c in cards:
@@ -59,7 +65,7 @@ def main():
         lines.append("</item>")
     lines += ["</channel>", "</rss>"]
 
-    with open("rss.xml", "w") as f:
+    with open(ROOT / "rss.xml", "w") as f:
         f.write("\n".join(lines) + "\n")
     print(f"Generated rss.xml with {len(items)} items")
 
