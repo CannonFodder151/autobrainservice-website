@@ -1,0 +1,1 @@
+      "text": "Use a live fuel price map that shows station prices you can sort by distance and price. AutoBrain's Petrol Price Map pulls official government fuel feeds — current coverage is WA, with more states added as their feeds open — and is included on paid hosted plans."
