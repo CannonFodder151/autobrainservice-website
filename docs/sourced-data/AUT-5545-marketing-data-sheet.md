@@ -14,7 +14,7 @@ the correct outcome for a missing figure is **cut the claim**, not estimate it.
 | OBD2: "12 adapters tested, 3 passed, 2 bricked" | **No data exists. Fabricated.** | Cut the claim entirely |
 | OBD2: vehicle test fleet | **No data exists.** | Cut the claim entirely |
 | OBD2: adapter prices / picks | Unsourced editorial | Label as opinion, or source externally |
-| Fair Price: segment price benchmarks | **Data exists but not read yet** | Needs one DB read (spec in §2.3) |
+| Fair Price: segment price benchmarks | **Data exists and was extracted (§2.3) — but only as *model-level* medians, never per model-year** | Quote with `sample_size` + as-of date + "across all model years" |
 | Fair Price: YoY movement per model | **Not derivable from AutoBrain data at all** | Cut, or attribute to a named external index |
 | Fair Price: state transfer costs | Not engineering-owned | CMO to source from state govt sites |
 
@@ -88,19 +88,35 @@ implied-test claims that this sheet cannot source:
 
 ## 2. Fair-value benchmark extract
 
-**Verdict: the extract was NOT produced in this run — valuation DB read access
-was not available to the agent that owns this work. The segment benchmarks must
-be cut from copy until the extract in §2.3 is run. Separately, "YoY movement per
-model" cannot be sourced from AutoBrain data *at all* — see §2.2.**
+**Verdict (updated 2026-10-04, AUT-5570): the extract WAS run — through the
+product's own API rather than SQL, because no agent has DB or SSH credential
+(§2.1). Real, provider-backed benchmarks exist (§2.3.1) and AUT-4521 may quote
+them. Two limits are hard: prices are **model-level, not model-year** (§2.3.2),
+and "YoY movement per model" still **cannot** be sourced from AutoBrain data at
+all — see §2.2.**
 
-### 2.1 Why no extract was produced
+### 2.1 Why the SQL in §2.3 could not be run as written
 
-| Blocker | Detail |
-|---|---|
-| DB not network-reachable | `postgres` binds `127.0.0.1:5432` in `docker-compose.yml:50` on dev, demo, default and hosted. Confirmed unreachable on 10.0.3.39, 10.0.3.17, 152.69.188.133 |
-| No SSH credential | The `devbox_ssh_password` secret was not readable to this agent's run, so the dev box could not be entered |
-| No DB read integration | No PostgreSQL connection exists for this agent (`connections_search` → no results) |
-| Escalation path | The Paperclip control plane became unresponsive during this run, so the CTO sign-off/grant could not be raised in-thread. This is the open item |
+| Blocker | Detail | Outcome |
+|---|---|---|
+| DB not network-reachable | `postgres` binds `127.0.0.1:5432` in `docker-compose.yml:50` on dev, demo, default and hosted. Re-confirmed 2026-10-04: `10.0.3.39:5432`, `10.0.3.17:5432`, `152.69.188.133:5432` all refused/unreachable from the agent container | Worked around — same table read through the API |
+| No SSH credential | `devbox_ssh_password` is a board-scoped secret; `GET /api/companies/{id}/secrets` returns `{"error":"Board access required"}` for this agent role. The only SSH keys in the agent home are GitHub deploy keys (`~/.ssh/config`), which cannot log into the dev box. `10.0.3.39:22` is open, but there is no credential to use it | Unchanged — needs a board grant (AUT-5570 child) |
+| No DB read integration | `connections_search` for `postgres` / `postgresql` / `database` / `db` / `ssh` / `devbox` all return `{"results":[]}` | Unchanged |
+| CTO sign-off | Not granted | Unchanged — the extract did not need it because it ran through the already-public product API |
+
+**Read path used instead.** `GET /api/v1/vehicles/{id}/valuation/market` and
+`GET /api/v1/vehicles/{id}/valuation/market/search?q={make}` return the very
+`market_listing_cache` row the SQL selects — `source`, `median_price`,
+`low_price`, `high_price`, `sample_size`, `as_of` — from
+`get_market_data()` / `search_market()`
+(`backend/app/services/market_data.py:151` and `:179`). The acceptance rules in
+§2.3 were applied unchanged. Nothing user-linked was read or written; the only
+write is the service's own 24h-TTL upsert, identical to what any user of the
+Fair Price feature triggers.
+
+**Not covered:** a full table scan. Rows keyed to vehicles this agent cannot
+access, and the whole hosted (production) environment, were never read. A
+complete extract still needs the DB grant.
 
 ### 2.2 Finding: "YoY movement per model" is not derivable from AutoBrain data
 
@@ -187,6 +203,89 @@ Rules for whoever runs it:
    the results table to this file, then unblock
    [AUT-4521](/AUT/issues/AUT-4521).
 
+### 2.3.1 Extract results — run record (AUT-5570, 2026-10-04)
+
+- **Environment:** demo — `https://demo.autobrainservice.app`
+- **Read timestamp:** 2026-10-04T15:52Z (UTC)
+- **Rows read:** 21 — 7 vehicle-keyed (the demo fleet) + 14 make-keyed
+  (`search?q=`). See §2.1 for why the read went through the API.
+- **Kept after acceptance rules (`sample_size >= 3` AND `source <> 'fallback'`):**
+  **19**
+- **Dropped:** 2 — Ducati Monster 821 (2019) and Kawasaki Ninja 650 (2021);
+  the provider returns no motorcycle listings through the car search, so both
+  rows are `source=fallback`, `sample_size=0`.
+- **Model-year ladder rows:** **0** — the fleet contains no adjacent model
+  years of the same make/model, and per §2.3.2 the ladder must never be
+  published regardless.
+
+Vehicle-keyed rows (as stored, key `(make, model, year)`):
+
+| make | model | year | median (AUD) | low | high | n | source | as-of |
+|---|---|---|---|---|---|---|---|---|
+| mazda | MX-5 | 2005 | 33,994.50 | 24,999 | 39,800 | 8 | carsguide | 2026-10-04T15:50Z |
+| nissan | Silvia S15 | 1999 | 56,440 | 38,995 | 80,000 | 4 | carsguide | 2026-10-04T15:50Z |
+| nissan | Skyline GT-R | 2000 | 22,990 | 13,488 | 389,990 | 8 | carsguide | 2026-10-04T15:50Z |
+| toyota | Camry | 2020 | 29,990 | 20,990 | 36,990 | 8 | carsguide | 2026-10-04T15:48Z |
+| toyota | Hilux | 2016 | 37,990 | 20,999 | 38,990 | 3 | carsguide | 2026-10-04T15:50Z |
+
+Make-keyed rows (key `(make, "", NULL)`):
+
+| make | median (AUD) | low | high | n | source |
+|---|---|---|---|---|---|
+| toyota | 24,490 | 20,990 | 37,990 | 8 | carsguide |
+| ford | 29,869 | 20,990 | 36,990 | 8 | carsguide |
+| holden | 25,744 | 21,888 | 33,990 | 8 | carsguide |
+| nissan | 24,988 | 20,490 | 31,990 | 8 | carsguide |
+| mazda | 27,450 | 20,990 | 34,977 | 8 | carsguide |
+| honda | 28,140 | 22,888 | 37,990 | 8 | carsguide |
+| subaru | 31,725 | 25,988 | 34,950 | 8 | carsguide |
+| hyundai | 29,984 | 20,990 | 36,950 | 8 | carsguide |
+| kia | 27,450 | 21,490 | 37,990 | 8 | carsguide |
+| volkswagen | 23,744 | 21,888 | 29,990 | 8 | carsguide |
+| bmw | 31,490 | 21,990 | 39,990 | 8 | carsguide |
+| mercedes-benz | 26,970 | 20,990 | 35,999 | 8 | carsguide |
+| audi | 30,990 | 22,990 | 39,900 | 8 | carsguide |
+| jeep | 23,990 | 20,900 | 36,350 | 8 | carsguide |
+
+Copy rules for these figures:
+
+- n is the provider's scrape window (top 8 matching listings, n=4–8 here),
+  **not** a census of the market. Say "n listings on CarsGuide".
+- Prices are AUD asking prices as scraped on the read date.
+- Quote as **model-level** medians ("Toyota Camry listings, median $29,990,
+  n=8, CarsGuide, 2026-10-04, all model years") — never per model year
+  (§2.3.2).
+- The 1999 Skyline GT-R high of $389,990 is a real R34 listing; the
+  Skyline GT-R median of $22,990 is inflated by non-GTR Skyline variants
+  the search matched (350GT/370GT). Model-keyed rows inherit the provider's
+  model-matching, so treat niche-model medians with extra caution.
+
+### 2.3.2 Finding: the year key is decorative — prices are model-level
+
+Empirical check, 2026-10-04, demo env — the provider does **not** apply the
+year (or model variant) filter:
+
+- `Toyota Camry 2020` → listings spanning **2014–2024**.
+- `Mazda MX-5 2005` → listings spanning **2016–2022**.
+- `Nissan Skyline GT-R 2000` → Skyline 350GT/370GT variants, **1995–2021**.
+
+Consequences:
+
+- A `(make, model, year)` row's `median_price` aggregates **all years** of
+  that model. Quoting "2020 Toyota Camry median $29,990" would be fabricated
+  precision — $29,990 is the median of 2014–2024 Camry listings.
+- The model-year ladder SQL above must **never be published**: its
+  `pct_delta` compares two all-years rows and produces noise, not a price
+  trend.
+- This is a product bug, not just a copy rule: `/advisor/value` uses
+  `get_market_data()` as the resale reference price, so a "2020 Camry"
+  valuation is priced off all-year Camry listings. Tracked as an engineering
+  follow-up off AUT-5570.
+- The fix belongs in the market-data provider call
+  (`backend/app/services/market_data.py:_fetch_provider`): filter returned
+  listings by `year` (and model) in `_aggregate()` at minimum, and/or have
+  the provider honour the `year`/`model` it is sent.
+
 ### 2.4 State of the published Fair Price blog
 
 `blog/fair-price-used-car-2026.html` (published 2026-10-01) contains **no
@@ -202,6 +301,11 @@ thumb") rather than presented data.
 
 - Repos inspected at commit: `autobrain` `main`, `autobrain-mobile`
   `b3678a9`, `autobrainservice-website` `main`.
+- §2.3.1 extract: run 2026-10-04T15:52Z against demo
+  (`https://demo.autobrainservice.app`, demo account), read through
+  `GET /api/v1/vehicles/{id}/valuation/market[/search]`; 21 rows read, 19 kept,
+  2 dropped. Raw per-listing evidence (titles, prices, odometers, CarsGuide
+  URLs) is reproducible by re-running those endpoints with the same queries.
 - Findings are reproducible with the file references cited inline.
 - Where this sheet says a figure does not exist, that is a verified absence,
   not a gap in the search.
