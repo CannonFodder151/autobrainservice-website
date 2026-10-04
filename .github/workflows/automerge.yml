@@ -53,6 +53,16 @@ jobs:
           STATE="$(echo "$DATA" | jq -r '.mergeable_state')"
           if [ "$STATE" != "clean" ]; then echo "skip: mergeable_state=$STATE"; exit 0; fi
 
+          HEAD_SHA="$(echo "$DATA" | jq -r '.head.sha')"
+          CMP="$(gh api "repos/$REPO/compare/$DEFAULT...$HEAD_SHA" --jq '[.status, .ahead_by, .behind_by]')"
+          C_STATUS="$(echo "$CMP" | jq -r '.[0]')"
+          C_AHEAD="$(echo "$CMP" | jq -r '.[1]')"
+          C_BEHIND="$(echo "$CMP" | jq -r '.[2]')"
+          if [ "$C_STATUS" != "ahead" ]; then
+            echo "skip: head $HEAD_SHA is not based on current $DEFAULT (compare status=$C_STATUS ahead_by=$C_AHEAD behind_by=$C_BEHIND) — merge $DEFAULT into the head branch first"
+            exit 0
+          fi
+
           AUTHOR="$(echo "$DATA" | jq -r '.user.login')"
           LATEST="$(gh api "repos/$REPO/pulls/$PR/reviews" --arg author "$AUTHOR" --jq 'map(select(.user.login != $author)) | last | .state // ""')"
           if [ "$LATEST" != "APPROVED" ]; then echo "skip: latest non-author review is '${LATEST:-none}'"; exit 0; fi
@@ -62,4 +72,4 @@ jobs:
           ROLLUP="$(gh api "repos/$REPO/pulls/$PR" --jq '[.statusCheckRollup[]?.conclusion] | all(. == "SUCCESS" or . == "SKIPPED" or . == "NEUTRAL")')"
           if [ "$ROLLUP" != "true" ]; then echo "skip: status checks not green"; exit 0; fi
 
-          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch || echo "merge not performed (already merged or transient conflict)"
+          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch --match-head-commit "$HEAD_SHA" || echo "merge not performed (already merged, head moved, or transient conflict)"
