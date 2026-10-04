@@ -333,6 +333,19 @@ def check_faq_parity():
     return bad
 
 
+def faq_diff_excerpt(text, other):
+    """Window of `text` around the first character it differs from `other`.
+
+    A head-of-string truncation hides the rewording when the two answers
+    share an opening, which is the common case and the useless report.
+    """
+    a, b = faq_text_key(text), faq_text_key(other)
+    i = next(
+        (n for n, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b))
+    )
+    return a[max(0, i - 30) : i + 60]
+
+
 def check_faq_answers(path, text):
     """acceptedAnswer.text must be the answer the accordion renders.
 
@@ -352,8 +365,8 @@ def check_faq_answers(path, text):
         bad.append(
             f"{path}: FAQPage answer does not match the rendered accordion "
             f"for {question!r}\n"
-            f"    marked up: {faq_text_key(marked_answer)[:90]!r}\n"
-            f"    rendered:  {faq_text_key(shown)[:90]!r}"
+            f"    marked up: {faq_diff_excerpt(marked_answer, shown)}\n"
+            f"    rendered:  {faq_diff_excerpt(shown, marked_answer)}"
         )
     return bad
 
