@@ -39,6 +39,20 @@ published in cleartext on an indexable page):
 
   no email address is followed by a password-shaped literal
 
+Plus FAQ parity, added after AUT-5425 (the QA review of the AUT-5326
+posts found the FAQPage JSON-LD questions had drifted from the rendered
+<details> accordion — Google expects marked-up FAQ content to match the
+visible FAQ):
+
+  FAQPage mainEntity[].name set == <details><summary> text set
+
+The comparison is exact after whitespace normalisation: near-duplicates
+are real defects here, not audit findings, because the markup and the
+rendered accordion are two renderings of the same questions. Only pages
+that render an accordion are checked — a page with FAQPage markup and
+no <details> at all has no visible FAQ to mirror (that is a separate
+audit finding, tracked as a follow-up, not a parity failure).
+
 The uniqueness rule was added after AUT-5339: the audit that re-checked all
 55 pages found the per-page invariants holding, but could not see that
 ownership-advisor.html and blog/ownership-advisor-live.html shipped the same
@@ -54,6 +68,7 @@ Exit 0 = clean. Exit 1 = violations, listed.
 Override a limit with an env var when a page genuinely needs more:
   SEO_TITLE_MAX, SEO_DESC_MAX, SEO_DESC_MIN
 """
+import json
 import os
 import re
 import sys
@@ -194,6 +209,80 @@ def check_duplicates():
     return bad
 
 
+def strip_tags(text):
+    return " ".join(re.sub(r"<[^>]+>", "", text).split())
+
+
+def faqpage_questions(text):
+    """Question strings from a page's FAQPage JSON-LD, in document order.
+
+    The block is usually a bare object but the blog posts nest it inside
+    an @graph, so both shapes are handled. Unparseable JSON is skipped
+    rather than raised: a broken JSON-LD block is a rendering defect, not
+    a parity finding, and this check is only about question parity.
+    """
+    questions = []
+    for m in re.finditer(
+        r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', text, re.S
+    ):
+        try:
+            data = json.loads(m.group(1))
+        except ValueError:
+            continue
+        nodes = data.get("@graph", [data]) if isinstance(data, dict) else data
+        for node in nodes:
+            if isinstance(node, dict) and node.get("@type") == "FAQPage":
+                for q in node.get("mainEntity", []):
+                    questions.append(strip_tags(q.get("name", "")))
+    return questions
+
+
+def accordion_questions(text):
+    """Question strings from the rendered <details><summary> FAQ accordion."""
+    return [
+        strip_tags(m.group(1))
+        for m in re.finditer(
+            r"<details[^>]*>\s*<summary[^>]*>(.*?)</summary>", text, re.S
+        )
+    ]
+
+
+def check_faq_parity():
+    """Every indexable page that renders an FAQ accordion must mark up the
+    same questions in its FAQPage JSON-LD.
+
+    Found by QA on AUT-5425: the three AUT-5326 posts shipped FAQPage
+    JSON-LD whose questions had drifted from the accordion, so the markup
+    and the visible FAQ were two different sets of questions.
+
+    Pages with no accordion are skipped. There is nothing rendered to
+    mirror, and flagging them would make this check a proxy for the
+    separate "FAQPage markup with no visible FAQ" audit.
+    """
+    bad = []
+    for path in indexable_pages():
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        rendered = accordion_questions(text)
+        if not rendered:
+            continue
+        marked = faqpage_questions(text)
+        marked_set, rendered_set = set(marked), set(rendered)
+        if marked_set == rendered_set:
+            continue
+
+        if not marked:
+            bad.append(
+                f"{path}: {len(rendered)} FAQ questions in the accordion but no "
+                f"FAQPage JSON-LD to mirror them"
+            )
+            continue
+        for q in sorted(rendered_set - marked_set):
+            bad.append(f"{path}: accordion question not in FAQPage JSON-LD: {q!r}")
+        for q in sorted(marked_set - rendered_set):
+            bad.append(f"{path}: FAQPage JSON-LD question not in the accordion: {q!r}")
+    return bad
+
+
 def check_links():
     bad = []
     for path in html_files():
@@ -276,6 +365,9 @@ def main():
     for hit in check_credentials():
         violations.append(f"published credential: {hit}")
 
+    for faq in check_faq_parity():
+        violations.append(f"FAQPage/accordion parity: {faq}")
+
     if violations:
         print("on-page SEO violations:\n")
         for v in violations:
@@ -286,8 +378,8 @@ def main():
     print(f"OK: {len(html_files())} pages clean — titles <= {TITLE_MAX} and "
           f"entity-free, descriptions {DESC_MIN}..{DESC_MAX} chars, titles and "
           f"descriptions unique across pages, hreflang complete, no broken "
-          f"links, no published credentials, sitemap has {listed} indexable "
-          f"entries")
+          f"links, no published credentials, FAQPage JSON-LD matches every "
+          f"rendered FAQ accordion, sitemap has {listed} indexable entries")
     return 0
 
 
