@@ -1,0 +1,28 @@
+{
+  "SURVIVOR": {
+    "accordion": [],
+    "faqpage": [
+      "Is it safe to drive with the check engine light on in Australia?",
+      "How do I read the code without paying a mechanic?",
+      "Will the check engine light clear itself?",
+      "What is the most common cause of the check engine light in Australia?",
+      "Can AutoBrain explain a code in plain English?"
+    ]
+  },
+  "#164": {
+    "accordion": [
+      "Is it safe to drive with the check engine light on?",
+      "What does a check engine light code tell you?",
+      "How much does it cost to fix a check engine light code in Australia?",
+      "Will the light come back if I clear the code?",
+      "Do I need an adapter to read codes myself?"
+    ],
+    "faqpage": [
+      "Is it safe to drive with the check engine light on?",
+      "What does a check engine light code tell you?",
+      "How much does it cost to fix a check engine light code in Australia?",
+      "Will the light come back if I clear the code?",
+      "Do I need an adapter to read codes myself?"
+    ]
+  }
+}
