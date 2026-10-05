@@ -8,6 +8,7 @@ on:
       - "sitemap.xml"
       - "rss.xml"
       - "scripts/check_seo_*.py"
+      - "scripts/test_workflow_runner_isolation.py"
       - ".github/workflows/seo-drift.yml"
   schedule:
     - cron: "0 6 * * 1"  # weekly Monday 06:00 UTC
@@ -18,10 +19,22 @@ permissions:
 
 jobs:
   check:
-    runs-on: [self-hosted, linux, x64, vm2]
+    # AUT-5635: a pull_request event checks out the PR merge ref, so every step
+    # below executes contributor-authored code. On the self-hosted vm2 runner
+    # that is root-equivalent on the dev box (uid 1000, docker group) with
+    # $HOME/.env credentials readable — the "pwn requests" class
+    # (GHSA-8x5q-6f9x). Both check scripts are stdlib-only, so GitHub-hosted
+    # loses no coverage. AUT-3718 already moved the other jobs here and missed
+    # this one; scripts/test_workflow_runner_isolation.py keeps it that way.
+    runs-on: ubuntu-latest
+    # Belt-and-braces: same-repo PRs only, so fork-originated code can never
+    # reach this job even if a self-hosted label is reintroduced.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Check blog/sitemap/rss consistency
         run: python3 scripts/check_seo_drift.py
       - name: Check on-page SEO invariants
         run: python3 scripts/check_seo_pages.py
+      - name: Guard runner isolation (AUT-5635)
+        run: python3 scripts/test_workflow_runner_isolation.py
