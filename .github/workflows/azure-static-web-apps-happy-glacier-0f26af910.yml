@@ -1,4 +1,14 @@
 # AUT-1798: x64 jobs dispatch to the new vm2 runner (gh-runner-autobrain-website-2). ARM stays on Oracle VM.
+# AUT-5654: `runs-on` now matches AUT-1798. This repo is private on GitHub
+# Free and the account's hosted-runner spending limit is exhausted, so a
+# GitHub-hosted job fails in 3-6s with zero steps and the annotation "The
+# job was not started because recent account payments have failed or your
+# spending limit needs to be increased". gh-runner-autobrain-website-2 is
+# online, idle and repo-dedicated. The close_preview and build_and_deploy
+# jobs are pull_request-triggered, which runs the workflow file from the PR
+# head; that is the same trust posture seo-drift.yml already has on this
+# runner family, and it is the reason the PR lane needs an ephemeral runner
+# (tracked separately) rather than a reason to keep CI dead.
 name: Azure Static Web Apps CI/CD
 
 # AUT-1465: GITHUB_TOKEN defaulted to read-only, so the SWA action's
@@ -24,7 +34,7 @@ jobs:
     # Free the staging environment the moment a PR closes, so abandoned and
     # merged branches never hold preview quota (AUT-4799).
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     name: Release PR Preview Environment Job
     # Own concurrency group: releasing must never queue behind, or displace,
     # an in-flight upload (AUT-1350).
@@ -48,7 +58,7 @@ jobs:
 
   build_and_deploy_job:
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     name: Build and Deploy Job
     # App-wide staging quota: serialize uploads (AUT-1350). Job-level so the
     # merge-triggered close job can never displace a queued main deploy.
@@ -90,7 +100,7 @@ jobs:
 
   build_and_deploy_pr_job:
     if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     name: Build and Deploy PR Preview Job
     concurrency:
       group: swa-upload

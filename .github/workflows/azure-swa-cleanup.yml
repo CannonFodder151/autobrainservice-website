@@ -1,4 +1,13 @@
-# AUT-3718: use GitHub-hosted runners (ubuntu-latest) instead of self-hosted vm2 runner (gh-runner-autobrain-website-2). ARM stays on Oracle VM.
+# AUT-3718 moved this to GitHub-hosted runners (ubuntu-latest) and off
+# the self-hosted vm2 runner (gh-runner-autobrain-website-2). ARM stays on
+# Oracle VM.
+# AUT-5654: AUT-3718's premise is gone. The account's hosted-runner
+# spending limit is exhausted, so an ubuntu-latest job never starts — it
+# fails in 3-6s with zero steps and the annotation "The job was not
+# started because recent account payments have failed or your spending
+# limit needs to be increased". The cleanup is schedule + workflow_dispatch
+# only (trusted code) and the runner is repo-dedicated and idle, so this
+# returns to the self-hosted vm2 runner that AUT-3718 moved it off.
 name: Azure SWA Staging Cleanup
 
 on:
@@ -21,7 +30,7 @@ concurrency:
 
 jobs:
   cleanup-staging:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     name: Purge orphaned staging environments (SWA data plane)
     steps:
       - name: Checkout

@@ -1,4 +1,10 @@
-# AUT-3718: use GitHub-hosted runners (ubuntu-latest) instead of self-hosted vm2 runner (gh-runner-autobrain-website-2). ARM stays on Oracle VM.
+# AUT-3718 moved this to GitHub-hosted runners (ubuntu-latest) and off
+# the self-hosted vm2 runner (gh-runner-autobrain-website-2). ARM stays on
+# Oracle VM.
+# AUT-5654: reverted — hosted runners no longer start (exhausted spending
+# limit fails the job in 3-6s before any step runs). This workflow is
+# schedule + workflow_dispatch only, so it is trusted code on a
+# repo-dedicated runner.
 name: Branch Hygiene
 
 on:
@@ -22,7 +28,7 @@ concurrency:
 
 jobs:
   hygiene:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     name: Close stale PRs and delete stale branches
     steps:
       - name: Checkout

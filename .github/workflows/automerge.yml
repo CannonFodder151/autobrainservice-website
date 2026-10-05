@@ -21,7 +21,7 @@ permissions:
 jobs:
   automerge:
     if: github.event_name != 'check_run' || github.event.check_run.name != 'automerge'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
     steps:
       - name: Resolve pull request
         id: pr
