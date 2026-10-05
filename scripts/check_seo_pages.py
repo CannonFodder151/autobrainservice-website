@@ -53,6 +53,22 @@ that render an accordion are checked — a page with FAQPage markup and
 no <details> at all has no visible FAQ to mirror (that is a separate
 audit finding, tracked as a follow-up, not a parity failure).
 
+The answer text was added to this check after AUT-5581. Question parity
+alone was not enough: on all three AUT-5326 posts, and on eight pages
+elsewhere, the questions matched exactly while every acceptedAnswer.text
+had been reworded away from the answer the reader actually sees. That is
+the exact shape Google's FAQ structured-data policy cares about — the
+marked-up answer must be the visible answer — and a question-set guard
+cannot see it, so drift passed CI:
+
+  FAQPage mainEntity[].acceptedAnswer.text ==
+      the answer inside the matching <details>
+
+Answers are paired by their question, not by position, and compared after
+stripping tags, decoding HTML entities, collapsing whitespace and case
+folding — so reformatting the accordion <p> (bolding, a link, a line break)
+is not a parity failure, but rewording it is.
+
 The uniqueness rule was added after AUT-5339: the audit that re-checked all
 55 pages found the per-page invariants holding, but could not see that
 ownership-advisor.html and blog/ownership-advisor-live.html shipped the same
@@ -73,6 +89,7 @@ import os
 import re
 import sys
 from collections import defaultdict
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -219,7 +236,10 @@ def faqpage_questions(text):
     The block is usually a bare object but the blog posts nest it inside
     an @graph, so both shapes are handled. Unparseable JSON is skipped
     rather than raised: a broken JSON-LD block is a rendering defect, not
-    a parity finding, and this check is only about question parity.
+    a parity finding, and this check is only about parity with the page.
+
+    Returns [(question, acceptedAnswer.text)] so question-set parity and
+    answer parity read from the same pass over the markup.
     """
     questions = []
     for m in re.finditer(
@@ -233,7 +253,10 @@ def faqpage_questions(text):
         for node in nodes:
             if isinstance(node, dict) and node.get("@type") == "FAQPage":
                 for q in node.get("mainEntity", []):
-                    questions.append(strip_tags(q.get("name", "")))
+                    answer = q.get("acceptedAnswer") or {}
+                    questions.append(
+                        (strip_tags(q.get("name", "")), answer.get("text", ""))
+                    )
     return questions
 
 
@@ -247,13 +270,37 @@ def accordion_questions(text):
     ]
 
 
+def accordion_answers(text):
+    """{question: answer body} from the rendered FAQ accordion."""
+    return {
+        strip_tags(m.group(1)): strip_tags(m.group(2))
+        for m in re.finditer(
+            r"<details[^>]*>\s*<summary[^>]*>(.*?)</summary>(.*?)</details>", text, re.S
+        )
+    }
+
+
+def faq_text_key(s):
+    """Comparable form of an FAQ answer: the text a reader sees.
+
+    Tags stripped (the accordion wraps answers in <p> and often <strong>),
+    HTML entities decoded (&amp; is &amp; in the source but & on screen),
+    whitespace collapsed and case folded. Two answers that render the same
+    compare equal; a rewording does not.
+    """
+    return unescape(strip_tags(s)).casefold()
+
+
 def check_faq_parity():
     """Every indexable page that renders an FAQ accordion must mark up the
-    same questions in its FAQPage JSON-LD.
+    same questions, with the same answers, in its FAQPage JSON-LD.
 
     Found by QA on AUT-5425: the three AUT-5326 posts shipped FAQPage
     JSON-LD whose questions had drifted from the accordion, so the markup
     and the visible FAQ were two different sets of questions.
+
+    Extended after AUT-5581: the questions matched exactly while every
+    answer had been reworded, which a question-set comparison cannot see.
 
     Pages with no accordion are skipped. There is nothing rendered to
     mirror, and flagging them would make this check a proxy for the
@@ -265,9 +312,12 @@ def check_faq_parity():
         rendered = accordion_questions(text)
         if not rendered:
             continue
-        marked = faqpage_questions(text)
+        marked = [q for q, _ in faqpage_questions(text)]
         marked_set, rendered_set = set(marked), set(rendered)
         if marked_set == rendered_set:
+            # Questions agree, so the only thing left to drift is the text
+            # the reader sees versus the text marked up for Google.
+            bad.extend(check_faq_answers(path, text))
             continue
 
         if not marked:
@@ -280,6 +330,44 @@ def check_faq_parity():
             bad.append(f"{path}: accordion question not in FAQPage JSON-LD: {q!r}")
         for q in sorted(marked_set - rendered_set):
             bad.append(f"{path}: FAQPage JSON-LD question not in the accordion: {q!r}")
+    return bad
+
+
+def faq_diff_excerpt(text, other):
+    """Window of `text` around the first character it differs from `other`.
+
+    A head-of-string truncation hides the rewording when the two answers
+    share an opening, which is the common case and the useless report.
+    """
+    a, b = faq_text_key(text), faq_text_key(other)
+    i = next(
+        (n for n, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b))
+    )
+    return a[max(0, i - 30) : i + 60]
+
+
+def check_faq_answers(path, text):
+    """acceptedAnswer.text must be the answer the accordion renders.
+
+    Paired by question, not by position: two FAQs can share wording in the
+    markup and the rendered order does not have to match.
+    """
+    rendered = accordion_answers(text)
+    marked = {faq_text_key(q): a for q, a in faqpage_questions(text)}
+    bad = []
+    for question, shown in rendered.items():
+        key = faq_text_key(question)
+        if key not in marked:
+            continue  # question-set parity reports this
+        marked_answer = marked[key]
+        if faq_text_key(marked_answer) == faq_text_key(shown):
+            continue
+        bad.append(
+            f"{path}: FAQPage answer does not match the rendered accordion "
+            f"for {question!r}\n"
+            f"    marked up: {faq_diff_excerpt(marked_answer, shown)}\n"
+            f"    rendered:  {faq_diff_excerpt(shown, marked_answer)}"
+        )
     return bad
 
 
@@ -379,7 +467,8 @@ def main():
           f"entity-free, descriptions {DESC_MIN}..{DESC_MAX} chars, titles and "
           f"descriptions unique across pages, hreflang complete, no broken "
           f"links, no published credentials, FAQPage JSON-LD matches every "
-          f"rendered FAQ accordion, sitemap has {listed} indexable entries")
+          f"rendered FAQ accordion question and answer, sitemap has {listed} "
+          f"indexable entries")
     return 0
 
 
