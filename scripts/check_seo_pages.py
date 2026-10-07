@@ -420,6 +420,86 @@ def check_sitemap():
     return missing, stale, len(listed)
 
 
+def extract_coverage_tiles(text):
+    """Extract state coverage from status-live/status-soon tiles.
+
+    Returns (live_states, soon_states) where each is a set of state names
+    (e.g., "WA", "QLD", "NSW", "ACT", "VIC").
+    """
+    live_states = set()
+    soon_states = set()
+
+    # Pattern: <div class="state"><h3>WA</h3><span class="status-pill status-live">Live</span>
+    for m in re.finditer(
+        r'<div class="state">\s*<h3>([A-Z]{2,3})</h3>\s*<span class="status-pill status-(live|soon)">',
+        text,
+    ):
+        state = m.group(1)
+        tile_type = m.group(2)
+        if tile_type == "live":
+            live_states.add(state)
+        elif tile_type == "soon":
+            soon_states.add(state)
+
+    return live_states, soon_states
+
+
+def visible_body_text(text):
+    """Extract visible body text, stripping HTML tags and skipping script/style."""
+    # Remove script and style blocks
+    text = re.sub(r"<script[^>]*>.*?</script>", "", text, flags=re.S | re.I)
+    text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.S | re.I)
+    # Remove HTML tags
+    text = re.sub(r"<[^>]+>", " ", text)
+    # Decode HTML entities
+    text = unescape(text)
+    # Collapse whitespace
+    text = " ".join(text.split())
+    return text
+
+
+def check_coverage_prose_parity():
+    """Cross-check body prose against status-live/status-soon tiles.
+
+    On pages that render coverage tiles (petrol-price-map.html etc.), the
+    rendered tiles are the source of truth. Body prose must not contradict them:
+    - A state rendered status-soon must not appear in a sentence containing "live"
+    - A state rendered status-live must not be labelled "(soon)" in prose
+
+    Returns list of violation strings.
+    """
+    bad = []
+    for path in indexable_pages():
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        live_states, soon_states = extract_coverage_tiles(text)
+        if not live_states and not soon_states:
+            continue  # page has no coverage tiles; nothing to cross-check
+
+        # Get visible body text only
+        body_text = visible_body_text(text)
+        # Split into sentences for context-aware checks
+        sentences = re.split(r"(?<=[.!?])\s+", body_text)
+        for sentence in sentences:
+            sent_lower = sentence.lower()
+            # Check: soon-state mentioned in a sentence with "live"
+            for state in soon_states:
+                # Match state as a whole word (not part of another word)
+                if re.search(rf"\b{re.escape(state)}\b", sentence, re.I) and "live" in sent_lower:
+                    bad.append(
+                        f"{path}: prose contradicts tiles — {state} is status-soon "
+                        f"but appears in a sentence with 'live': {sentence.strip()[:120]!r}"
+                    )
+            # Check: live-state labelled "(soon)" in prose
+            for state in live_states:
+                soon_pattern = rf"\(soon\)\s*{re.escape(state)}"
+                if re.search(soon_pattern, sentence, re.I):
+                    bad.append(
+                        f"{path}: prose contradicts tiles — {state} is status-live "
+                        f"but labelled '(soon)' in prose: {sentence.strip()[:120]!r}"
+                    )
+    return bad
+
+
 def check_credentials():
     """Every page is scanned, not just indexable ones — a noindex page still
     serves its source to anyone who requests it."""
@@ -452,6 +532,9 @@ def main():
 
     for hit in check_credentials():
         violations.append(f"published credential: {hit}")
+
+    for prose in check_coverage_prose_parity():
+        violations.append(f"coverage-prose parity: {prose}")
 
     for faq in check_faq_parity():
         violations.append(f"FAQPage/accordion parity: {faq}")

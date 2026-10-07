@@ -11,6 +11,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added (AUT-5698)
+- ci: new coverage-prose parity guard in `scripts/check_seo_pages.py` cross-checks body prose against rendered `status-live`/`status-soon` tiles (e.g., petrol-price-map.html). Fails CI if a `status-soon` state appears in a sentence with "live" or a `status-live` state is labelled "(soon)" in prose.
+
 ## [0.3.310] - 2026-10-04
 
 ### Changed (AUT-5532)
