@@ -97,8 +97,13 @@ TITLE_ENTITY = re.compile(r"&(?:amp|quot|apos|lt|gt|nbsp|mdash|ndash|hellip|#\d+
 # "demo@autobrainservice.app / demo", "a@b.com: hunter2". The second group must
 # not be another address ("sales@x.com · ask for access") and must not be a tag,
 # attribute or quote, so mailto anchors stay clean.
+#
+# AUT-5369: rewritten to avoid catastrophic backtracking (CWE-1333). The old
+# pattern was quadratic on an unbroken [A-Za-z0-9] run with no @ (20KB -> 3.8s,
+# 40KB -> 21s). The fix uses atomic groups (Python 3.11+) to prevent the
+# regex engine from backtracking on long strings without @.
 CREDENTIAL_LITERAL = re.compile(
-    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"   # the address
+    r"(?>[A-Za-z0-9._%+-]+)@(?>(?>[A-Za-z0-9.-]+)\.[A-Za-z]{2,})"   # the address
     r"\s*(?:/|\||·|:|—|–|-)\s*"                # "...and the password is"
     r"(?![A-Za-z0-9._%+-]+@)"                          # not another address
     r"(?![<{&\"'])"                                  # not a tag / attribute
@@ -292,10 +297,11 @@ def check_links():
                 continue
             if href.startswith("/cdn-cgi/"):
                 continue  # Cloudflare injects these at runtime
-            target = os.path.normpath(os.path.join(os.path.dirname(path), href))
-            if target.startswith(".."):
-                target = target[3:]
-            if not (ROOT / target).exists():
+            p = (ROOT / path).parent / href
+            p = p.resolve()
+            if not p.is_relative_to(ROOT):
+                continue
+            if not p.exists():
                 bad.append(f"{path} -> {href}")
     return bad
 
@@ -321,10 +327,13 @@ def check_sitemap():
     # weight handed to the crawler.
     stale = []
     for path in sorted(listed):
-        target = ROOT / ("index.html" if path == "" else path)
         if path in NON_HTML:
             stale.append(f"{path} -> not an HTML page (drop it from sitemap.xml)")
-        elif not target.exists():
+            continue
+        target = (ROOT / ("index.html" if path == "" else path)).resolve()
+        if not target.is_relative_to(ROOT):
+            continue
+        if not target.exists():
             stale.append(f"{path} -> no such file")
         elif is_noindex(target.read_text(encoding="utf-8", errors="ignore")):
             stale.append(f"{path} -> noindex but listed in sitemap.xml")
