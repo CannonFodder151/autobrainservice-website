@@ -8,6 +8,8 @@ on:
       - "sitemap.xml"
       - "rss.xml"
       - "scripts/check_seo_*.py"
+      - "scripts/generate_rss.py"
+      - "scripts/test_check_seo_pages.py"
       - ".github/workflows/seo-drift.yml"
   schedule:
     - cron: "0 6 * * 1"  # weekly Monday 06:00 UTC
@@ -25,3 +27,5 @@ jobs:
         run: python3 scripts/check_seo_drift.py
       - name: Check on-page SEO invariants
         run: python3 scripts/check_seo_pages.py
+      - name: Test the guard scripts
+        run: python3 scripts/test_check_seo_pages.py
