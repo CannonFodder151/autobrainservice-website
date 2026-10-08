@@ -284,7 +284,41 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
     imported at module top.
   - No production code changed. `python3 -m pytest backend/tests/test_workers.py`
     is green (7 passed) with only `DATABASE_URL` + `SECRET_KEY` exported.
-
+### Fixed (AUT-5192)
+- site: `blog/car-service-checklist-australia.html` was indexed in `blog.html`
+  but absent from `sitemap.xml` and `rss.xml`, so search engines and feed
+  readers never saw it. `SEO Drift Check` was red on PR #131 for exactly this.
+  Added the matching `<url>` entry and `<item>` (pubDate `Thu, 24 Sep 2026`)
+  following the format of the other 33 posts;
+  `scripts/check_seo_drift.py` now reports `OK: 34 posts`.
+- site: `blog/car-service-checklist-australia.html` had a 65-character `<title>`,
+  over the 60-character limit enforced by `scripts/check_seo_pages.py`. That
+  gate did not show up in the CI triage report only because it is the second
+  step of the `seo-drift` workflow and the failing first step skipped it —
+  the PR would not have gone green on the sitemap fix alone. Shortened to
+  `Car Service Checklist Australia — Complete 2026 Guide` (50 chars), which
+  also matches the convention of the other 33 posts: no `| AutoBrain` suffix.
+- site: `rss.xml` was not well-formed XML — two `<title>` values carried a bare
+  `&` (`Car Dashboard Warning Lights Australia`, `Car Won't Start? 14 Common
+  Causes`), which a strict parser rejects for the whole document. Escaped both.
+  Found while editing the feed for the entry above; not covered by any gate.
+### Security (AUT-5045)
+- site: stop publishing the shared demo credential in cleartext on public,
+  indexable pages. `ownership-advisor.html` published `demo@autobrainservice.app / demo`
+  next to the demo link, and `index.html` did the same in the hero `<small>`
+  block plus a "no sign-up" claim that is no longer true. Both now point at the
+  demo URL and a "ask for a demo login" mailto instead; the demo anchor itself
+  stays. The published credential must be treated as compromised regardless of
+  this edit — rotation on the demo host is tracked separately in AUT-5047.
+  The FAQ JSON-LD in `ownership-advisor.html` already named only the demo URL,
+  so it needed no change.
+- ci: `scripts/check_seo_pages.py` gained a `check_credentials()` invariant
+  alongside the existing SEO checks — it fails the `seo-drift` gate if any page
+  pairs an email address with a password-shaped literal. Scans every page,
+  not just indexable ones, because a `noindex` page still serves its source to
+  anyone who requests it. Verified to fail on the pre-fix pages and to stay
+  silent on the 55-page tree (which is full of `mailto:` anchors that the
+  pattern deliberately ignores).
 ### Security (AUT-5041)
 - deps: bump `pypdf` `6.16.1` -> `6.19.0` in `backend/requirements.txt` and
   `ai/requirements.txt`. 6.16.1 carried 8 known vulnerabilities
