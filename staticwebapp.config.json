@@ -11,6 +11,26 @@
   },
   "routes": [
     {
+      "route": "/AGENTS.md",
+      "statusCode": 404
+    },
+    {
+      "route": "/*.md",
+      "statusCode": 404
+    },
+    {
+      "route": "/drafts/*",
+      "statusCode": 404
+    },
+    {
+      "route": "/scripts/*",
+      "statusCode": 404
+    },
+    {
+      "route": "/.claude/*",
+      "statusCode": 404
+    },
+    {
       "route": "/assets/*",
       "headers": {
         "Cache-Control": "public, max-age=86400"
