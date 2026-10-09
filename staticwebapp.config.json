@@ -26,9 +26,14 @@
       "route": "/scripts/*",
       "statusCode": 404
     },
-    {
-      "route": "/.claude/*",
+{
+  "route": "/.claude/*",
       "statusCode": 404
+    },
+    {
+      "route": "/blog/ownership-advisor-coming-soon.html",
+      "redirect": "/blog/ownership-advisor-live.html",
+      "statusCode": 301
     },
     {
       "route": "/assets/*",
