@@ -11,6 +11,13 @@
   },
   "routes": [
     {
+      "route": "/blog/ownership-advisor-coming-soon.html",
+      "statusCode": 301,
+      "headers": {
+        "Location": "/blog/ownership-advisor-live.html"
+      }
+    },
+    {
       "route": "/AGENTS.md",
       "statusCode": 404
     },
