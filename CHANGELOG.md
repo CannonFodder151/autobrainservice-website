@@ -10,6 +10,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 ## [Unreleased]
+### Fixed (AUT-5352)
+- fix(content): removed stale noindex teaser `blog/ownership-advisor-coming-soon.html` (title said "Now Live", H1 identical to live post); deleted page + OG image, removed from blog.html + rss.xml. Sitemap unchanged (was already excluded).
+
 ### Added/Changed (AUT-3533)
 - fix: Servo Spy map blank white screen on hosted by resolving undefined _kCartoKeyParam and injecting CARTO API key (PR #715)
 
