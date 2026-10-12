@@ -10,6 +10,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 ## [Unreleased]
+### Fixed (AUT-5370)
+- fix(security): `staticwebapp.config.json` blocks AGENTS.md, drafts/*, scripts/*, .claude/* from public serve on autobrainservice.app (AUT-5362 sign-off).
+
 ### Added/Changed (AUT-3533)
 - fix: Servo Spy map blank white screen on hosted by resolving undefined _kCartoKeyParam and injecting CARTO API key (PR #715)
 
