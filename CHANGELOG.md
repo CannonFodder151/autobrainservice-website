@@ -10,6 +10,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 
 ## [Unreleased]
+### Fixed (AUT-5369)
+- fix(security): `scripts/check_seo_pages.py` CWE-22 path traversal + CWE-1333 quadratic regex. Both fixed on branch `aut-5369-seo-security`.
+
 ### Added/Changed (AUT-3533)
 - fix: Servo Spy map blank white screen on hosted by resolving undefined _kCartoKeyParam and injecting CARTO API key (PR #715)
 

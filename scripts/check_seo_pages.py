@@ -285,6 +285,7 @@ def check_faq_parity():
 
 def check_links():
     bad = []
+    root_resolved = ROOT.resolve()
     for path in html_files():
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
         for href in re.findall(r'href="([^"#?]+)"', text):
@@ -292,10 +293,10 @@ def check_links():
                 continue
             if href.startswith("/cdn-cgi/"):
                 continue  # Cloudflare injects these at runtime
-            target = os.path.normpath(os.path.join(os.path.dirname(path), href))
-            if target.startswith(".."):
-                target = target[3:]
-            if not (ROOT / target).exists():
+            target = (ROOT / os.path.normpath(os.path.join(os.path.dirname(path), href))).resolve()
+            if not target.is_relative_to(root_resolved):
+                continue
+            if not target.exists():
                 bad.append(f"{path} -> {href}")
     return bad
 
@@ -320,8 +321,12 @@ def check_sitemap():
     # in it that is noindex, a feed, or missing on disk is dead or contradictory
     # weight handed to the crawler.
     stale = []
+    root_resolved = ROOT.resolve()
     for path in sorted(listed):
-        target = ROOT / ("index.html" if path == "" else path)
+        target = (ROOT / ("index.html" if path == "" else path)).resolve()
+        if not target.is_relative_to(root_resolved):
+            stale.append(f"{path} -> path escapes repo root")
+            continue
         if path in NON_HTML:
             stale.append(f"{path} -> not an HTML page (drop it from sitemap.xml)")
         elif not target.exists():
@@ -338,6 +343,8 @@ def check_credentials():
     bad = []
     for path in html_files():
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        if "@" not in text:
+            continue
         for m in CREDENTIAL_LITERAL.finditer(text):
             line = text[:m.start()].count("\n") + 1
             bad.append(f"{path}:{line} credential-shaped literal: {m.group(0)!r}")
