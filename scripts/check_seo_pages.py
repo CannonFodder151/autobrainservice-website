@@ -97,13 +97,36 @@ TITLE_ENTITY = re.compile(r"&(?:amp|quot|apos|lt|gt|nbsp|mdash|ndash|hellip|#\d+
 # "demo@autobrainservice.app / demo", "a@b.com: hunter2". The second group must
 # not be another address ("sales@x.com · ask for access") and must not be a tag,
 # attribute or quote, so mailto anchors stay clean.
-CREDENTIAL_LITERAL = re.compile(
-    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"   # the address
-    r"\s*(?:/|\||·|:|—|–|-)\s*"                # "...and the password is"
-    r"(?![A-Za-z0-9._%+-]+@)"                          # not another address
-    r"(?![<{&\"'])"                                  # not a tag / attribute
-    r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,})"           # the secret
-)
+# Two-pass to avoid quadratic backtracking on long alphanumeric runs without @.
+def _credential_candidates(text):
+    # Fast first pass: find email-like patterns with a separator after
+    for m in re.finditer(
+        r"([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})"  # email
+        r"\s*([/|·:—–-])\s*"                                  # separator
+        r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,})",              # secret
+        text
+    ):
+        email, sep, secret = m.groups()
+        # Negative checks (no @ in secret, not a tag/attr/quote)
+        if re.search(r"@", secret):
+            continue
+        # Check context around secret for tag/attr/quote chars
+        start = m.start(3)
+        if start > 0 and text[start - 1] in "<{&\"'":
+            continue
+        yield m.group(0)
+
+
+def check_credentials():
+    """Every page is scanned, not just indexable ones — a noindex page still
+    serves its source to anyone who requests it."""
+    bad = []
+    for path in html_files():
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        for hit in _credential_candidates(text):
+            line = text[:text.index(hit)].count("\n") + 1
+            bad.append(f"{path}:{line} credential-shaped literal: {hit!r}")
+    return bad
 
 
 def html_files():
@@ -295,7 +318,13 @@ def check_links():
             target = os.path.normpath(os.path.join(os.path.dirname(path), href))
             if target.startswith(".."):
                 target = target[3:]
-            if not (ROOT / target).exists():
+            target_path = ROOT / target
+            try:
+                target_path.resolve().relative_to(ROOT.resolve())
+            except ValueError:
+                bad.append(f"{path} -> {href} (path traversal)")
+                continue
+            if not target_path.exists():
                 bad.append(f"{path} -> {href}")
     return bad
 
@@ -322,6 +351,11 @@ def check_sitemap():
     stale = []
     for path in sorted(listed):
         target = ROOT / ("index.html" if path == "" else path)
+        try:
+            target.resolve().relative_to(ROOT.resolve())
+        except ValueError:
+            stale.append(f"{path} -> path traversal")
+            continue
         if path in NON_HTML:
             stale.append(f"{path} -> not an HTML page (drop it from sitemap.xml)")
         elif not target.exists():
@@ -338,9 +372,9 @@ def check_credentials():
     bad = []
     for path in html_files():
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
-        for m in CREDENTIAL_LITERAL.finditer(text):
-            line = text[:m.start()].count("\n") + 1
-            bad.append(f"{path}:{line} credential-shaped literal: {m.group(0)!r}")
+        for hit in _credential_candidates(text):
+            line = text[:text.index(hit)].count("\n") + 1
+            bad.append(f"{path}:{line} credential-shaped literal: {hit!r}")
     return bad
 
 def main():
