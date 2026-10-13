@@ -97,12 +97,14 @@ TITLE_ENTITY = re.compile(r"&(?:amp|quot|apos|lt|gt|nbsp|mdash|ndash|hellip|#\d+
 # "demo@autobrainservice.app / demo", "a@b.com: hunter2". The second group must
 # not be another address ("sales@x.com · ask for access") and must not be a tag,
 # attribute or quote, so mailto anchors stay clean.
+# Quantifiers bounded to prevent catastrophic backtracking (quadratic regex):
+# local-part ≤ 64 (RFC 5321), domain ≤ 255, secret ≤ 128.
 CREDENTIAL_LITERAL = re.compile(
-    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"   # the address
+    r"[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9.-]{1,255}\.[A-Za-z]{2,}"   # the address
     r"\s*(?:/|\||·|:|—|–|-)\s*"                # "...and the password is"
     r"(?![A-Za-z0-9._%+-]+@)"                          # not another address
     r"(?![<{&\"'])"                                  # not a tag / attribute
-    r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,})"           # the secret
+    r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,128})"           # the secret
 )
 
 
@@ -292,9 +294,15 @@ def check_links():
                 continue
             if href.startswith("/cdn-cgi/"):
                 continue  # Cloudflare injects these at runtime
-            target = os.path.normpath(os.path.join(os.path.dirname(path), href))
-            if target.startswith(".."):
-                target = target[3:]
+            # Resolve relative to the page's directory, then check if it escapes ROOT
+            if href.startswith("/"):
+                target = href.lstrip("/")
+            else:
+                target = os.path.normpath(os.path.join(os.path.dirname(path), href))
+            # Path traversal: resolved path must not escape ROOT (no leading .. after normpath)
+            if target.startswith("..") or os.path.isabs(target):
+                bad.append(f"{path} -> {href} (path traversal attempt)")
+                continue
             if not (ROOT / target).exists():
                 bad.append(f"{path} -> {href}")
     return bad
