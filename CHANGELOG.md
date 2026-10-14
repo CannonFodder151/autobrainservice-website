@@ -59,6 +59,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ### Changed (AUT-5532)
 - fix(frontend): cleared the last 3 deprecated `withOpacity` call sites in `login_screen.dart` — the two background-gradient stops (`scheme.primary.withOpacity(0.75)`, `scheme.secondary.withOpacity(0.6)`) and the form-card `BoxShadow` (`Colors.black.withOpacity(0.18)`). PR #905 fixed only the logo-shadow `BoxShadow` and deliberately deferred these, leaving `dart analyze lib/screens/auth/login_screen.dart` at 3 `deprecated_member_use` infos; the file is now clean. Cosmetic only, no behaviour change: `withValues(alpha:)` keeps alpha as a double where `withOpacity` rounded to 8-bit, so `0.75` and `0.6` render identically and the card shadow shifts by 1/255 of alpha (`0.18` → `0.1804`). The remaining 45 occurrences across 17 files under `frontend/lib` (incl. `signup_screen.dart`) are out of scope.
 
+### Added (AUT-5698)
+- ci: new coverage-prose parity guard in `scripts/check_seo_pages.py` cross-checks body prose against rendered `status-live`/`status-soon` tiles (e.g., petrol-price-map.html). Fails CI if a `status-soon` state appears in a sentence with "live" or a `status-live` state is labelled "(soon)" in prose.
+
 ## [0.3.310] - 2026-10-04
 
 ### Changed (AUT-5532)
