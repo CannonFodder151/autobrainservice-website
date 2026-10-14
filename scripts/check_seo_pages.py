@@ -38,6 +38,7 @@ And one security invariant, added after AUT-5045 (a shared demo password was
 published in cleartext on an indexable page):
 
   no email address is followed by a password-shaped literal
+  no password:/api_key= style assignment carries a bare literal
 
 Plus FAQ parity, added after AUT-5425 (the QA review of the AUT-5326
 posts found the FAQPage JSON-LD questions had drifted from the rendered
@@ -104,6 +105,34 @@ CREDENTIAL_LITERAL = re.compile(
     r"(?![<{&\"'])"                                  # not a tag / attribute
     r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{2,})"           # the secret
 )
+
+# A labelled secret with no email anywhere near it: "password: hunter2",
+# 'password="Autobrain2026"', '"api_key": "sk-live-..."'. The AUT-5045
+# pattern above only fires on an email adjacent to the token, so a page that
+# publishes the password without also publishing the account email passed.
+# The assignment is mandatory, or the pattern matches prose ("your password
+# must be unique"), and a value that starts like markup is skipped so a
+# <label for="p">Password:</label><input> login form stays clean.
+CREDENTIAL_ASSIGNMENT = re.compile(
+    r"(?i)\b(?:password|passwd|passphrase|pwd|secret|api[_-]?key"
+    r"|access[_-]?token|auth[_-]?token|token|credential)s?"
+    r"\s*[\"']?\s*(?:is\b|[:=]|=>)\s*[\"']?"   # 'password: "x"' or password=x
+    r"(?![<{&\s])"
+    r"([A-Za-z0-9][A-Za-z0-9._!#$%*-]{3,})"
+)
+
+# The FAQ accordion. Two shapes the old pattern missed, both valid HTML5 and
+# both fail-open for this guard (found by Security on PR #164, AUT-5577):
+#   - tag case: <DETAILS>/<SUMMARY> is the same element as <details>/<summary>,
+#     so a case-sensitive match collected nothing and the FAQPage JSON-LD was
+#     never compared against a real FAQ;
+#   - prefix: content between <details> and <summary> is legal, not just
+#     whitespace ("<details><p>Tap to expand</p><summary>Q?</summary>").
+# The tempered dot stops the prefix from running past the element's own
+# </details> or into a nested <details>, so an unlabelled accordion cannot
+# absorb the next question and report a phantom mismatch.
+ACCORDION_PREFIX = r"<details[^>]*>(?:(?!<details[\s>]|</details>)[\s\S])*?<summary[^>]*>"
+ACCORDION_QUESTION = ACCORDION_PREFIX + r"(.*?)</summary\s*>"
 
 
 def html_files():
@@ -241,9 +270,7 @@ def accordion_questions(text):
     """Question strings from the rendered <details><summary> FAQ accordion."""
     return [
         strip_tags(m.group(1))
-        for m in re.finditer(
-            r"<details[^>]*>\s*<summary[^>]*>(.*?)</summary>", text, re.S
-        )
+        for m in re.finditer(ACCORDION_QUESTION, text, re.S | re.I)
     ]
 
 
@@ -338,9 +365,10 @@ def check_credentials():
     bad = []
     for path in html_files():
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
-        for m in CREDENTIAL_LITERAL.finditer(text):
-            line = text[:m.start()].count("\n") + 1
-            bad.append(f"{path}:{line} credential-shaped literal: {m.group(0)!r}")
+        for pattern in (CREDENTIAL_LITERAL, CREDENTIAL_ASSIGNMENT):
+            for m in pattern.finditer(text):
+                line = text[:m.start()].count("\n") + 1
+                bad.append(f"{path}:{line} credential-shaped literal: {m.group(0)!r}")
     return bad
 
 def main():
