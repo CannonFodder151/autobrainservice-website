@@ -11,6 +11,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.313] - 2026-11-06
+### Changed (AUT-217)
+- refactor(phase1d): split social.py + issues.py into subpackages, remove legacy advisor.py (PR #992)
+
+### Changed (AUT-217)
+- fix(ci): add CHANGELOG.md entry for phase1d-modularize-services PR to satisfy changelog gate (AUT-217)
+
 ## [0.3.312] - 2026-11-04
 ### Added (AUT-6645)
 - feat(ai): per-module AI confidence floors with env override; default raised from 0.75 to 0.85 (AUT-6645)
