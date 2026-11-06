@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Host AutoBrain on a $5 VPS — Complete Guide (2026)</title>
+<meta name="description" content="Self-host AutoBrain on a cheap $5/month VPS. Step-by-step guide with Docker Compose, Nginx, SSL, and backup. Free, open-source, your data stays yours.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/blog/self-host-autobrain-5-vps.html">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="How to Self-Host AutoBrain on a $5 VPS — Complete Guide (2026)">
+<meta property="og:description" content="Self-host AutoBrain on a cheap $5/month VPS. Step-by-step guide with Docker Compose, Nginx, SSL, and backup.">
+<meta property="og:url" content="https://autobrainservice.app/blog/self-host-autobrain-5-vps.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png" >
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630" >
+<meta property="article:published_time" content="2026-11-02"
+<meta property="article:modified_time" content="2026-11-02">
+<meta property="article:author" content="https://autobrainservice.app/about.html#nathan" >
+>
+<meta property="article:section" content="Self-Hosting">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoBrain for Car Clubs">
+<meta name="twitter:description" content="A dedicated AutoBrain instance for your club, hosted for you — and a membership perk that retains members.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/blog/og/autobrain-for-car-clubs.png" >
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "inLanguage": "en-AU",
+   "headline": "How to Self-Host AutoBrain on a $5 VPS — Complete Guide (2026)",
+   "articleSection": "Self-Hosting",
+   "description": "Why car clubs get their own AutoBrain instance \u2014 hosted by AutoBrain \u2014 and use it as a membership perk to retain members.",
+   "author": {
+   "@type": "Person",
+   "@id": "https://autobrainservice.app/#nathan",
+   "name": "Nathan",
+   "jobTitle": "IT professional and car enthusiast",
+   "url": "https://autobrainservice.app/about.html#nathan",
+   "worksFor": { "@type": "Organization", "name": "AutoBrain", "@id": "https://autobrainservice.app/#org" },
+   "sameAs": "https://www.linkedin.com/in/nathanmartina"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "AutoBrain",
+    "logo": {
+     "@type": "ImageObject",
+     "url": "https://autobrainservice.app/assets/logo.png"
+    }
+   },
+   "datePublished": "2026-11-02",
+   "dateModified": "2026-11-02",
+   "mainEntityOfPage": "https://autobrainservice.app/blog/self-host-autobrain-5-vps.html"
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Can I self-host AutoBrain for free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes — AutoBrain is MIT-licensed and free to self-host. You only pay for the VPS ($5/month on most providers)."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the minimum VPS spec for AutoBrain?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "2 vCPU, 2GB RAM, 20GB SSD. A $5/month VPS from Hetzner, DigitalOcean, or Vultr is enough."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does self-hosted AutoBrain support AI features?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes — self-hosted AutoBrain connects to your own AI provider or a 9router gateway. AI is optional; deterministic features (rego lookup, fuel tracking, reminders) work without it."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<link rel="stylesheet" href="../styles.css">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://autobrainservice.app/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Blog",
+   "item": "https://autobrainservice.app/blog.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "AutoBrain for Car Clubs \u2014 Beyond Individual Users",
+   "item": "https://autobrainservice.app/blog/self-host-autobrain-5-vps.html"
+  }
+ ]
+}
+</script> 
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/blog/self-host-autobrain-5-vps.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/blog/self-host-autobrain-5-vps.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="../assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="../selfhost.html">Self-Host</a></li>
+      <li><a href="../hosted.html">Plans</a></li>
+      <li><a href="../car-clubs.html">Car Clubs</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="../car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="../changelog.html">Changelog</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../privacy.html">Privacy</a></li>
+          <li><a href="../ai-data.html">AI &amp; your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <a class="back-link" href="../blog.html">← Back to blog</a>
+        <article class="article">
+      <h1 class="u-post-title">How to Self-Host AutoBrain on a <span class="b">$5 VPS</span></h1>
+      <p class="meta">AutoBrain Team · 2 November 2026 · Self-Hosting</p>
+      <p class="lead">AutoBrain is MIT-licensed and free to self-host. This guide walks you through deploying it on a cheap $5/month VPS in under 30 minutes — your data stays yours.</p>
+
+      <h2>Why self-host AutoBrain?</h2>
+      <p>Self-hosting gives you full control over your car maintenance data, no subscription fees, and the ability to customise the platform. The trade-off: you manage the server, backups, and updates.</p>
+
+      <h2>Prerequisites</h2>
+      <ul>
+        <li>A VPS with 2 vCPU, 2GB RAM, 20GB SSD (Hetzner, DigitalOcean, Vultr — ~$5/month)</li>
+        <li>A domain name (optional but recommended for HTTPS)</li>
+        <li>Basic Linux command-line knowledge</li>
+      </ul>
+
+      <h2>Step 1 — Install Docker</h2>
+      <pre><code>curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+newgrp docker</code></pre>
+
+      <h2>Step 2 — Clone AutoBrain</h2>
+      <pre><code>git clone https://github.com/CannonFodder151/autobrain.git
+cd autobrain
+cp .env.example .env</code></pre>
+
+      <h2>Step 3 — Configure environment</h2>
+      <p>Edit <code>.env</code> with your database password, secret key, and (optional) AI provider credentials. The AI is optional — deterministic features (rego lookup, fuel tracking, reminders) work without it.</p>
+
+      <h2>Step 4 — Launch</h2>
+      <pre><code>docker compose -f docker-compose.selfhost.yml up -d</code></pre>
+      <p>Wait 60 seconds, then visit <code>http://your-vps-ip:3000</code>.</p>
+
+      <h2>Step 5 — Add HTTPS (optional)</h2>
+      <p>Use Caddy or Nginx Proxy Manager with Let's Encrypt. Point your domain's A record to the VPS IP.</p>
+
+      <h2>Step 6 — Backup strategy</h2>
+      <p>AutoBrain includes a built-in backup scheduler. Configure daily backups to an external S3-compatible bucket or local disk.</p>
+
+      <h2>Updating AutoBrain</h2>
+      <pre><code>cd autobrain && git pull && docker compose -f docker-compose.selfhost.yml up -d --build</code></pre>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="../selfhost.html">Self-Host page</a></li>
+        <li><a href="../hosted.html">Hosted plans (we run it for you)</a></li>
+        <li><a href="../features.html">All features</a></li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>Can I self-host AutoBrain for free?</summary>
+          <p>Yes — AutoBrain is MIT-licensed and free to self-host. You only pay for the VPS ($5/month on most providers).</p>
+        </details>
+        <details>
+          <summary>What is the minimum VPS spec for AutoBrain?</summary>
+          <p>2 vCPU, 2GB RAM, 20GB SSD. A $5/month VPS from Hetzner, DigitalOcean, or Vultr is enough.</p>
+        </details>
+        <details>
+          <summary>Does self-hosted AutoBrain support AI features?</summary>
+          <p>Yes — self-hosted AutoBrain connects to your own AI provider or a 9router gateway. AI is optional; deterministic features (rego lookup, fuel tracking, reminders) work without it.</p>
+        </details>
+      </div>
+
+      <p class="u-mt-28">Ready to self-host? <a href="../selfhost.html">Read the Self-Host page</a> or <a href="../hosted.html">compare hosted plans</a>.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="../privacy.html">Privacy</a> · <a href="../ai-data.html">AI &amp; your data</a> · <a href="../about.html">About</a> · <a href="../changelog.html">Changelog</a> · <a href="../blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a> · <a href="#" rel="noopener" aria-label="AutoBrain on X (coming soon)">X</a> · <a href="#" rel="noopener" aria-label="AutoBrain on Instagram (coming soon)">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="../nav.js"></script>
+
+</body>
+</html>
