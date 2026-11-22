@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Features — AutoBrain | Maintenance, Diagnostics, EV</title>
-    <meta name="description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt and parts scanning, inventory, AU rego lookup, resale estimates and EV tools.">
+    <meta name="description" content="OBD-II diagnostics, Ownership Advisor, fuel tracking, ATO logbook, AI maintenance predictions, Rego Status, Servo Spy price watch, receipt scanning, resale estimates and EV tools.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#050505">
 <link rel="canonical" href="https://autobrainservice.app/features.html">
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AutoBrain">
 <meta property="og:title" content="Features — AutoBrain | AI Vehicle Maintenance, Diagnostics &amp; HA Integration">
-    <meta property="og:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Home Assistant integration (Phase 1 Q4 2026, Phase 2 2027), Electric Spy, EV Log Book, PHEV support (coming soon) and analytics.">
+    <meta property="og:description" content="OBD-II diagnostics, Ownership Advisor (6 modules), fuel intelligence, ATO logbook, AI maintenance predictions, Rego Status, Servo Spy price watch, receipt &amp; parts scanning, resale estimates, Home Assistant (Phase 1 live), Electric Spy, EV Log Book, PHEV support (coming soon).">
 <meta property="og:url" content="https://autobrainservice.app/features.html">
 <meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="400">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Features — AutoBrain">
-<meta name="twitter:description" content="Predictive maintenance, fuel intelligence, AI diagnostics, receipt &amp; parts scanning, inventory, rego lookup, Rego Status (paid), resale estimates, Electric Spy, EV Log Book, PHEV support (coming soon) and analytics.">
+<meta name="twitter:description" content="OBD-II diagnostics, Ownership Advisor (6 modules), fuel tracking, ATO logbook, AI maintenance predictions, Rego Status, Servo Spy price watch, receipt &amp; parts scanning, resale estimates, Home Assistant (Phase 1 live), Electric Spy, EV Log Book, PHEV support (coming soon).">
 <meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
@@ -81,7 +81,7 @@
       "url": "https://autobrainservice.app/",
       "applicationCategory": "AutomotiveApplication",
       "operatingSystem": "Web, Android, iOS",
-      "description": "AI-powered car companion: predictive maintenance, fuel intelligence, OBD2 diagnostics, digital logbook, rego lookup and vehicle analytics. Open-source (MIT) and hosted plans from free.",
+      "description": "AI-powered car companion: OBD-II diagnostics, Ownership Advisor, predictive maintenance, fuel intelligence, ATO logbook, digital logbook, rego lookup and vehicle analytics. Open-source (MIT) and hosted plans from free.",
       "brand": { "@type": "Brand", "name": "AutoBrain" },
       "offers": [
         { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "name": "Free" },
@@ -136,7 +136,7 @@
 <section class="page">
   <div class="container">
     <h1>What is <span class="b">AutoBrain</span>?</h1>
-    <p class="lead">AutoBrain is your all-in-one car companion — part digital logbook, part cost tracker, part garage organiser. Service reminders, fuel tracking, free rego lookup, AI diagnostics and ownership insights all in one place, with open-source flexibility and deterministic fallbacks.</p>
+    <p class="lead">AutoBrain is your all-in-one car companion — part digital logbook, part cost tracker, part garage organiser. Service reminders, fuel tracking, free rego lookup, OBD-II diagnostics and Ownership Advisor insights all in one place, with open-source flexibility and deterministic fallbacks.</p>
     <div class="grid">
       <div class="card">
         <div class="live u-badge-static">Now live</div>
@@ -146,7 +146,13 @@
         <span class="icon">⛽</span><h3>Fuel &amp; Service Record Tracking</h3><p>Log every fill-up and service to see how much your car really costs to run. Track fuel economy in L/100km, monitor spending trends, and claim back a percentage of your fuel and service costs on tax with easy exports. Servo Spy (below) watches fuel prices for you.</p></div>
       <div class="card">
         <div class="live u-badge-static">Now live</div>
+        <span class="icon">📟</span><h3>OBD-II Diagnostics</h3><p>Describe symptoms or paste OBD2 codes and AutoBrain returns likely causes, severity, affected parts and an Australian cost estimate. Works with a rule-based fallback so diagnostics stay available even when the AI model is unreachable. Add a $15–$40 ELM327 adapter for live OBD2 data — the adapter is optional, not required.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
         <span class="icon">🔧</span><h3>DIY + Shop Servicing Records</h3><p>Whether you're a hands-on enthusiast who wrenches on weekends or you prefer a trusted mechanic, keep a complete service history with dates, mileage and costs. Perfect for staying organised and knowing exactly what's been done.</p></div>
+      <div class="card">
+        <div class="live u-badge-static">Now live</div>
+        <span class="icon">🚗</span><h3>Ownership Advisor</h3><p>Six modules — Value, Replace, Upgrade, Finance, Dream and AI Advisor — answer the big ownership questions with real numbers, not guesswork. Deterministic-first with rule-based fallbacks so scores stay available when the model is down. Free accounts hit a 403 on Replace, Upgrade and Dream.</p></div>
       <div class="card">
         <div class="tier-tag">Paid · Enthusiast / Garage</div>
         <span class="icon">🛡️</span><h3>Rego Status</h3>
@@ -164,9 +170,9 @@
         <div class="live u-badge-static">Now live</div>
         <span class="icon">🏁</span><h3>Community Garage</h3><p>Share your builds, photos and mod lists with other car enthusiasts. Connect with like-minded owners, get inspiration for your next project, and show off what you've been working on.</p></div>
       <div class="card">
-        <div class="soon u-badge-static">Coming soon</div>
+        <div class="live u-badge-static">Now live</div>
         <span class="icon">🏠</span><h3>Home Assistant Integration</h3>
-        <p>Push AutoBrain analytics and service intervals into Home Assistant as sensors, calendar events and notifications. AutoBrain computes the insights — rego status, next-service dates, maintenance predictions, fuel efficiency — and HA displays them in your dashboards and automations. Phase 1 (REST + WebSocket) targets Q4 2026; Phase 2 (HACS custom integration) follows in 2027. No raw OBD2 telemetry leaves AutoBrain unless you opt in. <a href="blog/autobrain-home-assistant-integration.html">Learn more →</a></p>
+        <p>Push AutoBrain analytics and service intervals into Home Assistant as sensors, calendar events and notifications. Phase 1 (REST + WebSocket feed) is live now; Phase 2 (HACS custom integration with config flow) follows in Q4 2026. No raw OBD2 telemetry leaves AutoBrain unless you opt in. <a href="blog/autobrain-home-assistant-integration.html">Learn more →</a></p>
       </div>
       <div class="card">
         <div class="soon u-badge-static">Coming soon</div>
@@ -225,7 +231,7 @@
       </a>
       <a href="ha-coming-soon.html" class="card u-center-inherit">
         <span class="icon">🏠</span><h3>Home Assistant integration</h3>
-        <p>Push service reminders, fuel analytics and cost trends into your smart-home dashboard. Q4 2026.</p>
+        <p>Phase 1 (REST + WebSocket feed) is live; Phase 2 (HACS integration) targets Q4 2026.</p>
       </a>
       <a href="ai-data.html" class="card u-center-inherit">
         <span class="icon">🤖</span><h3>AI &amp; your data</h3>
