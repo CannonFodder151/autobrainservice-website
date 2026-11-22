@@ -7,9 +7,6 @@ the squash-merge itself, deterministically, once every gate below
 passes. Same behaviour as GitHub native auto-merge, no plan
 dependency.
 
-Ported from `CannonFodder151/autobrain-shop-website` (merge
-`9b3e86f3`, PR #22).
-
 ## Gates
 
 A PR is squash-merged only when **all** of these hold:
@@ -20,47 +17,42 @@ A PR is squash-merged only when **all** of these hold:
 | Not a draft | `.draft` is not `true` |
 | Mergeable | `.mergeable_state` is `clean` |
 | Based on base | `GET /compare/{default}...{head.sha}` returns `status: ahead` |
-| Approved | route 1: latest review from a non-author is `APPROVED`, **or** route 2: a Paperclip approval marker comment (below) |
-| Not self-approved | marker run id differs from the run id stamped in the PR body |
-| Marker author | marker comment is from the owning account |
+| Dual sign-off | distinct `paperclip-approve-code-reviewer` and `paperclip-approve-critical-reviewer` markers, each from a run different from the opening run, and different from each other |
+| Marker author | each marker comment is from the owning account |
 | No hold | no `hold` label on the PR |
 | Green | every status check is `SUCCESS`, `SKIPPED` or `NEUTRAL`, and none still pending |
 
 Anything else logs `skip: <reason>` and exits 0. The workflow never
 force-merges.
 
-## Approval marker (AUT-5401)
+## Dual sign-off markers (AUT-IMP-020)
 
-Every agent authors as the single `CannonFodder151` identity, so a
-review submitted through it is the author's own review and is
-filtered out — `latest non-author review` can never be `APPROVED`.
-The reachable route is a comment on the PR:
+Both reviewers must approve independently. Each posts a role-specific marker comment:
+
+- **Code Reviewer** (code quality, correctness, tests, security):
+  ```html
+  <!-- paperclip-approve-code-reviewer: AUT-1234 run: <run-uuid> -->
+  ```
+- **Critical Reviewer** (vibe/wording/claims/evidence, user-facing accuracy):
+  ```html
+  <!-- paperclip-approve-critical-reviewer: AUT-1234 run: <run-uuid> -->
+  ```
+
+The PR body must include the opening-run stamp:
 
 ```html
-<!-- paperclip-approve: AUT-1234 run: 34fc57cc-87fd-4916-9766-5e23ad912504 -->
+<!-- paperclip-run: <run-uuid> -->
 ```
 
-together with a stamp in the PR body naming the run that opened it:
+Rules:
+- Both markers required; missing either → `skip`.
+- Each marker's run id must differ from the opening `paperclip-run` (no self-approval).
+- The two marker run ids must differ from each other (distinct reviewers/runs).
+- Markers must come from the owning account (public repos accept comments from anyone).
 
-```html
-<!-- paperclip-run: 34fc57cc-87fd-4916-9766-5e23ad912504 -->
-```
+**Legacy:** the single `paperclip-approve:` marker is no longer sufficient. Dual sign-off is mandatory.
 
-Agents are one GitHub identity but many Paperclip runs, so the run
-ids are what separate approver from author. The merge fires only when
-the marker's run id exists and differs from the stamp. A PR with no
-stamp is refused: author-vs-approver is not checkable there, so the
-gate fails closed.
-
-The marker comment must come from the owning account. These repos
-include public ones, where any GitHub user can comment on a PR; an
-anonymous marker must not be able to merge anything.
-
-**Known limit:** any agent (i.e. anyone holding the shared account's
-token) can approve a PR opened by a different run. That is the
-Option A trade-off; the `hold` label is the manual veto, and
-exercising the standard GitHub review model instead needs the second
-identity from Option B.
+**Known limit:** any agent holding the shared account token can post either marker from a different run. The `hold` label is the manual veto. True identity separation requires per-role GitHub identities (future).
 
 ## Based on base
 
