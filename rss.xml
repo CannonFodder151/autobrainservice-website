@@ -6,9 +6,37 @@
 <link>https://autobrainservice.app/blog.html</link>
 <atom:link href="https://autobrainservice.app/rss.xml" rel="self" type="application/rss+xml" />
 <language>en-AU</language>
-<lastBuildDate>Sun, 04 Oct 2026 13:55:19 +0000</lastBuildDate>
-<item>
-<title>How to Self-Host AutoBrain on a $5 VPS — Complete Guide (2026)</title>
+<lastBuildDate>Fri, 27 Nov 2026 13:55:19 +0000</lastBuildDate>
+  <item>
+  <title>Vehicle Health Score Explained — Your Car's 0–100 Health Rating</title>
+  <description>How AutoBrain's Vehicle Health Score works: OBD2 data, service history, driving patterns & AI into a real-time 0–100 rating. Free tier available.</description>
+  <link>https://autobrainservice.app/blog/vehicle-health-score-explained.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/vehicle-health-score-explained.html</guid>
+  <pubDate>Fri, 27 Nov 2026 00:00:00 +1000</pubDate>
+  </item>
+  <item>
+  <title>How AutoBrain AI Diagnostics Works — Causes, Severity & AU Repair Costs</title>
+  <description>How AutoBrain AI Diagnostics works: describe symptoms or paste OBD2 codes. Get causes, severity, parts & AU repair costs. Deterministic fallback works offline.</description>
+  <link>https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html</guid>
+  <pubDate>Fri, 27 Nov 2026 00:00:00 +1000</pubDate>
+  </item>
+  <item>
+  <title>Electric Spy — EV Charging Price Watch for Australia</title>
+  <description>Electric Spy watches Australian EV charging prices, alerts when prices move past your threshold. Live WA/QLD feeds, more states coming. EV cousin of Servo Spy.</description>
+  <link>https://autobrainservice.app/blog/electric-spy-charging-price-watch.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/electric-spy-charging-price-watch.html</guid>
+  <pubDate>Fri, 27 Nov 2026 00:00:00 +1000</pubDate>
+  </item>
+  <item>
+  <title>PHEV Tracking Australia — Combined Petrol & Electric Dashboard</title>
+  <description>AutoBrain's PHEV support: combined dashboard for plug-in hybrids — petrol fill-ups, charge sessions, EV/petrol split, blended $/100km. Q4 2026.</description>
+  <link>https://autobrainservice.app/blog/phev-tracking-australia-guide.html</link>
+  <guid isPermaLink="true">https://autobrainservice.app/blog/phev-tracking-australia-guide.html</guid>
+  <pubDate>Fri, 27 Nov 2026 00:00:00 +1000</pubDate>
+  </item>
+  <item>
+  <title>How to Self-Host AutoBrain on a $5 VPS — Complete Guide (2026)</title>
 <description>Self-host AutoBrain on a cheap $5/month VPS. Step-by-step guide with Docker Compose, Nginx, SSL, and backup. Free, open-source, your data stays yours.</description>
 <link>https://autobrainservice.app/blog/self-host-autobrain-5-vps.html</link>
 <guid isPermaLink="true">https://autobrainservice.app/blog/self-host-autobrain-5-vps.html</guid>
