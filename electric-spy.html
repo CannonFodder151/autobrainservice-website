@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electric Spy — AutoBrain | EV Charging Price Watch AU</title>
+    <meta name="description" content="Electric Spy watches AU EV charging prices and alerts when your chargers cross your threshold. EV cousin of Servo Spy — live WA/QLD feeds, more states coming.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/electric-spy.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+    <meta property="og:title" content="Electric Spy — AutoBrain | EV Charging Price Watch AU">
+    <meta property="og:description" content="Star chargers, set price-per-kWh thresholds, get alerts when prices move. Live WA/QLD feeds, more states coming.">
+<meta property="og:url" content="https://autobrainservice.app/electric-spy.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Electric Spy — AutoBrain | EV Charging Price Watch AU">
+<meta name="twitter:description" content="EV cousin of Servo Spy. Watch charging prices, get alerts when prices move. Live WA/QLD feeds.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/electric-spy.html#webpage",
+      "url": "https://autobrainservice.app/electric-spy.html",
+      "name": "Electric Spy — AutoBrain",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://autobrainservice.app/features.html" },
+        { "@type": "ListItem", "position": 3, "name": "Coming Soon", "item": "https://autobrainservice.app/coming-soon.html" },
+        { "@type": "ListItem", "position": 4, "name": "Electric Spy", "item": "https://autobrainservice.app/electric-spy.html" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "AutoBrain Electric Spy",
+      "applicationCategory": "AutomotiveApplication",
+      "operatingSystem": "Web, Android, iOS",
+      "url": "https://autobrainservice.app/",
+      "description": "EV charging station price watch for Australia. Star chargers, set price-per-kWh thresholds, get push notifications when prices move. Live data from WA (official) and QLD (partner) feeds. More states as partner keys issued.",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD", "description": "Basic EV vehicle creation and charge logging only" },
+        { "@type": "Offer", "name": "Enthusiast", "price": "5.90", "priceCurrency": "AUD", "description": "Electric Spy alerts, full EV Log Book, PHEV dual-source" },
+        { "@type": "Offer", "name": "Garage", "price": "11.90", "priceCurrency": "AUD", "description": "Up to 5 vehicles, everything in Enthusiast" }
+      ],
+      "featureList": [
+        "Charging station price watch",
+        "Custom price-per-kWh thresholds",
+        "Connector type & network filters",
+        "Push notifications on price moves",
+        "Live WA government feed",
+        "Live QLD partner feed",
+        "NSW/ACT/VIC pending partner keys",
+        "Route planning with charge cost"
+      ],
+      "screenshot": "https://autobrainservice.app/assets/og-image.png"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Electric Spy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Electric Spy is the EV cousin of AutoBrain's Servo Spy fuel price watch. You star your favourite charging stations, pick the connector types and networks you use, set a custom price-per-kWh move threshold, and Electric Spy notifies you the moment a station's price rises or drops past your line. Live pricing comes from the same state-by-state feed approach that powers Servo Spy — official government feeds plus partner feeds." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Australian states have live charging prices?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Western Australia via the official government FuelWatch feed (extended to EV chargers), and Queensland via the Fuel Prices QLD partner feed. New South Wales, ACT and Victoria are pending as partner-feed API keys are issued. The architecture is state-agnostic — each state lights up as its feed becomes available." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I set up price alerts?",
+          "acceptedAnswer": { "@type": "Answer", "text": "In the Electric Spy tab, browse the map or list of stations. Tap the star on any charger to add it to your watchlist. For each starred charger, choose the connector type (CCS2, CHAdeMO, Type 2, Tesla), the network, and your threshold — e.g. \"notify me if price drops more than 5¢/kWh\" or \"alert if price rises above 60¢/kWh\". Notifications use your existing AutoBrain notification settings (push, email, in-app)." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Electric Spy work with home charging?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Electric Spy tracks public charging stations from live feeds. Home charging costs are tracked separately in the EV Log Book — you enter your home electricity rate (or time-of-use tariff) and AutoBrain calculates $/100 km for home charges alongside public sessions." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can self-hosters use Electric Spy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Self-hosted AutoBrain includes the same Electric Spy code path. You provide your own charging-feed API keys (WA government, Fuel Prices QLD, or other sources) in the environment configuration, and the existing Celery beat schedule polls the feeds and triggers alerts on your infrastructure." }
+        },
+        {
+          "@type": "Question",
+          "name": "When does Electric Spy launch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Electric Spy is targeted for Q4 2026 as part of the EV feature rollout. It will ship in waves: Electric Spy first, then the EV Log Book efficiency dashboard, then full PHEV dual-source support. Join the waitlist to be notified the day it lands." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Electric Spy free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The free tier keeps basic EV vehicle creation and on-demand charge logging. Live Electric Spy price alerts, the full EV Log Book efficiency dashboard, and PHEV dual-source tracking are available on the Enthusiast ($5.90/month or $59/year) and Garage ($11.90/month or $119/year) hosted plans. Self-hosters get the full feature set free with their own feed API keys." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/electric-spy.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/electric-spy.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI & your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span aria-hidden="true">›</span>
+      <a href="features.html">Features</a> <span aria-hidden="true">›</span>
+      <a href="coming-soon.html">Coming Soon</a> <span aria-hidden="true">›</span>
+      <span aria-current="page">Electric Spy</span>
+    </nav>
+    <div class="soon u-badge-static" style="margin-bottom: 1rem;">Coming Q4 2026</div>
+    <h1>Electric Spy — <span class="b">EV Charging Price Watch</span></h1>
+    <p class="lead">Star your favourite chargers, pick connector type and network, set a price-per-kWh move threshold. Electric Spy pings you the moment a station's price crosses your line. Live WA & QLD feeds, more states coming.</p>
+    <div class="u-flex-center u-mt-28">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=EV%20waitlist">Join the EV waitlist</a>
+      <a class="cta-outline" href="coming-soon.html">See all coming features</a>
+    </div>
+
+    <div class="card u-mt-42">
+      <h2>How it works</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="icon">1️⃣</span>
+          <h3>Build your watchlist</h3>
+          <p>Browse the map or list of charging stations. Tap the star on any charger to add it. Filter by connector (CCS2, CHAdeMO, Type 2, Tesla), network (Chargefox, Evie, Tesla, Jolt, NRMA, etc.), and state.</p>
+        </div>
+        <div class="card">
+          <span class="icon">2️⃣</span>
+          <h3>Set your thresholds</h3>
+          <p>For each starred charger, choose: \"Notify me if price drops more than X¢/kWh\" or \"Alert if price rises above Y¢/kWh\". Different thresholds per charger, per connector.</p>
+        </div>
+        <div class="card">
+          <span class="icon">3️⃣</span>
+          <h3>Get alerted</h3>
+          <p>Electric Spy polls live feeds on the same schedule as Servo Spy. The moment a watched station's price crosses your threshold, you get a push notification (and/or email, in-app) — just like Servo Spy for fuel.</p>
+        </div>
+        <div class="card">
+          <span class="icon">4️⃣</span>
+          <h3>Plan your charge</h3>
+          <p>Open the alert, see the new price, compare nearby starred chargers, and pick the cheapest option. Electric Spy integrates with the EV Log Book so every charge session auto-logs with cost and kWh.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Live data sources</h2>
+      <p>Electric Spy uses the same state-by-state feed architecture as Servo Spy — official government feeds first, partner feeds where official doesn't exist:</p>
+      <div class="grid">
+        <div class="card">
+          <div class="tier-tag" style="background: var(--ok);">Live</div>
+          <h3>Western Australia</h3>
+          <p>Official government FuelWatch feed extended to EV charging stations. Comprehensive coverage of public chargers across WA.</p>
+        </div>
+        <div class="card">
+          <div class="tier-tag" style="background: var(--ok);">Live</div>
+          <h3>Queensland</h3>
+          <p>Fuel Prices QLD partner feed covering major networks (Chargefox, Evie, Tesla Superchargers, Jolt, NRMA) across QLD.</p>
+        </div>
+        <div class="card">
+          <div class="soon u-badge-static">Pending</div>
+          <h3>New South Wales</h3>
+          <p>Awaiting partner-feed API key issuance. Major networks: Chargefox, Evie, Tesla, NRMA, Jolt, BP Pulse.</p>
+        </div>
+        <div class="card">
+          <div class="soon u-badge-static">Pending</div>
+          <h3>Victoria</h3>
+          <p>Awaiting partner-feed API key. Networks: Chargefox, Evie, Tesla, Jolt, Ampol, BP Pulse, NRMA.</p>
+        </div>
+        <div class="card">
+          <div class="soon u-badge-static">Pending</div>
+          <h3>ACT</h3>
+          <p>Awaiting partner-feed API key. Networks: Chargefox, Evie, Tesla, Jolt, NRMA.</p>
+        </div>
+        <div class="card">
+          <div class="soon u-badge-static">Future</div>
+          <h3>Other states</h3>
+          <p>SA, NT, TAS — feed availability under investigation. Self-hosters can wire any feed with an API key.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Integration with EV Log Book</h2>
+      <p>Electric Spy doesn't exist in isolation — it feeds directly into the EV Log Book:</p>
+      <ul>
+        <li><strong>Charge session auto-log:</strong> When you charge at a watched station, the session (kWh, duration, cost, station, connector) appears in your EV Log Book automatically.</li>
+        <li><strong>$/100 km & kWh/100 km:</strong> Every charge updates your real-world efficiency metrics — home vs public, AC vs DC, time-of-use tariff aware.</li>
+        <li><strong>Per-charge breakdown:</strong> Energy added, duration, cost, station name, connector type — all in one timeline.</li>
+        <li><strong>ATO-compatible exports:</strong> Same export engine as the fuel log book. Work-related EV charging is claimable with the same CSV/JSON exports.</li>
+      </ul>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Route planning with charge cost</h2>
+      <p>Enter a destination and Electric Spy shows you the route with charging stops optimised for:</p>
+      <ul>
+        <li><strong>Lowest total cost</strong> — picks the cheapest compatible chargers along your route</li>
+        <li><strong>Fastest overall time</strong> — balances charge speed vs detour distance</li>
+        <li><strong>Preferred networks</strong> — prioritises your starred networks and connector types</li>
+        <li><strong>Real-time availability</strong> — where feed data includes stall status (WA/QLD)</li>
+      </ul>
+      <p class="u-mt-14">Route planning uses your vehicle's real-world consumption from the EV Log Book, not WLTP figures.</p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Plans & availability</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="tier-tag">Free</div>
+          <h3>EV basics only</h3>
+          <p>Add EV/PHEV vehicle, log charge sessions manually. No Electric Spy alerts, no efficiency dashboard, no route planning.</p>
+        </div>
+        <div class="card popular">
+          <div class="tier-tag">Enthusiast · $5.90/mo</div>
+          <h3>Full Electric Spy</h3>
+          <p>Live price alerts, watchlist, route planning, full EV Log Book dashboard, PHEV dual-source. 7-day free trial.</p>
+        </div>
+        <div class="card popular">
+          <div class="tier-tag">Garage · $11.90/mo</div>
+          <h3>Up to 5 vehicles</h3>
+          <p>Everything in Enthusiast across 5 vehicles. Each vehicle gets its own watchlist and EV Log Book.</p>
+        </div>
+        <div class="card">
+          <div class="tier-tag">Self-Hosted</div>
+          <h3>Full feature set free</h3>
+          <p>MIT-licensed. Provide your own charging-feed API keys. Same Celery beat schedule, your infrastructure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>What is Electric Spy?</summary>
+          <p>Electric Spy is the EV cousin of AutoBrain's Servo Spy fuel price watch. You star your favourite charging stations, pick the connector types and networks you use, set a custom price-per-kWh move threshold, and Electric Spy notifies you the moment a station's price rises or drops past your line. Live pricing comes from the same state-by-state feed approach that powers Servo Spy — official government feeds plus partner feeds.</p>
+        </details>
+        <details>
+          <summary>Which Australian states have live charging prices?</summary>
+          <p>Western Australia via the official government FuelWatch feed (extended to EV chargers), and Queensland via the Fuel Prices QLD partner feed. New South Wales, ACT and Victoria are pending as partner-feed API keys are issued. The architecture is state-agnostic — each state lights up as its feed becomes available.</p>
+        </details>
+        <details>
+          <summary>How do I set up price alerts?</summary>
+          <p>In the Electric Spy tab, browse the map or list of stations. Tap the star on any charger to add it to your watchlist. For each starred charger, choose the connector type (CCS2, CHAdeMO, Type 2, Tesla), the network, and your threshold — e.g. "notify me if price drops more than 5¢/kWh" or "alert if price rises above 60¢/kWh". Notifications use your existing AutoBrain notification settings (push, email, in-app).</p>
+        </details>
+        <details>
+          <summary>Does Electric Spy work with home charging?</summary>
+          <p>Electric Spy tracks public charging stations from live feeds. Home charging costs are tracked separately in the EV Log Book — you enter your home electricity rate (or time-of-use tariff) and AutoBrain calculates $/100 km for home charges alongside public sessions.</p>
+        </details>
+        <details>
+          <summary>Can self-hosters use Electric Spy?</summary>
+          <p>Yes. Self-hosted AutoBrain includes the same Electric Spy code path. You provide your own charging-feed API keys (WA government, Fuel Prices QLD, or other sources) in the environment configuration, and the existing Celery beat schedule polls the feeds and triggers alerts on your infrastructure.</p>
+        </details>
+        <details>
+          <summary>When does Electric Spy launch?</summary>
+          <p>Electric Spy is targeted for Q4 2026 as part of the EV feature rollout. It will ship in waves: Electric Spy first, then the EV Log Book efficiency dashboard, then full PHEV dual-source support. Join the waitlist to be notified the day it lands.</p>
+        </details>
+        <details>
+          <summary>Is Electric Spy free?</summary>
+          <p>The free tier keeps basic EV vehicle creation and on-demand charge logging. Live Electric Spy price alerts, the full EV Log Book efficiency dashboard, and PHEV dual-source tracking are available on the Enthusiast ($5.90/month or $59/year) and Garage ($11.90/month or $119/year) hosted plans. Self-hosters get the full feature set free with their own feed API keys.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="u-center u-mt-42">
+      <a class="cta" href="mailto:sales@autobrainservice.app?subject=EV%20waitlist">Join the EV waitlist for Electric Spy</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI & your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>

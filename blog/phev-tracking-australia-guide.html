@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHEV Tracking Australia — Dual-Source Fuel & Electric</title>
+<meta name="description" content="AutoBrain's PHEV support: combined dashboard for plug-in hybrids — petrol fill-ups, charge sessions, EV/petrol split, blended $/100km. Q4 2026.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/blog/phev-tracking-australia-guide.html">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="PHEV Tracking Australia — Dual-Source Fuel & Electric Dashboard">
+<meta property="og:description" content="One dashboard for your plug-in hybrid: petrol logs, charge sessions, real-world EV vs petrol split, and combined $/100km. PHEV support with EV/HEV/PHEV/ICE powertrain enum. Coming Q4 2026.">
+<meta property="og:url" content="https://autobrainservice.app/blog/phev-tracking-australia-guide.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/blog/og/phev-tracking-australia-guide.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://autobrainservice.app/about.html#nathan">
+<meta property="article:section" content="EV & Battery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PHEV Tracking Australia — Dual-Source Dashboard">
+<meta name="twitter:description" content="Petrol + electric on one screen. Track fill-ups, charges, EV split, and combined cost per km. Australian PHEV owners get the full picture.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/blog/og/phev-tracking-australia-guide.png">
+<script type="application/ld+json>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "inLanguage": "en-AU",
+      "headline": "PHEV Tracking Australia — Dual-Source Fuel & Electric Dashboard",
+      "articleSection": "EV & Battery",
+      "description": "AutoBrain's PHEV support gives plug-in hybrid owners a single combined dashboard: petrol fill-ups, charge sessions, electric-vs-petrol split, and blended $/100km. Coming Q4 2026.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://autobrainservice.app/#nathan",
+        "name": "Nathan",
+        "jobTitle": "IT professional and car enthusiast",
+        "url": "https://autobrainservice.app/about.html#nathan",
+        "worksFor": { "@type": "Organization", "name": "AutoBrain", "@id": "https://autobrainservice.app/#org" },
+        "sameAs": "https://www.linkedin.com/in/nathanmartina"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AutoBrain",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://autobrainservice.app/assets/logo.png"
+        }
+      },
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "mainEntityOfPage": "https://autobrainservice.app/blog/phev-tracking-australia-guide.html",
+      "image": "https://autobrainservice.app/assets/blog/og/phev-tracking-australia-guide.png",
+      "keywords": [
+        "PHEV tracking Australia",
+        "plug-in hybrid fuel tracking",
+        "PHEV dashboard Australia",
+        "dual source fuel electric tracking",
+        "AutoBrain PHEV"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://autobrainservice.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://autobrainservice.app/blog.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "PHEV Tracking Australia",
+          "item": "https://autobrainservice.app/blog/phev-tracking-australia-guide.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is PHEV tracking in AutoBrain?",
+          "acceptedAnswer": { "@type": "Answer", "text": "PHEV tracking gives plug-in hybrid owners a single combined dashboard that shows both petrol fill-ups and EV charge sessions side by side. You see your real-world electric-vs-petrol distance split, blended $/100km cost across both energy sources, and the same per-km cost tracking you already get for pure ICE vehicles — all on one screen." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the powertrain enum work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every vehicle in AutoBrain now has a powertrain setting: EV (battery-electric), HEV (conventional hybrid, no plug), PHEV (plug-in hybrid), or ICE (petrol/diesel only). This setting determines which logging fields appear, which efficiency metrics are calculated, and how the combined dashboard is rendered. PHEV owners get both fuel and charge logging enabled simultaneously." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track electric and petrol costs separately and combined?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The PHEV dashboard shows three cost views: (1) Petrol only — L/100km and $/km from fuel fill-ups; (2) Electric only — kWh/100km and $/100km from charge sessions; (3) Blended — combined $/100km across both energy sources weighted by actual distance driven in each mode. You also see the EV% distance split (e.g. \"68% electric, 32% petrol\")." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does PHEV tracking work with OBD2?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain reads PHEV-relevant OBD2 PIDs where available: battery state of charge, EV mode distance, engine runtime vs motor runtime, high-voltage battery temperature, and charge/discharge power. The recommended AutoBrain OBD2 adapter provides the most complete live data. Without an adapter, you can still log fill-ups and charges manually." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my existing fuel logs preserved when I switch a vehicle to PHEV?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. The powertrain enum is a per-vehicle setting that only changes which input fields and metrics are shown going forward. Every existing fuel log stays exactly where it is. The new electric meters (charge sessions, kWh, EV distance) appear alongside your petrol history. ATO-compatible exports continue to include all the same fields they always have, plus the new electric fields." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the EV Log Book work for PHEVs?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The EV Log Book (kWh/100km, $/100km, per-charge cost) works for PHEV charge sessions exactly as it does for pure EVs. You log each charge — home wall box, public AC, public DC fast charger — and AutoBrain calculates the electric efficiency metrics. The petrol side continues to use the existing fuel log book (L/100km, $/km). Both feed into the blended dashboard." }
+        },
+        {
+          "@type": "Question",
+          "name": "When does PHEV support launch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "PHEV support is part of the EV feature rollout targeted for Q4 2026. The rollout order: Electric Spy (charging price watch) first, then EV Log Book (EV efficiency dashboard), then full PHEV dual-source support. Join the waitlist to be notified when PHEV tracking goes live." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is PHEV tracking available on the free tier?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The free tier keeps basic PHEV vehicle creation and on-demand logging for both fuel and charge sessions. The full dual-source dashboard with blended metrics, EV% split, Electric Spy alerts, and the EV Log Book efficiency dashboard require the Enthusiast ($5.90/month or $59/year) or Garage ($11.90/month or $119/year) plans. Self-hosters get the full feature set free." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="../styles.css">
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/blog/phev-tracking-australia-guide.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/blog/phev-tracking-australia-guide.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="../assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="../selfhost.html">Self-Host</a></li>
+      <li><a href="../hosted.html">Plans</a></li>
+      <li><a href="../car-clubs.html">Car Clubs</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="../car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="../ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="../changelog.html">Changelog</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../privacy.html">Privacy</a></li>
+          <li><a href="../ai-data.html">AI & your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <a class="back-link" href="../blog.html">← Back to blog</a>
+    <article class="article">
+      <h1 class="u-post-title">PHEV Tracking Australia — <span class="b">Dual-Source Fuel & Electric Dashboard</span></h1>
+      <p class="meta">AutoBrain Team · 27 November 2026 · EV & Battery · 7 min read</p>
+      <p class="lead">Most apps force a choice: track petrol <em>or</em> track electric. But a plug-in hybrid uses both. AutoBrain's PHEV support gives you one combined dashboard — petrol logs, charge sessions, real-world EV vs petrol split, and blended $/100km. Coming Q4 2026.</p>
+
+      <h2>The PHEV problem</h2>
+      <p>Australia has a growing plug-in hybrid fleet: Mitsubishi Outlander PHEV, MG HS+EV, BYD Seal U DM-i, Ford Escape PHEV, Volvo XC60/XC90 Recharge, BMW 330e/X5 xDrive45e, Mercedes GLC 300e, and more. But every tracking app makes you pick a lane:</p>
+      <ul>
+        <li><strong>Fuel apps</strong> (Fuelly, Drivvo, My Car) — track petrol, ignore electric</li>
+        <li><strong>EV apps</strong> (Tesla, ChargePoint, PlugShare) — track charging, ignore petrol</li>
+        <li><strong>Spreadsheets</strong> — manual, error-prone, no analytics</li>
+      </ul>
+      <p>Result: you have two incomplete pictures and no real answer to "what does this car actually cost me per kilometre?"</p>
+
+      <h2>AutoBrain's solution: the powertrain enum</h2>
+      <p>Every vehicle in AutoBrain now has a <strong>powertrain setting</strong> with four options:</p>
+      <table>
+        <thead><tr><th>Setting</th><th>Description</th><th>Logging enabled</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ICE</strong></td><td>Petrol/diesel only</td><td>Fuel only</td></tr>
+          <tr><td><strong>HEV</strong></td><td>Conventional hybrid (no plug)</td><td>Fuel only</td></tr>
+          <tr><td><strong>PHEV</strong></td><td>Plug-in hybrid</td><td>Fuel <strong>+</strong> Charge</td></tr>
+          <tr><td><strong>EV</strong></td><td>Battery-electric</td><td>Charge only</td></tr>
+        </tbody>
+      </table>
+      <p>Set your vehicle to <strong>PHEV</strong> and both fuel logging <em>and</em> charge logging are enabled simultaneously. One vehicle, one dashboard, two energy sources tracked natively.</p>
+
+      <h2>What the PHEV dashboard shows</h2>
+      <p>Three views, one screen:</p>
+
+      <h3>1. Petrol side (the familiar fuel log book)</h3>
+      <ul>
+        <li>Every fill-up: litres, cost, L/100km, $/km, station</li>
+        <li>Rolling average L/100km and $/km</li>
+        <li>Financial year exports for tax (ATO-compatible)</li>
+        <li>Service predictions based on fuel-derived distance</li>
+      </ul>
+
+      <h3>2. Electric side (the new EV Log Book)</h3>
+      <ul>
+        <li>Every charge: kWh added, duration, cost, station, connector</li>
+        <li>kWh/100km and $/100km efficiency — home vs public, AC vs DC</li>
+        <li>Per-charge breakdown with time-of-use tariff awareness</li>
+        <li>Battery health trend from capacity snapshots</li>
+      </ul>
+
+      <h3>3. Blended view (the magic)</h3>
+      <ul>
+        <li><strong>Combined $/100km</strong> — weighted by actual distance driven in each mode</li>
+        <li><strong>EV% distance split</strong> — e.g. "68% electric, 32% petrol" (from OBD2 or manual entry)</li>
+        <li><strong>Cost per km in EV mode vs petrol mode</strong> — see the real difference</li>
+        <li><strong>Total energy cost per week/month/year</strong> — the number that matters</li>
+      </ul>
+
+      <h2>Real example: Sarah's MG HS+EV</h2>
+      <p>Sarah drives a 2024 MG HS+EV PHEV in Brisbane. 40 km commute each way, charges at home overnight (off-peak 18¢/kWh), does weekend trips on petrol.</p>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Weekly electric distance</td><td>280 km (70%)</td></tr>
+          <tr><td>Weekly petrol distance</td><td>120 km (30%)</td></tr>
+          <tr><td>Home charging cost</td><td>18¢/kWh off-peak = ~$3.60/100km</td></tr>
+          <tr><td>Petrol cost</td><td>7.5 L/100km @ $1.95/L = ~$14.60/100km</td></tr>
+          <tr><td><strong>Blended $/100km</strong></td><td><strong>$6.90</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Without the blended view, Sarah sees "$14.60/100km on petrol" and "$3.60/100km electric" as separate numbers. The blended $6.90/100km is what actually hits her wallet — and it's the number she uses to decide if the PHEV makes financial sense vs a pure EV or ICE.</p>
+
+      <h2>OBD2 integration: automatic EV% split</h2>
+      <p>With the recommended AutoBrain OBD2 adapter (or any ELM327 v1.4+), AutoBrain reads PHEV-specific PIDs where the vehicle supports them:</p>
+      <ul>
+        <li><strong>Battery state of charge (SoC)</strong> — live high-voltage pack percentage</li>
+        <li><strong>EV mode distance</strong> — kilometres driven on electric only (from vehicle ECU)</li>
+        <li><strong>Engine runtime vs motor runtime</strong> — how much the ICE actually ran</li>
+        <li><strong>High-voltage battery temperature</strong> — thermal management insight</li>
+        <li><strong>Charge/discharge power</strong> — real-time kW flow in/out of the pack</li>
+      </ul>
+      <p>These PIDs auto-populate the EV distance and engine distance fields, making the EV% split accurate without manual entry. Without an adapter, you can still log fill-ups and charges manually and enter the EV distance per trip.</p>
+
+      <h2>Existing fuel data is preserved</h2>
+      <p>Switching a vehicle's powertrain to PHEV is non-destructive:</p>
+      <ul>
+        <li>All historical fuel fill-ups remain unchanged and queryable</li>
+        <li>Service records, receipts, parts, mods — all preserved</li>
+        <li>Resale estimates, analytics, logbook exports — all continue working</li>
+        <li>New electric fields simply appear alongside the existing petrol fields</li>
+      </ul>
+      <p>You don't migrate. You just start logging charges and the blended dashboard lights up.</p>
+
+      <h2>ATO-compatible exports for PHEVs</h2>
+      <p>Work-related car expenses in Australia can include both fuel and electricity. AutoBrain's export engine (the same one your fuel log book uses) produces a single CSV/JSON with:</p>
+      <ul>
+        <li>All petrol sessions: date, km, litres, cost, $/km, purpose</li>
+        <li>All charge sessions: date, km, kWh, cost, $/100km, station, connector, purpose</li>
+        <li>Blended summary: total km, EV%, petrol%, total cost, blended $/100km</li>
+      </ul>
+      <p>Your accountant gets one file. You claim both energy sources.</p>
+
+      <h2>Plans & availability</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Free</th><th>Enthusiast ($5.90/mo)</th><th>Garage ($11.90/mo)</th><th>Self-Hosted</th></tr></thead>
+        <tbody>
+          <tr><td>PHEV vehicle creation & manual logging</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Blended dashboard (EV% + combined $/100km)</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>EV Log Book efficiency dashboard</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Electric Spy price alerts</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>OBD2 PHEV PID auto-population</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>ATO dual-source exports</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>What is PHEV tracking in AutoBrain?</summary>
+          <p>PHEV tracking gives plug-in hybrid owners a single combined dashboard that shows both petrol fill-ups and EV charge sessions side by side. You see your real-world electric-vs-petrol distance split, blended $/100km cost across both energy sources, and the same per-km cost tracking you already get for pure ICE vehicles — all on one screen.</p>
+        </details>
+        <details>
+          <summary>How does the powertrain enum work?</summary>
+          <p>Every vehicle in AutoBrain now has a powertrain setting: EV (battery-electric), HEV (conventional hybrid, no plug), PHEV (plug-in hybrid), or ICE (petrol/diesel only). This setting determines which logging fields appear, which efficiency metrics are calculated, and how the combined dashboard is rendered. PHEV owners get both fuel and charge logging enabled simultaneously.</p>
+        </details>
+        <details>
+          <summary>Can I track electric and petrol costs separately and combined?</summary>
+          <p>Yes. The PHEV dashboard shows three cost views: (1) Petrol only — L/100km and $/km from fuel fill-ups; (2) Electric only — kWh/100km and $/100km from charge sessions; (3) Blended — combined $/100km across both energy sources weighted by actual distance driven in each mode. You also see the EV% distance split (e.g. "68% electric, 32% petrol").</p>
+        </details>
+        <details>
+          <summary>Does PHEV tracking work with OBD2?</summary>
+          <p>Yes. AutoBrain reads PHEV-relevant OBD2 PIDs where available: battery state of charge, EV mode distance, engine runtime vs motor runtime, high-voltage battery temperature, and charge/discharge power. The recommended AutoBrain OBD2 adapter provides the most complete live data. Without an adapter, you can still log fill-ups and charges manually.</p>
+        </details>
+        <details>
+          <summary>Are my existing fuel logs preserved when I switch a vehicle to PHEV?</summary>
+          <p>Absolutely. The powertrain enum is a per-vehicle setting that only changes which input fields and metrics are shown going forward. Every existing fuel log stays exactly where it is. The new electric meters (charge sessions, kWh, EV distance) appear alongside your petrol history. ATO-compatible exports continue to include all the same fields they always have, plus the new electric fields.</p>
+        </details>
+        <details>
+          <summary>Does the EV Log Book work for PHEVs?</summary>
+          <p>Yes. The EV Log Book (kWh/100km, $/100km, per-charge cost) works for PHEV charge sessions exactly as it does for pure EVs. You log each charge — home wall box, public AC, public DC fast charger — and AutoBrain calculates the electric efficiency metrics. The petrol side continues to use the existing fuel log book (L/100km, $/km). Both feed into the blended dashboard.</p>
+        </details>
+        <details>
+          <summary>When does PHEV support launch?</summary>
+          <p>PHEV support is part of the EV feature rollout targeted for Q4 2026. The rollout order: Electric Spy (charging price watch) first, then EV Log Book (EV efficiency dashboard), then full PHEV dual-source support. Join the waitlist to be notified when PHEV tracking goes live.</p>
+        </details>
+        <details>
+          <summary>Is PHEV tracking available on the free tier?</summary>
+          <p>The free tier keeps basic PHEV vehicle creation and on-demand logging for both fuel and charge sessions. The full dual-source dashboard with blended metrics, EV% split, Electric Spy alerts, and the EV Log Book efficiency dashboard require the Enthusiast ($5.90/month or $59/year) or Garage ($11.90/month or $119/year) plans. Self-hosters get the full feature set free.</p>
+        </details>
+      </div>
+
+      <p class="u-mt-28"><a class="cta" href="../phev-tracking.html">See the PHEV Tracking feature page →</a> <a class="cta-outline" href="mailto:sales@autobrainservice.app?subject=EV%20waitlist">Join the EV waitlist →</a></p>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="ev-battery-health-australia.html">EV Battery Health Australia — How to Extend EV Battery Life 2026</a></li>
+        <li><a href="electric-spy-charging-price-watch.html">Electric Spy — EV Charging Price Watch for Australia</a></li>
+        <li><a href="../coming-soon.html">All Coming Soon Features (Electric Spy, EV Log Book, HA Phase 2)</a></li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="../privacy.html">Privacy</a> · <a href="../ai-data.html">AI & your data</a> · <a href="../about.html">About</a> · <a href="../changelog.html">Changelog</a> · <a href="../blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="../nav.js"></script>
+
+</body>
+</html>

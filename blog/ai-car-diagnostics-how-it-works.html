@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Car Diagnostics — How AutoBrain Turns Symptoms to Answers</title>
+<meta name="description" content="How AutoBrain AI Diagnostics works: describe symptoms or paste OBD2 codes. Get causes, severity, parts & AU repair costs. Deterministic fallback works offline.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="AI Car Diagnostics — How AutoBrain Turns Symptoms & Codes into Answers">
+<meta property="og:description" content="Check engine light? Paste the code or describe the symptom. AutoBrain returns likely causes, severity, parts needed and Australian repair cost estimates. Deterministic fallback works without AI.">
+<meta property="og:url" content="https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/blog/og/ai-car-diagnostics-how-it-works.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-11-27">
+<meta property="article:modified_time" content="2026-11-27">
+<meta property="article:author" content="https://autobrainservice.app/about.html#nathan">
+<meta property="article:section" content="AI & Technology">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Car Diagnostics — How AutoBrain Works">
+<meta name="twitter:description" content="Describe symptoms or paste OBD2 codes. Get causes, severity, parts, Australian costs. Works even when AI is down.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/blog/og/ai-car-diagnostics-how-it-works.png">
+<script type="application/ld+json>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "inLanguage": "en-AU",
+      "headline": "AI Car Diagnostics — How AutoBrain Turns Symptoms & Codes into Answers",
+      "articleSection": "AI & Technology",
+      "description": "How AutoBrain AI Diagnostics works: describe symptoms or paste OBD2 codes, get likely causes, severity, parts and Australian repair costs. Deterministic fallback works when AI is down.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://autobrainservice.app/#nathan",
+        "name": "Nathan",
+        "jobTitle": "IT professional and car enthusiast",
+        "url": "https://autobrainservice.app/about.html#nathan",
+        "worksFor": { "@type": "Organization", "name": "AutoBrain", "@id": "https://autobrainservice.app/#org" },
+        "sameAs": "https://www.linkedin.com/in/nathanmartina"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AutoBrain",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://autobrainservice.app/assets/logo.png"
+        }
+      },
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "mainEntityOfPage": "https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html",
+      "image": "https://autobrainservice.app/assets/blog/og/ai-car-diagnostics-how-it-works.png",
+      "keywords": [
+        "AI car diagnostics Australia",
+        "OBD2 code reader app",
+        "car symptom checker",
+        "AutoBrain diagnostics",
+        "deterministic fallback AI"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://autobrainservice.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://autobrainservice.app/blog.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Car Diagnostics How It Works",
+          "item": "https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does AutoBrain AI Diagnostics work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You describe a symptom in plain English (e.g. \"car shakes at 60km/h\", \"burning smell from engine bay\") or paste an OBD2 fault code (e.g. P0300, P0420). AutoBrain's AI analyses your input against its training on Australian repair data and returns: likely causes ranked by probability, severity rating, affected parts, and an Australian dollar cost estimate range. The deterministic fallback runs a rule-based lookup first so diagnostics work even when the AI model is unreachable." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an OBD2 adapter for AI Diagnostics?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. You can describe symptoms in plain English without any hardware. Adding a $15–$40 ELM327 Bluetooth adapter lets AutoBrain read live OBD2 codes and sensor data directly, which improves accuracy and enables predictive maintenance alerts based on sensor trends." }
+        },
+        {
+          "@type": "Question",
+          "name": "What OBD2 codes does AutoBrain support?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain covers all standard OBD2 generic codes (P0xxx, P2xxx, P3xxx, B0xxx, C0xxx, U0xxx) plus manufacturer-specific codes for major brands sold in Australia (Toyota, Ford, Holden, Mazda, Hyundai, Kia, Mitsubishi, Nissan, Subaru, Volkswagen, and more). The built-in code library includes plain-English explanations and Australian repair cost ranges for each code." }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are the Australian repair cost estimates?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cost estimates are based on Australian workshop labour rates ($120–$180/hr independent, $180–$250/hr dealer) and local parts pricing (OEM and aftermarket). They show a range (e.g. $400–$900 for alternator replacement) because actual cost depends on your specific vehicle, location, and workshop. Always get a written quote. AutoBrain tracks what you actually pay so future estimates are based on your history." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does deterministic fallback mean?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every AI feature in AutoBrain has a rule-based path that runs first. For diagnostics, the fallback looks up the symptom or code in a curated knowledge base of Australian repair data and returns the same structured output (causes, severity, parts, cost range) without calling the AI model. If the AI is reachable, it enriches the answer with pattern recognition across your vehicle's history. If the AI is down, you still get a complete, accurate answer." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AutoBrain predict failures before a warning light appears?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — that's predictive maintenance, which works alongside AI Diagnostics. With an OBD2 adapter connected, AutoBrain continuously monitors sensor trends (coolant temp creeping up, O2 voltage drifting, fuel trim leaning out, battery voltage declining) and alerts you when a component shows early warning signs. The Vehicle Health Score summarises this into a single 0–100 rating. See the Vehicle Health Score page for details." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my diagnostic data private?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The AI only sees the data needed for the specific diagnostic task you trigger. Its output is stored with your records. Your data is never used to train models or sold. Self-hosted instances can run entirely on the deterministic fallback with zero data leaving your server. See our AI & Your Data page for the full breakdown." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which plans include AI Diagnostics?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The free hosted tier includes basic OBD2 code lookup and symptom matching from the rule-based knowledge base. Full AI enrichment (pattern recognition across your history, predictive insights, trend analysis) requires the Enthusiast plan ($5.90/month or $59/year) or Garage plan ($11.90/month or $119/year). Self-hosted instances get the full feature set free — wire your own AI router or run deterministic-only." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="../styles.css">
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/blog/ai-car-diagnostics-how-it-works.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="../assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="../features.html">Features</a></li>
+      <li><a href="../selfhost.html">Self-Host</a></li>
+      <li><a href="../hosted.html">Plans</a></li>
+      <li><a href="../car-clubs.html">Car Clubs</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="../car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="../ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="../changelog.html">Changelog</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../privacy.html">Privacy</a></li>
+          <li><a href="../ai-data.html">AI & your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <a class="back-link" href="../blog.html">← Back to blog</a>
+    <article class="article">
+      <h1 class="u-post-title">AI Car Diagnostics — <span class="b">How AutoBrain Turns Symptoms & Codes into Answers</span></h1>
+      <p class="meta">AutoBrain Team · 27 November 2026 · AI & Technology · 8 min read</p>
+      <p class="lead">Check engine light on? Weird noise? Burning smell? Describe it in plain English or paste the OBD2 code. AutoBrain returns likely causes, severity, affected parts, and Australian repair cost estimates — and it works even when the AI is down.</p>
+
+      <h2>Two ways in, one structured answer out</h2>
+      <p>AutoBrain AI Diagnostics accepts two input types:</p>
+      <div class="grid">
+        <div class="card">
+          <span class="icon">🗣️</span>
+          <h3>Describe the symptom</h3>
+          <p>Type what you experience: "car shakes at 60km/h", "rough idle when cold", "burning smell from engine bay", "brake pedal feels spongy", "whining noise when turning". No technical knowledge needed.</p>
+        </div>
+        <div class="card">
+          <span class="icon">📟</span>
+          <h3>Paste the OBD2 code</h3>
+          <p>Scan with any ELM327 adapter or enter manually: P0300, P0420, P0171, B1001, C1234. Get plain-English meaning, severity, affected parts, and Australian cost range.</p>
+        </div>
+      </div>
+      <p>Either way, you get the same structured output:</p>
+      <ol>
+        <li><strong>Likely causes (ranked)</strong> — top 3–5 causes by probability for your make/model/year</li>
+        <li><strong>Severity rating</strong> — Low / Medium / High / Critical with clear action guidance</li>
+        <li><strong>Affected parts</strong> — specific components: "ignition coil #3", "front left brake rotor", "thermostat housing"</li>
+        <li><strong>Australian cost estimate</strong> — parts + labour range for independent vs dealer workshops</li>
+      </ol>
+
+      <h2>The deterministic-first difference</h2>
+      <p>This is where AutoBrain differs from every other "AI car app" on the market.</p>
+      <p><strong>Most AI apps:</strong> Send your input to an LLM. If the model is down, rate-limited, or hallucinating, you get nothing — or worse, confident nonsense.</p>
+      <p><strong>AutoBrain:</strong> Runs a rule-based lookup <em>first</em>. Our curated Australian repair knowledge base matches your symptom/code to causes, severity, parts, and cost ranges — no AI call needed. The AI model only <em>enriches</em> the answer when reachable: pattern recognition across your vehicle's history, cross-referencing sensor trends, predicting "this P0300 was coil #2 last time."</p>
+      <p>If the AI is unreachable, you still get a complete, accurate, actionable answer from the rule engine. No blank screens. No "try again later." No feature that becomes a gamble.</p>
+      <p class="u-mt-14"><a href="ai-that-works-even-when-the-ai-is-down.html">Read the architecture deep-dive: AI That Works Even When the AI Is Down →</a></p>
+
+      <h2>Real example: P0420 on a 2017 Subaru Forester</h2>
+      <p>Input: <code>P0420</code> (Catalyst System Efficiency Below Threshold — Bank 1)</p>
+      <p><strong>Rule-based output (instant, always works):</strong></p>
+      <ul>
+        <li><strong>Cause 1 (65%):</strong> Catalytic converter degraded — typical at 120,000+ km</li>
+        <li><strong>Cause 2 (25%):</strong> Downstream O2 sensor failing — cheaper fix, test first</li>
+        <li><strong>Cause 3 (10%):</strong> Exhaust leak before cat — check gaskets, flex pipe</li>
+        <li><strong>Severity:</strong> Medium — schedule within 2 weeks, not an immediate safety risk</li>
+        <li><strong>Parts:</strong> Catalytic converter (direct-fit $400–$800), O2 sensor ($80–$150), exhaust gaskets ($20–$50)</li>
+        <li><strong>Australian cost range:</strong> Independent $500–$1,200 | Dealer $1,000–$2,000</li>
+      </ul>
+      <p><strong>AI enrichment (when reachable):</strong> "Your Forester showed P0420 at 118,000km. Downstream O2 voltage has been drifting lazy for 3 months. Pattern matches 87% converter failure in this model/year. Recommend O2 sensor test first — if voltage switches normally under load, it's the cat."</p>
+      <p>The rule-based answer gets you to the mechanic with the right parts priced. The AI enrichment helps you and the mechanic test the right thing first.</p>
+
+      <h2>Built-in OBD2 code library</h2>
+      <p>AutoBrain includes a searchable library covering every standard code plus manufacturer-specific codes for Australian-market vehicles:</p>
+      <ul>
+        <li><strong>Generic powertrain (P0xxx, P2xxx, P3xxx)</strong> — all standard emission codes</li>
+        <li><strong>Body (B0xxx)</strong> — airbags, climate, lighting, doors, seats</li>
+        <li><strong>Chassis (C0xxx)</strong> — ABS, ESC, suspension, steering, TPMS</li>
+        <li><strong>Network (U0xxx)</strong> — CAN bus, module communication, gateway</li>
+        <li><strong>Manufacturer-specific</strong> — Toyota, Ford, Holden, Mazda, Hyundai, Kia, Mitsubishi, Nissan, Subaru, VW, and more</li>
+      </ul>
+      <p>Each entry includes: plain-English description, common causes for Australian conditions (heat, dust, fuel quality), typical repair cost range, and related codes.</p>
+
+      <h2>Diagnostic history builds a fingerprint</h2>
+      <p>Every diagnostic session saves to your vehicle's timeline:</p>
+      <ul>
+        <li>Symptom or code entered</li>
+        <li>Causes returned (ranked)</li>
+        <li>Severity at time of diagnosis</li>
+        <li>What you actually did (replaced part, cleared code, monitored)</li>
+        <li>Actual cost vs estimate</li>
+      </ul>
+      <p>Over time this builds a diagnostic fingerprint for your car. Recurring codes, intermittent faults, and "fixed but came back" patterns become visible — helping you and your mechanic catch root causes, not just symptoms.</p>
+
+      <h2>Integration with predictive maintenance</h2>
+      <p>AI Diagnostics doesn't exist in isolation. With an OBD2 adapter connected:</p>
+      <ul>
+        <li><strong>Vehicle Health Score</strong> incorporates diagnostic history into the 0–100 rating (<a href="../vehicle-health-score.html">see feature page</a>)</li>
+        <li><strong>Trend alerts</strong> fire when sensor data suggests a component is degrading <em>before</em> a code sets</li>
+        <li><strong>Service predictions</strong> use fault code history + sensor trends + service intervals</li>
+        <li><strong>Resale estimates</strong> factor in documented diagnostic history</li>
+      </ul>
+      <p class="u-mt-14"><a href="predictive-maintenance-car-ai-diagnostics.html">Read the predictive maintenance guide →</a></p>
+
+      <h2>Privacy: your data, your diagnostic</h2>
+      <p>The AI only sees the data needed for the specific diagnostic task you trigger. Its output is stored with your records. Your data is never used to train models or sold. Self-hosted instances can run entirely on the deterministic fallback with zero data leaving your server.</p>
+      <p class="u-mt-14"><a href="../ai-data.html">Read the full AI & Your Data breakdown →</a></p>
+
+      <h2>Plans: what you get</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Free</th><th>Enthusiast ($5.90/mo)</th><th>Garage ($11.90/mo)</th><th>Self-Hosted</th></tr></thead>
+        <tbody>
+          <tr><td>Symptom matching (rule-based)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>OBD2 code lookup (full library)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Severity, parts, AU cost ranges</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>AI enrichment (history patterns)</td><td>❌</td><td>✅</td><td>✅</td><td>✅*</td></tr>
+          <tr><td>Predictive maintenance alerts</td><td>❌</td><td>✅</td><td>✅</td><td>✅*</td></tr>
+          <tr><td>Vehicle Health Score</td><td>Basic</td><td>Full</td><td>Full</td><td>Full</td></tr>
+          <tr><td>Diagnostic history & trends</td><td>4 weeks</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+        </tbody>
+      </table>
+      <p><em>*Self-hosted: wire your own AI router or run deterministic-only.</em></p>
+
+      <h2>Getting started</h2>
+      <ol>
+        <li><strong>Try the demo</strong> at <a href="https://demo.autobrainservice.app">demo.autobrainservice.app</a> — no signup needed</li>
+        <li><strong>Sign up free</strong> at <a href="https://hosted.autobrainservice.app">hosted.autobrainservice.app</a></li>
+        <li><strong>Add your vehicle</strong> — rego lookup auto-fills VIN, make, model, year</li>
+        <li><strong>Optional: add OBD2 adapter</strong> — $15–$40 ELM327 Bluetooth for live codes & sensor data</li>
+        <li><strong>Describe a symptom or paste a code</strong> — get your answer in seconds</li>
+      </ol>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>How does AutoBrain AI Diagnostics work?</summary>
+          <p>You describe a symptom in plain English (e.g. "car shakes at 60km/h", "burning smell from engine bay") or paste an OBD2 fault code (e.g. P0300, P0420). AutoBrain's AI analyses your input against its training on Australian repair data and returns: likely causes ranked by probability, severity rating, affected parts, and an Australian dollar cost estimate range. The deterministic fallback runs a rule-based lookup first so diagnostics work even when the AI model is unreachable.</p>
+        </details>
+        <details>
+          <summary>Do I need an OBD2 adapter for AI Diagnostics?</summary>
+          <p>No. You can describe symptoms in plain English without any hardware. Adding a $15–$40 ELM327 Bluetooth adapter lets AutoBrain read live OBD2 codes and sensor data directly, which improves accuracy and enables predictive maintenance alerts based on sensor trends.</p>
+        </details>
+        <details>
+          <summary>What OBD2 codes does AutoBrain support?</summary>
+          <p>AutoBrain covers all standard OBD2 generic codes (P0xxx, P2xxx, P3xxx, B0xxx, C0xxx, U0xxx) plus manufacturer-specific codes for major brands sold in Australia (Toyota, Ford, Holden, Mazda, Hyundai, Kia, Mitsubishi, Nissan, Subaru, Volkswagen, and more). The built-in code library includes plain-English explanations and Australian repair cost ranges for each code.</p>
+        </details>
+        <details>
+          <summary>How accurate are the Australian repair cost estimates?</summary>
+          <p>Cost estimates are based on Australian workshop labour rates ($120–$180/hr independent, $180–$250/hr dealer) and local parts pricing (OEM and aftermarket). They show a range (e.g. $400–$900 for alternator replacement) because actual cost depends on your specific vehicle, location, and workshop. Always get a written quote. AutoBrain tracks what you actually pay so future estimates are based on your history.</p>
+        </details>
+        <details>
+          <summary>What does deterministic fallback mean?</summary>
+          <p>Every AI feature in AutoBrain has a rule-based path that runs first. For diagnostics, the fallback looks up the symptom or code in a curated knowledge base of Australian repair data and returns the same structured output (causes, severity, parts, cost range) without calling the AI model. If the AI is reachable, it enriches the answer with pattern recognition across your vehicle's history. If the AI is down, you still get a complete, accurate answer.</p>
+        </details>
+        <details>
+          <summary>Can AutoBrain predict failures before a warning light appears?</summary>
+          <p>Yes — that's predictive maintenance, which works alongside AI Diagnostics. With an OBD2 adapter connected, AutoBrain continuously monitors sensor trends (coolant temp creeping up, O2 voltage drifting, fuel trim leaning out, battery voltage declining) and alerts you when a component shows early warning signs. The Vehicle Health Score summarises this into a single 0–100 rating. See the Vehicle Health Score page for details.</p>
+        </details>
+        <details>
+          <summary>Is my diagnostic data private?</summary>
+          <p>Yes. The AI only sees the data needed for the specific diagnostic task you trigger. Its output is stored with your records. Your data is never used to train models or sold. Self-hosted instances can run entirely on the deterministic fallback with zero data leaving your server. See our AI & Your Data page for the full breakdown.</p>
+        </details>
+        <details>
+          <summary>Which plans include AI Diagnostics?</summary>
+          <p>The free hosted tier includes basic OBD2 code lookup and symptom matching from the rule-based knowledge base. Full AI enrichment (pattern recognition across your history, predictive insights, trend analysis) requires the Enthusiast plan ($5.90/month or $59/year) or Garage plan ($11.90/month or $119/year). Self-hosted instances get the full feature set free — wire your own AI router or run deterministic-only.</p>
+        </details>
+      </div>
+
+      <p class="u-mt-28"><a class="cta" href="../ai-diagnostics.html">See the AI Diagnostics feature page →</a> <a class="cta-outline" href="https://hosted.autobrainservice.app">Try AutoBrain free →</a></p>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="predictive-maintenance-car-ai-diagnostics.html">Predictive Maintenance for Cars — AI Diagnostics That Prevent Breakdowns</a></li>
+        <li><a href="ai-that-works-even-when-the-ai-is-down.html">AI That Works Even When the AI Is Down</a></li>
+        <li><a href="../car-diagnostics.html">Car Diagnostics & Maintenance Guide Australia</a></li>
+        <li><a href="check-engine-light-australia-obd2-codes-2026.html">OBD2 Code Meanings & Repair Costs 2026</a></li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="../privacy.html">Privacy</a> · <a href="../ai-data.html">AI & your data</a> · <a href="../about.html">About</a> · <a href="../changelog.html">Changelog</a> · <a href="../blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="../nav.js"></script>
+
+</body>
+</html>

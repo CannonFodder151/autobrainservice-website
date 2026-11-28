@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoBrain vs Car Scanner Apps — Torque, Car Scanner ELM</title>
+    <meta name="description" content="Compare AutoBrain vs Torque Pro, Car Scanner ELM, OBD Auto Doctor. AutoBrain adds predictive maintenance, fuel tracking, rego, service history, EV/PHEV.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/vs-car-scanner-apps.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+    <meta property="og:title" content="AutoBrain vs Car Scanner Apps — Torque, Car Scanner ELM, OBD Auto Doctor">
+    <meta property="og:description" content="OBD2 code reading is just the start. AutoBrain adds predictive maintenance, fuel tracking, rego lookup, service records, EV/PHEV support, and self-hosted MIT-licensed option. See the full comparison.">
+<meta property="og:url" content="https://autobrainservice.app/vs-car-scanner-apps.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoBrain vs Car Scanner Apps (Torque, Car Scanner ELM)">
+<meta name="twitter:description" content="OBD2 codes are just the start. AutoBrain adds predictive maintenance, fuel tracking, rego, service history, EV/PHEV, self-hosted. Full comparison.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/vs-car-scanner-apps.html#webpage",
+      "url": "https://autobrainservice.app/vs-car-scanner-apps.html",
+      "name": "AutoBrain vs Car Scanner Apps",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://autobrainservice.app/features.html" },
+        { "@type": "ListItem", "position": 3, "name": "Comparisons", "item": "https://autobrainservice.app/vs-car-scanner-apps.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is AutoBrain different from Torque Pro or Car Scanner ELM?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Torque Pro and Car Scanner ELM are excellent OBD2 dashboards — they show live PIDs, graph sensors, and read/clear codes. AutoBrain does all that PLUS: predictive maintenance (AI + deterministic fallback), fuel tracking with L/100km & $/km, Australian rego lookup (free + paid Rego Status), complete service history & receipts, parts inventory, modifications tracker, resale estimates, EV/PHEV dual-source tracking, ATO logbook, Community Garage social layer, and a self-hosted MIT-licensed option. Torque/Car Scanner are OBD2 tools; AutoBrain is a complete car ownership platform." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AutoBrain replace my OBD2 scanner app?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain reads and clears OBD2 codes, shows live PIDs, and supports custom PID dashboards. It works with any ELM327 v1.4+ adapter (Bluetooth/WiFi/USB). The difference: AutoBrain also tells you what the code means in plain English, gives Australian repair cost estimates, severity ratings, and tracks the code in your vehicle's diagnostic history. Plus predictive maintenance alerts before the code even sets." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AutoBrain work with the same adapters as Torque/Car Scanner?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Any ELM327 v1.4+ adapter (Bluetooth, WiFi, USB) that works with Torque Pro or Car Scanner ELM works with AutoBrain. We also offer a recommended AutoBrain OBD2 adapter with auto-sleep, GPS trip logging, and live fault-code capture — but it's optional. Your existing $25 adapter works fine." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AutoBrain free like some scanner apps?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain has a free hosted tier that includes OBD2 code reading, basic diagnostics, fuel tracking, service history, and one vehicle. The Enthusiast plan ($5.90/month or $59/year) unlocks AI diagnostics, predictive maintenance, Vehicle Health Score, rego lookup, and all advanced features. Self-hosted AutoBrain is completely free (MIT license) with the full feature set on your own infrastructure. Torque Pro is a one-time ~$7 purchase; Car Scanner ELM has a free version with ads and a Pro upgrade." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I self-host AutoBrain like I can't with Torque?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain is MIT-licensed open source. You can run it on a $5/month VPS using Docker Compose. Your data stays on your server. No subscription, no cloud dependency, no feature gating. Torque Pro and Car Scanner ELM are closed-source mobile apps — you cannot self-host them." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/vs-car-scanner-apps.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/vs-car-scanner-apps.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI & your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span aria-hidden="true">›</span>
+      <a href="features.html">Features</a> <span aria-hidden="true">›</span>
+      <span aria-current="page">AutoBrain vs Car Scanner Apps</span>
+    </nav>
+    <h1>AutoBrain vs Car Scanner Apps — <span class="b">Torque Pro, Car Scanner ELM, OBD Auto Doctor</span></h1>
+    <p class="lead">OBD2 code reading is just the start. AutoBrain adds predictive maintenance, fuel tracking, Australian rego lookup, complete service history, EV/PHEV support, and a self-hosted MIT-licensed option — all in one platform.</p>
+    <div class="u-flex-center u-mt-28">
+      <a class="cta" href="https://hosted.autobrainservice.app">Try AutoBrain free</a>
+      <a class="cta-outline" href="https://demo.autobrainservice.app">Live demo</a>
+    </div>
+
+    <div class="card u-mt-42">
+      <h2>Quick comparison</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>AutoBrain</th>
+            <th>Torque Pro</th>
+            <th>Car Scanner ELM</th>
+            <th>OBD Auto Doctor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>OBD2 code read/clear</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td><strong>Live PID dashboard & graphs</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td><strong>Custom PID support</strong></td><td>✅</td><td>✅</td><td>✅</td><td>Limited</td></tr>
+          <tr><td><strong>Plain-English code explanations</strong></td><td>✅</td><td>Basic</td><td>Basic</td><td>✅</td></tr>
+          <tr><td><strong>Australian repair cost estimates</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Severity ratings (Low/Med/High/Crit)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Predictive maintenance (AI + fallback)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Vehicle Health Score (0–100)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Fuel tracking (L/100km, $/km, FY exports)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Australian rego lookup (free + paid)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Service history & receipts</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Parts inventory & mods tracker</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Resale value estimator</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>ATO-compliant logbook (GPS trips)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>EV/PHEV dual-source tracking</strong></td><td>✅ (Q4 2026)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Electric Spy charging price watch</strong></td><td>✅ (Q4 2026)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Self-hosted (MIT license, your VPS)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Community Garage (federated social)</strong></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Home Assistant integration</strong></td><td>✅ (Phase 1 live)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          <tr><td><strong>Web + Android + iOS (coming)</strong></td><td>✅</td><td>Android only</td><td>Android only</td><td>Android only</td></tr>
+          <tr><td><strong>Free tier</strong></td><td>✅ (hosted + self-hosted)</td><td>❌ (~$7 once)</td><td>✅ (ads)</td><td>✅ (limited)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>The fundamental difference</h2>
+      <p><strong>Torque Pro, Car Scanner ELM, OBD Auto Doctor</strong> are <em>OBD2 dashboard apps</em>. Their job: connect to an ELM327 adapter, show live PIDs, graph sensors, read/clear codes. They're excellent at this — highly customizable, deep PID support, great for enthusiasts who want to watch sensor data in real time.</p>
+      <p><strong>AutoBrain</strong> is a <em>car ownership platform</em>. OBD2 is one input among many. AutoBrain combines:</p>
+      <ul>
+        <li>OBD2 live data + fault codes (same adapters, same PIDs)</li>
+        <li>Fuel tracking with Australian L/100km, $/km, financial-year exports</li>
+        <li>Service history with receipts, parts, labour, reminders</li>
+        <li>Australian rego lookup (free on-demand + paid daily Rego Status)</li>
+        <li>Predictive maintenance: AI + deterministic fallback (works when AI is down)</li>
+        <li>Vehicle Health Score: one 0–100 number from OBD2 + service + driving patterns</li>
+        <li>EV/PHEV support: dual-source tracking, Electric Spy, EV Log Book</li>
+        <li>ATO logbook: GPS trips, automatic or manual</li>
+        <li>Community Garage: federated social layer for builds, issues, help</li>
+        <li>Self-hosted option: MIT license, your VPS, your data, no subscription</li>
+      </ul>
+      <p>If you only want an OBD2 dashboard, Torque/Car Scanner are great choices. If you want to <em>own</em> your car's data — maintenance, costs, health, history, predictions — in one place that you can self-host, AutoBrain is built for that.</p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>OBD2 compatibility: same adapters, same PIDs</h2>
+      <p>AutoBrain works with any ELM327 v1.4+ adapter — the exact same hardware Torque Pro and Car Scanner ELM use:</p>
+      <ul>
+        <li>Bluetooth: Veepeak, OBDLink MX+, BAFX, generic $15–$40 units</li>
+        <li>WiFi: OBDLink MX WiFi, generic ELM327 WiFi</li>
+        <li>USB: OBDLink SX, generic ELM327 USB (via OTG on Android)</li>
+      </ul>
+      <p>AutoBrain reads the same standard PIDs (RPM, coolant temp, fuel trims, O2 voltage, MAF, MAP, throttle position, etc.) and supports custom PID definitions. The recommended AutoBrain OBD2 adapter adds auto-sleep (never drains your battery), on-board GPS for automatic trip logging, live fault-code capture, and odometer/VIN sync — but it's optional. Your existing adapter works perfectly.</p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Cost comparison (2026 AUD)</h2>
+      <table>
+        <thead><tr><th>Plan</th><th>AutoBrain</th><th>Torque Pro</th><th>Car Scanner ELM Pro</th><th>OBD Auto Doctor</th></tr></thead>
+        <tbody>
+          <tr><td>Free tier</td><td>Hosted (1 vehicle) + Self-hosted (unlimited)</td><td>None</td><td>Free with ads</td><td>Free (limited)</td></tr>
+          <tr><td>Paid tier (monthly)</td><td>$5.90 (Enthusiast) / $11.90 (Garage)</td><td>N/A (one-time)</td><td>~$5/mo subscription</td><td>~$4/mo</td></tr>
+          <tr><td>Paid tier (annual)</td><td>$59 / $119 (2 months free)</td><td>~$7 one-time</td><td>~$30/yr</td><td>~$30/yr</td></tr>
+          <tr><td>Self-hosted</td><td>Free (MIT) — your VPS cost only (~$5/mo)</td><td>Not possible</td><td>Not possible</td><td>Not possible</td></tr>
+          <tr><td>7-day free trial</td><td>✅ (Enthusiast & Garage monthly)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+        </tbody>
+      </table>
+      <p class="u-mt-14">Over 3 years: AutoBrain Enthusiast = $177 (or self-hosted ~$180 VPS). Torque Pro = $7. But Torque gives you an OBD2 dashboard; AutoBrain gives you a complete ownership platform. Different value propositions.</p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Who should choose what</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Choose Torque Pro / Car Scanner ELM if:</h3>
+          <ul>
+            <li>You only want an OBD2 dashboard</li>
+            <li>You need maximum PID customization</li>
+            <li>You're tuning/modifying and need real-time sensor graphs</li>
+            <li>You want a one-time purchase, no subscription</li>
+            <li>You're Android-only (no web, no iOS)</li>
+          </ul>
+        </div>
+        <div class="card popular">
+          <h3>Choose AutoBrain if:</h3>
+          <ul>
+            <li>You want one app for maintenance, fuel, diagnostics, costs</li>
+            <li>You value predictive maintenance (catch issues before codes)</li>
+            <li>You need Australian rego lookup & Rego Status</li>
+            <li>You want ATO-compliant logbook for tax</li>
+            <li>You drive an EV or PHEV (dual-source tracking)</li>
+            <li>You want to self-host (privacy, no lock-in, free)</li>
+            <li>You want web + mobile access</li>
+            <li>You value deterministic fallbacks (works when AI is down)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>How is AutoBrain different from Torque Pro or Car Scanner ELM?</summary>
+          <p>Torque Pro and Car Scanner ELM are excellent OBD2 dashboards — they show live PIDs, graph sensors, and read/clear codes. AutoBrain does all that PLUS: predictive maintenance (AI + deterministic fallback), fuel tracking with L/100km & $/km, Australian rego lookup (free + paid Rego Status), complete service history & receipts, parts inventory, modifications tracker, resale estimates, EV/PHEV dual-source tracking, ATO logbook, Community Garage social layer, and a self-hosted MIT-licensed option. Torque/Car Scanner are OBD2 tools; AutoBrain is a complete car ownership platform.</p>
+        </details>
+        <details>
+          <summary>Can AutoBrain replace my OBD2 scanner app?</summary>
+          <p>Yes. AutoBrain reads and clears OBD2 codes, shows live PIDs, and supports custom PID dashboards. It works with any ELM327 v1.4+ adapter (Bluetooth/WiFi/USB). The difference: AutoBrain also tells you what the code means in plain English, gives Australian repair cost estimates, severity ratings, and tracks the code in your vehicle's diagnostic history. Plus predictive maintenance alerts before the code even sets.</p>
+        </details>
+        <details>
+          <summary>Does AutoBrain work with the same adapters as Torque/Car Scanner?</summary>
+          <p>Yes. Any ELM327 v1.4+ adapter (Bluetooth, WiFi, USB) that works with Torque Pro or Car Scanner ELM works with AutoBrain. We also offer a recommended AutoBrain OBD2 adapter with auto-sleep, GPS trip logging, and live fault-code capture — but it's optional. Your existing $25 adapter works fine.</p>
+        </details>
+        <details>
+          <summary>Is AutoBrain free like some scanner apps?</summary>
+          <p>AutoBrain has a free hosted tier that includes OBD2 code reading, basic diagnostics, fuel tracking, service history, and one vehicle. The Enthusiast plan ($5.90/month or $59/year) unlocks AI diagnostics, predictive maintenance, Vehicle Health Score, rego lookup, and all advanced features. Self-hosted AutoBrain is completely free (MIT license) with the full feature set on your own infrastructure. Torque Pro is a one-time ~$7 purchase; Car Scanner ELM has a free version with ads and a Pro upgrade.</p>
+        </details>
+        <details>
+          <summary>Can I self-host AutoBrain like I can't with Torque?</summary>
+          <p>Yes. AutoBrain is MIT-licensed open source. You can run it on a $5/month VPS using Docker Compose. Your data stays on your server. No subscription, no cloud dependency, no feature gating. Torque Pro and Car Scanner ELM are closed-source mobile apps — you cannot self-host them.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="u-center u-mt-42">
+      <a class="cta" href="https://hosted.autobrainservice.app">Try AutoBrain free — OBD2 + maintenance + fuel + more</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI & your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
