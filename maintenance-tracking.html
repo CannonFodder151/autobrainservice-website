@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maintenance Tracking — AutoBrain | Car Service History & Schedule</title>
+<meta name="description" content="AutoBrain's maintenance tracking: complete service history, intelligent service schedules, cost tracking, parts inventory, receipt OCR, and AI-powered predictive maintenance alerts.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://autobrainservice.app/maintenance-tracking.html">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AutoBrain">
+<meta property="og:title" content="Maintenance Tracking — AutoBrain | Car Service History, Schedule & Predictive Alerts">
+<meta property="og:description" content="Complete service history, intelligent schedules, cost tracking, receipt OCR, parts inventory, and AI predictive maintenance — all in one platform. Works offline with deterministic fallbacks.">
+<meta property="og:url" content="https://autobrainservice.app/maintenance-tracking.html">
+<meta property="og:image" content="https://autobrainservice.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="400">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maintenance Tracking — AutoBrain | Service History & Schedule">
+<meta name="twitter:description" content="Service history, intelligent schedules, cost tracking, receipt OCR, parts inventory, and AI predictive maintenance. Free tier + self-hosted option.">
+<meta name="twitter:image" content="https://autobrainservice.app/assets/og-image.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://autobrainservice.app/maintenance-tracking.html#webpage",
+      "url": "https://autobrainservice.app/maintenance-tracking.html",
+      "name": "Maintenance Tracking — AutoBrain",
+      "isPartOf": { "@type": "WebSite", "name": "AutoBrain", "url": "https://autobrainservice.app/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://autobrainservice.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://autobrainservice.app/features.html" },
+        { "@type": "ListItem", "position": 3, "name": "Maintenance Tracking", "item": "https://autobrainservice.app/maintenance-tracking.html" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "AutoBrain Maintenance Tracking",
+      "applicationCategory": "AutomotiveApplication",
+      "operatingSystem": "Web, Android, iOS",
+      "url": "https://autobrainservice.app/",
+      "description": "Complete vehicle maintenance tracking with service history, intelligent schedules, cost tracking, receipt OCR, parts inventory, and AI-powered predictive maintenance alerts. Deterministic fallback mode works when AI is unreachable.",
+      "offers": [
+        { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD", "description": "Service history, schedules, cost tracking, receipt OCR for 1 vehicle" },
+        { "@type": "Offer", "name": "Enthusiast", "price": "5.90", "priceCurrency": "AUD", "description": "Predictive maintenance, unlimited vehicles, trend alerts, 7-day free trial" },
+        { "@type": "Offer", "name": "Garage", "price": "11.90", "priceCurrency": "AUD", "description": "Up to 5 vehicles, priority support, 7-day free trial" }
+      ],
+      "featureList": [
+        "Complete service history log",
+        "Intelligent service schedules (time + km + AI)",
+        "Cost tracking with $/km breakdown",
+        "Receipt & parts OCR scanning",
+        "Parts inventory & modifications tracker",
+        "AI predictive maintenance alerts",
+        "Deterministic fallback mode",
+        "CSV/JSON import & export",
+        "Australian financial-year exports"
+      ],
+      "screenshot": "https://autobrainservice.app/assets/og-image.png"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does AutoBrain's maintenance tracking include?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain tracks your complete service history (date, km, cost, workshop, description), builds intelligent service schedules based on manufacturer intervals + your driving patterns, tracks costs with $/km breakdowns, scans receipts and parts via OCR, maintains a parts inventory and modifications log, and runs AI predictive maintenance with deterministic fallbacks." }
+        },
+        {
+          "@type": "Question",
+          "name": "How are service schedules calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AutoBrain combines manufacturer time/km intervals with your actual driving patterns (trip length, cold starts, load factor) and AI trend detection. The deterministic fallback uses rule-based schedules when AI is unreachable. Reminders trigger at the earlier of time, km, or AI-predicted need." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I import my existing service records?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain supports CSV/JSON import for service records, fuel logs, and vehicle profiles. Export from Fuelly, Drivvo, myCARFAX, Simply Auto, or your spreadsheet and import into AutoBrain — your history continues uninterrupted." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the receipt OCR work for Australian workshops?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The OCR extracts date, km, cost, workshop name, line items (parts/labour), and GST from Australian mechanic receipts. Scanned receipts attach to the service record for audit-ready history." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is predictive maintenance and how does it work offline?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Predictive maintenance analyses your service history, OBD2 sensor trends, and driving patterns to alert you before a component fails. AutoBrain's Phase 1 architecture runs a deterministic rule-based engine first — so predictions work even when the AI model is down. AI enriches with anomaly detection when reachable." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track costs for tax (ATO)?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. AutoBrain calculates $/km for fuel and services, generates Australian financial-year (July–June) summaries, and exports CSV/JSON for your accountant. The ATO-compliant GPS logbook tracks deductible kilometres automatically with an OBD2 adapter." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is maintenance tracking free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The free hosted tier includes service history, schedules, cost tracking, and receipt OCR for 1 vehicle. Predictive maintenance alerts, unlimited vehicles, and trend analytics require Enthusiast ($5.90/mo) or Garage ($11.90/mo). Self-hosted gets the full feature set free (MIT licence)." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="alternate" hreflang="en-AU" href="https://autobrainservice.app/maintenance-tracking.html">
+<link rel="alternate" hreflang="x-default" href="https://autobrainservice.app/maintenance-tracking.html">
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="brand u-inherit" aria-label="AutoBrain home">
+      <img src="assets/logo.png" alt="AutoBrain logo" width="38" height="38">
+      <span><span class="a">Auto</span><span class="b">Brain</span></span>
+    </a>
+        <ul>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="selfhost.html">Self-Host</a></li>
+      <li><a href="hosted.html">Plans</a></li>
+      <li><a href="car-clubs.html">Car Clubs</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-more">
+        <button class="more-btn" id="moreBtn" aria-haspopup="true" aria-expanded="false">More &#9662;</button>
+        <ul class="more-menu">
+          <li><a href="car-diagnostics.html">Diagnostics Guide</a></li>
+          <li><a href="ha-coming-soon.html">HA Integration</a></li>
+          <li><a href="rego-status.html">Rego Status</a></li>
+          <li><a href="maintenance-tracking.html">Maintenance Tracking</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="ai-data.html">AI & your data</a></li>
+        </ul>
+      </li>
+      <li><a class="cta nav-cta" href="https://demo.autobrainservice.app">Live Demo</a></li>
+      <li><a class="cta nav-cta" href="https://autobrain.square.site/shop/merch-autobrain/3XXP3MDFGSADEHZYG3GIT6D6" rel="noopener" target="_blank">🛍️ Merch</a></li>
+      <li class="nav-theme"><button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">🌙</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span aria-hidden="true">›</span>
+      <a href="features.html">Features</a> <span aria-hidden="true">›</span>
+      <span aria-current="page">Maintenance Tracking</span>
+    </nav>
+    <h1>Maintenance Tracking — <span class="b">Service History, Schedules & Predictive Alerts</span></h1>
+    <p class="lead">Complete vehicle maintenance tracking: service history, intelligent schedules, cost tracking, receipt OCR, parts inventory, and AI-powered predictive maintenance — with deterministic fallbacks so it works even when AI is down.</p>
+    <div class="u-flex-center u-mt-28">
+      <a class="cta" href="https://hosted.autobrainservice.app">Try it free</a>
+      <a class="cta-outline" href="https://demo.autobrainservice.app">Live demo</a>
+    </div>
+
+    <div class="card u-mt-42">
+      <h2>What you get</h2>
+      <div class="grid">
+        <div class="card"><span class="icon">📋</span><h3>Complete service history</h3><p>Log every service — date, km, cost, workshop, description, line items. Attach scanned receipts via OCR. Filter, search, and export anytime.</p></div>
+        <div class="card"><span class="icon">📅</span><h3>Intelligent service schedules</h3><p>Manufacturer intervals + your driving patterns + AI trend detection. Reminders at the earliest of time, km, or predicted need. Deterministic fallback when AI is down.</p></div>
+        <div class="card"><span class="icon">💰</span><h3>Cost tracking & $/km breakdown</h3><p>See what your car really costs per kilometre. Rolling averages, financial-year summaries for tax, and per-service cost benchmarks against Australian workshop rates.</p></div>
+        <div class="card"><span class="icon">📷</span><h3>Receipt & parts OCR</h3><p>Scan a mechanic receipt — AutoBrain extracts date, km, cost, workshop, GST, and line items (parts vs labour) into a structured service record. Works with Australian receipts.</p></div>
+        <div class="card"><span class="icon">📦</span><h3>Parts inventory & mods tracker</h3><p>Track every part bought, installed, or replaced with photos, costs, and dates. Modifications log with work-related flags for ATO claims.</p></div>
+        <div class="card"><span class="icon">🤖</span><h3>AI predictive maintenance</h3><p>Alerts before a code sets — sensor drift, fluid degradation, wear patterns. Rule-based deterministic engine runs first; AI enriches when reachable. No blank screens, no "try again later."</p></div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>How schedules work</h2>
+      <p>AutoBrain builds a personalised schedule per vehicle from three signals:</p>
+      <div class="grid">
+        <div class="card">
+          <span class="icon">⏱️</span>
+          <h3>Time-based</h3>
+          <p>Manufacturer intervals (e.g., oil every 12 months, brake fluid every 24 months) adjusted for your climate and storage conditions.</p>
+        </div>
+        <div class="card">
+          <span class="icon">📏</span>
+          <h3>Distance-based</h3>
+          <p>Kilometre intervals from the logbook (e.g., oil every 10,000 km, timing belt at 100,000 km) synced to your live odometer via OBD2 or manual entry.</p>
+        </div>
+        <div class="card">
+          <span class="icon">🧠</span>
+          <h3>AI-predicted</h3>
+          <p>OBD2 sensor trends, fluid health analysis, driving pattern acceleration factors — predicts when a component will need attention before the scheduled interval. Falls back to deterministic rules offline.</p>
+        </div>
+      </div>
+      <p class="u-mt-14">The next service due date is always the <strong>earliest</strong> of the three. You see one clear date, not three conflicting ones.</p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Cost tracking built for Australia</h2>
+      <div class="grid">
+        <div class="card"><strong>L/100km & $/km</strong> — native Australian fuel math, not MPG converted</div>
+        <div class="card"><strong>Financial-year exports</strong> — July–June fuel and service summaries for tax</div>
+        <div class="card"><strong>Australian repair benchmarks</strong> — indie $120–$180/hr, dealer $180–$250/hr, parts pricing</div>
+        <div class="card"><strong>ATO logbook integration</strong> — GPS trips (with OBD2) + service costs = complete deductions picture</div>
+        <div class="card"><strong>Receipt OCR</strong> — extracts GST, parts vs labour, workshop ABN for audit-ready records</div>
+        <div class="card"><strong>CSV/JSON export</strong> — your data, your accountant, your format</div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Deterministic-first — works when AI is down</h2>
+      <p>AutoBrain's Phase 1 architecture runs every feature on a rule-based path first. Maintenance tracking computes schedules, costs, and predictions from manufacturer intervals, your logged history, OBD2 thresholds, and driving heuristics. The AI model only enriches with anomaly detection and trend forecasting when reachable. If the model is down, your schedules, costs, and alerts keep updating — no blank screens, no "try again later."</p>
+      <p class="u-mt-14"><a href="blog/ai-that-works-even-when-the-ai-is-down.html">Read about our deterministic-first architecture →</a></p>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Plans & availability</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="tier-tag">Free</div>
+          <h3>Core tracking · 1 vehicle</h3>
+          <p>Service history, intelligent schedules, cost tracking, receipt OCR, parts inventory, CSV/JSON import/export, ATO logbook basics.</p>
+        </div>
+        <div class="card popular">
+          <div class="tier-tag">Enthusiast · $5.90/mo</div>
+          <h3>Predictive maintenance + unlimited</h3>
+          <p>AI predictive alerts, trend analytics, unlimited vehicles, weekly summary notifications, 7-day free trial.</p>
+        </div>
+        <div class="card popular">
+          <div class="tier-tag">Garage · $11.90/mo</div>
+          <h3>Up to 5 vehicles</h3>
+          <p>Everything in Enthusiast across 5 vehicles. Priority support. 7-day free trial.</p>
+        </div>
+        <div class="card">
+          <div class="tier-tag">Self-Hosted</div>
+          <h3>Full feature set free</h3>
+          <p>MIT-licensed. Run on your own VPS. Wire your own AI router or run deterministic-only. Unlimited vehicles, no subscription ever.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card u-mt-28">
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details open>
+          <summary>What does AutoBrain's maintenance tracking include?</summary>
+          <p>AutoBrain tracks your complete service history (date, km, cost, workshop, description), builds intelligent service schedules based on manufacturer intervals + your driving patterns, tracks costs with $/km breakdowns, scans receipts and parts via OCR, maintains a parts inventory and modifications log, and runs AI predictive maintenance with deterministic fallbacks.</p>
+        </details>
+        <details>
+          <summary>How are service schedules calculated?</summary>
+          <p>AutoBrain combines manufacturer time/km intervals with your actual driving patterns (trip length, cold starts, load factor) and AI trend detection. The deterministic fallback uses rule-based schedules when AI is unreachable. Reminders trigger at the earlier of time, km, or AI-predicted need.</p>
+        </details>
+        <details>
+          <summary>Can I import my existing service records?</summary>
+          <p>Yes. AutoBrain supports CSV/JSON import for service records, fuel logs, and vehicle profiles. Export from Fuelly, Drivvo, myCARFAX, Simply Auto, or your spreadsheet and import into AutoBrain — your history continues uninterrupted.</p>
+        </details>
+        <details>
+          <summary>Does the receipt OCR work for Australian workshops?</summary>
+          <p>Yes. The OCR extracts date, km, cost, workshop name, line items (parts/labour), and GST from Australian mechanic receipts. Scanned receipts attach to the service record for audit-ready history.</p>
+        </details>
+        <details>
+          <summary>What is predictive maintenance and how does it work offline?</summary>
+          <p>Predictive maintenance analyses your service history, OBD2 sensor trends, and driving patterns to alert you before a component fails. AutoBrain's Phase 1 architecture runs a deterministic rule-based engine first — so predictions work even when the AI model is down. AI enriches with anomaly detection when reachable.</p>
+        </details>
+        <details>
+          <summary>Can I track costs for tax (ATO)?</summary>
+          <p>Yes. AutoBrain calculates $/km for fuel and services, generates Australian financial-year (July–June) summaries, and exports CSV/JSON for your accountant. The ATO-compliant GPS logbook tracks deductible kilometres automatically with an OBD2 adapter.</p>
+        </details>
+        <details>
+          <summary>Is maintenance tracking free?</summary>
+          <p>The free hosted tier includes service history, schedules, cost tracking, and receipt OCR for 1 vehicle. Predictive maintenance alerts, unlimited vehicles, and trend analytics require Enthusiast ($5.90/mo) or Garage ($11.90/mo). Self-hosted gets the full feature set free (MIT licence).</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="u-center u-mt-42">
+      <a class="cta" href="https://hosted.autobrainservice.app">Get maintenance tracking free</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 <span class="glow">AutoBrain</span> — a product of Perfection IT Services · ABN 25 839 782 423 · MIT-licensed open-source platform</div>
+    <div><a href="privacy.html">Privacy</a> · <a href="ai-data.html">AI & your data</a> · <a href="about.html">About</a> · <a href="changelog.html">Changelog</a> · <a href="blog.html">Blog</a> · <a href="mailto:sales@autobrainservice.app">Contact</a> · <a href="https://github.com/CannonFodder151/autobrain">GitHub</a> · <a href="https://www.facebook.com/people/AutoBrain/61593071546666/" rel="noopener">Facebook</a></div>
+  </div>
+</footer>
+
+<script src="nav.js"></script>
+
+</body>
+</html>
